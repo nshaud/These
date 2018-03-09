@@ -1,0 +1,146 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%           Page de Garde		 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\makeatletter
+\def\@ecole{école}
+\newcommand{\ecole}[1]{
+  \def\@ecole{#1}
+}
+
+\def\@specialite{Spécialité}
+\newcommand{\specialite}[1]{
+  \def\@specialite{#1}
+}
+
+\def\@directeur{directeur}
+\newcommand{\directeur}[1]{
+  \def\@directeur{#1}
+}
+
+\def\@encadrant{encadrant}
+\newcommand{\encadrant}[1]{
+  \def\@encadrant{#1}
+}
+\def\@jurya{}{}{}
+\newcommand{\jurya}[3]{
+  \def\@jurya{#1,	& #2	& #3\\}
+}
+\def\@juryb{}{}{}
+\newcommand{\juryb}[3]{
+  \def\@juryb{#1,	& #2	& #3\\}
+}
+\def\@juryc{}{}{}
+\newcommand{\juryc}[3]{
+  \def\@juryc{#1,	& #2	& #3\\}
+}
+\def\@juryd{}{}{}
+\newcommand{\juryd}[3]{
+  \def\@juryd{#1,	& #2	& #3\\}
+}
+\def\@jurye{}{}{}
+\newcommand{\jurye}[3]{
+  \def\@jurye{#1,	& #2	& #3\\}
+}
+\def\@juryf{}{}{}
+\newcommand{\juryf}[3]{
+  \def\@juryf{#1,	& #2	& #3\\}
+}
+\def\@juryg{}{}{}
+\newcommand{\juryg}[3]{
+  \def\@juryg{#1,	& #2	& #3\\}
+}
+\def\@juryh{}{}{}
+\newcommand{\juryh}[3]{
+  \def\@juryh{#1,	& #2	& #3\\}
+}
+\def\@juryi{}{}{}
+\newcommand{\juryi}[3]{
+  \def\@juryi{#1,	& #2	& #3\\}
+}
+\makeatother
+
+\newcommand\BackgroundPic{%
+	\put(0,0){%
+		\parbox[b][\paperheight]{\paperwidth}{%
+			\includegraphics[width=\paperwidth]{Fond.jpg}%
+			\vfill
+		}
+	}
+}
+
+\makeatletter
+\newcommand{\pagedegarde}{
+\newgeometry{top=2.5cm, bottom=2cm, left=2cm, right=1cm}
+\AddToShipoutPicture*{\BackgroundPic}
+  \begin{titlepage}
+  \vspace*{0.3\paperheight}
+  \centering
+      \includegraphics[width=0.3\paperwidth]{UBL.jpg}
+    
+    \vspace{0.015\paperheight}
+    \begin{minipage}{0.48\textwidth}
+        \begin{flushright}
+        \color{white}{
+        {\large \textbf{THÈSE / UNIVERSITÉ DE BRETAGNE-SUD}}\\
+        \textit{sous le sceau de l'Université Bretagne Loire}
+
+        \medskip
+        pour obtenir le titre de\\
+        \textbf{DOCTEUR DE L'UNIVERSITÉ DE BRETAGNE-SUD}
+
+        \medskip
+        \textit{Mention : \@specialite}
+
+        \medskip
+        \textbf{École doctorale :} MathSTIC
+        }
+        \end{flushright}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+    \color{white}{
+    Présentée par {\large \textbf{\@author}}
+    \medskip
+
+    Préparée à l'Office national d'études et de recherches aérospatiales au sein de l'équipe Image, Vision, Apprentissage
+
+    \smallskip
+    
+    et à l'Institut de recherche en informatique et systèmes aléatoires (UMR n°6074) au sein de l'équipe Observation de l'environnement par imagerie complexe
+    }
+    \end{minipage}
+
+    \vspace{0.05\paperheight}
+    \begin{minipage}{0.48\textwidth}
+       \centering
+       {\LARGE \@title}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        Directeur de thèse : {\bfseries \@directeur}\\
+        Co-encadrant de thèse : {\bfseries \@encadrant}\\
+    \vfill
+	\begin{tabular}{>{\bfseries}llr}
+		\large Jury\\
+		\@jurya
+		\@juryb
+		\@juryc
+		\@juryd
+		\@jurye
+		\@juryf
+		\@juryg
+		\@juryh
+		\@juryi
+	\end{tabular}
+     \end{minipage}
+  \end{titlepage}
+
+
+
+
+\restoregeometry  
+  
+  
+}
+\makeatother
