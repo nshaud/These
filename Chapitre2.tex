@@ -13,19 +13,53 @@ Par exemple, dans le cas d'une machine à vecteur de support linéaire, la class
 
 \subsection{Classification pixelliques}
 
+Pixel = unité atomique de surface
+Pur, en tout cas la donnée la moins mélangée disponible
+Extraire des attributs du pixel (éventuellement en prenant en compte ses voisins)
+Puis classification
+Inconvénient: beaucoup de pixels avec l'augmentation de la résolution spatiale, donc ça peut devenir très lent
+En outre, pas d'approche objet possible
+
 \subsection{Classification par région}
 
+Pré-segmentation pour définir des régions homogènes dans l'image
+Soit segmentation "objet" : Felzenswalb, eCognition
+Soit segmentation "superpixels": SLIC, Quickshift
+On a aussi des segmentations hiérarchiques "HSEG" etc. qui permettent d'extraire des attributs multi-échelles naturellement
+
+Ensuite, on peut extraire des attributs sur ces régions et classer l'image région par région.
+
 \subsection{Modèles statistiques usuels}
+
+Random Forest, SVM, AdaBoost, XGBoost...
 
 \section{Réseaux de neurones profonds}
 
 \subsection{Réseaux de neurones artificiels convolutifs}
 
+Enchaînement de convolutions + activations non linéaires
+
+Partie finale entièrement connectée : classifieur
+
+L'extraction des caractéristiques et la classification se font de manière conjointe : optimisation de bout en bout
+
 \subsection{Réseaux de neurones entièrement convolutifs}
+
+On enlève la partie entièrement connectée pour en faire une partie convolutive
+
+Avantage : prédiction spatiale et non plus unidimensionnelle
+Avantage : plus de taille fixée d'image
+Avantage : on fait automatiquement la classification pixellique !
 
 \subsection{Application à la cartographie sémantique}
 
+Transposition de SegNet et autres aux images aériennes : pas de verrou particulier
+
+Fenêtre glissante, traitement par batchs, random sampling, augmentation de données
+
 \section{Évaluation des modèles}
+
+Scores F1, précision, rappel, taux de bonne classification, intersection sur union
 
 \section{Bases de données}
 
