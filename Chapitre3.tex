@@ -4,17 +4,43 @@
 
 \subsection{Prise en compte du proche infrarouge}
 
+De nombreuses images comportent du proche infrarouge
+=> la littérature propose de le traiter en IRRG (image composite) et ça marche bien
+
+Si on fait de l'IRRGB, sur Potsdam ça marche moins bien...
+
 \subsection{Images satellites}
+
+On peut traiter du multispectral : exemple, Sentinel-2 pour classif GlobeCover
+Ça marche pas mal
 
 \section{Imagerie laser et modèles de terrain}
 
 \subsection{Modèle de terrain}
 
+Modèle numérique de terrain, modèle numérique de surface, modèle numérique de surface normalisé
+
+Traitement direct du modèle numérique de terrain avec un FCN
+
 \subsection{Construction d'une image composite}
+
+Quelles propriétés on aimerait pour couvrir toutes les classes ?
+  - hauteur
+  - végétation
+
+Image composite : DSM+NDSM+NDVI
 
 \section{Imagerie hyperspectrale}
 
 \subsection{Méthodes pixelliques}
 
+Bref état de l'art
+
+Classification par NN 1D, CNN 1D
+
 \subsection{Méthodes spatiales-spectrales}
+
+Méthodes 2D : CNN 2.5D, ACP puis CNN 2D
+
+Méthodes 3D : CNN 3D
 
