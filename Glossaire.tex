@@ -1,34 +1,43 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% 					Acronymes						%
+%%                   Acronymes			   %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newacronym{bc}{BC}{band contrast}
+\newacronym{isprs}{ISPRS}{International Society for Photogrammetry and Remote Sensing}
 
-\newacronym{asb}{ASB}{bande de cisaillement adiabatique --ou \emph{Adiabatic Shear Band}--}
+\newacronym{dfc}{DFC}{Data Fusion Contest}
 
-\newglossaryentry{csl}{
+\newacronym{ieee}{IEEE}{Institute of Electrical and Electronics Engineers}
+
+\newacronym{grss}{GRSS}{Geoscience \& Remote Sensing Society}
+
+\newglossaryentry{CNN}{
 	type=\acronymtype,
-	name={CSL},
-	description={maille de coïncidences, ou \emph{Coincendence Site Lattice}},
-	first={mailles de coïncidences, ou \emph{Coincendence Site Lattice} (CSL)},
+	name={CNN},
+	first={réseau de neurones convolutif, ou \emph{Convolutional Neural Network} (CNN)},
+	description={\emph{Convolutional Neural Network}, réseau de neurones dont certaines couches effectuent des convolutions à poids partagés}
+	}
+
+\newglossaryentry{FCN}{
+	type=\acronymtype,
+	name={FCN},
+	first={réseau de neurones entièrement convolutif, ou \emph{Fully Convolutional Network} (FCN)},
+	description={\emph{Fully Convolutional Network}, réseau de neurones entièrement convolutif conservant la structure spatiale grâce à l'absence de couches entièrement connectées}
 	}
 
 
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% 			Définitions (glossaires standard)		%
+%%	Définitions (glossaires standard)	   %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newglossaryentry{rutile}{
-	name={rutile},
-	description={Espèce minérale composée de dioxyde de titane (\ce{TiO2}) et de traces de fer},
+\newglossaryentry{teledetection}{
+	name={télédétection},
+	description={Ensemble des techniques utilisées pour caractériser la surface de la Terre à partir de mesures aéroportées ou satellitaires.},
 	}
 	
-\newglossaryentry{macle}{
-	name={macle},
-	description={association orientée de deux ou plusieurs cristaux identiques, dits individus, reliés par une opération de groupe ponctuel de symétrie.},
-	}	
+\newglossaryentry{apprentissage automatique}{
+	name={apprentissage automatique},
+	description={Ensemble des techniques mises en \oe{}uvre pour la génération automatique d'algorithmes de résolution de problèmes.},
+	}
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%					Symboles						%	
@@ -36,14 +45,14 @@
 \newglossaryentry{alpha}{
   type=notation,
   name={\ensuremath{\alpha}},
-  description={Angle de d'attaque de la molette},
+  description={Alpha est une variable},
   sort={alpha}%
 }
 
 \newglossaryentry{gamma}{
   type=notation,
   name={\ensuremath{\gamma}},
-  description={Angle de dépouille de la molette},
+  description={Gamma est un paramètre},
   sort={gamma}
 }
 
