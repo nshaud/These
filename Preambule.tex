@@ -25,29 +25,30 @@
 \usepackage[utf8]{inputenc}		% LaTeX, comprend les accents !
 \usepackage[T1]{fontenc}
 
-\usepackage[square,sort&compress,sectionbib]{natbib}		% Doit être chargé avant babel
+\usepackage[square,sort&compress,sectionbib]{natbib}	% Doit être chargé avant babel
 \usepackage{chapterbib}
-	\renewcommand{\bibsection}{\section{Références}}		% Met les références biblio dans un \section (au lieu de \section*)
+\renewcommand{\bibsection}{\section{Références}}	% Met les références biblio dans un \section (au lieu de \section*)
 		
 \usepackage[frenchb]{babel}
 \usepackage{lmodern}
 \usepackage{ae,aecompl}										% Utilisation des fontes vectorielles modernes
-\usepackage[upright]{fourier}
-%\usepackage{kpfonts}
+%\usepackage[upright]{fourier}
+\usepackage{kpfonts}
 %\usepackage{mathpazo}
 \usepackage{microtype}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Allure générale du document
-\usepackage{enumerate}
-\usepackage{enumitem}
+%\usepackage{enumerate}
+%\usepackage{enumitem}
 \usepackage[section]{placeins}	% Place un FloatBarrier à chaque nouvelle section
 \usepackage{epigraph}
 \usepackage[font={small}]{caption}
-\usepackage[francais,nohints]{minitoc}		% Mini table des matières, en français
+\usepackage[francais,nohints]{minitoc}	% Mini table des matières, en français
 	\setcounter{minitocdepth}{2}	% Mini-toc détaillées (sections/sous-sections)
-\usepackage[notbib]{tocbibind}		% Ajoute les Tables	des Matières/Figures/Tableaux à la table des matières
+%\usepackage[notbib]{tocbibind}		% Ajoute les Tables des Matières/Figures/Tableaux à la table des matières
+\usepackage[Lenny]{fncychap}		% Jolis en-têtes de chapitre
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Maths                         
@@ -56,15 +57,14 @@
 \usepackage{amsfonts}			% Permet d'utiliser des polices mathématiques
 \usepackage{nicefrac}			% Fractions 'inline'
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Tableaux
-\usepackage{multirow}
-\usepackage{booktabs}
-\usepackage{colortbl}
-\usepackage{tabularx}
-\usepackage{multirow}
-\usepackage{threeparttable}
+\usepackage{multirow}			% Permet de combiner plusiueurs ligns
+\usepackage{booktabs}			% Jolis tableaux
+%\usepackage{colortbl}
+\usepackage{tabularx}			% Tableaux avec largeur de colonne automatique
+\newcolumntype{Y}{>{\centering\arraybackslash}X} % Colonne de largeur automatique et centrée
+%\usepackage{threeparttable}
 \usepackage{etoolbox}
 	\appto\TPTnoteSettings{\footnotesize}
 \addto\captionsfrench{\def\tablename{{\textsc{Tableau}}}}	% Renome 'table' en 'tableau'
@@ -73,8 +73,8 @@
 %% Eléments graphiques                    
 \usepackage{graphicx}			% Permet l'inclusion d'images
 \usepackage{subcaption}
-\usepackage{pdfpages}
-\usepackage{rotating}
+%\usepackage{pdfpages}
+%\usepackage{rotating}
 \usepackage{pgfplots}
 	\usepgfplotslibrary{groupplots}
 \usepackage{tikz}
@@ -93,23 +93,26 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Mise en forme du texte        
-\usepackage{xspace}
-\usepackage[load-configurations = abbreviations]{siunitx}
-	\DeclareSIUnit{\MPa}{\mega\pascal}
-	\DeclareSIUnit{\micron}{\micro\meter}
-	\DeclareSIUnit{\tr}{tr}
-	\DeclareSIPostPower\totheM{m}
-	\sisetup{
-	locale = FR,
-	  inter-unit-separator=$\cdot$,
-	  range-phrase=~\`{a}~,     	% Utilise le tiret court pour dire "de... à"
-	  range-units=single,  		% Cache l'unité sur la première borne
-	  }
+%\usepackage{xspace}
+%\usepackage[load-configurations = abbreviations]{siunitx}
+%	\DeclareSIUnit{\MPa}{\mega\pascal}
+%	\DeclareSIUnit{\micron}{\micro\meter}
+%	\DeclareSIUnit{\tr}{tr}
+%	\DeclareSIPostPower\totheM{m}
+%	\sisetup{
+%	locale = FR,
+%	  inter-unit-separator=$\cdot$,
+%	  range-phrase=~\`{a}~,     	% Utilise le tiret court pour dire "de... à"
+%	  range-units=single,  		% Cache l'unité sur la première borne
+%	  }
 
-\usepackage[version=3]{mhchem}	% Equations chimiques
 \usepackage{textcomp}
 \usepackage{array}
 \usepackage{hyphenat}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Packages pour l'aide à l'écriture
+\usepackage[french]{todonotes}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Navigation dans le document
@@ -137,4 +140,4 @@
 \usepackage[acronym,xindy,toc,numberedsection,ucmark]{glossaries}
 	\newglossary[nlg]{notation}{not}{ntn}{Notation} % Création d'un type de glossaire 'notation'
 	\makeglossaries
-	\loadglsentries{Glossaire}			% Utilisation d'un fichier externe pour la définition des entrées (Glossaire.tex)				
+	\loadglsentries{Glossaire}			% Utilisation d'un fichier externe pour la définition des entrées (Glossaire.tex)
