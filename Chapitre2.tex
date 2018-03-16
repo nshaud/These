@@ -13,27 +13,76 @@ Par exemple, dans le cas d'une machine à vecteur de support linéaire, la class
 
 \subsection{Classification pixelliques}
 
-Pixel = unité atomique de surface
-Pur, en tout cas la donnée la moins mélangée disponible
-Extraire des attributs du pixel (éventuellement en prenant en compte ses voisins)
-Puis classification
-Inconvénient: beaucoup de pixels avec l'augmentation de la résolution spatiale, donc ça peut devenir très lent
-En outre, pas d'approche objet possible
+Une acquisition d'observation de la Terre est caractérisée par sa résolution spatiale. Celle-ci détermine l'unité de surface minimale au sein laquelle il devient impossible de séparer deux observations. Dans le cas d'une image, on exprime généralement la résolution en unité de longueur par pixel. Une image à résolution de 10m/px est un ensemble d'observations, chacune effectuée sur une surface de $10\times10$m.
+
+De fait, en traitement d'images de télédétection, le pixel est l'unité atomique de surface. Par conséquent, une mesure pour 1 pixel est la mesure la plus pure disponible. Sans toutefois prétendre qu'une observation sur un pixel ne souffre pas de problèmes de mélanges (en fonction des objets d'intérêt, un pixel peut mélanger plusieurs classes hétérogènes), le pixel représente la mesure la plus fine disponible.
+
+Par conséquent, en première approche, il semble raisonnable de traiter le problème de cartographie comme un problème de classification des pixels. Il s'agit ainsi de donner à chaque pixel une information sémantique, c'est-à-dire une classe.
+
+Pour ce faire, il est dans un premier temps nécessaire d'extraire des attributs du pixel. Dans le cas d'une image multispectrale, cela peut par exemple être la proportion de lumière réfléchie dans chacune des longueurs d'onde mesurées. Mais il est également possible d'y ajouter d'autres attributs : la valeur moyenne de l'intensité lumineuse ou les observations voisines.
+
+Une fois l'extraction d'attributs effectuée, il est possible de réaliser une classification.
+
+L'avantage de cette méthode est qu'elle garantit une résolution identique à celle de la donnée.
+
+Néanmoins, elle possède deux inconvénients notables. Le premier est que le nombre de pixels devient rapidement très grand à mesure que la résolution spatiale s'améliore et que la taille de l'image augmente. Le problème de classification peut alors devenir intraitable sur ces images, alors que les capteurs tendent justement à s'améliorer en résolution.
+Le second inconvénient est que cette méthode est particulièrement susceptible au bruit. En effet, la classification s'effectuant pixel à pixel, la nature des pixels voisins n'est pas forcément prise en compte. Toutefois, les objets géographiques considérés s'étendent bien souvent sur plusieurs pixels et possèdent des propriétés géométriques particulières de connexité et de convexité. Ainsi, un pixel particulier soumis à un bruit extrême (suite à une défaillance du capteur ou à un matériau particulier), celui risque d'être mal classé de manière isolée, alors que son appartenance à une région particulière aurait pu permettre de contourner cette erreur en se basant sur des critères d'homogénéité. Ainsi la classification pixellique tend à produire des cartes exhibant un comportement de bruit poivre-et-sel.
 
 \subsection{Classification par région}
 
-Pré-segmentation pour définir des régions homogènes dans l'image
+Si la considération de la grille de pixels comme base de découpage d'une image semble naturelle, il est possible d'envisager d'autres découpages.
+
+En particulier, il est envisageable de regrouper des pixels similaires dans des régions homogènes. La similarité peut alors uniquement se fonder sur des critères statistiques liées aux valeurs des pixels, ou à des critères sémantiques. Dans le premier cas, on parlera de "superpixels" et dans le second cas de "segmentation".
+
+De nombreux algorithmes ont été proposés à ces fins, aussi bien dans la communauté télédétection que dans la communauté vision par ordinateur.
+
 Soit segmentation "objet" : Felzenswalb, eCognition
 Soit segmentation "superpixels": SLIC, Quickshift
-On a aussi des segmentations hiérarchiques "HSEG" etc. qui permettent d'extraire des attributs multi-échelles naturellement
+
+Il existe aussi des segmentations hiérarchiques "HSEG" etc. qui permettent d'extraire des attributs multi-échelles naturellement.
 
 Ensuite, on peut extraire des attributs sur ces régions et classer l'image région par région.
 
+L'avantage principal de ces méthodes est de grandement réduire la complexité calculatoire. Notamment, lorsque l'image augmente de résolution spatiale, de nombreuses régions conservent leur homogénéité et il est ainsi très avantageux de les conserver regroupées.
+
+\subsection{Extraction de caractéristiques}
+
+Données brutes
+
+Histogrammes de gradient
+
+Histogrammes de couleur
+
+Statistiques (min, max, moyenne, médiane, variance)
+
+NDVI
+
 \subsection{Modèles statistiques usuels}
 
-Random Forest, SVM, AdaBoost, XGBoost...
+Random Forest
+
+SVM
+
+XGBoost
 
 \section{Réseaux de neurones profonds}
+
+\subsection{Réseaux de neurones artificiels}
+
+Inspiré de la biologie
+
+Neurone = fonction de transfert non-linéaire
+
+Combinaison de neurones : un neurone est lié par des synapses à d'autres, avec un poids
+$\rightarrow$ graphe orienté pondéré
+
+Théorème d'approximation universelle
+
+Rétropropagation
+
+Nombre de couches, nombre de neurones
+
+Régularisation (dropout, pénalité sur les poids)
 
 \subsection{Réseaux de neurones artificiels convolutifs}
 
