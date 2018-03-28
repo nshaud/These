@@ -26,6 +26,7 @@ Une fois l'extraction d'attributs effectuée, il est possible de réaliser une c
 L'avantage de cette méthode est qu'elle garantit une résolution identique à celle de la donnée.
 
 Néanmoins, elle possède deux inconvénients notables. Le premier est que le nombre de pixels devient rapidement très grand à mesure que la résolution spatiale s'améliore et que la taille de l'image augmente. Le problème de classification peut alors devenir intraitable sur ces images, alors que les capteurs tendent justement à s'améliorer en résolution.
+
 Le second inconvénient est que cette méthode est particulièrement susceptible au bruit. En effet, la classification s'effectuant pixel à pixel, la nature des pixels voisins n'est pas forcément prise en compte. Toutefois, les objets géographiques considérés s'étendent bien souvent sur plusieurs pixels et possèdent des propriétés géométriques particulières de connexité et de convexité. Ainsi, un pixel particulier soumis à un bruit extrême (suite à une défaillance du capteur ou à un matériau particulier), celui risque d'être mal classé de manière isolée, alors que son appartenance à une région particulière aurait pu permettre de contourner cette erreur en se basant sur des critères d'homogénéité. Ainsi la classification pixellique tend à produire des cartes exhibant un comportement de bruit poivre-et-sel.
 
 \subsection{Classification par région}
@@ -45,25 +46,34 @@ Ensuite, on peut extraire des attributs sur ces régions et classer l'image rég
 
 L'avantage principal de ces méthodes est de grandement réduire la complexité calculatoire. Notamment, lorsque l'image augmente de résolution spatiale, de nombreuses régions conservent leur homogénéité et il est ainsi très avantageux de les conserver regroupées.
 
+On peut noter que traiter l'image par une fenêtre glissante ou même par une grille de pixels correspond à des cas particuliers de classification par région.
+
 \subsection{Extraction de caractéristiques}
 
-Données brutes
+Données brutes : valeur des intensités lumineuses, radiométrie dans le cas multispectral
+  => Problèmes d'amplitude, normalisation, faible robustesse au bruit
 
-Histogrammes de gradient
+Statistiques (min, max, moyenne, médiane, variance) : valeurs annexes
+  => choix des indicateurs ?
 
-Histogrammes de couleur
+Indices : NDVI, NDWI
+  => choix des indicateurs ?
 
-Statistiques (min, max, moyenne, médiane, variance)
+Histogrammes de couleur : représente la distribution de l'intensité
+  => Discrétisation, perte de la spatialisation
 
-NDVI
+Histogrammes de gradient : représente les variations locales avec direction
+  => paramètres du gradient à calculer ?
+
+Caractéristiques : peuvent être multi-échelle (différentes tailles de contexte spatial) et multi-sources (différentes données d'entrée)
 
 \subsection{Modèles statistiques usuels}
 
-Random Forest
+Arbre de décision : par ensemble = forêt aléatoire
 
-SVM
+SVM : dans le cas de grandes tailles, optimisation par descente de gradient
 
-XGBoost
+XGBoost : gradient boosting d'arbres
 
 \section{Réseaux de neurones profonds}
 
