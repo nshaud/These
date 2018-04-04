@@ -40,6 +40,62 @@ De nombreux algorithmes ont été proposés à ces fins, aussi bien dans la comm
 Soit segmentation "objet" : Felzenswalb, eCognition
 Soit segmentation "superpixels": SLIC, Quickshift
 
+\begin{figure}
+
+\begin{subfigure}{\textwidth}
+\begin{subfigure}{0.25\textwidth}
+    \includegraphics[width=\textwidth]{Chapitre2/fox}
+    \includegraphics[width=\textwidth]{Chapitre2/fox}
+    \caption*{Image originale}
+\end{subfigure}%
+\begin{subfigure}{0.25\textwidth}
+    \includegraphics[width=\textwidth]{Chapitre2/fox_slic}
+    \includegraphics[width=\textwidth]{Chapitre2/fox_slic_patchwork}
+    \caption*{SLIC}
+\end{subfigure}%
+\begin{subfigure}{0.25\textwidth}
+    \includegraphics[width=\textwidth]{Chapitre2/fox_quickshift}
+    \includegraphics[width=\textwidth]{Chapitre2/fox_quickshift_patchwork}
+    \caption*{Quickshift}
+\end{subfigure}%
+\begin{subfigure}{0.25\textwidth}
+    \includegraphics[width=\textwidth]{Chapitre2/fox_ecognition}
+    \includegraphics[width=\textwidth]{Chapitre2/fox_ecognition_patchwork}
+    \caption*{Algorithme MRS}
+\end{subfigure}
+\caption{Segmentations d'une image naturelle. Certains algorithmes produisent des régions faiblement régulières, mais capturant mieux les détails de l'image.}
+\label{fig:fox_segmentation}
+\end{subfigure}
+
+\begin{subfigure}{\textwidth}
+\begin{subfigure}{0.25\textwidth}
+    \includegraphics[width=\textwidth]{Chapitre2/potsdam}
+    \includegraphics[width=\textwidth]{Chapitre2/potsdam}
+    \caption*{Image originale}
+\end{subfigure}%
+\begin{subfigure}{0.25\textwidth}
+    \includegraphics[width=\textwidth]{Chapitre2/potsdam_slic}
+    \includegraphics[width=\textwidth]{Chapitre2/potsdam_slic_patchwork}
+    \caption*{SLIC}
+\end{subfigure}%
+\begin{subfigure}{0.25\textwidth}
+    \includegraphics[width=\textwidth]{Chapitre2/potsdam_quickshift}
+    \includegraphics[width=\textwidth]{Chapitre2/potsdam_quickshift_patchwork}
+    \caption*{Quickshift}
+\end{subfigure}%
+\begin{subfigure}{0.25\textwidth}
+    \includegraphics[width=\textwidth]{Chapitre2/potsdam_ecognition}
+    \includegraphics[width=\textwidth]{Chapitre2/potsdam_ecognition_patchwork}
+    \caption*{Algorithme MRS}
+\end{subfigure}
+\caption{Segmentations d'une image aérienne. Selon l'algorithme appliqué, les voitures sont plus ou moins bien segmentées.}
+\label{fig:potsdam_segmentation}
+\end{subfigure}
+
+\caption{Exemples de segmentation sur deux types d'images. Bien que chaque méthode produise approximativement le même nombre de régions, les détails peuvent parfois être absorbées dans des régions plus grandes.}
+\label{fig:segmentation}
+\end{figure}
+
 Il existe aussi des segmentations hiérarchiques "HSEG" etc. qui permettent d'extraire des attributs multi-échelles naturellement.
 
 Ensuite, on peut extraire des attributs sur ces régions et classer l'image région par région.
