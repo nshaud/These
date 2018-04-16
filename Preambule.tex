@@ -1,5 +1,5 @@
 %% Manuscrit de thèse de Nicolas Audebert
-%% https://nicolas.audebert.at 
+%% https://nicolas.audebert.at
 %%
 %% Adapté du template LaTeX de :
 %% Copyright (C) 2014 Dorian Depriester
@@ -21,21 +21,25 @@
 %           Liste des packages         %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%% Réglage des fontes et typo    
+%% Standalone
+\usepackage{standalone}
+
+%% Réglage des fontes et typo
 \usepackage[utf8]{inputenc}		% LaTeX, comprend les accents !
 \usepackage[T1]{fontenc}
 
-\usepackage[square,sort&compress,sectionbib]{natbib}	% Doit être chargé avant babel
+%\usepackage[square,sort&compress,sectionbib]{natbib}	% Doit être chargé avant babel
 \usepackage{chapterbib}
-\renewcommand{\bibsection}{\section{Références}}	% Met les références biblio dans un \section (au lieu de \section*)
-		
+%\renewcommand{\bibsection}{\section{Références}}	% Met les références biblio dans un \section (au lieu de \section*)
+
 \usepackage[frenchb]{babel}
 \usepackage{lmodern}
 \usepackage{ae,aecompl}										% Utilisation des fontes vectorielles modernes
 %\usepackage[upright]{fourier}
 \usepackage{kpfonts}
 %\usepackage{mathpazo}
-\usepackage{microtype}
+\usepackage[babel,kerning]{microtype} % Ajuste finement les espaces
+% En outre, les options babel et kerning permettent d'utiliser ':' avec babel en français et cleveref dans les \caption (en théorie ':' est un caractère actif avec babel)
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -49,9 +53,11 @@
 	\setcounter{minitocdepth}{2}	% Mini-toc détaillées (sections/sous-sections)
 %\usepackage[notbib]{tocbibind}		% Ajoute les Tables des Matières/Figures/Tableaux à la table des matières
 \usepackage[Lenny]{fncychap}		% Jolis en-têtes de chapitre
+\usepackage{amsthm} 		       % Théorèmes
+\newtheorem{theorem}{Théorème}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Maths                         
+%% Maths
 \usepackage{amsmath}			% Permet de taper des formules mathématiques
 \usepackage{amssymb}			% Permet d'utiliser des symboles mathématiques
 \usepackage{amsfonts}			% Permet d'utiliser des polices mathématiques
@@ -64,13 +70,15 @@
 %\usepackage{colortbl}
 \usepackage{tabularx}			% Tableaux avec largeur de colonne automatique
 \newcolumntype{Y}{>{\centering\arraybackslash}X} % Colonne de largeur automatique et centrée
-%\usepackage{threeparttable}
+\usepackage{diagbox}
 \usepackage{etoolbox}
 	\appto\TPTnoteSettings{\footnotesize}
 \addto\captionsfrench{\def\tablename{{\textsc{Tableau}}}}	% Renome 'table' en 'tableau'
+%% Couleurs
+\usepackage[table,dvipsnames]{xcolor}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Eléments graphiques                    
+%% Eléments graphiques
 \usepackage{graphicx}			% Permet l'inclusion d'images
 \usepackage{subcaption}
 %\usepackage{pdfpages}
@@ -78,7 +86,7 @@
 \usepackage{pgfplots}
 	\usepgfplotslibrary{groupplots}
 \usepackage{tikz}
-	\usetikzlibrary{backgrounds,automata}
+	\usetikzlibrary{backgrounds,automata,3d,calc,patterns}
 	\pgfplotsset{width=7cm,compat=1.3}
 	\tikzset{every picture/.style={execute at begin picture={
    		\shorthandoff{:;!?};}
@@ -92,7 +100,7 @@
 \usepackage{import}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Mise en forme du texte        
+%% Mise en forme du texte
 %\usepackage{xspace}
 %\usepackage[load-configurations = abbreviations]{siunitx}
 %	\DeclareSIUnit{\MPa}{\mega\pascal}
@@ -120,13 +128,13 @@
 			pagebackref=true,
 			]{hyperref}	% Créera automatiquement les liens internes au PDF
 					% Doit être chargé en dernier (Sauf exceptions ci-dessous)
-			
+
 \hypersetup{colorlinks=true,
 			linkcolor=[rgb]{0,0,0.5},
 			citecolor=[rgb]{0.5,0,0}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Packages qui doivent être chargés APRES hyperref	             
+%% Packages qui doivent être chargés APRES hyperref
 \usepackage[top=2.5cm, bottom=2cm, left=3cm, right=2.5cm,
 			headheight=15pt]{geometry}
 
@@ -135,9 +143,11 @@
 	\lfoot[\thepage]{} 		% gauche du pied de page
 	\cfoot{} 			% milieu du pied de page
 	\rfoot[]{\thepage} 		% droite du pied de page
-	\fancyhead[RO, LE] {}	
-	
-\usepackage[acronym,xindy,toc,numberedsection,ucmark]{glossaries}
+	\fancyhead[RO, LE] {}
+
+\usepackage[acronym,toc,numberedsection,ucmark]{glossaries}
 	\newglossary[nlg]{notation}{not}{ntn}{Notation} % Création d'un type de glossaire 'notation'
 	\makeglossaries
 	\loadglsentries{Glossaire}			% Utilisation d'un fichier externe pour la définition des entrées (Glossaire.tex)
+\makeglossaries
+\usepackage[capitalize]{cleveref}
