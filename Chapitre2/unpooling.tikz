@@ -1,0 +1,81 @@
+\definecolor{backcolor}{RGB}{228,188,45}
+\definecolor{frontcolor}{RGB}{97,39,153}
+\definecolor{idxcolor}{RGB}{39,89,149}
+\definecolor{zerocolor}{RGB}{0,0,0}
+
+\def \backcolor {backcolor!50!white}
+\def \frontcolor {frontcolor!50!white}
+\def \idxcolor {idxcolor!50!white}
+\def \zerocolor {zerocolor!50!white}
+\usetikzlibrary{patterns}
+\begin{tikzpicture}[%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        box/.style={rectangle,fill=\backcolor, minimum size=1cm},
+        mbox/.style={rectangle,fill=\frontcolor, minimum size=1cm},
+        zbox/.style={rectangle,fill=\zerocolor,fill=\backcolor!50!white,minimum size=1cm},
+        ibox/.style={rectangle,fill=\idxcolor,minimum size=1cm},
+    ]
+% Main map
+
+\node[box] at (-7.5,+1.5) {1.5};
+\node[box] at (-7.5,+0.5) {2.0};
+\node[mbox] at (-7.5,-0.5) {\textbf{2.3}};
+\node[box] at (-7.5,-1.5) {2.2};
+
+\node[box] at (-6.5,+1.5) {1.7};
+\node[mbox] at (-6.5,+0.5) {\textbf{2.1}};
+\node[box] at (-6.5,-0.5) {1.9};
+\node[box] at (-6.5,-1.5) {2.1};
+
+\node[box] at (-5.5,+1.5) {1.4};
+\node[mbox] at (-5.5,+0.5) {\textbf{1.8}};
+\node[box] at (-5.5,-0.5) {1.5};
+\node[box] at (-5.5,-1.5) {1.6};
+
+\node[box] at (-4.5,+1.5) {1.3};
+\node[box] at (-4.5,+0.5) {1.6};
+\node[box] at (-4.5,-0.5) {1.4};
+\node[mbox] at (-4.5,-1.5) {\textbf{1.7}};
+
+\draw[step=1,color=gray] (-8,-2) grid (-4,2);
+
+\draw[->,ultra thick,bend left] (-3.5,0) to node[above] {maxpooling}  (-1.5,0);
+
+% Pooled map
+\node at (0, 2.5) {indices};
+\node[ibox] at (-0.5,+1.75) {\footnotesize (1,1)};
+\node[ibox] at (-0.5,+0.75) {\footnotesize (0,2)};
+\node[ibox] at (+0.5,+1.75) {\footnotesize (2,1)};
+\node[ibox] at (+0.5,+0.75) {\footnotesize (3,3)};
+\draw[step=1,color=gray,shift={(0,0.25)}] (-1,0) grid (1,2);
+
+\node[mbox] at (-0.5,-1.75) {\textbf{2.1}};
+\node[mbox] at (-0.5,-0.75) {\textbf{2.3}};
+\node[mbox] at (+0.5,-1.75) {\textbf{1.8}};
+\node[mbox] at (+0.5,-0.75) {\textbf{1.7}};
+\draw[step=1,color=gray,shift={(0,-0.25)}] (-1,0) grid (1,-2);
+\node at (0, -2.5) {activations};
+
+\draw[->,ultra thick,bend left] (1.5,0) to node[above] {unpooling}  (3.5,0);
+
+% Unpooled map
+\node[zbox] at (7.5,+1.5) {0};
+\node[zbox] at (7.5,+0.5) {0};
+\node[zbox] at (7.5,-0.5) {0};
+\node[mbox] at (7.5,-1.5) {\textbf{1.7}};
+
+\node[zbox] at (6.5,+1.5) {0};
+\node[mbox] at (6.5,+0.5) {\textbf{1.8}};
+\node[zbox] at (6.5,-0.5) {0};
+\node[zbox] at (6.5,-1.5) {0};
+
+\node[zbox] at (5.5,+1.5) {0};
+\node[mbox] at (5.5,+0.5) {\textbf{2.1}};
+\node[zbox] at (5.5,-0.5) {0};
+\node[zbox] at (5.5,-1.5) {0};
+
+\node[zbox] at (4.5,+1.5) {0};
+\node[zbox] at (4.5,+0.5) {0};
+\node[mbox] at (4.5,-0.5) {\textbf{2.3}};
+\node[zbox] at (4.5,-1.5) {0};
+\draw[step=1,color=gray] (8,-2) grid (4,2);
+\end{tikzpicture}

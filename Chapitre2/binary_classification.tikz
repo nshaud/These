@@ -1,0 +1,73 @@
+\documentclass{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\input{../CommandesPerso.tex}
+\begin{document}
+
+\begin{tikzpicture}
+\usetikzlibrary{patterns}
+\newcommand\patatoid{(-3,-3.5) .. controls +(1,0) and +(-1,0) .. (0,-2.5) 
+             .. controls +(1,0) and +(0,-3) .. (2,0)
+             .. controls +(0,2) and +(1,0)  .. (0,3.5)
+             .. controls +(-1,0) and +(0,3) .. (-3,0.5)
+             .. controls +(0,-1) and +(-1,0).. (-3,-3.5)}
+\newcommand\positifs{(-4,-4) rectangle (0, 4)};
+\newcommand\negatifs{(4,4) rectangle (0,-4)};
+
+\fill[fill=green, opacity=0.2] \positifs;
+\fill[fill=red, opacity=0.2] \negatifs;
+%\draw (0,0) circle (3);
+
+
+\draw[thick] \patatoid;
+
+\foreach \x\y in {-3/-3,-1/-0.5,-2/-0.3,-2.5/1,-0.2/2,-0.3/-0.2,-0.5/-2,-0.4/3,-3/-2,-2/-2.6,-1.5/-1.5,-0.8/1.7}{
+\filldraw[fill=green!50!black, opacity=0.3, draw opacity=1] (\x,\y) circle (0.1);
+}
+
+\foreach \x\y in {-3.5/2.8,-3.5/0,-0.5/-3.5,-1.2/3.8,-3.8/1.4,-3.8/-3.8}{
+\fill[fill=green!50!black, opacity=0.3] (\x,\y) circle (0.1);
+}
+
+\foreach \x\y in {0.2/1,0.3/1.4,0.8/-1.4,1/2,0.4/2.5,1.4/-2,0.5/-2.2,0.5/-0.5,}{
+\filldraw[fill=red!50!black, opacity=0.3, draw opacity=1] (\x,\y) circle (0.1);
+}
+
+\foreach \x\y in {3.8/3.5,3/0,2.4/1.2,2.4/-1,1.9/-3.5,3/-3,2.3/-2,0.5/-3,1.5/-2.9,1.2/3.5}{
+\fill[fill=red!50!black, opacity=0.3] (\x,\y) circle (0.1);
+}
+
+\node at (3,3) {$V^-$};
+\node at (1,0) {$F^+$};
+\node at (-1.5,1) {$V^+$};
+\node at (-2.9, 3.2) {$F^-$};
+
+\begin{scope}[]
+\clip  \positifs;
+\fill[green!50!black,opacity=0.3] \patatoid;
+\end{scope}
+\begin{scope}[]
+\clip  \negatifs;
+\fill[red!50!black,opacity=0.3] \patatoid;
+\end{scope}
+
+\begin{scope}[xshift=9.5cm,transform canvas={scale=0.8}]
+\draw[thick] \patatoid;
+\clip \patatoid;
+\filldraw[preaction={fill, green!60!black, opacity=0.4}, opacity=1, pattern=dots, pattern color=white] \positifs;
+\filldraw[red!60!black,opacity=0.4] \negatifs;
+\end{scope}
+\node at (7,3.5) {Précision};
+
+\begin{scope}[xshift=17cm, transform canvas={scale=0.8}]
+\clip  \positifs;
+\filldraw[green,opacity=0.2,draw=black,draw opacity=1] \positifs;
+\filldraw[preaction={fill=green!50!black,fill opacity=0.3}, pattern=dots, opacity=1, pattern color=white,thick] \patatoid;
+\end{scope}
+\node at (12,3.5) {Rappel};
+
+\node at (14,0) {};
+
+\end{tikzpicture}
+\end{document}
