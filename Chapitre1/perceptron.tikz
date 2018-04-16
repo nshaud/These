@@ -1,0 +1,34 @@
+\documentclass{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\input{../CommandesPerso.tex}
+\begin{document}
+  \begin{tikzpicture}
+  \foreach\name in {0,1,2,3,4}{
+      \pgfmathsetmacro\y{2*\name-3}
+  	\node[circle, dotted,draw=black,minimum size=1cm] (output\name) at (7, \y) {$x_{\name}$};
+  %    \draw[thick,->] (input\name) to node[yshift=5pt,above] {$w_{\name}$} (sum);
+  }
+
+  \foreach\name in {0,1,2}{
+      \pgfmathsetmacro\y{2*\name-1}
+  	\node[circle, thick,draw=black,minimum size=1cm] (hidden\name) at (0, \y) {$x_{\name}$};
+      \foreach\oname in {0,1,2,3,4}{
+      \draw[->] (hidden\name) to node[near end, sloped,pos=0.8,below] {\scriptsize $w_{\oname,\name}$} (output\oname);
+      }
+  }
+
+  \node at (-7, -5) {Entrées};
+  \node at (0, -5) {Couche cachée};
+  \node at (7, -5) {Sorties};
+
+  \foreach\name in {0,1,2,3,4,5}{
+      \pgfmathsetmacro\y{2*\name-3.5}
+  	\node[circle, dotted, draw=black,minimum size=1cm] (input\name) at (-7, \y) {$x_{\name}$};
+      \foreach\hname in {0,1,2}{
+      \draw[->] (input\name) to node[near end, sloped,pos=0.2,below] {\scriptsize $w_{\hname,\name}$} (hidden\hname);
+      }
+  }
+  \end{tikzpicture}
+\end{document}

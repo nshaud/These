@@ -1,0 +1,1505 @@
+
+@article{nekrasov_global_2016,
+  archivePrefix = {arXiv},
+  eprinttype = {arxiv},
+  eprint = {1602.03930},
+  primaryClass = {cs},
+  title = {Global {{Deconvolutional Networks}} for {{Semantic Segmentation}}},
+  abstract = {Semantic image segmentation is an important low-level computer vision problem aimed to correctly classify each individual pixel of the image. Recent empirical improvements achieved in this area have primarily been motivated by successful exploitation of Convolutional Neural Networks (CNNs) pre-trained for image classification and object recognition tasks. However, the pixel-wise labeling with CNNs has its own unique challenges: (1) an accurate deconvolution, or upsampling, of low-resolution output into a higher-resolution segmentation mask and (2) an inclusion of global information, or context, within locally extracted features. To address these issues, we propose a novel architecture to conduct the deconvolution operation and acquire dense predictions, and an additional refinement, which allows to incorporate global information into the network. We demonstrate that these alterations lead to improved performance of state-of-the-art semantic segmentation models on the PASCAL VOC 2012 benchmark.},
+  journal = {arXiv:1602.03930 [cs]},
+  author = {Nekrasov, Vladimir and Ju, Janghoon and Choi, Jaesik},
+  month = feb,
+  year = {2016},
+  keywords = {Computer Science - Computer Vision and Pattern Recognition},
+  file = {/home/naudeber/Bibliographie//arXiv1602.03930 [cs]/2016/Nekrasov et al 2016 - Global Deconvolutional Networks for Semantic Segmentation.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/RMQZVX7S/1602.html}
+}
+
+@inproceedings{zhao_stacked_2015-1,
+  title = {Stacked {{What}}-{{Where Auto}}-Encoders},
+  abstract = {We present a novel architecture, the "stacked what-where auto-encoders" (SWWAE), which integrates discriminative and generative pathways and provides a unified approach to supervised, semi-supervised and unsupervised learning without relying on sampling during training. An instantiation of SWWAE uses a convolutional net (Convnet) (LeCun et al. (1998)) to encode the input, and employs a deconvolutional net (Deconvnet) (Zeiler et al. (2010)) to produce the reconstruction. The objective function includes reconstruction terms that induce the hidden states in the Deconvnet to be similar to those of the Convnet. Each pooling layer produces two sets of variables: the "what" which are fed to the next layer, and its complementary variable "where" that are fed to the corresponding layer in the generative decoder.},
+  booktitle = {Proceedings of the {{International Conference}} on {{Learning Representations}}},
+  author = {Zhao, Junbo and Mathieu, Michael and Goroshin, Ross and LeCun, Yann},
+  month = jun,
+  year = {2015},
+  keywords = {Computer Science - Learning,Computer Science - Neural and Evolutionary Computing,Statistics - Machine Learning},
+  file = {/home/naudeber/Bibliographie//undefined/2015/Zhao et al 2015 - Stacked What-Where Auto-encoders.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/297AMMBV/1506.html}
+}
+
+@article{szegedy_rethinking_2015,
+  archivePrefix = {arXiv},
+  eprinttype = {arxiv},
+  eprint = {1512.00567},
+  primaryClass = {cs},
+  title = {Rethinking the {{Inception Architecture}} for {{Computer Vision}}},
+  abstract = {Convolutional networks are at the core of most state-of-the-art computer vision solutions for a wide variety of tasks. Since 2014 very deep convolutional networks started to become mainstream, yielding substantial gains in various benchmarks. Although increased model size and computational cost tend to translate to immediate quality gains for most tasks (as long as enough labeled data is provided for training), computational efficiency and low parameter count are still enabling factors for various use cases such as mobile vision and big-data scenarios. Here we explore ways to scale up networks in ways that aim at utilizing the added computation as efficiently as possible by suitably factorized convolutions and aggressive regularization. We benchmark our methods on the ILSVRC 2012 classification challenge validation set demonstrate substantial gains over the state of the art: 21.2\% top-1 and 5.6\% top-5 error for single frame evaluation using a network with a computational cost of 5 billion multiply-adds per inference and with using less than 25 million parameters. With an ensemble of 4 models and multi-crop evaluation, we report 3.5\% top-5 error on the validation set (3.6\% error on the test set) and 17.3\% top-1 error on the validation set.},
+  journal = {arXiv:1512.00567 [cs]},
+  author = {Szegedy, Christian and Vanhoucke, Vincent and Ioffe, Sergey and Shlens, Jonathon and Wojna, Zbigniew},
+  month = dec,
+  year = {2015},
+  keywords = {À lire,Computer Science - Computer Vision and Pattern Recognition},
+  file = {/home/naudeber/Bibliographie//arXiv preprint arXiv1512.00567/2015/Szegedy et al 2015 - Rethinking the inception architecture for computer vision.pdf;/home/naudeber/Bibliographie//arXiv1512.00567 [cs]/2015/Szegedy et al 2015 - Rethinking the Inception Architecture for Computer Vision.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/AHHNUU9I/1512.html}
+}
+
+@article{szegedy_inception-v4_2016,
+  archivePrefix = {arXiv},
+  eprinttype = {arxiv},
+  eprint = {1602.07261},
+  primaryClass = {cs},
+  title = {Inception-v4, {{Inception}}-{{ResNet}} and the {{Impact}} of {{Residual Connections}} on {{Learning}}},
+  abstract = {Very deep convolutional networks have been central to the largest advances in image recognition performance in recent years. One example is the Inception architecture that has been shown to achieve very good performance at relatively low computational cost. Recently, the introduction of residual connections in conjunction with a more traditional architecture has yielded state-of-the-art performance in the 2015 ILSVRC challenge; its performance was similar to the latest generation Inception-v3 network. This raises the question of whether there are any benefit in combining the Inception architecture with residual connections. Here we give clear empirical evidence that training with residual connections accelerates the training of Inception networks significantly. There is also some evidence of residual Inception networks outperforming similarly expensive Inception networks without residual connections by a thin margin. We also present several new streamlined architectures for both residual and non-residual Inception networks. These variations improve the single-frame recognition performance on the ILSVRC 2012 classification task significantly. We further demonstrate how proper activation scaling stabilizes the training of very wide residual Inception networks. With an ensemble of three residual and one Inception-v4, we achieve 3.08 percent top-5 error on the test set of the ImageNet classification (CLS) challenge},
+  journal = {arXiv:1602.07261 [cs]},
+  author = {Szegedy, Christian and Ioffe, Sergey and Vanhoucke, Vincent},
+  month = feb,
+  year = {2016},
+  keywords = {Computer Science - Computer Vision and Pattern Recognition},
+  file = {/home/naudeber/Bibliographie//arXiv1602.07261 [cs]/2016/Szegedy et al 2016 - Inception-v4, Inception-ResNet and the Impact of Residual Connections on_2.pdf;/home/naudeber/Bibliographie//arXiv1602.07261 [cs]/2016/Szegedy et al 2016 - Inception-v4, Inception-ResNet and the Impact of Residual Connections on.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/XE8SU46N/1602.html;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/ZICVIBKI/1602.html}
+}
+
+@article{simonyan_very_2014,
+  archivePrefix = {arXiv},
+  eprinttype = {arxiv},
+  eprint = {1409.1556},
+  primaryClass = {cs},
+  title = {Very {{Deep Convolutional Networks}} for {{Large}}-{{Scale Image Recognition}}},
+  abstract = {In this work we investigate the effect of the convolutional network depth on its accuracy in the large-scale image recognition setting. Our main contribution is a thorough evaluation of networks of increasing depth using an architecture with very small (3x3) convolution filters, which shows that a significant improvement on the prior-art configurations can be achieved by pushing the depth to 16-19 weight layers. These findings were the basis of our ImageNet Challenge 2014 submission, where our team secured the first and the second places in the localisation and classification tracks respectively. We also show that our representations generalise well to other datasets, where they achieve state-of-the-art results. We have made our two best-performing ConvNet models publicly available to facilitate further research on the use of deep visual representations in computer vision.},
+  journal = {arXiv:1409.1556 [cs]},
+  author = {Simonyan, Karen and Zisserman, Andrew},
+  month = sep,
+  year = {2014},
+  keywords = {À lire,Computer Science - Computer Vision and Pattern Recognition},
+  file = {/home/naudeber/Bibliographie//arXiv1409.1556 [cs]/2014/Simonyan Zisserman 2014 - Very Deep Convolutional Networks for Large-Scale Image Recognition.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/8VM3BPQT/1409.html}
+}
+
+@article{russakovsky_imagenet_2015,
+  title = {{{ImageNet Large Scale Visual Recognition Challenge}}},
+  volume = {115},
+  issn = {0920-5691, 1573-1405},
+  doi = {10.1007/s11263-015-0816-y},
+  abstract = {The ImageNet Large Scale Visual Recognition Challenge is a benchmark in object category classification and detection on hundreds of object categories and millions of images. The challenge has been run annually from 2010 to present, attracting participation from more than fifty institutions. This paper describes the creation of this benchmark dataset and the advances in object recognition that have been possible as a result. We discuss the challenges of collecting large-scale ground truth annotation, highlight key breakthroughs in categorical object recognition, provide a detailed analysis of the current state of the field of large-scale image classification and object detection, and compare the state-of-the-art computer vision accuracy with human accuracy. We conclude with lessons learned in the 5 years of the challenge, and propose future directions and improvements.},
+  language = {en},
+  number = {3},
+  journal = {International Journal of Computer Vision},
+  author = {Russakovsky, Olga and Deng, Jia and Su, Hao and Krause, Jonathan and Satheesh, Sanjeev and Ma, Sean and Huang, Zhiheng and Karpathy, Andrej and Khosla, Aditya and Bernstein, Michael and Berg, Alexander C. and Fei-Fei, Li},
+  month = apr,
+  year = {2015},
+  pages = {211-252},
+  file = {/home/naudeber/Bibliographie//International Journal of Computer Vision/2015/Russakovsky et al 2015 - ImageNet Large Scale Visual Recognition Challenge.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/3VH7ZBJ3/s11263-015-0816-y.html}
+}
+
+@article{lecun_gradient-based_1998,
+  title = {Gradient-Based Learning Applied to Document Recognition},
+  volume = {86},
+  issn = {0018-9219},
+  doi = {10.1109/5.726791},
+  abstract = {Multilayer neural networks trained with the back-propagation algorithm constitute the best example of a successful gradient based learning technique. Given an appropriate network architecture, gradient-based learning algorithms can be used to synthesize a complex decision surface that can classify high-dimensional patterns, such as handwritten characters, with minimal preprocessing. This paper reviews various methods applied to handwritten character recognition and compares them on a standard handwritten digit recognition task. Convolutional neural networks, which are specifically designed to deal with the variability of 2D shapes, are shown to outperform all other techniques. Real-life document recognition systems are composed of multiple modules including field extraction, segmentation recognition, and language modeling. A new learning paradigm, called graph transformer networks (GTN), allows such multimodule systems to be trained globally using gradient-based methods so as to minimize an overall performance measure. Two systems for online handwriting recognition are described. Experiments demonstrate the advantage of global training, and the flexibility of graph transformer networks. A graph transformer network for reading a bank cheque is also described. It uses convolutional neural network character recognizers combined with global training techniques to provide record accuracy on business and personal cheques. It is deployed commercially and reads several million cheques per day},
+  number = {11},
+  journal = {Proceedings of the IEEE},
+  author = {Lecun, Y. and Bottou, L. and Bengio, Y. and Haffner, P.},
+  month = nov,
+  year = {1998},
+  keywords = {2D shape variability,back-propagation,backpropagation,Character recognition,cheque reading,complex decision surface synthesis,convolution,convolutional neural network character recognizers,document recognition,document recognition systems,feature extraction,Feature extraction,field extraction,gradient based learning technique,gradient-based learning,graph transformer networks,GTN,handwritten character recognition,handwritten digit recognition task,Hidden Markov models,high-dimensional patterns,language modeling,Machine learning,Multi-layer neural network,multilayer neural networks,multilayer perceptrons,multimodule systems,Neural networks,optical character recognition,Optical character recognition software,Optical computing,Pattern recognition,Pattern Recognition,performance measure minimization,principal component analysis,Principal component analysis,segmentation recognition},
+  pages = {2278-2324},
+  file = {/home/naudeber/Bibliographie//Proceedings of the IEEE/1998/Lecun et al 1998 - Gradient-based learning applied to document recognition.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/ANY9HKIA/726791.html;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/HUI6PF8F/abs_all.html}
+}
+
+@inproceedings{ngiam_multimodal_2011,
+  title = {Multimodal Deep Learning},
+  booktitle = {Proceedings of the 28th International Conference on Machine Learning ({{ICML}}-11)},
+  author = {Ngiam, Jiquan and Khosla, Aditya and Kim, Mingyu and Nam, Juhan and Lee, Honglak and Ng, Andrew Y.},
+  year = {2011},
+  pages = {689--696},
+  file = {/home/naudeber/Bibliographie//undefined/2011/Ngiam et al 2011 - Multimodal deep learning_3.pdf;/home/naudeber/Bibliographie//undefined/2011/Ngiam et al 2011 - Multimodal deep learning_4.pdf}
+}
+
+@inproceedings{yu_multi-scale_2015,
+  title = {Multi-{{Scale Context Aggregation}} by {{Dilated Convolutions}}},
+  abstract = {State-of-the-art models for semantic segmentation are based on adaptations of convolutional networks that had originally been designed for image classification. However, dense prediction and image classification are structurally different. In this work, we develop a new convolutional network module that is specifically designed for dense prediction. The presented module uses dilated convolutions to systematically aggregate multi-scale contextual information without losing resolution. The architecture is based on the fact that dilated convolutions support exponential expansion of the receptive field without loss of resolution or coverage. We show that the presented context module increases the accuracy of state-of-the-art semantic segmentation systems. In addition, we examine the adaptation of image classification networks to dense prediction and show that simplifying the adapted network can increase accuracy.},
+  booktitle = {Proceedings of the {{International Conference}} on {{Learning Representations}}},
+  author = {Yu, Fisher and Koltun, Vladlen},
+  month = nov,
+  year = {2015},
+  keywords = {Computer Science - Computer Vision and Pattern Recognition},
+  file = {/home/naudeber/Bibliographie//undefined/2015/Yu Koltun 2015 - Multi-Scale Context Aggregation by Dilated Convolutions_2.pdf;/home/naudeber/Bibliographie//undefined/2015/Yu Koltun 2015 - Multi-Scale Context Aggregation by Dilated Convolutions.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/M4N6U752/1511.html;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/WT6KRJ7K/1511.html}
+}
+
+@article{everingham_pascal_2014,
+  title = {The {{Pascal Visual Object Classes Challenge}}: {{A Retrospective}}},
+  volume = {111},
+  issn = {0920-5691, 1573-1405},
+  shorttitle = {The {{Pascal Visual Object Classes Challenge}}},
+  doi = {10.1007/s11263-014-0733-5},
+  abstract = {The Pascal Visual Object Classes (VOC) challenge consists of two components: (i) a publicly available dataset of images together with ground truth annotation and standardised evaluation software; and (ii) an annual competition and workshop. There are five challenges: classification, detection, segmentation, action classification, and person layout. In this paper we provide a review of the challenge from 2008\textendash{}2012. The paper is intended for two audiences: algorithm designers, researchers who want to see what the state of the art is, as measured by performance on the VOC datasets, along with the limitations and weak points of the current generation of algorithms; and, challenge designers, who want to see what we as organisers have learnt from the process and our recommendations for the organisation of future challenges. To analyse the performance of submitted algorithms on the VOC datasets we introduce a number of novel evaluation methods: a bootstrapping method for determining whether differences in the performance of two algorithms are significant or not; a normalised average precision so that performance can be compared across classes with different proportions of positive instances; a clustering method for visualising the performance across multiple algorithms so that the hard and easy images can be identified; and the use of a joint classifier over the submitted algorithms in order to measure their complementarity and combined performance. We also analyse the community's progress through time using the methods of Hoiem et al. (Proceedings of European Conference on Computer Vision, 2012) to identify the types of occurring errors. We conclude the paper with an appraisal of the aspects of the challenge that worked well, and those that could be improved in future challenges.},
+  language = {en},
+  number = {1},
+  journal = {International Journal of Computer Vision},
+  author = {Everingham, Mark and Eslami, S. M. Ali and Gool, Luc Van and Williams, Christopher K. I. and Winn, John and Zisserman, Andrew},
+  month = jun,
+  year = {2014},
+  keywords = {Image Processing and Computer Vision,Computer Imaging; Vision; Pattern Recognition and Graphics,Artificial Intelligence (incl. Robotics),Pattern Recognition,segmentation,object detection,object recognition,Database,Benchmark},
+  pages = {98-136},
+  file = {/home/naudeber/Bibliographie//International Journal of Computer Vision/2014/Everingham et al 2014 - The Pascal Visual Object Classes Challenge.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/4CFZXJMT/10.html}
+}
+
+@article{arnab_higher_2015,
+  archivePrefix = {arXiv},
+  eprinttype = {arxiv},
+  eprint = {1511.08119},
+  primaryClass = {cs},
+  title = {Higher {{Order Conditional Random Fields}} in {{Deep Neural Networks}}},
+  abstract = {We address the problem of semantic segmentation using deep learning. Most segmentation systems include a Conditional Random Field (CRF) to produce a structured output that is consistent with the image's visual features. Recent deep learning approaches have incorporated CRFs into Convolutional Neural Networks (CNNs), with some even training the CRF end-to-end with the rest of the network. However, these approaches have not employed higher order potentials, which have previously been shown to significantly improve segmentation performance. In this paper, we demonstrate that two types of higher order potential, based on object detections and superpixels, can be included in a CRF embedded within a deep network. We design these higher order potentials to allow inference with the differentiable mean field algorithm. As a result, all the parameters of our richer CRF model can be learned end-to-end with our pixelwise CNN classifier. We achieve state-of-the-art segmentation performance on the PASCAL VOC benchmark with these trainable higher order potentials.},
+  journal = {arXiv:1511.08119 [cs]},
+  author = {Arnab, Anurag and Jayasumana, Sadeep and Zheng, Shuai and Torr, Philip},
+  month = nov,
+  year = {2015},
+  keywords = {Computer Science - Computer Vision and Pattern Recognition},
+  file = {/home/naudeber/Bibliographie//arXiv1511.08119 [cs]/2015/Arnab et al 2015 - Higher Order Conditional Random Fields in Deep Neural Networks.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/MEJRWJHW/1511.html}
+}
+
+@article{wu_high-performance_2016,
+  archivePrefix = {arXiv},
+  eprinttype = {arxiv},
+  eprint = {1604.04339},
+  primaryClass = {cs},
+  title = {High-Performance {{Semantic Segmentation Using Very Deep Fully Convolutional Networks}}},
+  abstract = {We propose a method for high-performance semantic image segmentation (or semantic pixel labelling) based on very deep residual networks, which achieves the state-of-the-art performance. A few design factors are carefully considered to this end. We make the following contributions. (i) First, we evaluate different variations of a fully convolutional residual network so as to find the best configuration, including the number of layers, the resolution of feature maps, and the size of field-of-view. Our experiments show that further enlarging the field-of-view and increasing the resolution of feature maps are typically beneficial, which however inevitably leads to a higher demand for GPU memories. To walk around the limitation, we propose a new method to simulate a high resolution network with a low resolution network, which can be applied during training and/or testing. (ii) Second, we propose an online bootstrapping method for training. We demonstrate that online bootstrapping is critically important for achieving good accuracy. (iii) Third we apply the traditional dropout to some of the residual blocks, which further improves the performance. (iv) Finally, our method achieves the currently best mean intersection-over-union 78.3$\backslash$\% on the PASCAL VOC 2012 dataset, as well as on the recent dataset Cityscapes.},
+  journal = {arXiv:1604.04339 [cs]},
+  author = {Wu, Zifeng and Shen, Chunhua and Van Den Hengel, Anton},
+  month = apr,
+  year = {2016},
+  keywords = {Computer Science - Computer Vision and Pattern Recognition},
+  file = {/home/naudeber/Bibliographie//arXiv1604.04339 [cs]/2016/Wu et al 2016 - High-performance Semantic Segmentation Using Very Deep Fully Convolutional.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/TVNJGJ62/1604.html}
+}
+
+@inproceedings{szegedy_going_2015,
+  title = {Going Deeper with Convolutions},
+  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}}},
+  author = {Szegedy, Christian and Liu, Wei and Jia, Yangqing and Sermanet, Pierre and Reed, Scott and Anguelov, Dragomir and Erhan, Dumitru and Vanhoucke, Vincent and Rabinovich, Andrew},
+  year = {2015},
+  pages = {1--9},
+  file = {/home/naudeber/Bibliographie//undefined/2015/Szegedy et al 2015 - Going deeper with convolutions_2.pdf;/home/naudeber/Bibliographie//undefined/2015/Szegedy et al 2015 - Going deeper with convolutions.pdf}
+}
+
+@incollection{lin_microsoft_2014,
+  series = {Lecture Notes in Computer Science},
+  title = {Microsoft {{COCO}}: {{Common Objects}} in {{Context}}},
+  copyright = {\textcopyright{}2014 Springer International Publishing Switzerland},
+  isbn = {978-3-319-10601-4 978-3-319-10602-1},
+  shorttitle = {Microsoft {{COCO}}},
+  abstract = {We present a new dataset with the goal of advancing the state-of-the-art in object recognition by placing the question of object recognition in the context of the broader question of scene understanding. This is achieved by gathering images of complex everyday scenes containing common objects in their natural context. Objects are labeled using per-instance segmentations to aid in precise object localization. Our dataset contains photos of 91 objects types that would be easily recognizable by a 4 year old. With a total of 2.5 million labeled instances in 328k images, the creation of our dataset drew upon extensive crowd worker involvement via novel user interfaces for category detection, instance spotting and instance segmentation. We present a detailed statistical analysis of the dataset in comparison to PASCAL, ImageNet, and SUN. Finally, we provide baseline performance analysis for bounding box and segmentation detection results using a Deformable Parts Model.},
+  language = {en},
+  number = {8693},
+  booktitle = {Computer {{Vision}} \textendash{} {{ECCV}} 2014},
+  publisher = {{Springer International Publishing}},
+  author = {Lin, Tsung-Yi and Maire, Michael and Belongie, Serge and Hays, James and Perona, Pietro and Ramanan, Deva and Doll{\'a}r, Piotr and Zitnick, C. Lawrence},
+  editor = {Fleet, David and Pajdla, Tomas and Schiele, Bernt and Tuytelaars, Tinne},
+  month = sep,
+  year = {2014},
+  keywords = {Artificial Intelligence (incl. Robotics),Computer Graphics,Image Processing and Computer Vision,Pattern Recognition},
+  pages = {740-755},
+  file = {/home/naudeber/Bibliographie//Springer International Publishing/2014/Lin et al 2014 - Microsoft COCO.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/27T2J7FZ/978-3-319-10602-1_48.html},
+  doi = {10.1007/978-3-319-10602-1_48}
+}
+
+@inproceedings{chatfield_return_2014,
+  title = {Return of the {{Devil}} in the {{Details}}: {{Delving Deep}} into {{Convolutional Nets}}},
+  isbn = {978-1-901725-52-0},
+  shorttitle = {Return of the {{Devil}} in the {{Details}}},
+  doi = {10.5244/C.28.6},
+  language = {en},
+  booktitle = {Proceedings of the {{British Machine Vision Conference}}},
+  publisher = {{British Machine Vision Association}},
+  author = {Chatfield, Ken and Simonyan, Karen and Vedaldi, Andrea and Zisserman, Andrew},
+  year = {2014},
+  pages = {6.1-6.12}
+}
+
+@article{campos-taberner_processing_2016,
+  title = {Processing of {{Extremely High}}-{{Resolution LiDAR}} and {{RGB Data}}: {{Outcome}} of the 2015 {{IEEE GRSS Data Fusion Contest Part A}}: 2-{{D Contest}}},
+  volume = {9},
+  issn = {1939-1404},
+  shorttitle = {Processing of {{Extremely High}}-{{Resolution LiDAR}} and {{RGB Data}}},
+  doi = {10.1109/JSTARS.2016.2569162},
+  abstract = {In this paper, we discuss the scientific outcomes of the 2015 data fusion contest organized by the Image Analysis and Data Fusion Technical Committee (IADF TC) of the IEEE Geoscience and Remote Sensing Society (IEEE GRSS). As for previous years, the IADF TC organized a data fusion contest aiming at fostering new ideas and solutions for multisource studies. The 2015 edition of the contest proposed a multiresolution and multisensorial challenge involving extremely high-resolution RGB images and a three-dimensional (3-D) LiDAR point cloud. The competition was framed in two parallel tracks, considering 2-D and 3-D products, respectively. In this paper, we discuss the scientific results obtained by the winners of the 2-D contest, which studied either the complementarity of RGB and LiDAR with deep neural networks (winning team) or provided a comprehensive benchmarking evaluation of new classification strategies for extremely high-resolution multimodal data (runner-up team). The data and the previously undisclosed ground truth will remain available for the community and can be obtained at http://www.grss-ieee.org/community/technical-committees/data-fusion/2015-ieee-grss-data-fusion-contest/. The 3-D part of the contest is discussed in the Part-B paper [1].},
+  number = {12},
+  journal = {IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing},
+  author = {Campos-Taberner, M. and Romero-Soriano, A. and Gatta, C. and Camps-Valls, G. and Lagrange, A. and Le Saux, B. and Beaup{\`e}re, A. and Boulch, A. and Chan-Hon-Tong, A. and Herbin, S. and Randrianarivo, H. and Ferecatu, M. and Shimoni, M. and Moser, G. and Tuia, D.},
+  month = dec,
+  year = {2016},
+  keywords = {deep neural networks,Laser radar,Data integration,Earth,Spatial resolution,Three-dimensional displays,LiDAR,extremely high spatial resolution,image analysis and data fusion (IADF),landcover classification,multimodal-data fusion,multiresolution-,multisource-,remote sensing},
+  pages = {5547-5559},
+  file = {/home/naudeber/Bibliographie//IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing/2016/Campos-Taberner et al 2016 - Processing of Extremely High-Resolution LiDAR and RGB Data.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/FC7U9666/articleDetails.html}
+}
+
+@inproceedings{he_deep_2016,
+  title = {Deep {{Residual Learning}} for {{Image Recognition}}},
+  doi = {10.1109/CVPR.2016.90},
+  abstract = {Deeper neural networks are more difficult to train. We present a residual learning framework to ease the training of networks that are substantially deeper than those used previously. We explicitly reformulate the layers as learning residual functions with reference to the layer inputs, instead of learning unreferenced functions. We provide comprehensive empirical evidence showing that these residual networks are easier to optimize, and can gain accuracy from considerably increased depth. On the ImageNet dataset we evaluate residual nets with a depth of up to 152 layers - 8\texttimes{} deeper than VGG nets [40] but still having lower complexity. An ensemble of these residual nets achieves 3.57\% error on the ImageNet test set. This result won the 1st place on the ILSVRC 2015 classification task. We also present analysis on CIFAR-10 with 100 and 1000 layers. The depth of representations is of central importance for many visual recognition tasks. Solely due to our extremely deep representations, we obtain a 28\% relative improvement on the COCO object detection dataset. Deep residual nets are foundations of our submissions to ILSVRC \& COCO 2015 competitions1, where we also won the 1st places on the tasks of ImageNet detection, ImageNet localization, COCO detection, and COCO segmentation.},
+  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}}},
+  author = {He, Kaiming and Zhang, Xiangyu and Ren, Shaoqing and Sun, Jian},
+  month = jun,
+  year = {2016},
+  keywords = {neural nets,object detection,learning (artificial intelligence),Image recognition,Visualization,Neural networks,Training,image classification,image segmentation,CIFAR-10,COCO object detection dataset,COCO segmentation,ILSVRC \& COCO 2015 competitions,ILSVRC 2015 classification task,ImageNet dataset,ImageNet localization,ImageNet test set,VGG nets,deep residual learning,deep residual nets,deeper neural network training,residual function learning,residual nets,visual recognition tasks,Complexity theory,Degradation},
+  pages = {770-778},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/KUCF9Q86/7780459.html}
+}
+
+@inproceedings{eitel_multimodal_2015,
+  title = {Multimodal Deep Learning for Robust {{RGB}}-{{D}} Object Recognition},
+  doi = {10.1109/IROS.2015.7353446},
+  abstract = {Robust object recognition is a crucial ingredient of many, if not all, real-world robotics applications. This paper leverages recent progress on Convolutional Neural Networks (CNNs) and proposes a novel RGB-D architecture for object recognition. Our architecture is composed of two separate CNN processing streams - one for each modality - which are consecutively combined with a late fusion network. We focus on learning with imperfect sensor data, a typical problem in real-world robotics tasks. For accurate learning, we introduce a multi-stage training methodology and two crucial ingredients for handling depth data with CNNs. The first, an effective encoding of depth information for CNNs that enables learning without the need for large depth datasets. The second, a data augmentation scheme for robust learning with depth images by corrupting them with realistic noise patterns. We present state-of-the-art results on the RGB-D object dataset [15] and show recognition in challenging RGB-D real-world noisy settings.},
+  booktitle = {2015 {{IEEE}}/{{RSJ International Conference}} on {{Intelligent Robots}} and {{Systems}} ({{IROS}})},
+  author = {Eitel, Andreas and Springenberg, Jost Tobias and Spinello, Luciano and Riedmiller, Martin and Burgard, Wolfram},
+  month = sep,
+  year = {2015},
+  keywords = {learning (artificial intelligence),image colour analysis,object recognition,convolutional neural networks,Training,feature extraction,feedforward neural nets,image fusion,robot vision,CNN,RGB-D architecture,RGB-D object dataset,RGB-D real-world noisy settings,accurate learning,data augmentation scheme,fusion network,imperfect sensor data,multimodal deep learning,multistage training methodology,real-world robotics applications,real-world robotics tasks,realistic noise patterns,robust RGB-D object recognition,robust learning,Image coding,Robot sensing systems,Robustness,Streaming media},
+  pages = {681-687},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/RDXQ8H3F/Eitel et al_2015_Multimodal deep learning for robust RGB-D object recognition.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/Q6868ZET/7353446.html}
+}
+
+@inproceedings{long_fully_2015,
+  title = {Fully Convolutional Networks for Semantic Segmentation},
+  doi = {10.1109/CVPR.2015.7298965},
+  abstract = {Convolutional networks are powerful visual models that yield hierarchies of features. We show that convolutional networks by themselves, trained end-to-end, pixels-to-pixels, exceed the state-of-the-art in semantic segmentation. Our key insight is to build ``fully convolutional'' networks that take input of arbitrary size and produce correspondingly-sized output with efficient inference and learning. We define and detail the space of fully convolutional networks, explain their application to spatially dense prediction tasks, and draw connections to prior models. We adapt contemporary classification networks (AlexNet [20], the VGG net [31], and GoogLeNet [32]) into fully convolutional networks and transfer their learned representations by fine-tuning [3] to the segmentation task. We then define a skip architecture that combines semantic information from a deep, coarse layer with appearance information from a shallow, fine layer to produce accurate and detailed segmentations. Our fully convolutional network achieves state-of-the-art segmentation of PASCAL VOC (20\% relative improvement to 62.2\% mean IU on 2012), NYUDv2, and SIFT Flow, while inference takes less than one fifth of a second for a typical image.},
+  booktitle = {2015 {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
+  author = {Long, Jonathan and Shelhamer, Evan and Darrell, Trevor},
+  month = jun,
+  year = {2015},
+  keywords = {Adaptation models,Computer architecture,contemporary classification networks,convolution,Deconvolution,fully convolutional networks,image classification,image segmentation,inference,inference mechanisms,learning,learning (artificial intelligence),NYUDv2,Pascal VOC,pixels-to-pixels,semantic segmentation,Semantics,SIFT flow,Training,visual models},
+  pages = {3431-3440},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/BGDX4IA8/7298965.html;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/VAQSQ2JQ/7298965.html}
+}
+
+@inproceedings{noh_learning_2015,
+  title = {Learning {{Deconvolution Network}} for {{Semantic Segmentation}}},
+  doi = {10.1109/ICCV.2015.178},
+  abstract = {We propose a novel semantic segmentation algorithm by learning a deep deconvolution network. We learn the network on top of the convolutional layers adopted from VGG 16-layer net. The deconvolution network is composed of deconvolution and unpooling layers, which identify pixelwise class labels and predict segmentation masks. We apply the trained network to each proposal in an input image, and construct the final semantic segmentation map by combining the results from all proposals in a simple manner. The proposed algorithm mitigates the limitations of the existing methods based on fully convolutional networks by integrating deep deconvolution network and proposal-wise prediction, our segmentation method typically identifies detailed structures and handles objects in multiple scales naturally. Our network demonstrates outstanding performance in PASCAL VOC 2012 dataset, and we achieve the best accuracy (72.5\%) among the methods trained without using Microsoft COCO dataset through ensemble with the fully convolutional network.},
+  booktitle = {2015 {{IEEE International Conference}} on {{Computer Vision}} ({{ICCV}})},
+  author = {Noh, Hyeonwoo and Hong, Seunghoon and Han, Bohyung},
+  month = dec,
+  year = {2015},
+  keywords = {neural nets,convolutional neural network,learning (artificial intelligence),Visualization,convolution,Semantics,Shape,feature extraction,image segmentation,CNN,Deconvolution,prediction theory,semantic networks,deconvolution network learning,proposal-wise prediction,semantic segmentation algorithm,Image reconstruction},
+  pages = {1520-1528},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/UMRAS2II/7410535.html}
+}
+
+@inproceedings{he_delving_2015,
+  title = {Delving {{Deep}} into {{Rectifiers}}: {{Surpassing Human}}-{{Level Performance}} on {{ImageNet Classification}}},
+  shorttitle = {Delving {{Deep}} into {{Rectifiers}}},
+  doi = {10.1109/ICCV.2015.123},
+  abstract = {Rectified activation units (rectifiers) are essential for state-of-the-art neural networks. In this work, we study rectifier neural networks for image classification from two aspects. First, we propose a Parametric Rectified Linear Unit (PReLU) that generalizes the traditional rectified unit. PReLU improves model fitting with nearly zero extra computational cost and little overfitting risk. Second, we derive a robust initialization method that particularly considers the rectifier nonlinearities. This method enables us to train extremely deep rectified models directly from scratch and to investigate deeper or wider network architectures. Based on the learnable activation and advanced initialization, we achieve 4.94\% top-5 test error on the ImageNet 2012 classification dataset. This is a 26\% relative improvement over the ILSVRC 2014 winner (GoogLeNet, 6.66\% [33]). To our knowledge, our result is the first to surpass the reported human-level performance (5.1\%, [26]) on this dataset.},
+  booktitle = {Proceedings of the {{IEEE International Conference}} on {{Computer Vision}}},
+  author = {He, Kaiming and Zhang, Xiangyu and Ren, Shaoqing and Sun, Jian},
+  month = dec,
+  year = {2015},
+  keywords = {neural nets,Adaptation models,Computational modeling,Training,image classification,ILSVRC 2014 winner,ImageNet 2012 classification dataset,ImageNet classification,PReLU,human-level performance,model fitting,network architectures,overfitting risk,parametric rectified linear unit,rectified activation units,rectifier neural networks,rectifier nonlinearities,robust initialization method,state-of-the-art neural networks,Biological neural networks,Gaussian distribution,Testing},
+  pages = {1026-1034},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/NXDQWID9/7410480.html}
+}
+
+@article{badrinarayanan_segnet_2017,
+  title = {{{SegNet}}: {{A Deep Convolutional Encoder}}-{{Decoder Architecture}} for {{Scene Segmentation}}},
+  volume = {39},
+  issn = {0162-8828},
+  shorttitle = {{{SegNet}}},
+  doi = {10.1109/TPAMI.2016.2644615},
+  abstract = {We present a novel and practical deep fully convolutional neural network architecture for semantic pixel-wise segmentation termed SegNet. This core trainable segmentation engine consists of an encoder network, a corresponding decoder network followed by a pixel-wise classification layer. The architecture of the encoder network is topologically identical to the 13 convolutional layers in the VGG16 network [1]. The role of the decoder network is to map the low resolution encoder feature maps to full input resolution feature maps for pixel-wise classification. The novelty of SegNet lies is in the manner in which the decoder upsamples its lower resolution input feature map(s). Specifically, the decoder uses pooling indices computed in the max-pooling step of the corresponding encoder to perform non-linear upsampling. This eliminates the need for learning to upsample. The upsampled maps are sparse and are then convolved with trainable filters to produce dense feature maps. We compare our proposed architecture with the widely adopted FCN [2] and also with the well known DeepLab-LargeFOV [3], DeconvNet [4] architectures. This comparison reveals the memory versus accuracy trade-off involved in achieving good segmentation performance. SegNet was primarily motivated by scene understanding applications. Hence, it is designed to be efficient both in terms of memory and computational time during inference. It is also significantly smaller in the number of trainable parameters than other competing architectures and can be trained end-to-end using stochastic gradient descent. We also performed a controlled benchmark of SegNet and other architectures on both road scenes and SUN RGB-D indoor scene segmentation tasks. These quantitative assessments show that SegNet provides good performance with competitive inference time and most efficient inference memory-wise as compared to other architectures. We also provide a Caffe implementation of SegNet and a web demo at http://mi.eng.cam.a- .uk/projects/segnet/.},
+  number = {12},
+  journal = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  author = {Badrinarayanan, Vijay and Kendall, Alex and Cipolla, Roberto},
+  month = dec,
+  year = {2017},
+  keywords = {Neural networks,Computer architecture,Semantics,Training,image segmentation,Decoding,Roads,Decoder,Deep Convolutional Neural Networks,Encoder,Indoor Scenes,Pooling,Road Scenes,Semantic Pixel-Wise Segmentation,Upsampling},
+  pages = {2481-2495},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/9SZV73FK/7803544.html}
+}
+
+@inproceedings{zheng_conditional_2015,
+  title = {Conditional {{Random Fields}} as {{Recurrent Neural Networks}}},
+  doi = {10.1109/ICCV.2015.179},
+  abstract = {Pixel-level labelling tasks, such as semantic segmentation, play a central role in image understanding. Recent approaches have attempted to harness the capabilities of deep learning techniques for image recognition to tackle pixel-level labelling tasks. One central issue in this methodology is the limited capacity of deep learning techniques to delineate visual objects. To solve this problem, we introduce a new form of convolutional neural network that combines the strengths of Convolutional Neural Networks (CNNs) and Conditional Random Fields (CRFs)-based probabilistic graphical modelling. To this end, we formulate Conditional Random Fields with Gaussian pairwise potentials and mean-field approximate inference as Recurrent Neural Networks. This network, called CRF-RNN, is then plugged in as a part of a CNN to obtain a deep network that has desirable properties of both CNNs and CRFs. Importantly, our system fully integrates CRF modelling with CNNs, making it possible to train the whole deep network end-to-end with the usual back-propagation algorithm, avoiding offline post-processing methods for object delineation. We apply the proposed method to the problem of semantic image segmentation, obtaining top results on the challenging Pascal VOC 2012 segmentation benchmark.},
+  booktitle = {Proceedings of the {{IEEE International Conference}} on {{Computer Vision}}},
+  author = {Zheng, S. and Jayasumana, S. and Romera-Paredes, B. and Vineet, V. and Su, Z. and Du, D. and Huang, C. and Torr, P. H. S.},
+  month = dec,
+  year = {2015},
+  keywords = {back-propagation algorithm,backpropagation,CNN,computer vision,conditional random field,convolutional neural network,CRF,deep learning technique,Gaussian pairwise potential,Gaussian processes,Graphical models,image segmentation,image understanding,Labeling,Machine learning,mean-field approximate inference,neural nets,pixel-level labelling task,probabilistic graphical modelling,probability,random processes,recurrent neural network,semantic image segmentation,Semantics,Training},
+  pages = {1529-1537},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/VS4NUXVR/CRFasRNN.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/UERRSF27/7410536.html}
+}
+
+@inproceedings{cordts_cityscapes_2016,
+  title = {The {{Cityscapes Dataset}} for {{Semantic Urban Scene Understanding}}},
+  doi = {10.1109/CVPR.2016.350},
+  booktitle = {2016 {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
+  author = {Cordts, M. and Omran, M. and Ramos, S. and Rehfeld, T. and Enzweiler, M. and Benenson, R. and Franke, U. and Roth, S. and Schiele, B.},
+  month = jun,
+  year = {2016},
+  keywords = {object detection,Visualization,vehicles,computer vision,Semantics,Training,Complexity theory,Urban areas,image sequences,stereo image processing,video signal processing,Cityscapes dataset,semantic urban scene understanding,stereo video sequence,Benchmark testing},
+  pages = {3213-3223},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/QVHASJX3/7780719.html}
+}
+
+@inproceedings{jegou_one_2017,
+  title = {The {{One Hundred Layers Tiramisu}}: {{Fully Convolutional DenseNets}} for {{Semantic Segmentation}}},
+  shorttitle = {The {{One Hundred Layers Tiramisu}}},
+  doi = {10.1109/CVPRW.2017.156},
+  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition Workshops}}},
+  author = {J{\'e}gou, S. and Drozdzal, M. and Vazquez, D. and Romero, A. and Bengio, Y.},
+  month = jul,
+  year = {2017},
+  keywords = {Benchmark testing,Computer architecture,convolution,convolutional DenseNets,convolutional neural networks,feature extraction,image classification,Image resolution,image segmentation,learning (artificial intelligence),semantic image segmentation,Semantics,Spatial resolution,Standards,Tiramisu layers,upsampling path training},
+  pages = {1175-1183},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/MHA9Z9FV/8014890.html}
+}
+
+@inproceedings{deng_imagenet_2009,
+  title = {{{ImageNet}}: {{A}} Large-Scale Hierarchical Image Database},
+  shorttitle = {{{ImageNet}}},
+  doi = {10.1109/CVPR.2009.5206848},
+  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}}},
+  author = {Deng, J. and Dong, W. and Socher, R. and Li, L. J. and Li, Kai and Fei-Fei, Li},
+  month = jun,
+  year = {2009},
+  keywords = {trees (mathematics),image retrieval,computer vision,Image resolution,Robustness,visual databases,Internet,multimedia computing,ontologies (artificial intelligence),very large databases,ImageNet database,large-scale hierarchical image database,large-scale ontology,multimedia data,subtree,wordNet structure,Explosions,Image databases,Information retrieval,Large-scale systems,Multimedia databases,Ontologies,Spine},
+  pages = {248-255},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/FFXN3NBD/5206848.html}
+}
+
+@incollection{ronneberger_u-net_2015,
+  address = {Cham},
+  title = {U-{{Net}}: {{Convolutional Networks}} for {{Biomedical Image Segmentation}}},
+  isbn = {978-3-319-24574-4},
+  abstract = {There is large consent that successful training of deep networks requires many thousand annotated training samples. In this paper, we present a network and training strategy that relies on the strong use of data augmentation to use the available annotated samples more efficiently. The architecture consists of a contracting path to capture context and a symmetric expanding path that enables precise localization. We show that such a network can be trained end-to-end from very few images and outperforms the prior best method (a sliding-window convolutional network) on the ISBI challenge for segmentation of neuronal structures in electron microscopic stacks. Using the same network trained on transmitted light microscopy images (phase contrast and DIC) we won the ISBI cell tracking challenge 2015 in these categories by a large margin. Moreover, the network is fast. Segmentation of a 512x512 image takes less than a second on a recent GPU. The full implementation (based on Caffe) and the trained networks are available at                                           http://lmb.informatik.uni-freiburg.de/people/ronneber/u-net                                                          .},
+  booktitle = {Medical {{Image Computing}} and {{Computer}}-{{Assisted Intervention}} \textendash{} {{MICCAI}} 2015: 18th {{International Conference}}, {{Munich}}, {{Germany}}, {{October}} 5-9, 2015, {{Proceedings}}, {{Part III}}},
+  publisher = {{Springer International Publishing}},
+  author = {Ronneberger, Olaf and Fischer, Philipp and Brox, Thomas},
+  editor = {Navab, Nassir and Hornegger, Joachim and Wells, William M. and Frangi, Alejandro F.},
+  year = {2015},
+  pages = {234-241},
+  doi = {10.1007/978-3-319-24574-4_28}
+}
+
+@article{l._c._chen_deeplab_2018,
+  title = {{{DeepLab}}: {{Semantic Image Segmentation}} with {{Deep Convolutional Nets}}, {{Atrous Convolution}}, and {{Fully Connected CRFs}}},
+  volume = {40},
+  issn = {0162-8828},
+  doi = {10.1109/TPAMI.2017.2699184},
+  number = {4},
+  journal = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  author = {{L. C. Chen} and {G. Papandreou} and {I. Kokkinos} and {K. Murphy} and {A. L. Yuille}},
+  month = apr,
+  year = {2018},
+  keywords = {Atrous Convolution,Computational modeling,Conditional Random Fields,Context,Convolution,Convolutional Neural Networks,Image resolution,Image segmentation,Neural networks,Semantic Segmentation,Semantics},
+  pages = {834-848}
+}
+
+@inproceedings{maas_rectifier_2013,
+  title = {Rectifier Nonlinearities Improve Neural Network Acoustic Models},
+  abstract = {Deep neural network acoustic models pro-duce substantial gains in large vocabu-lary continuous speech recognition systems. Emerging work with rectified linear (ReL) hidden units demonstrates additional gains in final system performance relative to more commonly used sigmoidal nonlinearities. In this work, we explore the use of deep rectifier networks as acoustic models for the 300 hour Switchboard conversational speech recogni-tion task. Using simple training procedures without pretraining, networks with rectifier nonlinearities produce 2 \% absolute reduc-tions in word error rates over their sigmoidal counterparts. We analyze hidden layer repre-sentations to quantify differences in how ReL units encode inputs as compared to sigmoidal units. Finally, we evaluate a variant of the ReL unit with a gradient more amenable to optimization in an attempt to further im-prove deep rectifier networks. 1.},
+  booktitle = {{{ICML Workshop}} on {{Deep Learning}} for {{Audio}}, {{Speech}} and {{Language Processing}}},
+  author = {Maas, Andrew L. and Hannun, Awni Y. and Ng, Andrew Y.},
+  year = {2013},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/66LFT82M/relu_hybrid_icml2013_final.pdf}
+}
+
+@inproceedings{krizhevsky_imagenet_2012,
+  title = {{{ImageNet Classification}} with {{Deep Convolutional Neural Networks}}},
+  booktitle = {Proceedings of the {{Neural Information Processing Systems}} ({{NIPS}})},
+  author = {Krizhevsky, Alex and Sutskever, Ilya and Hinton, Geoffrey E},
+  year = {2012},
+  pages = {1097--1105},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/CPT7II8U/Krizhevsky et al. - 2012 - ImageNet Classification with Deep Convolutional Ne.html}
+}
+
+@article{yuhas_integration_1989,
+  title = {Integration of Acoustic and Visual Speech Signals Using Neural Networks},
+  volume = {27},
+  number = {11},
+  journal = {IEEE Communications Magazine},
+  author = {Yuhas, Ben P. and Goldstein, Moise H. and Sejnowski, Terrence J.},
+  year = {1989},
+  pages = {65--71},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/D4J4GP3N/00041402.pdf}
+}
+
+@incollection{schuller_avec_2011,
+  series = {Lecture Notes in Computer Science},
+  title = {{{AVEC}} 2011\textendash{}{{The First International Audio}}/{{Visual Emotion Challenge}}},
+  isbn = {978-3-642-24570-1 978-3-642-24571-8},
+  abstract = {The Audio/Visual Emotion Challenge and Workshop (AVEC 2011) is the first competition event aimed at comparison of multimedia processing and machine learning methods for automatic audio, visual and audiovisual emotion analysis, with all participants competing under strictly the same conditions. This paper first describes the challenge participation conditions. Next follows the data used \textendash{} the SEMAINE corpus \textendash{} and its partitioning into train, development, and test partitions for the challenge with labelling in four dimensions, namely activity, expectation, power, and valence. Further, audio and video baseline features are introduced as well as baseline results that use these features for the three sub-challenges of audio, video, and audiovisual emotion recognition.},
+  language = {en},
+  booktitle = {Affective {{Computing}} and {{Intelligent Interaction}}},
+  publisher = {{Springer, Berlin, Heidelberg}},
+  author = {Schuller, Bj{\"o}rn and Valstar, Michel and Eyben, Florian and McKeown, Gary and Cowie, Roddy and Pantic, Maja},
+  year = {2011},
+  pages = {415-424},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/KZ64BGMW/Schuller et al. - 2011 - AVEC 2011–The First International AudioVisual Emo.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/9HJPZQ79/978-3-642-24571-8_53.html},
+  doi = {10.1007/978-3-642-24571-8_53}
+}
+
+@article{hodosh_framing_2013,
+  title = {Framing {{Image Description As}} a {{Ranking Task}}: {{Data}}, {{Models}} and {{Evaluation Metrics}}},
+  volume = {47},
+  issn = {1076-9757},
+  shorttitle = {Framing {{Image Description As}} a {{Ranking Task}}},
+  abstract = {The ability to associate images with natural language sentences that describe what is depicted in them is a hallmark of image understanding, and a prerequisite for applications such as sentence-based image search. In analogy to image search, we propose to frame sentence-based image annotation as the task of ranking a given pool of captions. We introduce a new benchmark collection for sentence-based image description and search, consisting of 8,000 images that are each paired with five different captions which provide clear descriptions of the salient entities and events. We introduce a number of systems that perform quite well on this task, even though they are only based on features that can be obtained with minimal supervision. Our results clearly indicate the importance of training on multiple captions per image, and of capturing syntactic (word order-based) and semantic features of these captions. We also perform an in-depth comparison of human and automatic evaluation metrics for this task, and propose strategies for collecting human judgments cheaply and on a very large scale, allowing us to augment our collection with additional relevance judgments of which captions describe which image. Our analysis shows that metrics that consider the ranked list of results for each query image or sentence are significantly more robust than metrics that are based on a single response per query. Moreover, our study suggests that the evaluation of ranking-based image description systems may be fully automated.},
+  number = {1},
+  journal = {J. Artif. Int. Res.},
+  author = {Hodosh, Micah and Young, Peter and Hockenmaier, Julia},
+  month = may,
+  year = {2013},
+  pages = {853--899}
+}
+
+@article{srivastava_multimodal_2014,
+  title = {Multimodal {{Learning}} with {{Deep Boltzmann Machines}}},
+  volume = {15},
+  issn = {1532-4435},
+  abstract = {Data often consists of multiple diverse modalities. For example, images are tagged with textual information and videos are accompanied by audio. Each modality is characterized by having distinct statistical properties. We propose a Deep Boltzmann Machine for learning a generative model of such multimodal data. We show that the model can be used to create fused representations by combining features across modalities. These learned representations are useful for classification and information retrieval. By sampling from the conditional distributions over each data modality, it is possible to create these representations even when some data modalities are missing. We conduct experiments on bimodal image-text and audio-video data. The fused representation achieves good classification results on the MIR-Flickr data set matching or outperforming other deep models as well as SVM based models that use Multiple Kernel Learning. We further demonstrate that this multimodal model helps classification and retrieval even when only unimodal data is available at test time.},
+  number = {1},
+  journal = {J. Mach. Learn. Res.},
+  author = {Srivastava, Nitish and Salakhutdinov, Ruslan},
+  month = jan,
+  year = {2014},
+  keywords = {deep learning,Boltzmann machines,multimodal learning,neural networks,unsupervised learning},
+  pages = {2949--2980},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/2HSJUPMP/Srivastava et Salakhutdinov - 2014 - Multimodal Learning with Deep Boltzmann Machines.pdf}
+}
+
+@inproceedings{dalal_histograms_2005,
+  title = {Histograms of Oriented Gradients for Human Detection},
+  volume = {1},
+  doi = {10.1109/CVPR.2005.177},
+  abstract = {We study the question of feature sets for robust visual object recognition; adopting linear SVM based human detection as a test case. After reviewing existing edge and gradient based descriptors, we show experimentally that grids of histograms of oriented gradient (HOG) descriptors significantly outperform existing feature sets for human detection. We study the influence of each stage of the computation on performance, concluding that fine-scale gradients, fine orientation binning, relatively coarse spatial binning, and high-quality local contrast normalization in overlapping descriptor blocks are all important for good results. The new approach gives near-perfect separation on the original MIT pedestrian database, so we introduce a more challenging dataset containing over 1800 annotated human images with a large range of pose variations and backgrounds.},
+  booktitle = {2005 {{IEEE Computer Society Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}}'05)},
+  author = {Dalal, N. and Triggs, B.},
+  month = jun,
+  year = {2005},
+  keywords = {Image edge detection,object detection,support vector machines,object recognition,Histograms,feature extraction,Robustness,Testing,Image databases,coarse spatial binning,contrast normalization,edge based descriptors,fine orientation binning,fine-scale gradients,gradient based descriptors,gradient methods,High performance computing,histograms of oriented gradients,human detection,Humans,linear SVM,Object detection,Object recognition,overlapping descriptor,pedestrian database,robust visual object recognition,Support vector machines},
+  pages = {886-893 vol. 1},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/5DZC6F52/9411012.html}
+}
+
+@inproceedings{lowe_object_1999,
+  title = {Object Recognition from Local Scale-Invariant Features},
+  volume = {2},
+  doi = {10.1109/ICCV.1999.790410},
+  abstract = {An object recognition system has been developed that uses a new class of local image features. The features are invariant to image scaling, translation, and rotation, and partially invariant to illumination changes and affine or 3D projection. These features share similar properties with neurons in inferior temporal cortex that are used for object recognition in primate vision. Features are efficiently detected through a staged filtering approach that identifies stable points in scale space. Image keys are created that allow for local geometric deformations by representing blurred image gradients in multiple orientation planes and at multiple scales. The keys are used as input to a nearest neighbor indexing method that identifies candidate object matches. Final verification of each match is achieved by finding a low residual least squares solution for the unknown model parameters. Experimental results show that robust object recognition can be achieved in cluttered partially occluded images with a computation time of under 2 seconds},
+  booktitle = {Proceedings of the {{Seventh IEEE International Conference}} on {{Computer Vision}}},
+  author = {Lowe, D. G.},
+  year = {1999},
+  keywords = {Image recognition,object recognition,Computer science,feature extraction,Layout,computational geometry,Object recognition,3D projection,blurred image gradients,candidate object matches,cluttered partially occluded images,computation time,Electrical capacitance tomography,Filters,image matching,inferior temporal cortex,least squares approximations,Lighting,local geometric deformations,local image features,local scale-invariant features,low residual least squares solution,multiple orientation planes,nearest neighbor indexing method,Neurons,primate vision,Programmable logic arrays,Reactive power,robust object recognition,staged filtering approach,unknown model parameters},
+  pages = {1150-1157 vol.2},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/9MPEA4TN/790410.html}
+}
+
+@inproceedings{nogueira_learning_2016,
+  title = {Learning to Semantically Segment High-Resolution Remote Sensing Images},
+  doi = {10.1109/ICPR.2016.7900187},
+  abstract = {Land cover classification is a task that requires methods capable of learning high-level features while dealing with high volume of data. Overcoming these challenges, Convolutional Networks (ConvNets) can learn specific and adaptable features depending on the data while, at the same time, learn classifiers. In this work, we propose a novel technique to automatically perform pixel-wise land cover classification. To the best of our knowledge, there is no other work in the literature that perform pixel-wise semantic segmentation based on data-driven feature descriptors for high-resolution remote sensing images. The main idea is to exploit the power of ConvNet feature representations to learn how to semantically segment remote sensing images. First, our method learns each label in a pixel-wise manner by taking into account the spatial context of each pixel. In a predicting phase, the probability of a pixel belonging to a class is also estimated according to its spatial context and the learned patterns. We conducted a systematic evaluation of the proposed algorithm using two remote sensing datasets with very distinct properties. Our results show that the proposed algorithm provides improvements when compared to traditional and state-of-the-art methods that ranges from 5 to 15\% in terms of accuracy.},
+  booktitle = {2016 23rd {{International Conference}} on {{Pattern Recognition}} ({{ICPR}})},
+  author = {Nogueira, K. and Mura, M. Dalla and Chanussot, J. and Schwartz, W. R. and dos Santos, J. A.},
+  month = dec,
+  year = {2016},
+  keywords = {Context,neural nets,image representation,learning (artificial intelligence),Visualization,geophysical image processing,convolution,Machine learning,Semantics,feature extraction,image classification,image segmentation,remote sensing,land cover,Image segmentation,Feature extraction,Remote sensing,Semantic Segmentation,classifier learning,ConvNet feature representation,convolutional network,Deep Learning,feature descriptor,Feature Learning,High-resolution Images,high-resolution remote sensing image,image resolution,land cover classification,Land-cover Mapping,Pixel-wise Classification,pixel-wise semantic segmentation,Remote Sensing},
+  pages = {3566-3571},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/GNPR43FA/7900187.html}
+}
+
+@article{santos_multiscale_2012,
+  title = {Multiscale {{Classification}} of {{Remote Sensing Images}}},
+  volume = {50},
+  issn = {0196-2892},
+  doi = {10.1109/TGRS.2012.2186582},
+  abstract = {A huge effort has been applied in image classification to create high-quality thematic maps and to establish precise inventories about land cover use. The peculiarities of remote sensing images (RSIs) combined with the traditional image classification challenges made RSI classification a hard task. Our aim is to propose a kind of boost-classifier adapted to multiscale segmentation. We use the paradigm of boosting, whose principle is to combine weak classifiers to build an efficient global one. Each weak classifier is trained for one level of the segmentation and one region descriptor. We have proposed and tested weak classifiers based on linear support vector machines (SVM) and region distances provided by descriptors. The experiments were performed on a large image of coffee plantations. We have shown in this paper that our approach based on boosting can detect the scale and set of features best suited to a particular training set. We have also shown that hierarchical multiscale analysis is able to reduce training time and to produce a stronger classifier. We compare the proposed methods with a baseline based on SVM with radial basis function kernel. The results show that the proposed methods outperform the baseline.},
+  number = {10},
+  journal = {IEEE Transactions on Geoscience and Remote Sensing},
+  author = {dos Santos, J. A. and Gosselin, P. H. and Philipp-Foliguet, S. and Torres, R. da S. and Falao, A. X.},
+  month = oct,
+  year = {2012},
+  keywords = {Vectors,support vector machines,Image color analysis,geophysical image processing,Histograms,terrain mapping,Training,image classification,image segmentation,remote sensing,Image segmentation,Feature extraction,Support vector machines,boost-classifier,Boosting,coffee plantations,hierarchical multiscale analysis,high-quality thematic maps,image descriptors,land cover use,linear support vector machines,multiscale classification,multiscale segmentation,radial basis function kernel,region descriptor,region distances,remote sensing image (RSI),remote sensing image multiscale classification,support vector machines (SVM),training time,weak classifier},
+  pages = {3764-3775},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/KT46YPUT/6170888.html}
+}
+
+@inproceedings{girshick_rich_2014,
+  title = {Rich {{Feature Hierarchies}} for {{Accurate Object Detection}} and {{Semantic Segmentation}}},
+  doi = {10.1109/CVPR.2014.81},
+  abstract = {Object detection performance, as measured on the canonical PASCAL VOC dataset, has plateaued in the last few years. The best-performing methods are complex ensemble systems that typically combine multiple low-level image features with high-level context. In this paper, we propose a simple and scalable detection algorithm that improves mean average precision (mAP) by more than 30\% relative to the previous best result on VOC 2012 \textendash{} achieving a mAP of 53.3\%. Our approach combines two key insights: (1) one can apply high-capacity convolutional neural networks (CNNs) to bottom-up region proposals in order to localize and segment objects and (2) when labeled training data is scarce, supervised pre-training for an auxiliary task, followed by domain-specific fine-tuning, yields a significant performance boost. Since we combine region proposals with CNNs, we call our method R-CNN: Regions with CNN features. We also present experiments that provide insight into what the network learns, revealing a rich hierarchy of image features. Source code for the complete system is available at http://www.cs.berkeley.edu/ rbg/rcnn.},
+  booktitle = {2014 {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}}},
+  author = {Girshick, R. and Donahue, J. and Darrell, T. and Malik, J.},
+  month = jun,
+  year = {2014},
+  keywords = {Vectors,neural nets,object detection,Proposals,Visualization,Training,image segmentation,semantic segmentation,Feature extraction,Object detection,Support vector machines,auxiliary task,bottom-up region proposal,canonical PASCAL VOC dataset,detection algorithm,domain-specific fine-tuning,high-capacity convolutional neural network,image features,labeled training data,low-level image feature,mAP,mean average precision,object detection performance,performance boost,R-CNN,rich feature hierarchy,segment objects,source code,supervised pretraining},
+  pages = {580-587},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/QF6TL58Y/6909475.html}
+}
+
+@article{benediktsson_advances_2013,
+  title = {Advances in {{Very}}-{{High}}-{{Resolution Remote Sensing}} [{{Scanning}} the {{Issue}}]},
+  volume = {101},
+  issn = {0018-9219},
+  doi = {10.1109/JPROC.2012.2237076},
+  abstract = {The articles in special issue focus on advancements in very high resolution remote sensing technologies and applications.},
+  number = {3},
+  journal = {Proceedings of the IEEE},
+  author = {Benediktsson, J. A. and Chanussot, J. and Moon, W. M.},
+  month = mar,
+  year = {2013},
+  keywords = {Machine learning,Remote sensing,Hyperspectral imaging,Microwave communication,Optical fiber communication,Signal processing,Special issues and sections,Synthetic aperture radar},
+  pages = {566-569},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/7DWFSJXJ/6461961.html}
+}
+
+@article{atrey_multimodal_2010,
+  title = {Multimodal Fusion for Multimedia Analysis: A Survey},
+  volume = {16},
+  issn = {0942-4962, 1432-1882},
+  shorttitle = {Multimodal Fusion for Multimedia Analysis},
+  doi = {10.1007/s00530-010-0182-0},
+  abstract = {This survey aims at providing multimedia researchers with a state-of-the-art overview of fusion strategies, which are used for combining multiple modalities in order to accomplish various multimedia analysis tasks. The existing literature on multimodal fusion research is presented through several classifications based on the fusion methodology and the level of fusion (feature, decision, and hybrid). The fusion methods are described from the perspective of the basic concept, advantages, weaknesses, and their usage in various analysis tasks as reported in the literature. Moreover, several distinctive issues that influence a multimodal fusion process such as, the use of correlation and independence, confidence level, contextual information, synchronization between different modalities, and the optimal modality selection are also highlighted. Finally, we present the open issues for further research in the area of multimodal fusion.},
+  language = {en},
+  number = {6},
+  journal = {Multimedia Systems},
+  author = {Atrey, Pradeep K. and Hossain, M. Anwar and Saddik, Abdulmotaleb El and Kankanhalli, Mohan S.},
+  month = nov,
+  year = {2010},
+  pages = {345-379},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/WVMBTGT2/Atrey et al. - 2010 - Multimodal fusion for multimedia analysis a surve.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/HS4FVFEE/s00530-010-0182-0.html}
+}
+
+@article{neverova_moddrop_2016,
+  title = {{{ModDrop}}: Adaptive Multi-Modal Gesture Recognition},
+  shorttitle = {{{ModDrop}}},
+  abstract = {We present a method for gesture detection and localisation based on multi-scale and multi-modal deep learning. Each visual modality captures spatial information at a particular spatial scale (such as motion of the upper body or a hand), and the whole system operates at three temporal scales. Key to our technique is a training strategy which exploits: i) careful initialization of individual modalities; and ii) gradual fusion involving random dropping of separate channels (dubbed "ModDrop") for learning cross-modality correlations while preserving uniqueness of each modality-specific representation. We present experiments on the ChaLearn 2014 Looking at People Challenge gesture recognition track, in which we placed first out of 17 teams. Fusing multiple modalities at several spatial and temporal scales leads to a significant increase in recognition rates, allowing the model to compensate for errors of the individual classifiers as well as noise in the separate channels. Futhermore, the proposed ModDrop training technique ensures robustness of the classifier to missing signals in one or several channels to produce meaningful predictions from any number of available modalities. In addition, we demonstrate the applicability of the proposed fusion scheme to modalities of arbitrary nature by experiments on the same dataset augmented with audio.},
+  journal = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  author = {Neverova, Natalia and Wolf, Christian and Taylor, Graham W. and Nebout, Florian},
+  month = apr,
+  year = {2016},
+  pages = {to appear},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/IZMQKQK7/Neverova et al. - 2016 - ModDrop adaptive multi-modal gesture recognition.pdf}
+}
+
+@inproceedings{valada_deep_2016,
+  series = {Springer Proceedings in Advanced Robotics},
+  title = {Deep {{Multispectral Semantic Scene Understanding}} of {{Forested Environments Using Multimodal Fusion}}},
+  isbn = {978-3-319-50114-7 978-3-319-50115-4},
+  doi = {10.1007/978-3-319-50115-4_41},
+  abstract = {Semantic scene understanding of unstructured environments is a highly challenging task for robots operating in the real world. Deep Convolutional Neural Network architectures define the state of the art in various segmentation tasks. So far, researchers have focused on segmentation with RGB data. In this paper, we study the use of multispectral and multimodal images for semantic segmentation and develop fusion architectures that learn from RGB, Near-InfraRed channels, and depth data. We introduce a first-of-its-kind multispectral segmentation benchmark that contains 15, 000 images and 366 pixel-wise ground truth annotations of unstructured forest environments. We identify new data augmentation strategies that enable training of very deep models using relatively small datasets. We show that our UpNet architecture exceeds the state of the art both qualitatively and quantitatively on our benchmark. In addition, we present experimental results for segmentation under challenging real-world conditions. Benchmark and demo are publicly available at http://deepscene.cs.uni-freiburg.de.},
+  language = {en},
+  booktitle = {2016 {{International Symposium}} on {{Experimental Robotics}}},
+  publisher = {{Springer, Cham}},
+  author = {Valada, Abhinav and Oliveira, Gabriel L. and Brox, Thomas and Burgard, Wolfram},
+  month = oct,
+  year = {2016},
+  pages = {465-477},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/LJKA6IUP/978-3-319-50115-4_41.html}
+}
+
+@inproceedings{wu_online_2013,
+  address = {New York, NY, USA},
+  series = {MM '13},
+  title = {Online {{Multimodal Deep Similarity Learning}} with {{Application}} to {{Image Retrieval}}},
+  isbn = {978-1-4503-2404-5},
+  doi = {10.1145/2502081.2502112},
+  abstract = {Recent years have witnessed extensive studies on distance metric learning (DML) for improving similarity search in multimedia information retrieval tasks. Despite their successes, most existing DML methods suffer from two critical limitations: (i) they typically attempt to learn a linear distance function on the input feature space, in which the assumption of linearity limits their capacity of measuring the similarity on complex patterns in real-world applications; (ii) they are often designed for learning distance metrics on uni-modal data, which may not effectively handle the similarity measures for multimedia objects with multimodal representations. To address these limitations, in this paper, we propose a novel framework of online multimodal deep similarity learning (OMDSL), which aims to optimally integrate multiple deep neural networks pretrained with stacked denoising autoencoder. In particular, the proposed framework explores a unified two-stage online learning scheme that consists of (i) learning a flexible nonlinear transformation function for each individual modality, and (ii) learning to find the optimal combination of multiple diverse modalities simultaneously in a coherent process. We conduct an extensive set of experiments to evaluate the performance of the proposed algorithms for multimodal image retrieval tasks, in which the encouraging results validate the effectiveness of the proposed technique.},
+  booktitle = {Proceedings of the 21st {{ACM International Conference}} on {{Multimedia}}},
+  publisher = {{ACM}},
+  author = {Wu, Pengcheng and Hoi, Steven C.H. and Xia, Hao and Zhao, Peilin and Wang, Dayong and Miao, Chunyan},
+  year = {2013},
+  keywords = {image retrieval,deep learning,distance metric learning,online learning,similarity learning},
+  pages = {153--162},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/922XFWRD/Wu et al. - 2013 - Online Multimodal Deep Similarity Learning with Ap.pdf}
+}
+
+@inproceedings{li_modout_2017,
+  address = {Washington D.C., United States},
+  title = {Modout: {{Learning}} to {{Fuse Face}} and {{Gesture Modalities}} with {{Stochastic Regularization}}},
+  shorttitle = {Modout},
+  abstract = {Model selection methods based on stochastic regularization such as
+  Dropout have been widely used in deep learning due to their
+  simplicity and effectiveness. The standard Dropout method treats all
+  units, visible or hidden, in the same way, thus ignoring any $\backslash$emph\{a
+    priori\} information related to grouping or structure. Such
+  structure is present in multi-modal learning applications such as
+  affect analysis and gesture recognition, where
+  subsets of units may correspond to individual modalities. In this
+  paper we describe Modout, a model selection method based on
+  stochastic regularization, which is particularly useful in the
+  multi-modal setting. Different from previous methods, it is capable
+  of learning whether or when to fuse two modalities in a layer, which
+  is usually considered to be an architectural hyper-parameter by deep
+  learning researchers and practitioners. Modout is evaluated on one
+  synthetic and two real multi-modal datasets. 
+  The results indicate improved performance compared to other
+  stochastic regularization methods. The result on the Montalbano
+  dataset shows that learning a fusion structure by Modout is on par
+  with a state-of-the-art carefully designed architecture.},
+  booktitle = {International {{Conference}} on {{Automatic Face}} and {{Gesture Recognition}}},
+  author = {Li, Fan and Neverova, Natalia and Wolf, Christian and Taylor, Graham W.},
+  month = may,
+  year = {2017},
+  keywords = {deep learning,gesture recognition},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/RYPSSMCL/hal-01444614.html}
+}
+
+@article{menze_multimodal_2015,
+  title = {The {{Multimodal Brain Tumor Image Segmentation Benchmark}} ({{BRATS}})},
+  volume = {34},
+  issn = {0278-0062},
+  doi = {10.1109/TMI.2014.2377694},
+  abstract = {In this paper we report the set-up and results of the Multimodal Brain Tumor Image Segmentation Benchmark (BRATS) organized in conjunction with the MICCAI 2012 and 2013 conferences. Twenty state-of-the-art tumor segmentation algorithms were applied to a set of 65 multi-contrast MR scans of low- and high-grade glioma patients - manually annotated by up to four raters - and to 65 comparable scans generated using tumor image simulation software. Quantitative evaluations revealed considerable disagreement between the human raters in segmenting various tumor sub-regions (Dice scores in the range 74\%-85\%), illustrating the difficulty of this task. We found that different algorithms worked best for different sub-regions (reaching performance comparable to human inter-rater variability), but that no single algorithm ranked in the top for all sub-regions simultaneously. Fusing several good algorithms using a hierarchical majority vote yielded segmentations that consistently ranked above all individual algorithms, indicating remaining opportunities for further methodological improvements. The BRATS image data and manual annotations continue to be publicly available through an online evaluation system as an ongoing benchmarking resource.},
+  number = {10},
+  journal = {IEEE Transactions on Medical Imaging},
+  author = {Menze, B. H. and Jakab, A. and Bauer, S. and Kalpathy-Cramer, J. and Farahani, K. and Kirby, J. and Burren, Y. and Porz, N. and Slotboom, J. and Wiest, R. and Lanczi, L. and Gerstner, E. and Weber, M. A. and Arbel, T. and Avants, B. B. and Ayache, N. and Buendia, P. and Collins, D. L. and Cordier, N. and Corso, J. J. and Criminisi, A. and Das, T. and Delingette, H. and Demiralp, C and Durst, C. R. and Dojat, M. and Doyle, S. and Festa, J. and Forbes, F. and Geremia, E. and Glocker, B. and Golland, P. and Guo, X. and Hamamci, A. and Iftekharuddin, K. M. and Jena, R. and John, N. M. and Konukoglu, E. and Lashkari, D. and Mariz, J. A. and Meier, R. and Pereira, S. and Precup, D. and Price, S. J. and Raviv, T. R. and Reza, S. M. S. and Ryan, M. and Sarikaya, D. and Schwartz, L. and Shin, H. C. and Shotton, J. and Silva, C. A. and Sousa, N. and Subbanna, N. K. and Szekely, G. and Taylor, T. J. and Thomas, O. M. and Tustison, N. J. and Unal, G. and Vasseur, F. and Wintermark, M. and Ye, D. H. and Zhao, L. and Zhao, B. and Zikic, D. and Prastawa, M. and Reyes, M. and Leemput, K. Van},
+  month = oct,
+  year = {2015},
+  keywords = {Benchmark,image segmentation,Benchmark testing,Image segmentation,1,benchmark testing,Biomedical imaging,biomedical MRI,brain,Brain,BRATS,Dice scores,Educational institutions,glioma patients,hierarchical majority vote,human interrater variability,Lesions,medical image processing,MICCAI 2012 conference,MICCAI 2013 conference,MRI,multicontrast MR scans,Multimodal Brain Tumor Image Segmentation Benchmark,Oncology/tumor,tumor image simulation software,tumor segmentation algorithm,tumours},
+  pages = {1993-2024},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/6A6PXKD6/6975210.html}
+}
+
+@inproceedings{mroueh_deep_2015,
+  title = {Deep Multimodal Learning for {{Audio}}-{{Visual Speech Recognition}}},
+  doi = {10.1109/ICASSP.2015.7178347},
+  abstract = {In this paper, we present methods in deep multimodal learning for fusing speech and visual modalities for Audio-Visual Automatic Speech Recognition (AV-ASR). First, we study an approach where uni-modal deep networks are trained separately and their final hidden layers fused to obtain a joint feature space in which another deep network is built. While the audio network alone achieves a phone error rate (PER) of 41\% under clean condition on the IBM large vocabulary audio-visual studio dataset, this fusion model achieves a PER of 35.83\% demonstrating the tremendous value of the visual channel in phone classification even in audio with high signal to noise ratio. Second, we present a new deep network architecture that uses a bilinear softmax layer to account for class specific correlations between modalities. We show that combining the posteriors from the bilinear networks with those from the fused model mentioned above results in a further significant phone error rate reduction, yielding a final PER of 34.03\%.},
+  booktitle = {2015 {{IEEE International Conference}} on {{Acoustics}}, {{Speech}} and {{Signal Processing}} ({{ICASSP}})},
+  author = {Mroueh, Y. and Marcheret, E. and Goel, V.},
+  month = apr,
+  year = {2015},
+  keywords = {Visualization,Correlation,Training,acoustic noise,acoustic signal processing,audio network,audio-visual automatic speech recognition,Audio-Visual Automatic Speech Recognition (AV-ASR),audio-visual speech recognition,AV-ASR,bilinear networks,bilinear softmax layer,deep multimodal learning,deep network architecture,Deep Neural Networks,Error analysis,fusing speech,fusion model,hidden layers,IBM large vocabulary audio-visual studio,IBM large vocabulary audio-visual studio dataset,Joints,Multimodal Learning,PER,phone classification,phone error rate,signal-noise ratio,significant phone error rate reduction,Speech,speech recognition,Speech recognition,uni-modal deep networks,visual channel,visual modalities},
+  pages = {2130-2134},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/BS5HQMRF/cookiedetectresponse.html}
+}
+
+@article{noda_audio-visual_2015,
+  title = {Audio-Visual Speech Recognition Using Deep Learning},
+  volume = {42},
+  issn = {0924-669X, 1573-7497},
+  doi = {10.1007/s10489-014-0629-7},
+  abstract = {Audio-visual speech recognition (AVSR) system is thought to be one of the most promising solutions for reliable speech recognition, particularly when the audio is corrupted by noise. However, cautious selection of sensory features is crucial for attaining high recognition performance. In the machine-learning community, deep learning approaches have recently attracted increasing attention because deep neural networks can effectively extract robust latent features that enable various recognition algorithms to demonstrate revolutionary generalization capabilities under diverse application conditions. This study introduces a connectionist-hidden Markov model (HMM) system for noise-robust AVSR. First, a deep denoising autoencoder is utilized for acquiring noise-robust audio features. By preparing the training data for the network with pairs of consecutive multiple steps of deteriorated audio features and the corresponding clean features, the network is trained to output denoised audio features from the corresponding features deteriorated by noise. Second, a convolutional neural network (CNN) is utilized to extract visual features from raw mouth area images. By preparing the training data for the CNN as pairs of raw images and the corresponding phoneme label outputs, the network is trained to predict phoneme labels from the corresponding mouth area input images. Finally, a multi-stream HMM (MSHMM) is applied for integrating the acquired audio and visual HMMs independently trained with the respective features. By comparing the cases when normal and denoised mel-frequency cepstral coefficients (MFCCs) are utilized as audio features to the HMM, our unimodal isolated word recognition results demonstrate that approximately 65 \% word recognition rate gain is attained with denoised MFCCs under 10 dB signal-to-noise-ratio (SNR) for the audio signal input. Moreover, our multimodal isolated word recognition results utilizing MSHMM with denoised MFCCs and acquired visual features demonstrate that an additional word recognition rate gain is attained for the SNR conditions below 10 dB.},
+  language = {en},
+  number = {4},
+  journal = {Applied Intelligence},
+  author = {Noda, Kuniaki and Yamaguchi, Yuki and Nakadai, Kazuhiro and Okuno, Hiroshi G. and Ogata, Tetsuya},
+  month = jun,
+  year = {2015},
+  pages = {722-737},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/SMEUCCPK/Noda et al. - 2015 - Audio-visual speech recognition using deep learnin.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/ENYBTPEH/s10489-014-0629-7.html}
+}
+
+@inproceedings{ringeval_introducing_2013,
+  title = {Introducing the {{RECOLA}} Multimodal Corpus of Remote Collaborative and Affective Interactions},
+  doi = {10.1109/FG.2013.6553805},
+  abstract = {We present in this paper a new multimodal corpus of spontaneous collaborative and affective interactions in French: RECOLA, which is being made available to the research community. Participants were recorded in dyads during a video conference while completing a task requiring collaboration. Different multimodal data, i.e., audio, video, ECG and EDA, were recorded continuously and synchronously. In total, 46 participants took part in the test, for which the first 5 minutes of interaction were kept to ease annotation. In addition to these recordings, 6 annotators measured emotion continuously on two dimensions: arousal and valence, as well as social behavior labels on live dimensions. The corpus allowed us to take self-report measures of users during task completion. Methodologies and issues related to affective corpus construction are briefly reviewed in this paper. We further detail how the corpus was constructed, i.e., participants, procedure and task, the multimodal recording setup, the annotation of data and some analysis of the quality of these annotations.},
+  booktitle = {2013 10th {{IEEE International Conference}} and {{Workshops}} on {{Automatic Face}} and {{Gesture Recognition}} ({{FG}})},
+  author = {Ringeval, F. and Sonderegger, A. and Sauer, J. and Lalanne, D.},
+  month = apr,
+  year = {2013},
+  keywords = {Context,Collaboration,arousal dimension,dyads,emotion measurement,French language,Mood,multimodal data,natural languages,Physiology,RECOLA multimodal corpus,remote collaborative and affective interactions,research community,self-report measures,social behavior labels,social sciences,Software,Synchronization,valence dimension,video conference},
+  pages = {1-8},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/QKESJ6Z6/6553805.html}
+}
+
+@article{min_kinectfacedb_2014,
+  title = {{{KinectFaceDB}}: {{A Kinect Database}} for {{Face Recognition}}},
+  volume = {44},
+  issn = {2168-2216},
+  shorttitle = {{{KinectFaceDB}}},
+  doi = {10.1109/TSMC.2014.2331215},
+  abstract = {The recent success of emerging RGB-D cameras such as the Kinect sensor depicts a broad prospect of 3-D data-based computer applications. However, due to the lack of a standard testing database, it is difficult to evaluate how the face recognition technology can benefit from this up-to-date imaging sensor. In order to establish the connection between the Kinect and face recognition research, in this paper, we present the first publicly available face database (i.e., KinectFaceDB1) based on the Kinect sensor. The database consists of different data modalities (well-aligned and processed 2-D, 2.5-D, 3-D, and video-based face data) and multiple facial variations. We conducted benchmark evaluations on the proposed database using standard face recognition methods, and demonstrated the gain in performance when integrating the depth data with the RGB data via score-level fusion. We also compared the 3-D images of Kinect (from the KinectFaceDB) with the traditional high-quality 3-D scans (from the FRGC database) in the context of face biometrics, which reveals the imperative needs of the proposed database for face recognition research.},
+  number = {11},
+  journal = {IEEE Transactions on Systems, Man, and Cybernetics: Systems},
+  author = {Min, R. and Kose, N. and Dugelay, J. L.},
+  month = nov,
+  year = {2014},
+  keywords = {image colour analysis,Database,image fusion,Standards,visual databases,image sensors,Cameras,Databases,Lighting,3D data-based computer applications,data modalities,depth data,Face,face biometrics,face database,face recognition,Face recognition,face recognition methods,face recognition technology,facial variations,FRGC database,high-quality 3D scans,Kinect,Kinect database,Kinect sensor,KinectFaceDB,RGB data,RGB-D cameras,score-level fusion,up-to-date imaging sensor,Video sequences,video-based face data},
+  pages = {1534-1548},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/BNNUXN5M/6866883.html}
+}
+
+@inproceedings{ofli_berkeley_2013,
+  title = {Berkeley {{MHAD}}: {{A}} Comprehensive {{Multimodal Human Action Database}}},
+  shorttitle = {Berkeley {{MHAD}}},
+  doi = {10.1109/WACV.2013.6474999},
+  abstract = {Over the years, a large number of methods have been proposed to analyze human pose and motion information from images, videos, and recently from depth data. Most methods, however, have been evaluated on datasets that were too specific to each application, limited to a particular modality, and more importantly, captured under unknown conditions. To address these issues, we introduce the Berkeley Multimodal Human Action Database (MHAD) consisting of temporally synchronized and geometrically calibrated data from an optical motion capture system, multi-baseline stereo cameras from multiple views, depth sensors, accelerometers and microphones. This controlled multimodal dataset provides researchers an inclusive testbed to develop and benchmark new algorithms across multiple modalities under known capture conditions in various research domains. To demonstrate possible use of MHAD for action recognition, we compare results using the popular Bag-of-Words algorithm adapted to each modality independently with the results of various combinations of modalities using the Multiple Kernel Learning. Our comparative results show that multimodal analysis of human motion yields better action recognition rates than unimodal analysis.},
+  booktitle = {2013 {{IEEE Workshop}} on {{Applications}} of {{Computer Vision}} ({{WACV}})},
+  author = {Ofli, F. and Chaudhry, R. and Kurillo, G. and Vidal, R. and Bajcsy, R.},
+  month = jan,
+  year = {2013},
+  keywords = {learning (artificial intelligence),visual databases,Cameras,Videos,Databases,Humans,Synchronization,accelerometer,Accelerometers,action recognition,bag-of-words algorithm,Berkeley MHAD,depth sensor,human pose information,image motion analysis,microphone,Microphones,motion information,multibaseline stereo camera,multimodal analysis,multimodal human action database,multiple kernel learning,optical motion capture system,pose estimation},
+  pages = {53-60},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/HSHQRDHR/6474999.html}
+}
+
+@article{gomez-chova_multimodal_2015,
+  title = {Multimodal {{Classification}} of {{Remote Sensing Images}}: {{A Review}} and {{Future Directions}}},
+  volume = {103},
+  issn = {0018-9219},
+  shorttitle = {Multimodal {{Classification}} of {{Remote Sensing Images}}},
+  doi = {10.1109/JPROC.2015.2449668},
+  abstract = {Earth observation through remote sensing images allows the accurate characterization and identification of materials on the surface from space and airborne platforms. Multiple and heterogeneous image sources can be available for the same geographical region: multispectral, hyperspectral, radar, multitemporal, and multiangular images can today be acquired over a given scene. These sources can be combined/fused to improve classification of the materials on the surface. Even if this type of systems is generally accurate, the field is about to face new challenges: the upcoming constellations of satellite sensors will acquire large amounts of images of different spatial, spectral, angular, and temporal resolutions. In this scenario, multimodal image fusion stands out as the appropriate framework to address these problems. In this paper, we provide a taxonomical view of the field and review the current methodologies for multimodal classification of remote sensing images. We also highlight the most recent advances, which exploit synergies with machine learning and signal processing: sparse methods, kernel-based fusion, Markov modeling, and manifold alignment. Then, we illustrate the different approaches in seven challenging remote sensing applications: 1) multiresolution fusion for multispectral image classification; 2) image downscaling as a form of multitemporal image fusion and multidimensional interpolation among sensors of different spatial, spectral, and temporal resolutions; 3) multiangular image classification; 4) multisensor image fusion exploiting physically-based feature extractions; 5) multitemporal image classification of land covers in incomplete, inconsistent, and vague image sources; 6) spatiospectral multisensor fusion of optical and radar images for change detection; and 7) cross-sensor adaptation of classifiers. The adoption of these techniques in operational settings will help to m- nitor our planet from space in the very near future.},
+  number = {9},
+  journal = {Proceedings of the IEEE},
+  author = {G{\'o}mez-Chova, L. and Tuia, D. and Moser, G. and Camps-Valls, G.},
+  month = sep,
+  year = {2015},
+  keywords = {geophysical image processing,geophysical techniques,Earth observation,Satellites,Spatial resolution,image classification,remote sensing,image fusion,Sensors,Remote sensing,Classification,Synthetic aperture radar,airborne platforms,fusion,heterogeneous image sources,Image fusion,image multimodal classification,kernel-based fusion,machine learning,manifold alignment,Markov modeling,material characterization,material classification,material identification,multiangular,multidimensional interpolation,multimodal image analysis,multimodal image fusion,multiresolution fusion,multisource,multispectral image classification,multitemporal,multitemporal image fusion,optical images,radar images,remote sensing image,satellite sensors,signal processing,space platforms,sparse methods},
+  pages = {1560-1584},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/RRCMD8N8/7182258.html}
+}
+
+@article{lahat_multimodal_2015,
+  title = {Multimodal {{Data Fusion}}: {{An Overview}} of {{Methods}}, {{Challenges}}, and {{Prospects}}},
+  volume = {103},
+  issn = {0018-9219},
+  shorttitle = {Multimodal {{Data Fusion}}},
+  doi = {10.1109/JPROC.2015.2460697},
+  abstract = {In various disciplines, information about the same phenomenon can be acquired from different types of detectors, at different conditions, in multiple experiments or subjects, among others. We use the term ``modality'' for each such acquisition framework. Due to the rich characteristics of natural phenomena, it is rare that a single modality provides complete knowledge of the phenomenon of interest. The increasing availability of several modalities reporting on the same system introduces new degrees of freedom, which raise questions beyond those related to exploiting each modality separately. As we argue, many of these questions, or ``challenges,'' are common to multiple domains. This paper deals with two key issues: ``why we need data fusion'' and ``how we perform it.'' The first issue is motivated by numerous examples in science and technology, followed by a mathematical framework that showcases some of the benefits that data fusion provides. In order to address the second issue, ``diversity'' is introduced as a key concept, and a number of data-driven solutions based on matrix and tensor decompositions are discussed, emphasizing how they account for diversity across the data sets. The aim of this paper is to provide the reader, regardless of his or her community of origin, with a taste of the vastness of the field, the prospects, and the opportunities that it holds.},
+  number = {9},
+  journal = {Proceedings of the IEEE},
+  author = {Lahat, D. and Adali, T. and Jutten, C.},
+  month = sep,
+  year = {2015},
+  keywords = {Laser radar,Data integration,matrix decomposition,Sensors,data fusion,Synthetic aperture radar,acquisition framework,Blind source separation,data acquisition,data diversity,data-driven solutions,Electroencephalography,latent variables,modality term,multimodal data fusion,Multimodal sensors,multimodality,multiset data analysis,overview,sensor fusion,tensor decomposition,tensor decompositions,tensors},
+  pages = {1449-1477},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/AKPA4Z43/7214350.html}
+}
+
+@article{ye_robust_2017,
+  title = {Robust {{Registration}} of {{Multimodal Remote Sensing Images Based}} on {{Structural Similarity}}},
+  volume = {55},
+  issn = {0196-2892},
+  doi = {10.1109/TGRS.2017.2656380},
+  abstract = {Automatic registration of multimodal remote sensing data [e.g., optical, light detection and ranging (LiDAR), and synthetic aperture radar (SAR)] is a challenging task due to the significant nonlinear radiometric differences between these data. To address this problem, this paper proposes a novel feature descriptor named the histogram of orientated phase congruency (HOPC), which is based on the structural properties of images. Furthermore, a similarity metric named HOPCncc is defined, which uses the normalized correlation coefficient (NCC) of the HOPC descriptors for multimodal registration. In the definition of the proposed similarity metric, we first extend the phase congruency model to generate its orientation representation and use the extended model to build HOPCncc. Then, a fast template matching scheme for this metric is designed to detect the control points between images. The proposed HOPCncc aims to capture the structural similarity between images and has been tested with a variety of optical, LiDAR, SAR, and map data. The results show that HOPCncc is robust against complex nonlinear radiometric differences and outperforms the state-of-the-art similarities metrics (i.e., NCC and mutual information) in matching performance. Moreover, a robust registration method is also proposed in this paper based on HOPCncc, which is evaluated using six pairs of multimodal remote sensing images. The experimental results demonstrate the effectiveness of the proposed method for multimodal image registration.},
+  number = {5},
+  journal = {IEEE Transactions on Geoscience and Remote Sensing},
+  author = {Ye, Y. and Shan, J. and Bruzzone, L. and Shen, L.},
+  month = may,
+  year = {2017},
+  keywords = {LiDAR,remote sensing,Robustness,Feature extraction,Remote sensing,Image registration,SAR,image matching,feature descriptor,multimodal image analysis,automatic image registration,fast template matching scheme,histogram of orientated phase congruency,image registration,light detection and ranging,map data,multimodal remote sensing data,multimodal remote sensing image registration,Nonlinear optics,normalized correlation coefficient,optical radar,phase congruency,Radiometry,robust registration method,structural similarity,synthetic aperture radar},
+  pages = {2941-2958},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/2GA58VAH/7862734.html}
+}
+
+@article{le_saux_2018_2018,
+  title = {2018 {{IEEE GRSS Data Fusion Contest}}: {{Multimodal Land Use Classification}} [{{Technical Committees}}]},
+  volume = {6},
+  issn = {2473-2397},
+  shorttitle = {2018 {{IEEE GRSS Data Fusion Contest}}},
+  doi = {10.1109/MGRS.2018.2798161},
+  abstract = {Presents information on the 2018 IEEE GRSS Data Fusion Contest.},
+  number = {1},
+  journal = {IEEE Geoscience and Remote Sensing Magazine},
+  author = {Le Saux, B and Yokoya, N. and Hansch, R. and Prasad, S.},
+  month = mar,
+  year = {2018},
+  pages = {52-54},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/UTBE7ZSW/cookiedetectresponse.html}
+}
+
+@article{tuia_2017_2017,
+  title = {The 2017 {{IEEE Geoscience}} and {{Remote Sensing Society Data Fusion Contest}}: {{Open Data}} for {{Global Multimodal Land Use Classification}} [{{Technical Committees}}]},
+  volume = {5},
+  issn = {2473-2397},
+  shorttitle = {The 2017 {{IEEE Geoscience}} and {{Remote Sensing Society Data Fusion Contest}}},
+  doi = {10.1109/MGRS.2017.2760346},
+  abstract = {Presents information on the 2017 IEEE Geoscience and Remote Sensing Society Data Fusion Contest.},
+  number = {4},
+  journal = {IEEE Geoscience and Remote Sensing Magazine},
+  author = {Tuia, D. and Moser, G. and Saux, B. Le and Bechtel, B. and See, L.},
+  month = dec,
+  year = {2017},
+  pages = {110-114},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/S5KYRQTF/cookiedetectresponse.html}
+}
+
+@article{baltrusaitis_multimodal_2017,
+  archivePrefix = {arXiv},
+  eprinttype = {arxiv},
+  eprint = {1705.09406},
+  primaryClass = {cs},
+  title = {Multimodal {{Machine Learning}}: {{A Survey}} and {{Taxonomy}}},
+  shorttitle = {Multimodal {{Machine Learning}}},
+  abstract = {Our experience of the world is multimodal - we see objects, hear sounds, feel texture, smell odors, and taste flavors. Modality refers to the way in which something happens or is experienced and a research problem is characterized as multimodal when it includes multiple such modalities. In order for Artificial Intelligence to make progress in understanding the world around us, it needs to be able to interpret such multimodal signals together. Multimodal machine learning aims to build models that can process and relate information from multiple modalities. It is a vibrant multi-disciplinary field of increasing importance and with extraordinary potential. Instead of focusing on specific multimodal applications, this paper surveys the recent advances in multimodal machine learning itself and presents them in a common taxonomy. We go beyond the typical early and late fusion categorization and identify broader challenges that are faced by multimodal machine learning, namely: representation, translation, alignment, fusion, and co-learning. This new taxonomy will enable researchers to better understand the state of the field and identify directions for future research.},
+  journal = {arXiv:1705.09406 [cs]},
+  author = {Baltru{\v s}aitis, Tadas and Ahuja, Chaitanya and Morency, Louis-Philippe},
+  month = may,
+  year = {2017},
+  keywords = {Computer Science - Learning},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/WM47Z7Z9/Baltrušaitis et al. - 2017 - Multimodal Machine Learning A Survey and Taxonomy.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/9LXSGR6P/1705.html}
+}
+
+@inproceedings{dechesne_how_2017,
+  title = {How to Combine Lidar and Very High Resolution Multispectral Images for Forest Stand Segmentation?},
+  doi = {10.1109/IGARSS.2017.8127572},
+  abstract = {Forest stands are a basic unit of analysis for forest inventory and mapping. Stands are defined as large forested areas of homogeneous tree species composition and age. Their accurate delineation is usually performed by human operators through visual analysis of very high resolution (VHR) infra-red and visible images. This task is tedious, highly time consuming, and needs to be automated for scalability and efficient updating purposes. The most appropriate fusion of two remote sensing modalities (lidar and multispectral images) is investigated here. The multispectral images give information about the tree species while 3D lidar point clouds provide geometric information. The fusion is operated at three different levels within a semantic segmentation workflow: over-segmentation, classification, and regularization. Results show that over-segmentation can be performed either on lidar or optical images without performance loss or gain, whereas fusion is mandatory for efficient semantic segmentation. Eventually, the fusion strategy dictates the composition and nature of the forest stands, assessing the high versatility of our approach.},
+  booktitle = {2017 {{IEEE International Geoscience}} and {{Remote Sensing Symposium}} ({{IGARSS}})},
+  author = {Dechesne, C. and Mallet, C. and Bris, A. Le and Gouet-Brunet, V.},
+  month = jul,
+  year = {2017},
+  keywords = {segmentation,geophysical image processing,Laser radar,classification,Vegetation,Three-dimensional displays,image classification,image segmentation,image fusion,vegetation mapping,Image segmentation,Feature extraction,Databases,Remote sensing,vegetation,fusion,optical images,optical radar,3D lidar point clouds,forest inventory,forest mapping,forest stands,forested areas,forestry,fusion strategy,homogeneous tree species composition,infrared images,Lidar,lidar image,multispectral imagery,remote sensing by laser beam,remote sensing modalities,semantic segmentation workflow,tree species,very-high-resolution multispectral images,visual analysis},
+  pages = {2772-2775},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/3F5HIF7P/8127572.html}
+}
+
+@article{bengio_representation_2013,
+  title = {Representation {{Learning}}: {{A Review}} and {{New Perspectives}}},
+  volume = {35},
+  issn = {0162-8828},
+  shorttitle = {Representation {{Learning}}},
+  doi = {10.1109/TPAMI.2013.50},
+  abstract = {The success of machine learning algorithms generally depends on data representation, and we hypothesize that this is because different representations can entangle and hide more or less the different explanatory factors of variation behind the data. Although specific domain knowledge can be used to help design representations, learning with generic priors can also be used, and the quest for AI is motivating the design of more powerful representation-learning algorithms implementing such priors. This paper reviews recent work in the area of unsupervised feature learning and deep learning, covering advances in probabilistic models, autoencoders, manifold learning, and deep networks. This motivates longer term unanswered questions about the appropriate objectives for learning good representations, for computing representations (i.e., inference), and the geometrical connections between representation learning, density estimation, and manifold learning.},
+  number = {8},
+  journal = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  author = {Bengio, Y. and Courville, A. and Vincent, P.},
+  month = aug,
+  year = {2013},
+  keywords = {neural nets,probability,Neural networks,Machine learning,feature learning,Learning systems,autoencoders,Feature extraction,Deep learning,unsupervised learning,Humans,Speech recognition,Abstracts,AI,Algorithms,artificial intelligence,Artificial Intelligence,autoencoder,Boltzmann machine,data representation,data structures,density estimation,geometrical connections,machine learning algorithms,manifold learning,Manifolds,Neural Networks (Computer),probabilistic models,representation learning,unsupervised feature learning},
+  pages = {1798-1828},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/VVVC9RRN/6472238.html}
+}
+
+@article{dechesne_semantic_2017,
+  title = {Semantic Segmentation of Forest Stands of Pure Species Combining Airborne Lidar Data and Very High Resolution Multispectral Imagery},
+  volume = {126},
+  issn = {0924-2716},
+  doi = {10.1016/j.isprsjprs.2017.02.011},
+  abstract = {Forest stands are the basic units for forest inventory and mapping. Stands are defined as large forested areas (e.g., $\geqslant$2ha) of homogeneous tree species composition and age. Their accurate delineation is usually performed by human operators through visual analysis of very high resolution (VHR) infra-red images. This task is tedious, highly time consuming, and should be automated for scalability and efficient updating purposes. In this paper, a method based on the fusion of airborne lidar data and VHR multispectral images is proposed for the automatic delineation of forest stands containing one dominant species (purity superior to 75\%). This is the key preliminary task for forest land-cover database update. The multispectral images give information about the tree species whereas 3D lidar point clouds provide geometric information on the trees and allow their individual extraction. Multi-modal features are computed, both at pixel and object levels: the objects are individual trees extracted from lidar data. A supervised classification is then performed at the object level in order to coarsely discriminate the existing tree species in each area of interest. The classification results are further processed to obtain homogeneous areas with smooth borders by employing an energy minimum framework, where additional constraints are joined to form the energy function. The experimental results show that the proposed method provides very satisfactory results both in terms of stand labeling and delineation (overall accuracy ranges between 84\% and 99\%).},
+  journal = {ISPRS Journal of Photogrammetry and Remote Sensing},
+  author = {Dechesne, Cl{\'e}ment and Mallet, Cl{\'e}ment and Le Bris, Arnaud and Gouet-Brunet, Val{\'e}rie},
+  month = apr,
+  year = {2017},
+  keywords = {Feature selection,Lidar,Energy minimization,Forest stand delineation,Fusion,Multispectral imagery,Regularisation,Supervised classification,Tree species},
+  pages = {129-145},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/WPIRC3P4/Dechesne et al. - 2017 - Semantic segmentation of forest stands of pure spe.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/E4W5V7GP/S0924271616302763.html}
+}
+
+@article{guo_relevance_2011,
+  title = {Relevance of Airborne Lidar and Multispectral Image Data for Urban Scene Classification Using {{Random Forests}}},
+  volume = {66},
+  issn = {0924-2716},
+  doi = {10.1016/j.isprsjprs.2010.08.007},
+  abstract = {Airborne lidar systems have become a source for the acquisition of elevation data. They provide georeferenced, irregularly distributed 3D point clouds of high altimetric accuracy. Moreover, these systems can provide for a single laser pulse, multiple returns or echoes, which correspond to different illuminated objects. In addition to multi-echo laser scanners, full-waveform systems are able to record 1D signals representing a train of echoes caused by reflections at different targets. These systems provide more information about the structure and the physical characteristics of the targets. Many approaches have been developed, for urban mapping, based on aerial lidar solely or combined with multispectral image data. However, they have not assessed the importance of input features. In this paper, we focus on a multi-source framework using aerial lidar (multi-echo and full waveform) and aerial multispectral image data. We aim to study the feature relevance for dense urban scenes. The Random Forests algorithm is chosen as a classifier: it runs efficiently on large datasets, and provides measures of feature importance for each class. The margin theory is used as a confidence measure of the classifier, and to confirm the relevance of input features for urban classification. The quantitative results confirm the importance of the joint use of optical multispectral and lidar data. Moreover, the relevance of full-waveform lidar features is demonstrated for building and vegetation area discrimination.},
+  number = {1},
+  journal = {ISPRS Journal of Photogrammetry and Remote Sensing},
+  author = {Guo, Li and Chehata, Nesrine and Mallet, Cl{\'e}ment and Boukir, Samia},
+  month = jan,
+  year = {2011},
+  keywords = {Lidar,Multispectral image,Random forests,Urban,Variable importance},
+  pages = {56-66},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/XXRR6Q59/Guo et al. - 2011 - Relevance of airborne lidar and multispectral imag.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/WJWZ7ZUQ/S0924271610000705.html}
+}
+
+@article{li_review_2014,
+  title = {A {{Review}} of {{Remote Sensing Image Classification Techniques}}: The {{Role}} of {{Spatio}}-Contextual {{Information}}},
+  volume = {47},
+  issn = {2279-7254},
+  shorttitle = {A {{Review}} of {{Remote Sensing Image Classification Techniques}}},
+  doi = {10.5721/EuJRS20144723},
+  language = {en},
+  number = {1},
+  journal = {European Journal of Remote Sensing},
+  author = {Li, Miao and Zang, Shuying and Zhang, Bing and Li, Shanshan and Wu, Changshan},
+  month = jan,
+  year = {2014},
+  pages = {389-411},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/UV78NXV3/A Review of Remote Sensing Image Classification Techniques the Role of Spatio contextual Information.pdf}
+}
+
+@book{rosenblatt_perceptron_1957,
+  title = {The {{Perceptron}}: {{A Probabilistic Model}} for {{Information Storage}} and {{Organization In The Brain}}},
+  shorttitle = {The {{Perceptron}}},
+  abstract = {If we are eventually to understand the capability of higher organisms for perceptual recognition, generalization, recall, and thinking, we must first have answers to three fundamental questions: 1. How is information about the physical world sensed, or detected, by the biological system? 2. In what form is information stored, or remembered? 3. How does information contained in storage, or in memory, influence recognition and behavior? The first of these questions is in the province of sensory physiology, and is the only one for which appreciable understanding has been achieved. This article will be concerned primarily with the second and third questions, which are still subject to a vast amount of speculation, and where the few relevant facts currently supplied by neurophysiology have not yet been integrated into an acceptable theory. With regard to the second question, two alternative positions have been maintained. The first suggests that storage of sensory information is in the form of coded representations or images, with some sort of one-to-one mapping between the sensory stimulus 1 The development of this theory has been carried out at the Cornell Aeronautical Laboratory, Inc., under the sponsorship of the Office of Naval Research, Contract Nonr-2381(00). This article is primarily'an adaptation of material reported in Ref. IS, which constitutes the first full report on the program.},
+  author = {Rosenblatt, Frank},
+  year = {1957},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/GXFF5DH9/Brain et Rosenblatt - The Perceptron A Probabilistic Model for Informat.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/LP2KSK8W/14849-66902-1-PB.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/F2JJY9W3/summary.html}
+}
+
+@incollection{bengio_greedy_2007,
+  title = {Greedy {{Layer}}-{{Wise Training}} of {{Deep Networks}}},
+  booktitle = {Advances in {{Neural Information Processing Systems}} 19},
+  publisher = {{MIT Press}},
+  author = {Bengio, Yoshua and Lamblin, Pascal and Popovici, Dan and Larochelle, Hugo},
+  editor = {Sch{\"o}lkopf, B. and Platt, J. C. and Hoffman, T.},
+  year = {2007},
+  pages = {153--160},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/PPSXPXV3/Bengio et al. - 2007 - Greedy Layer-Wise Training of Deep Networks.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/68AJKV2Q/3048-greedy-layer-wise-training-of-deep-networks.html}
+}
+
+@article{fukushima_neocognitron_1980,
+  title = {Neocognitron: {{A}} Self-Organizing Neural Network Model for a Mechanism of Pattern Recognition Unaffected by Shift in Position},
+  volume = {36},
+  issn = {0340-1200, 1432-0770},
+  shorttitle = {Neocognitron},
+  doi = {10.1007/BF00344251},
+  abstract = {A neural network model for a mechanism of visual pattern recognition is proposed in this paper. The network is self-organized by ``learning without a teacher'', and acquires an ability to recognize stimulus patterns based on the geometrical similarity (Gestalt) of their shapes without affected by their positions. This network is given a nickname ``neocognitron''. After completion of self-organization, the network has a structure similar to the hierarchy model of the visual nervous system proposed by Hubel and Wiesel. The network consits of an input layer (photoreceptor array) followed by a cascade connection of a number of modular structures, each of which is composed of two layers of cells connected in a cascade. The first layer of each module consists of ``S-cells'', which show characteristics similar to simple cells or lower order hypercomplex cells, and the second layer consists of ``C-cells'' similar to complex cells or higher order hypercomplex cells. The afferent synapses to each S-cell have plasticity and are modifiable. The network has an ability of unsupervised learning: We do not need any ``teacher'' during the process of self-organization, and it is only needed to present a set of stimulus patterns repeatedly to the input layer of the network. The network has been simulated on a digital computer. After repetitive presentation of a set of stimulus patterns, each stimulus pattern has become to elicit an output only from one of the C-cell of the last layer, and conversely, this C-cell has become selectively responsive only to that stimulus pattern. That is, none of the C-cells of the last layer responds to more than one stimulus pattern. The response of the C-cells of the last layer is not affected by the pattern's position at all. Neither is it affected by a small change in shape nor in size of the stimulus pattern.},
+  language = {en},
+  number = {4},
+  journal = {Biological Cybernetics},
+  author = {Fukushima, Kunihiko},
+  month = apr,
+  year = {1980},
+  pages = {193-202},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/TC5ATREG/Fukushima - 1980 - Neocognitron A self-organizing neural network mod.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/UI4D83BI/BF00344251.html}
+}
+
+@inproceedings{nair_rectified_2010,
+  title = {Rectified Linear Units Improve Restricted Boltzmann Machines},
+  booktitle = {Proceedings of the 27th International Conference on Machine Learning ({{ICML}}-10)},
+  author = {Nair, Vinod and Hinton, Geoffrey E.},
+  year = {2010},
+  pages = {807--814},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/U4T6HPKD/reluICML.pdf}
+}
+
+@article{klein_second-harmonic_2006,
+  title = {Second-{{Harmonic Generation}} from {{Magnetic Metamaterials}}},
+  volume = {313},
+  issn = {0036-8075, 1095-9203},
+  doi = {10.1126/science.1129198},
+  language = {en},
+  number = {5786},
+  journal = {Science},
+  author = {Klein, M. W.},
+  month = jul,
+  year = {2006},
+  pages = {502-504},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/Z8S7XIFA/science.pdf}
+}
+
+@article{bengio_learning_2009,
+  title = {Learning Deep Architectures for {{AI}}},
+  volume = {2},
+  number = {1},
+  journal = {Foundations and trends\textregistered{} in Machine Learning},
+  author = {Bengio, Yoshua},
+  year = {2009},
+  pages = {1--127},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/65AS4KWA/TR1312.pdf}
+}
+
+@book{turing_computing_1950,
+  title = {Computing Machinery and Intelligence},
+  author = {Turing, A. M.},
+  year = {1950},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/K56NIUPT/turing.pdf}
+}
+
+@inproceedings{glorot_deep_2011,
+  title = {Deep {{Sparse Rectifier Neural Networks}}},
+  abstract = {While logistic sigmoid neurons are more biologically plausible than hyperbolic tangent neurons, the latter work better for training multi-layer neural networks. This paper shows that rectifying neu...},
+  language = {en},
+  booktitle = {Proceedings of the {{Fourteenth International Conference}} on {{Artificial Intelligence}} and {{Statistics}}},
+  author = {Glorot, Xavier and Bordes, Antoine and Bengio, Yoshua},
+  month = jun,
+  year = {2011},
+  pages = {315-323},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/HA4QKRXE/Glorot et al. - 2011 - Deep Sparse Rectifier Neural Networks.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/KGVEV8GK/glorot11a.html}
+}
+
+@book{hebb_organization_1949,
+  title = {The {{Organization}} of {{Behavior}}},
+  language = {eng},
+  author = {Hebb, Donald O.},
+  year = {1949},
+  keywords = {Animals,Behavior; Animal,Cognitive Science,History; 20th Century,Neurosciences,Publishing},
+  pmid = {10643472}
+}
+
+@article{mcculloch_logical_1943,
+  title = {A Logical Calculus of the Ideas Immanent in Nervous Activity},
+  volume = {5},
+  journal = {Bulletin of Mathematical Biophysics},
+  author = {McCulloch, Warren S. and Pitts, Walter H.},
+  year = {1943},
+  pages = {115-133},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/A8VXF2EC/mcp.pdf}
+}
+
+@article{kleene_representation_1956,
+  title = {Representation of {{Events}} in {{Nerve Nets}} and {{Finite Automata}}},
+  journal = {Automata Studies},
+  author = {Kleene, S. C.},
+  year = {1956},
+  pages = {3-42},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/T8R2QULB/RM704.pdf}
+}
+
+@incollection{rumelhart_learning_1986-1,
+  address = {Cambridge, MA, USA},
+  title = {Learning Internal Representations by Error Propagation},
+  isbn = {978-0-262-68053-0},
+  shorttitle = {Parallel {{Distributed Processing}}},
+  publisher = {{MIT Press}},
+  author = {Rumelhart, D. E. and Hinton, G. E. and Williams, R. J.},
+  editor = {Rumelhart, David E. and McClelland, James L. and PDP Research Group, CORPORATE},
+  year = {1986},
+  pages = {318--362}
+}
+
+@book{minsky_perceptrons_1969,
+  title = {Perceptrons},
+  abstract = {It is the author's view that although the time is not yet ripe for developing a really general theory of automata and computation, it is now possible and desirable to move more explicitly in this direction. This can be done by studying in an extremely thorough way well-chosen particular situations that embody the basic concepts. This is the aim of the present book, which seeks general results from the close study of abstract versions of devices known as perceptrons.A perceptron is a parallel computer containing a number of readers that scan a field independently and simultaneously, and it makes decisions by linearly combining the local and partial data gathered, weighing the evidence, and deciding if events fit a given ``pattern,'' abstract or geometric. The rigorous and systematic study of the perceptron undertaken here convincingly demonstrates the authors' contention that there is both a real need for a more basic understanding of computation and little hope of imposing one from the top, as opposed to working up such an understanding from the detailed consideration of a limited but important class of concepts, such as those underlying perceptron operations. ``Computer science,'' the authors suggest, is beginning to learn more and more just how little it really knows. Not only does science not know much about how brains compute thoughts or how the genetic code computes organisms, it also has no very good idea about how computers compute, in terms of such basic principles as how much computation a problem of what degree of complexity is most suitable to deal with it. Even the language in which the questions are formulated is imprecise, including for example the exact nature of the opposition or complementarity implicit in the distinction ``analogue'' vs. ``digital,'' ``local'' vs. ``global,'' ``parallel'' vs. ``serial,'' ``addressed'' vs. ``associative.'' Minsky and Papert strive to bring these concepts into a sharper focus insofar as they apply to the perceptron. They also question past work in the field, which too facilely assumed that perceptronlike devices would, automatically almost, evolve into universal ``pattern recognizing,'' ``learning,'' or ``self-organizing'' machines. The work recognizes fully the inherent impracticalities, and proves certain impossibilities, in various system configurations. At the same time, the real and lively prospects for future advance are accentuated.The book divides in a natural way into three parts -- the first part is ``algebraic'' in character, since it considers the general properties of linear predicate families which apply to all perceptrons, independently of the kinds of patterns involved; the second part is ``geometric'' in that it looks more narrowly at various interesting geometric patterns and derives theorems that are sharper than those of Part One, if thereby less general; and finally the third part views perceptrons as practical devices, and considers the general questions of pattern recognition and learning by artificial systems.},
+  language = {en},
+  publisher = {{MIT Press}},
+  author = {Minsky, Marvin and Papert, Seymour A.},
+  year = {1969},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/W4V4U4AX/perceptrons.html}
+}
+
+@phdthesis{werbos_beyond_1975,
+  title = {Beyond {{Regression}}: {{New Tools}} for {{Prediction}} and {{Analysis}} in the {{Behavioral Sciences}}},
+  shorttitle = {Beyond {{Regression}}},
+  language = {en},
+  school = {Harvard University},
+  author = {Werbos, Paul John},
+  year = {1975}
+}
+
+@incollection{lecun_learning_1986,
+  series = {NATO ASI Series},
+  title = {Learning {{Process}} in an {{Asymmetric Threshold Network}}},
+  isbn = {978-3-642-82659-7 978-3-642-82657-3},
+  abstract = {Threshold functions and related operators are widely used as basic elements of adaptive and associative networks [Nakano 72, Amari 72, Hopfield 82]. There exist numerous learning rules for finding a set of weights to achieve a particular correspondence between input-output pairs. But early works in the field have shown that the number of threshold functions (or linearly separable functions) in N binary variables is small compared to the number of all possible boolean mappings in N variables, especially if N is large. This problem is one of the main limitations of most neural networks models where the state is fully specified by the environment during learning: they can only learn linearly separable functions of their inputs. Moreover, a learning procedure which requires the outside world to specify the state of every neuron during the learning session can hardly be considered as a general learning rule because in real-world conditions, only a partial information on the ``ideal'' network state for each task is available from the environment. It is possible to use a set of so-called ``hidden units'' [Hinton,Sejnowski,Ackley. 84], without direct interaction with the environment, which can compute intermediate predicates. Unfortunately, the global response depends on the output of a particular hidden unit in a highly non-linear way, moreover the nature of this dependence is influenced by the states of the other cells.},
+  language = {en},
+  booktitle = {Disordered {{Systems}} and {{Biological Organization}}},
+  publisher = {{Springer, Berlin, Heidelberg}},
+  author = {LeCun, Yann},
+  year = {1986},
+  pages = {233-240},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/WWMLA557/978-3-642-82657-3_24.html},
+  doi = {10.1007/978-3-642-82657-3_24}
+}
+
+@article{hornik_approximation_1991,
+  title = {Approximation Capabilities of Multilayer Feedforward Networks},
+  volume = {4},
+  issn = {0893-6080},
+  doi = {10.1016/0893-6080(91)90009-T},
+  abstract = {We show that standard multilayer feedforward networks with as few as a single hidden layer and arbitrary bounded and nonconstant activation function are universal approximators with respect to Lp($\mu$) performance criteria, for arbitrary finite input environment measures $\mu$, provided only that sufficiently many hidden units are available. If the activation function is continuous, bounded and nonconstant, then continuous mappings can be learned uniformly over compact input sets. We also give very general conditions ensuring that networks with sufficiently smooth activation functions are capable of arbitrarily accurate approximation to a function and its derivatives.},
+  number = {2},
+  journal = {Neural Networks},
+  author = {Hornik, Kurt},
+  month = jan,
+  year = {1991},
+  keywords = {() approximation,Activation function,Input environment measure,Multilayer feedforward networks,Smooth approximation,Sobolev spaces,Uniform approximation,Universal approximation capabilities},
+  pages = {251-257},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/38AI5HHM/Hornik - 1991 - Approximation capabilities of multilayer feedforwa.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/F72Z6USA/089360809190009T.html}
+}
+
+@article{cybenko_approximation_1989,
+  title = {Approximation by Superpositions of a Sigmoidal Function},
+  volume = {2},
+  issn = {0932-4194, 1435-568X},
+  doi = {10.1007/BF02551274},
+  abstract = {In this paper we demonstrate that finite linear combinations of compositions of a fixed, univariate function and a set of affine functionals can uniformly approximate any continuous function ofn real variables with support in the unit hypercube; only mild conditions are imposed on the univariate function. Our results settle an open question about representability in the class of single hidden layer neural networks. In particular, we show that arbitrary decision regions can be arbitrarily well approximated by continuous feedforward neural networks with only a single internal, hidden layer and any continuous sigmoidal nonlinearity. The paper discusses approximation properties of other possible types of nonlinearities that might be implemented by artificial neural networks.},
+  language = {en},
+  number = {4},
+  journal = {Mathematics of Control, Signals and Systems},
+  author = {Cybenko, G.},
+  month = dec,
+  year = {1989},
+  pages = {303-314},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/GK4G5ZRI/Cybenko - 1989 - Approximation by superpositions of a sigmoidal fun.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/RDR7DZHS/BF02551274.html}
+}
+
+@article{hubel_receptive_1959,
+  title = {Receptive Fields of Single Neurones in the Cat's Striate Cortex},
+  volume = {148},
+  issn = {0022-3751},
+  number = {3},
+  journal = {The Journal of Physiology},
+  author = {Hubel, D. H. and Wiesel, T. N.},
+  month = oct,
+  year = {1959},
+  pages = {574-591},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/XHQFL544/Hubel et Wiesel - 1959 - Receptive fields of single neurones in the cat's s.pdf},
+  pmid = {14403679},
+  pmcid = {PMC1363130}
+}
+
+@article{hubel_receptive_1968,
+  title = {Receptive Fields and Functional Architecture of Monkey Striate Cortex},
+  volume = {195},
+  issn = {0022-3751},
+  abstract = {1. The striate cortex was studied in lightly anaesthetized macaque and spider monkeys by recording extracellularly from single units and stimulating the retinas with spots or patterns of light. Most cells can be categorized as simple, complex, or hypercomplex, with response properties very similar to those previously described in the cat. On the average, however, receptive fields are smaller, and there is a greater sensitivity to changes in stimulus orientation. A small proportion of the cells are colour coded.2. Evidence is presented for at least two independent systems of columns extending vertically from surface to white matter. Columns of the first type contain cells with common receptive-field orientations. They are similar to the orientation columns described in the cat, but are probably smaller in cross-sectional area. In the second system cells are aggregated into columns according to eye preference. The ocular dominance columns are larger than the orientation columns, and the two sets of boundaries seem to be independent.3. There is a tendency for cells to be grouped according to symmetry of responses to movement; in some regions the cells respond equally well to the two opposite directions of movement of a line, but other regions contain a mixture of cells favouring one direction and cells favouring the other.4. A horizontal organization corresponding to the cortical layering can also be discerned. The upper layers (II and the upper two-thirds of III) contain complex and hypercomplex cells, but simple cells are virtually absent. The cells are mostly binocularly driven. Simple cells are found deep in layer III, and in IV A and IV B. In layer IV B they form a large proportion of the population, whereas complex cells are rare. In layers IV A and IV B one finds units lacking orientation specificity; it is not clear whether these are cell bodies or axons of geniculate cells. In layer IV most cells are driven by one eye only; this layer consists of a mosaic with cells of some regions responding to one eye only, those of other regions responding to the other eye. Layers V and VI contain mostly complex and hypercomplex cells, binocularly driven.5. The cortex is seen as a system organized vertically and horizontally in entirely different ways. In the vertical system (in which cells lying along a vertical line in the cortex have common features) stimulus dimensions such as retinal position, line orientation, ocular dominance, and perhaps directionality of movement, are mapped in sets of superimposed but independent mosaics. The horizontal system segregates cells in layers by hierarchical orders, the lowest orders (simple cells monocularly driven) located in and near layer IV, the higher orders in the upper and lower layers.},
+  language = {eng},
+  number = {1},
+  journal = {The Journal of Physiology},
+  author = {Hubel, D. H. and Wiesel, T. N.},
+  month = mar,
+  year = {1968},
+  keywords = {Animals,Color Perception,Evoked Potentials,Haplorhini,Light,Motion Perception,Occipital Lobe,Retina,Vision; Ocular,Visual Fields},
+  pages = {215-243},
+  pmid = {4966457},
+  pmcid = {PMC1557912}
+}
+
+@inproceedings{glorot_understanding_2010,
+  title = {Understanding the Difficulty of Training Deep Feedforward Neural Networks},
+  abstract = {Whereas before 2006 it appears that deep multi-layer neural networks were not successfully trained, since then several algorithms have been shown to successfully train them, with experimental resul...},
+  language = {en},
+  booktitle = {Proceedings of the {{Thirteenth International Conference}} on {{Artificial Intelligence}} and {{Statistics}}},
+  author = {Glorot, Xavier and Bengio, Yoshua},
+  month = mar,
+  year = {2010},
+  pages = {249-256},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/HSHJ3227/Glorot et Bengio - 2010 - Understanding the difficulty of training deep feed.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/NBNQZI9J/glorot10a.html}
+}
+
+@article{lecun_backpropagation_1989,
+  title = {Backpropagation {{Applied}} to {{Handwritten Zip Code Recognition}}},
+  volume = {1},
+  issn = {0899-7667},
+  doi = {10.1162/neco.1989.1.4.541},
+  abstract = {The ability of learning networks to generalize can be greatly enhanced by providing constraints from the task domain. This paper demonstrates how such constraints can be integrated into a backpropagation network through the architecture of the network. This approach has been successfully applied to the recognition of handwritten zip code digits provided by the U.S. Postal Service. A single network learns the entire recognition operation, going from the normalized image of the character to the final classification.},
+  number = {4},
+  journal = {Neural Computation},
+  author = {LeCun, Y. and Boser, B. and Denker, J. S. and Henderson, D. and Howard, R. E. and Hubbard, W. and Jackel, L. D.},
+  month = dec,
+  year = {1989},
+  pages = {541-551},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/8A9ZNCQK/6795724.html}
+}
+
+@article{ackley_learning_1985,
+  title = {A Learning Algorithm for Boltzmann Machines},
+  volume = {9},
+  issn = {0364-0213},
+  doi = {10.1016/S0364-0213(85)80012-4},
+  abstract = {The computational power of massively parallel networks of simple processing elements resides in the communication bandwidth provided by the hardware connections between elements. These connections can allow a significant fraction of the knowledge of the system to be applied to an instance of a problem in a very short time. One kind of computation for which massively parallel networks appear to be well suited is large constraint satisfaction searches, but to use the connections efficiently two conditions must be met: First, a search technique that is suitable for parallel networks must be found. Second, there must be some way of choosing internal representations which allow the preexisting hardware connections to be used efficiently for encoding the constraints in the domain being searched. We describe a general parallel search method, based on statistical mechanics, and we show how it leads to a general learning rule for modifying the connection strengths so as to incorporate knowledge about a task domain in an efficient way. We describe some simple examples in which the learning algorithm creates internal representations that are demonstrably the most efficient way of using the preexisting connectivity structure.},
+  number = {1},
+  journal = {Cognitive Science},
+  author = {Ackley, David H. and Hinton, Geoffrey E. and Sejnowski, Terrence J.},
+  month = jan,
+  year = {1985},
+  pages = {147-169},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/R78GWUDI/Ackley et al. - 1985 - A learning algorithm for boltzmann machines.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/EPPCYCJD/S0364021385800124.html}
+}
+
+@article{hinton_fast_2006,
+  title = {A {{Fast Learning Algorithm}} for {{Deep Belief Nets}}},
+  volume = {18},
+  issn = {0899-7667},
+  doi = {10.1162/neco.2006.18.7.1527},
+  abstract = {We show how to use "complementary priors" to eliminate the explaining-away effects that make inference difficult in densely connected belief nets that have many hidden layers. Using complementary priors, we derive a fast, greedy algorithm that can learn deep, directed belief networks one layer at a time, provided the top two layers form an undirected associative memory. The fast, greedy algorithm is used to initialize a slower learning procedure that fine-tunes the weights using a contrastive version of the wake-sleep algorithm. After fine-tuning, a network with three hidden layers forms a very good generative model of the joint distribution of handwritten digit images and their labels. This generative model gives better digit classification than the best discriminative learning algorithms. The low-dimensional manifolds on which the digits lie are modeled by long ravines in the free-energy landscape of the top-level associative memory, and it is easy to explore these ravines by using the directed connections to display what the associative memory has in mind.},
+  number = {7},
+  journal = {Neural Comput.},
+  author = {Hinton, Geoffrey E. and Osindero, Simon and Teh, Yee-Whye},
+  month = jul,
+  year = {2006},
+  pages = {1527--1554}
+}
+
+@article{hinton_reducing_2006,
+  title = {Reducing the Dimensionality of Data with Neural Networks},
+  volume = {313},
+  issn = {1095-9203},
+  doi = {10.1126/science.1127647},
+  abstract = {High-dimensional data can be converted to low-dimensional codes by training a multilayer neural network with a small central layer to reconstruct high-dimensional input vectors. Gradient descent can be used for fine-tuning the weights in such "autoencoder" networks, but this works well only if the initial weights are close to a good solution. We describe an effective way of initializing the weights that allows deep autoencoder networks to learn low-dimensional codes that work much better than principal components analysis as a tool to reduce the dimensionality of data.},
+  language = {eng},
+  number = {5786},
+  journal = {Science (New York, N.Y.)},
+  author = {Hinton, G. E. and Salakhutdinov, R. R.},
+  month = jul,
+  year = {2006},
+  pages = {504-507},
+  pmid = {16873662}
+}
+
+@inproceedings{salakhutdinov_deep_2009,
+  title = {Deep {{Boltzmann Machines}}},
+  abstract = {We present a new learning algorithm for Boltzmann machines that contain many layers of hidden variables. Data-dependent expectations are estimated using a variational approximation that tends to fo...},
+  language = {en},
+  booktitle = {Artificial {{Intelligence}} and {{Statistics}}},
+  author = {Salakhutdinov, Ruslan and Hinton, Geoffrey},
+  month = apr,
+  year = {2009},
+  pages = {448-455},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/94955MT6/Salakhutdinov et Hinton - 2009 - Deep Boltzmann Machines.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/AUEH38MG/salakhutdinov09a.html}
+}
+
+@inproceedings{lecun_learning_2004,
+  title = {Learning Methods for Generic Object Recognition with Invariance to Pose and Lighting},
+  volume = {2},
+  doi = {10.1109/CVPR.2004.1315150},
+  abstract = {We assess the applicability of several popular learning methods for the problem of recognizing generic visual categories with invariance to pose, lighting, and surrounding clutter. A large dataset comprising stereo image pairs of 50 uniform-colored toys under 36 azimuths, 9 elevations, and 6 lighting conditions was collected (for a total of 194,400 individual images). The objects were 10 instances of 5 generic categories: four-legged animals, human figures, airplanes, trucks, and cars. Five instances of each category were used for training, and the other five for testing. Low-resolution grayscale images of the objects with various amounts of variability and surrounding clutter were used for training and testing. Nearest neighbor methods, support vector machines, and convolutional networks, operating on raw pixels or on PCA-derived features were tested. Test error rates for unseen object instances placed on uniform backgrounds were around 13\% for SVM and 7\% for convolutional nets. On a segmentation/recognition task with highly cluttered images, SVM proved impractical, while convolutional nets yielded 16/7\% error. A real-time version of the system was implemented that can detect and classify objects in natural scenes at around 10 frames per second.},
+  booktitle = {Proceedings of the 2004 {{IEEE Computer Society Conference}} on {{Computer Vision}} and {{Pattern Recognition}}, 2004. {{CVPR}} 2004.},
+  author = {LeCun, Y. and Huang, Fu Jie and Bottou, L.},
+  month = jun,
+  year = {2004},
+  keywords = {object detection,support vector machines,principal component analysis,computer vision,Airplanes,feature extraction,image segmentation,Testing,Support vector machine classification,Learning systems,visual databases,stereo image processing,very large databases,Humans,Object recognition,Support vector machines,Animals,Azimuth,convolutional networks,generic object recognition,Gray-scale,learning methods,lighting invariance,low-resolution grayscale images,nearest neighbor methods,pose invariance,test error rates},
+  pages = {II-97-104 Vol.2},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/TQED6IXB/1315150.html}
+}
+
+@inproceedings{serre_object_2005,
+  title = {Object Recognition with Features Inspired by Visual Cortex},
+  volume = {2},
+  doi = {10.1109/CVPR.2005.254},
+  abstract = {We introduce a novel set of features for robust object recognition. Each element of this set is a complex feature obtained by combining position- and scale-tolerant edge-detectors over neighboring positions and multiple orientations. Our system's architecture is motivated by a quantitative model of visual cortex. We show that our approach exhibits excellent recognition performance and outperforms several state-of-the-art systems on a variety of image datasets including many different object categories. We also demonstrate that our system is able to learn from very few examples. The performance of the approach constitutes a suggestive plausibility proof for a class of feedforward models of object recognition in cortex.},
+  booktitle = {2005 {{IEEE Computer Society Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}}'05)},
+  author = {Serre, T. and Wolf, L. and Poggio, T.},
+  month = jun,
+  year = {2005},
+  keywords = {Image recognition,object recognition,edge detection,Shape,feature extraction,Robustness,Geometry,Object detection,Object recognition,Biology computing,Brain modeling,Face detection,image dataset,position-tolerant edge detector,scale-tolerant edge detector,Target recognition,visual cortex},
+  pages = {994-1000 vol. 2},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/U6I5F7QE/1467551.html}
+}
+
+@inproceedings{huang_large-scale_2006,
+  title = {Large-Scale {{Learning}} with {{SVM}} and {{Convolutional}} for {{Generic Object Categorization}}},
+  volume = {1},
+  doi = {10.1109/CVPR.2006.164},
+  abstract = {The detection and recognition of generic object categories with invariance to viewpoint, illumination, and clutter requires the combination of a feature extractor and a classifier. We show that architectures such as convolutional networks are good at learning invariant features, but not always optimal for classification, while Support Vector Machines are good at producing decision surfaces from wellbehaved feature vectors, but cannot learn complicated invariances. We present a hybrid system where a convolutional network is trained to detect and recognize generic objects, and a Gaussian-kernel SVM is trained from the features learned by the convolutional network. Results are given on a large generic object recognition task with six categories (human figures, four-legged animals, airplanes, trucks, cars, and "none of the above"), with multiple instances of each object category under various poses, illuminations, and backgrounds. On the test set, which contains different object instances than the training set, an SVM alone yields a 43.3\% error rate, a convolutional net alone yields 7.2\% and an SVM on top of features produced by the convolutional net yields 5.9\%.},
+  booktitle = {2006 {{IEEE Computer Society Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}}'06)},
+  author = {Huang, Fu Jie and LeCun, Y.},
+  month = jun,
+  year = {2006},
+  keywords = {Machine learning,Gaussian processes,Support vector machine classification,Large-scale systems,Feature extraction,Humans,Object detection,Object recognition,Support vector machines,Lighting},
+  pages = {284-291},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/7XIXPLDS/icp.html}
+}
+
+@inproceedings{chellapilla_high_2006,
+  title = {High Performance Convolutional Neural Networks for Document Processing},
+  booktitle = {Tenth {{International Workshop}} on {{Frontiers}} in {{Handwriting Recognition}}},
+  publisher = {{Suvisoft}},
+  author = {Chellapilla, Kumar and Puri, Sidd and Simard, Patrice},
+  year = {2006},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/Z6TCEL73/document.pdf}
+}
+
+@inproceedings{liu_icdar_2011,
+  title = {{{ICDAR}} 2011 {{Chinese Handwriting Recognition Competition}}},
+  doi = {10.1109/ICDAR.2011.291},
+  abstract = {In the Chinese handwriting recognition competition organized with the ICDAR 2011, four tasks were evaluated: offline and online isolated character recognition, offline and online handwritten text recognition. To enable the training of recognition systems, we announced the large databases CASIA-HWDB/OLHWDB. The submitted systems were evaluated on un-open datasets to report character-level correct rates. In total, we received 25 systems submitted by eight groups. On the test datasets, the best results (correct rates) are 92.18\% for offline character recognition, 95.77\% for online character recognition, 77.26\% for offline text recognition, and 94.33\% for online text recognition, respectively. In addition to the evaluation results, we provide short descriptions of the recognition methods and have brief discussions.},
+  booktitle = {2011 {{International Conference}} on {{Document Analysis}} and {{Recognition}}},
+  author = {Liu, C. L. and Yin, F. and Wang, Q. F. and Wang, D. H.},
+  month = sep,
+  year = {2011},
+  keywords = {handwritten character recognition,Character recognition,Training,Support vector machine classification,Feature extraction,Databases,CASIA-HWDB database,character-level correct rate,Chinese handwriting recognition competition,handwriting recognition,Handwriting recognition,handwritten text recognition,ICDAR 2011,isolated character recongition,offline,offline handwritten text recognition,offline isolated character recognition,OLHWDB database,online,online handwritten text recognition,online isolated character recognition,text analysis,Text recognition},
+  pages = {1464-1469},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/M5YSUKPP/6065551.html}
+}
+
+@inproceedings{stallkamp_german_2011,
+  title = {The {{German Traffic Sign Recognition Benchmark}}: {{A}} Multi-Class Classification Competition},
+  shorttitle = {The {{German Traffic Sign Recognition Benchmark}}},
+  doi = {10.1109/IJCNN.2011.6033395},
+  abstract = {The ``German Traffic Sign Recognition Benchmark'' is a multi-category classification competition held at IJCNN 2011. Automatic recognition of traffic signs is required in advanced driver assistance systems and constitutes a challenging real-world computer vision and pattern recognition problem. A comprehensive, lifelike dataset of more than 50,000 traffic sign images has been collected. It reflects the strong variations in visual appearance of signs due to distance, illumination, weather conditions, partial occlusions, and rotations. The images are complemented by several precomputed feature sets to allow for applying machine learning algorithms without background knowledge in image processing. The dataset comprises 43 classes with unbalanced class frequencies. Participants have to classify two test sets of more than 12,500 images each. Here, the results on the first of these sets, which was used in the first evaluation stage of the two-fold challenge, are reported. The methods employed by the participants who achieved the best results are briefly described and compared to human traffic sign recognition performance and baseline results.},
+  booktitle = {The 2011 {{International Joint Conference}} on {{Neural Networks}}},
+  author = {Stallkamp, J. and Schlipsing, M. and Salmen, J. and Igel, C.},
+  month = jul,
+  year = {2011},
+  keywords = {Image color analysis,learning (artificial intelligence),Histograms,computer vision,Image resolution,Training,image classification,Benchmark testing,image processing,Humans,driver assistance system,driver information systems,German Traffic Sign Recognition Benchmark,Lead,machine learning algorithm,multiclass classification competition,pattern recognition problem,traffic engineering computing},
+  pages = {1453-1460},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/DICIBBY6/6033395.html}
+}
+
+@article{lettvin_what_1959,
+  title = {What the {{Frog}}'s {{Eye Tells}} the {{Frog}}'s {{Brain}}},
+  volume = {47},
+  issn = {0096-8390},
+  doi = {10.1109/JRPROC.1959.287207},
+  abstract = {In this paper, we analyze the activity of single fibers in the optic nerve of a frog. Our method is to find what sort of stimulus causes the largest activity in one nerve fiber and then what is the exciting aspect of that stimulus such that variations in everything else cause little change in the response. It has been known for the past 20 years that each fiber is connected not to a few rods and cones in the retina but to very many over a fair area. Our results show that for the most part within that area, it is not the light intensity itself but rather the pattern of local variation of intensity that is the exciting factor. There are four types of fibers, each type concerned with a different sort of pattern. Each type is uniformly distributed over the whole retina of the frog. Thus, there are four distinct parallel distributed channels whereby the frog's eye informs his brain about the visual image in terms of local pattern independent of average illumination. We describe the patterns and show the functional and anatomical separation of the channels. This work has been done on the frog, and our interpretation applies only to the frog.},
+  number = {11},
+  journal = {Proceedings of the IRE},
+  author = {Lettvin, J. Y. and Maturana, H. R. and McCulloch, W. S. and Pitts, W. H.},
+  month = nov,
+  year = {1959},
+  keywords = {Lighting,Retina,Cerebral cortex,Eyes,Gravity,Nerve fibers,Optical fibers,Relays,Senior members,Visual system},
+  pages = {1940-1951},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/X8ZQ4GDY/4065609.html}
+}
+
+@article{serre_quantitative_2007,
+  title = {A Quantitative Theory of Immediate Visual Recognition},
+  volume = {165},
+  issn = {0079-6123},
+  doi = {10.1016/S0079-6123(06)65004-8},
+  abstract = {Human and non-human primates excel at visual recognition tasks. The primate visual system exhibits a strong degree of selectivity while at the same time being robust to changes in the input image. We have developed a quantitative theory to account for the computations performed by the feedforward path in the ventral stream of the primate visual cortex. Here we review recent predictions by a model instantiating the theory about physiological observations in higher visual areas. We also show that the model can perform recognition tasks on datasets of complex natural images at a level comparable to psychophysical measurements on human observers during rapid categorization tasks. In sum, the evidence suggests that the theory may provide a framework to explain the first 100-150 ms of visual object recognition. The model also constitutes a vivid example of how computational models can interact with experimental observations in order to advance our understanding of a complex phenomenon. We conclude by suggesting a number of open questions, predictions, and specific experiments for visual physiology and psychophysics.},
+  language = {eng},
+  journal = {Progress in Brain Research},
+  author = {Serre, Thomas and Kreiman, Gabriel and Kouh, Minjoon and Cadieu, Charles and Knoblich, Ulf and Poggio, Tomaso},
+  year = {2007},
+  keywords = {Animals,Computer Simulation,Field Dependence-Independence,Humans,Models; Biological,Pattern Recognition; Visual,Photic Stimulation,Psychophysics,Visual Cortex},
+  pages = {33-56},
+  pmid = {17925239}
+}
+
+@book{hochreiter_gradient_2001,
+  title = {Gradient {{Flow}} in {{Recurrent Nets}}: The {{Difficulty}} of {{Learning Long}}-{{Term Dependencies}}},
+  shorttitle = {Gradient {{Flow}} in {{Recurrent Nets}}},
+  abstract = {Recurrent networks (crossreference Chapter 12) can, in principle, use their feedback connections to store representations of recent input events in the form of activations. The most widely used algorithms for learning what to put in short-term memory, however, take too much time to be feasible or do not work well at all, especially when minimal time lags between inputs and corresponding teacher signals are long. Although theoretically fascinating, they do not provide clear practical advantages over, say, backprop in feedforward networks with limited time windows (see crossreference Chapters 11 and 12). With conventional "algorithms based on the computation of the complete gradient", such as "Back-Propagation Through Time" (BPTT, e.g., [22, 27, 26]) or "Real-Time Recurrent Learning" (RTRL, e.g., [21]) error signals "flowing backwards in time" tend to either (1) blow up or (2) vanish: the temporal evolution of the backpropagated error ex},
+  author = {Hochreiter, Sepp and Bengio, Yoshua and Frasconi, Paolo and Schmidhuber, J{\"u}rgen},
+  year = {2001},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/BVN852HR/Hochreiter et al. - 2001 - Gradient Flow in Recurrent Nets the Difficulty of.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/NWB9R498/summary.html}
+}
+
+@incollection{lecun_efficient_1998,
+  series = {Lecture Notes in Computer Science},
+  title = {Efficient {{BackProp}}},
+  isbn = {978-3-540-65311-0 978-3-540-49430-0},
+  abstract = {The convergence of back-propagation learning is analyzed so as to explain common phenomenon observedb y practitioners. Many undesirable behaviors of backprop can be avoided with tricks that are rarely exposedin serious technical publications. This paper gives some of those tricks, ando.ers explanations of why they work. Many authors have suggested that second-order optimization methods are advantageous for neural net training. It is shown that most ``classical'' second-order methods are impractical for large neural networks. A few methods are proposed that do not have these limitations.},
+  language = {en},
+  booktitle = {Neural {{Networks}}: {{Tricks}} of the {{Trade}}},
+  publisher = {{Springer, Berlin, Heidelberg}},
+  author = {LeCun, Yann and Bottou, Leon and Orr, Genevieve B. and M{\"u}ller, Klaus-Robert},
+  year = {1998},
+  pages = {9-50},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/M5LR2BBH/LeCun et al. - 1998 - Efficient BackProp.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/BQIRL2KK/3-540-49430-8_2.html},
+  doi = {10.1007/3-540-49430-8_2}
+}
+
+@article{ramachandran_searching_2018,
+  title = {Searching for {{Activation Functions}}},
+  abstract = {The choice of activation functions in deep networks has a significant effect on the training dynamics and task performance. Currently, the most successful and widely-used activation function is the...},
+  author = {Ramachandran, Prajit and Zoph, Barret and Le, Quoc V.},
+  month = feb,
+  year = {2018},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/B8TPXEPV/Ramachandran et al. - 2018 - Searching for Activation Functions.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/NUSI62IX/forum.html}
+}
+
+@article{sonoda_neural_2017,
+  title = {Neural Network with Unbounded Activation Functions Is Universal Approximator},
+  volume = {43},
+  issn = {1063-5203},
+  doi = {10.1016/j.acha.2015.12.005},
+  abstract = {This paper presents an investigation of the approximation property of neural networks with unbounded activation functions, such as the rectified linear unit (ReLU), which is the new de-facto standard of deep learning. The ReLU network can be analyzed by the ridgelet transform with respect to Lizorkin distributions. By showing three reconstruction formulas by using the Fourier slice theorem, the Radon transform, and Parseval's relation, it is shown that a neural network with unbounded activation functions still satisfies the universal approximation property. As an additional consequence, the ridgelet transform, or the backprojection filter in the Radon domain, is what the network learns after backpropagation. Subject to a constructive admissibility condition, the trained network can be obtained by simply discretizing the ridgelet transform, without backpropagation. Numerical examples not only support the consistency of the admissibility condition but also imply that some non-admissible cases result in low-pass filtering.},
+  number = {2},
+  journal = {Applied and Computational Harmonic Analysis},
+  author = {Sonoda, Sho and Murata, Noboru},
+  month = sep,
+  year = {2017},
+  keywords = {Admissibility condition,Backprojection filter,Bounded extension to,Integral representation,Lizorkin distribution,Neural network,Radon transform,Rectified linear unit (ReLU),Ridgelet transform,Universal approximation},
+  pages = {233-268},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/FQK2ABLS/Sonoda et Murata - 2017 - Neural network with unbounded activation functions.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/ZFNGVMR4/S1063520315001748.html}
+}
+
+@inproceedings{mhaskar_when_2017,
+  title = {When and Why Are Deep Networks Better than Shallow Ones?},
+  booktitle = {{{AAAI}}},
+  author = {Mhaskar, Hrushikesh and Liao, Qianli and Poggio, Tomaso A.},
+  year = {2017},
+  pages = {2343--2349},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/VE8DTPUE/14849-66902-1-PB.pdf}
+}
+
+@article{poggio_why_2017,
+  title = {Why and When Can Deep-but Not Shallow-Networks Avoid the Curse of Dimensionality: {{A}} Review},
+  volume = {14},
+  issn = {1476-8186, 1751-8520},
+  shorttitle = {Why and When Can Deep-but Not Shallow-Networks Avoid the Curse of Dimensionality},
+  doi = {10.1007/s11633-017-1054-2},
+  abstract = {The paper reviews and extends an emerging body of theoretical results on deep learning including the conditions under which it can be exponentially better than shallow learning. A class of deep convolutional networks represent an important special case of these conditions, though weight sharing is not the main reason for their exponential advantage. Implications of a few key theorems are discussed, together with new results, open problems and conjectures.},
+  language = {en},
+  number = {5},
+  journal = {International Journal of Automation and Computing},
+  author = {Poggio, Tomaso and Mhaskar, Hrushikesh and Rosasco, Lorenzo and Miranda, Brando and Liao, Qianli},
+  month = oct,
+  year = {2017},
+  pages = {503-519},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/59299T2I/Poggio et al. - 2017 - Why and when can deep-but not shallow-networks avo.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/AUZY2F5T/s11633-017-1054-2.html}
+}
+
+@article{bianchini_complexity_2014,
+  title = {On the {{Complexity}} of {{Neural Network Classifiers}}: {{A Comparison Between Shallow}} and {{Deep Architectures}}},
+  volume = {25},
+  issn = {2162-237X},
+  shorttitle = {On the {{Complexity}} of {{Neural Network Classifiers}}},
+  doi = {10.1109/TNNLS.2013.2293637},
+  abstract = {Recently, researchers in the artificial neural network field have focused their attention on connectionist models composed by several hidden layers. In fact, experimental results and heuristic considerations suggest that deep architectures are more suitable than shallow ones for modern applications, facing very complex problems, e.g., vision and human language understanding. However, the actual theoretical results supporting such a claim are still few and incomplete. In this paper, we propose a new approach to study how the depth of feedforward neural networks impacts on their ability in implementing high complexity functions. First, a new measure based on topological concepts is introduced, aimed at evaluating the complexity of the function implemented by a neural network, used for classification purposes. Then, deep and shallow neural architectures with common sigmoidal activation functions are compared, by deriving upper and lower bounds on their complexity, and studying how the complexity depends on the number of hidden units and the used activation function. The obtained results seem to support the idea that deep networks actually implements functions of higher complexity, so that they are able, with the same number of resources, to address more difficult problems.},
+  number = {8},
+  journal = {IEEE Transactions on Neural Networks and Learning Systems},
+  author = {Bianchini, M. and Scarselli, F.},
+  month = aug,
+  year = {2014},
+  keywords = {artificial neural network,Betti numbers,Biological neural networks,classification,Complexity theory,computational complexity,Computer architecture,deep architecture,deep network,deep neural networks,feedforward neural nets,feedforward neural network,function approximation,function complexity evaluation,hidden layers,high complexity functions,human language understanding,neural network classifiers,Neurons,pattern classification,Polynomials,shallow architecture,sigmoidal activation function,topological complexity,topological concepts,topology,Upper bound,Vapnik–Chervonenkis dimension (VC-dim),Vapnik–Chervonenkis dimension (VC-dim).,vision},
+  pages = {1553-1565},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/J99VEKHQ/6697897.html;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/M6WJRD7N/6697897.html}
+}
+
+@article{zoph_neural_2016,
+  title = {Neural {{Architecture Search}} with {{Reinforcement Learning}}},
+  abstract = {Neural networks are powerful and flexible models that work well for many difficult learning tasks in image, speech and natural language understanding. Despite their success, neural networks are...},
+  author = {Zoph, Barret and Le, Quoc},
+  month = nov,
+  year = {2016},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/D228RPJX/Zoph et Le - 2016 - Neural Architecture Search with Reinforcement Lear.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/TPS62V46/forum.html}
+}
+
+@book{lhospital_analyse_1716,
+  title = {{Analyse des infiniment petits, pour l'intelligence des lignes courbes}},
+  language = {French},
+  publisher = {{Paris : Montalant}},
+  author = {de L'Hospital, marquis},
+  collaborator = {{University of Ottawa}},
+  year = {1716},
+  keywords = {Calcul diffeÌrentiel}
+}
+
+@book{lagrange_theorie_1797,
+  title = {{Th{\'e}orie des fonctions analytiques, contenant les principes du calcul diff{\'e}rentiel , d{\'e}gag{\'e}s de toute consid{\'e}ration d'infiniment petits ou d'{\'e}vanouissans, de limites ou de fluxions, et r{\'e}duits a l'analyse alg{\'e}brique des quantit{\'e}s finies ; par J. L. Lagrange, de l'Institut national.}},
+  copyright = {domaine public},
+  abstract = {Th{\'e}orie des fonctions analytiques, contenant les principes du calcul diff{\'e}rentiel , d{\'e}gag{\'e}s de toute consid{\'e}ration d'infiniment petits ou d'{\'e}vanouissans, de limites ou de fluxions, et r{\'e}duits a l'analyse alg{\'e}brique des quantit{\'e}s finies ; par J. L. Lagrange, de l'Institut national. -- 1797 -- livre},
+  language = {french},
+  publisher = {{A Paris, de l'Imprimerie de la R{\'e}publique. Prairial an V.}},
+  author = {Lagrange, Joseph-Louis (1736-1813)},
+  year = {1797},
+  keywords = {Calcul différentiel -- Ouvrages avant 1800,Fonctions analytiques -- Ouvrages avant 1800},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/GQ38UARE/bpt6k86263h.html},
+  note = {ark:/12148/bpt6k86263h}
+}
+
+@book{cauchy_comptes_1847,
+  address = {Paris},
+  title = {{Comptes rendus hebdomadaires des s{\'e}ances de l'Acad{\'e}mie des sciences}},
+  copyright = {domaine public},
+  abstract = {Comptes rendus hebdomadaires des s{\'e}ances de l'Acad{\'e}mie des sciences / publi{\'e}s... par MM. les secr{\'e}taires perp{\'e}tuels -- 1847-07 -- periodiques},
+  language = {language.label.fran{\c c}ais},
+  publisher = {{Gauthier-Villars}},
+  author = {Cauchy, Augustin Louis},
+  month = jul,
+  year = {1847},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/3U63RZPH/f540.html},
+  note = {ark:/12148/bpt6k2982c}
+}
+
+@inproceedings{srivastava_training_2015,
+  title = {Training Very Deep Networks},
+  booktitle = {Advances in Neural Information Processing Systems},
+  author = {Srivastava, Rupesh K. and Greff, Klaus and Schmidhuber, J{\"u}rgen},
+  year = {2015},
+  pages = {2377--2385},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/SSYTTD3E/5850-training-very-deep-networks.pdf}
+}
+
+@techreport{krizhevsky_learning_2009,
+  title = {Learning Multiple Layers of Features from Tiny Images},
+  institution = {{CIFAR}},
+  author = {Krizhevsky, Alex},
+  year = {2009},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/RDUUTJLM/learning-features-2009-TR.pdf}
+}
+
+@inproceedings{neuhold_mapillary_2017,
+  title = {The Mapillary Vistas Dataset for Semantic Understanding of Street Scenes},
+  booktitle = {Proceedings of the {{International Conference}} on {{Computer Vision}} ({{ICCV}}), {{Venice}}, {{Italy}}},
+  author = {Neuhold, Gerhard and Ollmann, Tobias and Bul{\`o}, S. Rota and Kontschieder, Peter},
+  year = {2017},
+  pages = {22--29},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/SFRHVK47/ICCV17a.pdf}
+}
+
+@inproceedings{huang_densely_2017,
+  title = {Densely Connected Convolutional Networks},
+  volume = {1},
+  booktitle = {Proceedings of the {{IEEE}} Conference on Computer Vision and Pattern Recognition},
+  author = {Huang, Gao and Liu, Zhuang and Weinberger, Kilian Q. and {van der Maaten}, Laurens},
+  year = {2017},
+  pages = {3},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/BUE4EVCI/densely-connected.pdf}
+}
+
+

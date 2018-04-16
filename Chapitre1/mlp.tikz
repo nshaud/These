@@ -1,0 +1,36 @@
+\documentclass{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usepackage{ifthen}
+\input{../CommandesPerso.tex}
+\begin{document}
+
+    \begin{tikzpicture}
+
+    \newcommand\drawlayer[7]{%{nombre de neurones}{position en x}{symbole}{nom de la couche}{couche précédente}{n couche précédente}{style}
+      \foreach\name in {0,...,#1}{
+        \pgfmathsetmacro\y{2*(\name-#1/2)}
+      	\node[circle,#7,draw=black,minimum size=1cm] (#4_\name) at (#2, \y) {$#3_{\name}$};
+          \ifthenelse{\equal{#5}{}}{}{
+		\foreach\oname in {0,...,#6}{
+	            {\draw[->] (#5_\oname) to (#4_\name);}
+         	 }
+      	  }
+      }
+    }
+
+    \drawlayer{5}{0}{x}{input}{}{}{dotted}
+    \drawlayer{3}{4}{h^1}{hidden1}{input}{5}{thick}
+    \drawlayer{4}{8}{h^2}{hidden2}{hidden1}{3}{thick}
+    \drawlayer{3}{12}{h^3}{hidden3}{hidden2}{4}{thick}
+    \drawlayer{3}{16}{y}{output}{hidden3}{3}{dotted}
+
+    \node at (0,-6.5) {Entrées};
+    \node at (8,-6.5) {Couches cachées};
+    \node at (16,-6.5) {Sorties};
+
+    \end{tikzpicture}
+
+\end{document}
+
