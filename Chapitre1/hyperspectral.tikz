@@ -1,0 +1,16 @@
+\documentclass{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\input{../CommandesPerso}
+\begin{document}
+
+\begin{tikzpicture}
+\lightspectrum
+
+\foreach \x in {300,305,...,1200}{
+\fill (\x/100, -0.5) rectangle (\x/100+0.01, 0.);
+}
+\end{tikzpicture}
+\end{document}

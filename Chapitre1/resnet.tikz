@@ -1,0 +1,74 @@
+\documentclass{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usepackage{ifthen}
+\usepackage{graphicx}
+\input{../CommandesPerso.tex}
+
+\begin{document}
+  \begin{tikzpicture}
+  \usetikzlibrary{calc}
+  \usetikzlibrary{3d}
+
+  \def\scale{4}
+  \def\vggx{0}
+  \def\vggy{0}
+  \def\vggz{0}
+
+  \def\coblue{blue!50!gray}
+  \def\cored{red!50!gray}
+  \def\coorange{orange!70!gray}
+  \def\cogreen{green!50!gray}
+  \def\copurple{purple!50!white}
+
+  \imagelayer{1.3*\scale}{-0.3*\scale+\vggx}{\vggy}{\vggz}{nobu}{Image}{$224\times224\times3$}
+  \convlayer{1.3*\scale}{1.3*\scale}{0.02*\scale}{Image}{\coblue}{0.2*\scale+\vggx}{\vggy}{\vggz}{{224}{}{3}}
+  \convlayer{1*\scale}{1*\scale}{0.04*\scale}{Conv1}{\coblue}{\vggx+0.6*\scale}{\vggy}{\vggz}{{112}{112}{64}}
+  \convlayer{0.8*\scale}{0.8*\scale}{0.04*\scale}{Pool1}{\coorange}{\vggx+1*\scale}{\vggy}{\vggz}{{56}{56}{}}
+
+  \foreach \ratio [count=\ni] in {1.4,1.5,1.6,1.7,1.8,1.9}{
+  \convlayer{0.8*\scale}{0.8*\scale}{0.04*\scale}{}{\coblue}{\vggx+\ratio*\scale}{\vggy}{\vggz}{{}{}{64}}
+  \ifnum\ni=1%
+      \draw (\vggx+\ratio*\scale-0.3*\scale, \vggy+0.5*\scale) edge[dashed,thick,->,in=90,out=90,looseness=2] (\vggx+\ratio*\scale, \vggy+0.4*\scale);
+  \else%
+      \draw (\vggx+\ratio*\scale-0.1*\scale+0.035*\scale, \vggy+0.4*\scale) edge[thick,->,in=90,out=90,looseness=10] (\vggx+\ratio*\scale, \vggy+0.4*\scale);
+  \fi%
+  }
+
+
+  \foreach \ratio [count=\ni] in {2.2,2.35,2.5,2.65,2.8,2.95,3.10,3.25}{
+  \convlayer{0.6*\scale}{0.6*\scale}{0.08*\scale}{}{\coblue}{\vggx+\ratio*\scale}{\vggy}{\vggz}{{}{}{128}}
+  \ifnum\ni=1%
+      \draw (\vggx+\ratio*\scale-0.2*\scale, \vggy+0.5*\scale) edge[dashed,looseness=2,thick,->,in=90,out=90] (\vggx+\ratio*\scale, \vggy+0.3*\scale);%
+  \else%
+      \draw (\vggx+\ratio*\scale-0.15*\scale+0.035*\scale, \vggy+0.3*\scale) edge[looseness=5,thick,->,in=90,out=90] (\vggx+\ratio*\scale, \vggy+0.3*\scale);%
+  \fi%
+  }
+
+  \foreach \ratio [count=\ni] in {3.5,3.7,3.9,4.1,4.3,4.5,4.7,4.9,5.1,5.3,5.5,5.7}{
+  \convlayer{0.4*\scale}{0.4*\scale}{0.12*\scale}{}{\coblue}{\vggx+\ratio*\scale}{\vggy}{\vggz}{{}{}{256}}
+  \ifnum\ni=1%
+      \draw (\vggx+\ratio*\scale-0.2*\scale, \vggy+0.3*\scale) edge[dashed,thick,looseness=1.5,->,in=90,out=90] (\vggx+\ratio*\scale, \vggy+0.2*\scale);
+  \else%
+      \draw (\vggx+\ratio*\scale-0.2*\scale+0.035*\scale, \vggy+0.2*\scale) edge[thick,looseness=2,->,in=90,out=90] (\vggx+\ratio*\scale, \vggy+0.2*\scale);
+  \fi%
+  }
+
+  \foreach \ratio [count=\ni] in {6,6.3,6.6,6.9,7.2,7.5,7.8}{
+  \convlayer{0.3*\scale}{0.3*\scale}{0.2*\scale}{}{\coblue}{\vggx+\ratio*\scale}{\vggy}{\vggz}{{}{}{512}}
+  \ifnum\ni=1%
+      \draw (\vggx+\ratio*\scale-0.3*\scale+0.05*\scale, \vggy+0.225*\scale) edge[dashed,thick,->,in=90,out=90,looseness=1.25] (\vggx+\ratio*\scale, \vggy+0.15*\scale);
+  \else%
+      \draw (\vggx+\ratio*\scale-0.3*\scale+0.05*\scale, \vggy+0.15*\scale) edge[thick,->,in=90,out=90,looseness=1.5] (\vggx+\ratio*\scale, \vggy+0.15*\scale);
+  \fi%
+  }
+
+  \node at (\vggx+8.3*\scale, \vggy+0.2*\scale) {Avg. pool};
+  \convlayer{0.1*\scale}{0.1*\scale}{0.6*\scale}{}{\coorange}{\vggx+8.3*\scale}{\vggy}{\vggz}{{}{}{$1\times1\times1024$}}
+  \fclayer{\scale}{0.1*\scale}{FC}{\copurple}{\vggx+8.7*\scale}{\vggy}{\vggz}{1000}
+  \node (out) at (\vggx+9.1*\scale,\vggy) {\Large ``Chat''};
+  \draw[->] (\vggx+8.75*\scale,\vggy) -- (out.west);
+
+  \end{tikzpicture}
+\end{document}

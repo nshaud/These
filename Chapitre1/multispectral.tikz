@@ -1,0 +1,19 @@
+\documentclass{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\input{../CommandesPerso}
+\begin{document}
+
+\begin{tikzpicture}
+\lightspectrum
+
+\node[draw,fill=gray!50!white,minimum width=2cm,rectangle] at (3.5, -0.2) {\footnotesize Bande 1};
+\node[draw,fill=gray!50!white,minimum width=1cm,rectangle] at (6.5, -0.2) {\footnotesize 2};
+\node[draw,fill=gray!50!white,minimum width=0.5cm,rectangle] at (8, -0.2) {\footnotesize 3};
+\node[draw,fill=gray!50!white,minimum width=0.5cm,rectangle] at (9, -0.2) {\footnotesize 4};
+\node[draw,fill=gray!50!white,minimum width=0.5cm,rectangle] at (10, -0.2) {\footnotesize 5};
+\node[draw,fill=gray!50!white,minimum width=1.25cm,rectangle] at (11.5, -0.2) {\footnotesize 6};
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,52 @@
+\documentclass{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usepackage{ifthen}
+\usepackage{graphicx}
+\input{../CommandesPerso.tex}
+
+\begin{document}
+  \begin{tikzpicture}
+  \usetikzlibrary{calc}
+  \usetikzlibrary{3d}
+
+  \def\scale{4}
+  \def\vggx{0}
+  \def\vggy{0}
+  \def\vggz{0}
+
+  \def\coblue{blue!50!gray}
+  \def\cored{red!50!gray}
+  \def\coorange{orange!70!gray}
+  \def\cogreen{green!50!gray}
+  \def\copurple{purple!50!white}
+
+  \imagelayer{1.3*\scale}{-0.3*\scale+\vggx}{\vggy}{\vggz}{nobu}{Image}{$224\times224\times3$}
+  \convlayer{1.3*\scale}{1.3*\scale}{0.02*\scale}{Image}{\coblue}{0.2*\scale+\vggx}{\vggy}{\vggz}{{224}{}{3}}
+  \convlayer{1*\scale}{1*\scale}{0.04*\scale}{Conv1}{\coblue}{\vggx+0.6*\scale}{\vggy}{\vggz}{{112}{112}{64}}
+  \convlayer{0.8*\scale}{0.8*\scale}{0.04*\scale}{Pool1}{\coorange}{\vggx+1*\scale}{\vggy}{\vggz}{{56}{56}{}}
+  \convlayer{0.8*\scale}{0.8*\scale}{0.15*\scale}{Conv2}{\coblue}{\vggx+1.4*\scale}{\vggy}{\vggz}{{}{}{192}}
+  \convlayer{0.6*\scale}{0.6*\scale}{0.15*\scale}{Pool2}{\coorange}{\vggx+1.8*\scale}{\vggy}{\vggz}{{28}{28}{}}
+  \node at (\vggx+2.45*\scale, \vggy+0.5*\scale) {Inception (3a-3b)};
+  \convlayer{0.6*\scale}{0.6*\scale}{0.2*\scale}{}{\cored}{\vggx+2.2*\scale}{\vggy}{\vggz}{{}{}{256}}
+  \convlayer{0.6*\scale}{0.6*\scale}{0.3*\scale}{}{\cored}{\vggx+2.5*\scale}{\vggy}{\vggz}{{}{}{480}}
+  \convlayer{0.4*\scale}{0.4*\scale}{0.3*\scale}{Pool3}{\coorange}{\vggx+2.9*\scale}{\vggy}{\vggz}{{14}{14}{}}
+  \node at (\vggx+4.5*\scale, \vggy+0.4*\scale) {Inception (4a-4e)};
+  \convlayer{0.4*\scale}{0.4*\scale}{0.4*\scale}{}{\cored}{\vggx+3.4*\scale}{\vggy}{\vggz}{{}{}{512}}
+  \convlayer{0.4*\scale}{0.4*\scale}{0.4*\scale}{}{\cored}{\vggx+3.9*\scale}{\vggy}{\vggz}{{}{}{512}}
+  \convlayer{0.4*\scale}{0.4*\scale}{0.4*\scale}{}{\cored}{\vggx+4.4*\scale}{\vggy}{\vggz}{{}{}{512}}
+  \convlayer{0.4*\scale}{0.4*\scale}{0.4*\scale}{}{\cored}{\vggx+4.9*\scale}{\vggy}{\vggz}{{}{}{528}}
+  \convlayer{0.4*\scale}{0.4*\scale}{0.5*\scale}{}{\cored}{\vggx+5.4*\scale}{\vggy}{\vggz}{{}{}{832}}
+  \convlayer{0.3*\scale}{0.3*\scale}{0.5*\scale}{Pool5}{\coorange}{\vggx+6.1*\scale}{\vggy}{\vggz}{{}{}{832}}
+  \node at (\vggx+7*\scale, \vggy+0.4*\scale) {Inception (5a-5b)};
+  \convlayer{0.3*\scale}{0.3*\scale}{0.5*\scale}{}{\cored}{\vggx+6.7*\scale}{\vggy}{\vggz}{{}{}{832}}
+  \convlayer{0.3*\scale}{0.3*\scale}{0.6*\scale}{}{\cored}{\vggx+7.3*\scale}{\vggy}{\vggz}{{}{}{1024}}
+  \node at (\vggx+8.05*\scale, \vggy+0.2*\scale) {Avg. pool};
+  \convlayer{0.1*\scale}{0.1*\scale}{0.6*\scale}{}{\coorange}{\vggx+8.05*\scale}{\vggy}{\vggz}{{}{}{$1\times1\times1024$}}
+  \fclayer{\scale}{0.1*\scale}{FC}{\copurple}{\vggx+8.5*\scale}{\vggy}{\vggz}{1000}
+  \node (out) at (\vggx+8.9*\scale,\vggy) {\Large ``Chat''};
+  \draw[->] (\vggx+8.55*\scale,\vggy) -- (out.west);
+
+  \end{tikzpicture}
+\end{document}

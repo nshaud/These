@@ -7,8 +7,8 @@
 
   \node[rectangle, draw=black, minimum size=2cm,minimum height=3cm] (sum) at (3, 0) {$\displaystyle\sum$};
 
-  \foreach\name in {0,1,2}{
-      \pgfmathsetmacro\y{2*\name-2}
+  \foreach\name in {1,2,3}{
+      \pgfmathsetmacro\y{2*\name-4}
   	\node[circle, draw=black,minimum size=1cm] (input\name) at (0, \y) {$x_{\name}$};
       \draw[thick,->] (input\name) to node[yshift=5pt,above] {$w_{\name}$} (sum);
   }
@@ -21,8 +21,7 @@
   \draw[thick,->] (sum.east) -- (sumb.west);
   \draw[thick,->] (bias.north) -- (sumb.south);
   \draw[thick,->] (sumb.east) -- node[above] {$x$} (phi.west);
-  \node[circle,draw=black,minimum size=1cm] (out) at (10,0) {$o$};
+  \node[circle,draw=black,minimum size=1cm] (out) at (10,0) {$z$};
   \draw[thick,->] (phi.east) -- node[above] {$\varphi(x)$} (out.west);
   \end{tikzpicture}
 \end{document}
-

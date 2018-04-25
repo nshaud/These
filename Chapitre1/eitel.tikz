@@ -1,0 +1,44 @@
+\documentclass{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usepackage{ifthen}
+\input{../CommandesPerso.tex}
+
+\begin{document}
+  \begin{tikzpicture}
+  \usetikzlibrary{calc}
+  \usetikzlibrary{3d}
+
+  \def\scale{3}
+  \def\alexx{0}
+  \def\alexy{3}
+  \def\alexz{0}
+
+  \newcommand\basenet[3]{
+  \imagelayer{1.3*\scale}{\alexx}{\alexy}{\alexz}{#3}{#2}{3}
+  %\convlayer{1.3*\scale}{1.3*\scale}{0.02*\scale}{#2}{#1}{\alexx}{\alexy}{\alexz}{{227}{227}{3}}
+  \convlayer{1.1*\scale}{1.1*\scale}{0.1*\scale}{Conv1}{#1}{\alexx+0.6*\scale}{\alexy}{\alexz}{{}{}{96}}
+  \convlayer{0.7*\scale}{0.7*\scale}{0.4*\scale}{Conv2}{#1}{\alexx+1.3*\scale}{\alexy}{\alexz}{{}{}{256}}
+  \convlayer{0.5*\scale}{0.5*\scale}{0.6*\scale}{Conv3}{#1}{\alexx+2.15*\scale}{\alexy}{\alexz}{{}{}{384}}
+  \convlayer{0.5*\scale}{0.5*\scale}{0.6*\scale}{Conv4}{#1}{\alexx+3.05*\scale}{\alexy}{\alexz}{{}{}{384}}
+  \convlayer{0.5*\scale}{0.5*\scale}{0.4*\scale}{Conv5}{#1}{\alexx+3.9*\scale}{\alexy}{\alexz}{{}{}{256}}
+  \fclayer{\scale}{0.1*\scale}{FC1}{#1}{\alexx+4.4*\scale}{\alexy}{\alexz}{4096}
+  \fclayer{\scale}{0.1*\scale}{FC2}{#1}{\alexx+4.7*\scale}{\alexy}{\alexz}{4096}
+  }
+
+
+  \def\coblue{blue!50!gray}
+  \def\cogreen{green!50!gray}
+  \def\fcgrey{gray!80!white}
+
+  \basenet{\coblue}{Image}{eitel_rgb}
+  \renewcommand\alexy{-3}
+  \basenet{\cogreen}{Profondeur}{eitel_depth}
+
+
+  \fclayer{2*\scale}{0.1*\scale}{Fusion}{\fcgrey}{\alexx+5.1*\scale}{0}{\alexz}{4096}
+  \fclayer{2*\scale}{0.1*\scale}{}{\fcgrey}{\alexx+5.4*\scale}{0}{\alexz}{51}
+
+  \end{tikzpicture}
+\end{document}

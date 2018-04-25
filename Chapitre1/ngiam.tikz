@@ -1,0 +1,56 @@
+\documentclass{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usepackage{ifthen}
+\input{../CommandesPerso.tex}
+
+\begin{document}
+  \begin{tikzpicture}
+  \usetikzlibrary{calc}
+  \usetikzlibrary{3d}
+
+  \def\scale{3}
+  \def\netx{0}
+  \def\nety{2}
+  \def\netz{0}
+
+  \def\coorange{orange!50!white}
+  \def\coblue{blue!50!white}
+  \def\cogreen{green!50!white}
+
+  \node[rotate=90] (audio_in) at (0*\scale, \nety) {Entrée audio};
+  \draw[->] (audio_in.south) -- (0.425*\scale,\nety);
+  \fclayer{\scale}{0.15*\scale}{}{\coorange}{0.5*\scale}{\nety}{\netz}{}
+  \draw[->] (0.575*\scale, \nety) -- (0.925*\scale,\nety);
+  \fclayer{\scale}{0.15*\scale}{}{\coorange}{1*\scale}{\nety}{\netz}{}
+
+  \node[rotate=90] (audio_out) at (3*\scale, \nety) {Reconstruction audio};
+  \draw[->] (2*\scale,\nety) -- (2.425*\scale,\nety);
+  \fclayer{\scale}{0.15*\scale}{}{\coorange}{2*\scale}{\nety}{\netz}{}
+  \draw[->] (2.5*\scale,\nety) -- (audio_out.north);
+  \fclayer{\scale}{0.15*\scale}{}{\coorange}{2.5*\scale}{\nety}{\netz}{}
+
+  
+  \fclayer{1.5*\scale}{0.15*\scale}{}{\coblue}{1.5*\scale}{0}{\netz}{Représentation\\ jointe}
+
+  \draw (1.075*\scale,\nety) edge[in=180,out=0,->] (1.425*\scale,0);
+  \draw (1.575*\scale,0) edge[in=180,out=0,->] (1.925*\scale,\nety);
+  \renewcommand\nety{-2}
+  \draw (1.075*\scale,\nety) edge[in=180,out=0,->] (1.425*\scale,0);
+  \draw (1.575*\scale,0) edge[in=180,out=0,->] (1.925*\scale,\nety);
+
+  \node[rotate=90] (video_in) at (0*\scale, \nety) {Entrée vidéo};
+  \draw[->] (video_in.south) -- (0.425*\scale,\nety);
+  \fclayer{\scale}{0.15*\scale}{}{\cogreen}{0.5*\scale}{\nety}{\netz}{}
+  \draw[->] (0.575*\scale, \nety) -- (0.925*\scale,\nety);
+  \fclayer{\scale}{0.15*\scale}{}{\cogreen}{1*\scale}{\nety}{\netz}{}
+
+  \node[rotate=90] (video_out) at (3*\scale, \nety) {Reconstruction vidéo};
+  \draw[->] (2*\scale,\nety) -- (2.425*\scale,\nety);
+  \fclayer{\scale}{0.15*\scale}{}{\cogreen}{2*\scale}{\nety}{\netz}{}
+  \draw[->] (2.5*\scale,\nety) -- (video_out.north);
+  \fclayer{\scale}{0.15*\scale}{}{\cogreen}{2.5*\scale}{\nety}{\netz}{}
+
+  \end{tikzpicture}
+\end{document}

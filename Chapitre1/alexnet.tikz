@@ -1,0 +1,42 @@
+\documentclass{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usepackage{ifthen}
+\input{../CommandesPerso.tex}
+
+\begin{document}
+  \begin{tikzpicture}
+  \usetikzlibrary{calc}
+  \usetikzlibrary{3d}
+
+  \def\scale{4}
+  \def\alexx{0}
+  \def\alexy{0}
+  \def\alexz{0}
+
+  \def\coblue{blue!50!gray}
+  \def\coorange{orange!50!gray}
+  \def\cogreen{green!50!gray}
+  \def\copurple{purple!50!white}
+
+  \imagelayer{1.3*\scale}{-0.8*\scale+\alexx}{\alexy}{\alexz}{nobu}{Image}{3}
+  \convlayer{1.3*\scale}{1.3*\scale}{0.02*\scale}{Image}{\coblue}{-0.05*\scale+\alexx}{\alexy}{\alexz}{{224}{224}{3}}
+  \convlayer{1.1*\scale}{1.1*\scale}{0.1*\scale}{Conv1}{\coblue}{\alexx+0.6*\scale}{\alexy}{\alexz}{{55}{55}{96}}
+  \convlayer{0.7*\scale}{0.7*\scale}{0.1*\scale}{Pool1}{\coorange}{\alexx+1*\scale}{\alexy}{\alexz}{{}{}{96}}
+  \convlayer{0.7*\scale}{0.7*\scale}{0.1*\scale}{LRN}{\cogreen}{\alexx+1.35*\scale}{\alexy}{\alexz}{{}{}{96}}
+  \convlayer{0.7*\scale}{0.7*\scale}{0.4*\scale}{Conv2}{\coblue}{\alexx+2*\scale}{\alexy}{\alexz}{{27}{27}{256}}
+  \convlayer{0.5*\scale}{0.5*\scale}{0.1*\scale}{Pool2}{\coorange}{\alexx+2.5*\scale}{\alexy}{\alexz}{{}{}{}}
+  \convlayer{0.5*\scale}{0.5*\scale}{0.1*\scale}{LRN}{\cogreen}{\alexx+2.75*\scale}{\alexy}{\alexz}{{}{}{}}
+  \convlayer{0.5*\scale}{0.5*\scale}{0.6*\scale}{Conv3}{\coblue}{\alexx+3.35*\scale}{\alexy}{\alexz}{{}{}{384}}
+  \convlayer{0.5*\scale}{0.5*\scale}{0.6*\scale}{Conv4}{\coblue}{\alexx+4.2*\scale}{\alexy}{\alexz}{{}{}{384}}
+  \convlayer{0.5*\scale}{0.5*\scale}{0.4*\scale}{Conv5}{\coblue}{\alexx+5*\scale}{\alexy}{\alexz}{{}{}{256}}
+  \convlayer{0.3*\scale}{0.3*\scale}{0.1*\scale}{Pool5}{\coorange}{\alexx+5.5*\scale}{\alexy}{\alexz}{{}{}{256}}
+  \fclayer{\scale}{0.1*\scale}{FC1}{\copurple}{\alexx+5.8*\scale}{\alexy}{\alexz}{4096}
+  \fclayer{\scale}{0.1*\scale}{FC2}{\copurple}{\alexx+6.05*\scale}{\alexy}{\alexz}{4096}
+  \fclayer{\scale}{0.1*\scale}{FC3}{\copurple}{\alexx+6.3*\scale}{\alexy}{\alexz}{1000}
+  \node (out) at (\alexx+6.7*\scale,\alexy) {\Large ``Chat''};
+  \draw[->] (\alexx+6.35*\scale,\alexy) -- (out.west);
+
+  \end{tikzpicture}
+\end{document}

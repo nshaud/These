@@ -1,0 +1,20 @@
+\documentclass{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\begin{document}
+\begin{tikzpicture}[tdplot_main_coords]
+\usetikzlibrary{3d}
+
+%draw the main coordinate system axes
+\draw[thick,->] (0,0,0) -- (1,0,0) node[anchor=north east]{$x$};
+\draw[thick,->] (0,0,0) -- (0,1,0) node[anchor=north west]{$y$};
+\draw[thick,->] (0,0,0) -- (0,0,1) node[anchor=south]{$z$};
+
+
+\draw (0,0,0) rectangle (1,1,0);
+
+\end{tikzpicture}
+\end{document}
+
