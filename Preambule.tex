@@ -14,7 +14,7 @@
 %%
 %% and version 1.3c or later is part of all distributions of LaTeX
 %% version 2006/05/20 or later.
-
+%!TEX root = Manuscrit.tex
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -28,7 +28,7 @@
 \usepackage[utf8]{inputenc}		% LaTeX, comprend les accents !
 \usepackage[T1]{fontenc}
 
-%\usepackage[square,sort&compress,sectionbib]{natbib}	% Doit être chargé avant babel
+\usepackage[numbers]{natbib}	% Doit être chargé avant babel
 \usepackage{chapterbib}
 %\renewcommand{\bibsection}{\section{Références}}	% Met les références biblio dans un \section (au lieu de \section*)
 
@@ -36,9 +36,11 @@
 \usepackage{lmodern}
 \usepackage{ae,aecompl}										% Utilisation des fontes vectorielles modernes
 %\usepackage[upright]{fourier}
-\usepackage{kpfonts}
+\usepackage[frenchstyle]{kpfonts}
 %\usepackage{mathpazo}
-\usepackage[babel,kerning]{microtype} % Ajuste finement les espaces
+\usepackage[defaultsans]{droidsans}    % Fonte sans serif pour la page de garde
+%\usepackage[sfdefault]{AlegreyaSans} % Autre fonte sans serif
+\usepackage[babel,kerning,protrusion,expansion]{microtype} % Ajuste finement les espaces
 % En outre, les options babel et kerning permettent d'utiliser ':' avec babel en français et cleveref dans les \caption (en théorie ':' est un caractère actif avec babel)
 
 
@@ -53,8 +55,7 @@
 	\setcounter{minitocdepth}{2}	% Mini-toc détaillées (sections/sous-sections)
 %\usepackage[notbib]{tocbibind}		% Ajoute les Tables des Matières/Figures/Tableaux à la table des matières
 \usepackage[Lenny]{fncychap}		% Jolis en-têtes de chapitre
-\usepackage{amsthm} 		       % Théorèmes
-\newtheorem{theorem}{Théorème}
+\usepackage{multicol}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Maths
@@ -62,6 +63,9 @@
 \usepackage{amssymb}			% Permet d'utiliser des symboles mathématiques
 \usepackage{amsfonts}			% Permet d'utiliser des polices mathématiques
 \usepackage{nicefrac}			% Fractions 'inline'
+\usepackage{amsthm} 		       % Théorèmes
+\newtheorem{theorem}{Théorème}
+\newcommand{\diff}{\mathrm{d}} % Dérivation
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Tableaux
@@ -101,18 +105,9 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Mise en forme du texte
-%\usepackage{xspace}
-%\usepackage[load-configurations = abbreviations]{siunitx}
-%	\DeclareSIUnit{\MPa}{\mega\pascal}
-%	\DeclareSIUnit{\micron}{\micro\meter}
-%	\DeclareSIUnit{\tr}{tr}
-%	\DeclareSIPostPower\totheM{m}
-%	\sisetup{
-%	locale = FR,
-%	  inter-unit-separator=$\cdot$,
-%	  range-phrase=~\`{a}~,     	% Utilise le tiret court pour dire "de... à"
-%	  range-units=single,  		% Cache l'unité sur la première borne
-%	  }
+\usepackage{xspace}
+\usepackage{siunitx}
+\DeclareSIUnit\px{px}
 
 \usepackage{textcomp}
 \usepackage{array}
