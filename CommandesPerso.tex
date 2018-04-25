@@ -97,7 +97,8 @@ Légende\,: \textcolor{Black}{blanc}\,: routes, \textcolor{Blue}{bleu}\,: bâtim
    \coordinate (C) at (\x+\w/2,  \y+\h/2, \z);
    \coordinate (D) at (\x-\w/2,  \y+\h/2, \z);
 
-    \draw [fill=\col] (A) -- node[below] {\scriptsize \note} (B) -- (C) -- (D) -- cycle;
+   \pgfmathparse{4*\w}\let\boxwidth\pgfmathresult
+    \draw [fill=\col] (A) -- node[below,text width=\boxwidth cm,align=center] {\scriptsize \note} (B) -- (C) -- (D) -- cycle;
 
     \node (N) at ($(A)!0.5!(B)+(0,-1,0)$) {\name};
 }
@@ -121,4 +122,25 @@ Légende\,: \textcolor{Black}{blanc}\,: routes, \textcolor{Blue}{bleu}\,: bâtim
   \fclayer{\scale}{0.1*\scale}{FC1}{\fcgrey}{\alexx+5.4*\scale}{\alexy}{\alexz}{4096}
   \fclayer{\scale}{0.1*\scale}{FC2}{\fcgrey}{\alexx+5.7*\scale}{\alexy}{\alexz}{4096}
   \fclayer{\scale}{0.1*\scale}{FC3}{\fcgrey}{\alexx+6.0*\scale}{\alexy}{\alexz}{1000}
+}
+
+\newcommand{\imagelayer}[7]{%{width}{x}{y}{z}{path}{text_up}{text_down}
+    \pgfmathparse{#1}\let\w\pgfmathresult
+    \begin{scope}[canvas is yz plane at x=#2]
+     \node[transform shape] (source) at (#3, #4) {\includegraphics[angle=-90,width=\w cm]{#5}};
+    \end{scope}
+     \node [transform shape, rotate=45, above] at (source.east) {#6};
+     \node [transform shape, rotate=45, below] at (source.west) {\scriptsize{#7}};
+}
+
+\def\fourier{\mathcal{F}}
+
+\newcommand{\lightspectrum}{%
+\pgfplotsset{
+    % this *defines* a custom colormap ...
+    colormap={slategraywhite}{color(0cm)=(red); color(1cm)=(red); color(2cm)=(red); color(3cm)=(red); color(4cm)=(orange); color(5cm)=(yellow); color(6cm)=(green); color(7cm)=(blue); color(8cm)=(blue); color(9cm)=(purple); color(10cm)=(purple); color(12cm)=(black)}
+}
+\begin{axis}[hide axis,width=16cm,height=4cm,colormap name=slategraywhite]
+\addplot[domain=20:1000,samples=1500,ultra thick, point meta=x*x,mesh]{sin(x*x/80)};
+\end{axis}
 }
