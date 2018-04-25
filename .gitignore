@@ -21,3 +21,13 @@
 *.mtc1
 *.out
 *.synctex.gz
+*.fls
+*.mtc*
+*.nlg
+*.not
+*.ntn
+*.fdb_latexmk
+*.run.xml
+*.brf
+*.sta
+*.swp
