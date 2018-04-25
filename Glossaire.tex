@@ -2,15 +2,17 @@
 %%                   Acronymes			   %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newacronym{ISPRS}{ISPRS}{International Society for Photogrammetry and Remote Sensing}
+\newacronym{ISPRS}{ISPRS}{\emph{International Society for Photogrammetry and Remote Sensing}}
 
-\newacronym{DFC}{DFC}{Data Fusion Contest}
+\newacronym{DFC}{DFC}{\emph{Data Fusion Contest}}
 
-\newacronym{IEEE}{IEEE}{Institute of Electrical and Electronics Engineers}
+\newacronym{IEEE}{IEEE}{\emph{Institute of Electrical and Electronics Engineers}}
 
-\newacronym{GRSS}{GRSS}{Geoscience \& Remote Sensing Society}
+\newacronym{GRSS}{GRSS}{\emph{Geoscience \& Remote Sensing Society}}
 
 \newacronym{DBN}{DBN}{\emph{Deep Belief Networks}}
+
+\newacronym{RBM}{RBM}{\emph{Restricted Boltzmann Machines} (RBM), ou machines de Boltzmann restreintes}
 
 \newglossaryentry{CNN}{
 	type=\acronymtype,
@@ -30,35 +32,35 @@
   type=\acronymtype,
   name={SVM},
   first={Séparateur à Vaste Marge, ou \emph{Support Vector Machine} (SVM), aussi appelées machines à vecteur de support,},
-  description={Méthode de classification}
+  description={\emph{Support Vector Machine}, en français Séparateur à Vaste Marge ou machines à vecteur de support. Outil de classification ou de régression.}
   }
 
-\newglossaryentry{MNS}{
+\newglossaryentry{MNH}{
   type=\acronymtype,
-  name={MNS},
-  first={Modèle Numérique de Surface (MNS)},
-  description={Description de la hauteur des objets surélevés par rapport au terrain sous-jacent}
+  name={MNH},
+  first={Modèle Numérique de Hauteur (MNH)},
+  description={Modèle Numérique de Hauteur. Mesure de la hauteur des points surélevés par normalisée par rapport au terrain sous-jacent}
 }
 
 \newglossaryentry{MNE}{
 	type=\acronymtype,
 	name={MNE},
 	first={Modèle Numérique d'Élévation (MNE)},
-	description={Modélisation de la topographie d'une surface terrestre prenant en compte les objets surélevés}
+	description={Modèle Numérique d'Élévation. Description de la topographie d'une surface terrestre prenant en compte les objets surélevés. Parfois également nommé modèle numérique de surface (MNS) dans la littérature}
 }
 
 \newglossaryentry{MNT}{
   type=\acronymtype,
   name={MNT},
   first={Modèle Numérique de Terrain (MNT)},
-  description={Modélisation de la topographie d'une surface terrestre, ne prenant pas en compte les objets surélevés}
+  description={Modèle Numérique de Terrain. Description de la topographie d'une surface terrestre, ne prenant pas en compte les objets surélevés}
 }
 
 \newglossaryentry{Lidar}{
   type=\acronymtype,
   name={Lidar},
   first={\emph{light detection and ranging} (Lidar)},
-  description={Technique de mesure de distance utilisant le temps parcouru par un faisceau lumineux entre son émission et la réception de son écho}
+  description={\emph{Light Detection And Ranging}, technique de mesure de distance utilisant le temps parcouru par un faisceau lumineux entre son émission et la réception de son écho}
 }
 
 \newglossaryentry{CUDA}{
@@ -89,6 +91,29 @@
 	first={TIFF},
 	description={\emph{Tagged Image File Format}, format de fichier image supportant l'ajout d'informations de géoréférencement grâce au standard GeoTIFF}
 }
+
+\newglossaryentry{SPOT}{
+  type=\acronymtype,
+	name={SPOT},
+	first={SPOT (Satellite pour l'observation de la Terre)},
+	description={Satellite pour l'observation de la Terre, famille de satellites de télédétection français conçus par le \gls{CNES}}
+}
+
+\newglossaryentry{Pleiades}{
+  name={Pléiades},
+	first={la constellation de satellites Pléiades},
+	description={Duo de satellites optiques très haute résolution français}
+}
+
+\newacronym{SAR}{SAR}{radar à synthèse d'ouverture (en anglais \emph{synthetic aperture radar, SAR})}
+
+\newacronym{CNES}{CNES}{Centre nationale d'études spatiales (CNES)}
+
+\newacronym{IGN}{IGN}{Institut Géographique National}
+
+\newacronym{ONERA}{ONERA}{Office national d'études et de recherches aérospatiales}
+
+\newacronym{RGB-D}{RGB-D}{Red-Green-Blue + Depth}
 % SENTINEL
 % SPOT
 % LANDSAT
@@ -101,14 +126,14 @@
   type=\acronymtype,
   name={SLIC},
   first={\emph{Simple Linear Iterative Clustering} (SLIC)},
-  description={Algorithme de segmentation superpixels proposé dans~\cite{achanta_slic_2010}}
+  description={\emph{Simple Linear Iterative Clustering}. Algorithme de segmentation superpixels proposé dans~\cite{achanta_slic_2010}}
 }
 
 \newglossaryentry{SEEDS}{
   type=\acronymtype,
   name={SEEDS},
   first={\emph{Superpixels Extracted via Energy-Driven Sampling} (SEEDS)},
-  description={Algorithme de segmentation superpixels proposé dans~\cite{bergh_seeds:_2012}}
+  description={\emph{Superpixels Extracted via Energy-Driven Sampling}. Algorithme de segmentation superpixels proposé dans~\cite{bergh_seeds:_2012}}
 }
 
 \newglossaryentry{ERS}{
@@ -122,34 +147,34 @@
   type=\acronymtype,
   name={LSC},
   first={\emph{Linear Spectral Clustering} (LSC)},
-  description={Algorithme de segmentation superpixels proposé dans~\cite{li_superpixel_2015}}
+  description={\emph{Linear Spectral Clustering}. Algorithme de segmentation superpixels proposé dans~\cite{li_superpixel_2015}}
 }
 
 \newglossaryentry{MRS}{
   type=\acronymtype,
   name={MRS},
   first={\emph{Multi-Resolution Segmentation} (MRS)},
-  description={Algorithme de segmentation multi-échelles proposé par~\cite{baatz_multiresolution_2010} et implémenté dans le logiciel eCognition}
+  description={\emph{Multi-Resolution Segmentation}. Algorithme de segmentation multi-échelles proposé par~\cite{baatz_multiresolution_2010} et implémenté dans le logiciel eCognition}
 }
 
 \newglossaryentry{FH}{
   type=\acronymtype,
   name={FH},
   first={Felzenszwalb-Huttenlocher (FH)},
-  description={Algorithme de segmentation d'image proposé dans~\cite{felzenszwalb_efficient_2004}}
+  description={Algorithme de segmentation d'image proposé par Felzenszwalb et Huttenlocher~\cite{felzenszwalb_efficient_2004}}
 }
 \newglossaryentry{IsU}{
   type=\acronymtype,
   name={IsU},
   first={intersection sur union (IsU)},
-  description={Mesure de performance d'un classifieur utilisée notamment dans le cadre de la segmentation sémantique. Elle correspond au rapport du nombre d'échantillons étant positifs à la fois pour la classifieur et en réalité et du nombre d'échantillons étant positifs dans le classifieur ou dans la réalité}
+  description={Intersection sur union. Mesure de performance d'un classifieur utilisée notamment dans le cadre de la segmentation sémantique. Elle correspond au rapport du nombre d'échantillons étant positifs à la fois pour la classifieur et en réalité et du nombre d'échantillons étant positifs dans le classifieur ou dans la réalité}
 }
 
 \newglossaryentry{SCALP}{
   type=\acronymtype,
   name={SCALP},
   first={\emph{Superpixels with Contour Adherence using Linear Path} (SCALP)},
-  description={Algorithme de segmentation de type superpixels introduit dans~\cite{giraud_robust_2018}}
+  description={\emph{Superpixels with Contour Adherence using Linear Path}. Algorithme de segmentation de type superpixels introduit dans~\cite{giraud_robust_2018}}
 }
 
 
@@ -157,7 +182,7 @@
   type=\acronymtype,
   name={HSeg},
   first={\emph{Hierarchial Segmentation} (HSeg)},
-  description={Algorithme de segmentation hiérarchique proposé dans~\cite{tilton_best_2012}}
+  description={\emph{Hierarchial Segmentation}. Algorithme de segmentation hiérarchique proposé dans~\cite{tilton_best_2012}}
 }
 
 %%%%%% COULEURS %%%%%%
@@ -194,20 +219,20 @@
   type=\acronymtype,
   name={HR},
   first={haute résolution (HR)},
-  description={Désigne une image de télédétection d'une résolution inférieure au sol à $1m$}
+  description={Haute résolution. Désigne une image de télédétection d'une résolution inférieure au sol à $1m$}
 }
 
 \newglossaryentry{THR}{
   type=\acronymtype,
   name={THR},
   first={très haute résolution (THR)},
-  description={Désigne une image de télédétection d'une résolution inférieure au sol à $50cm$}
+  description={Très haute résolution. Désigne une image de télédétection d'une résolution inférieure au sol à $50cm$}
 }
 \newglossaryentry{EHR}{
   type=\acronymtype,
   name={EHR},
   first={extrêmement haute résolution (EHR)},
-  description={Désigne une image de télédétection d'une résolution inférieure au sol à $10cm$}
+  description={Extrêmement haute résolution. Désigne une image de télédétection d'une résolution inférieure au sol à $10cm$}
 }
 
 %%%%%
@@ -215,7 +240,7 @@
   type=\acronymtype,
   name={HOG},
   first={histogrammes de gradient orientés},
-  description={Approximation discrète de la distribution locale du gradient dans une image selon une direction pré-définie. Il s'agit d'une caractéristique image introduite dans~\cite{dalal_histograms_2005}}
+  description={\emph{Histograms of Oriented Gradients} ou histogrammes de gradients orientés. Approximation discrète de la distribution locale du gradient dans une image selon une direction pré-définie. Il s'agit d'une caractéristique image introduite dans~\cite{dalal_histograms_2005}}
 }
 
 \newglossaryentry{SIFT}{
@@ -224,6 +249,10 @@
 	first={SIFT \emph{(scale-invariant feature transform)}},
 	description={Les descripteurs SIFT \emph{(scale-invariant feature transform)} sont des caractéristiques images calculées sur des points d'intérêt cherchant une invariance à l'échelle, l'angle de vue et à la luminosité}
 }
+
+\newacronym{JPEG}{JPEG}{\emph{Joint Photographic Experts Group}}
+
+\newacronym{CRF}{CRF}{\emph{Conditional Random Field} ou champ conditionel aléatoire (CRF)}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%	Définitions (glossaires standard)	   %%
