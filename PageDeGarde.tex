@@ -1,3 +1,4 @@
+%!TEX root = Manuscrit.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %           Page de Garde		 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -24,46 +25,65 @@
 }
 \def\@jurya{}{}{}
 \newcommand{\jurya}[3]{
-  \def\@jurya{#1,	& #2	& #3\\}
+  \def\@jurya{#1	& #2	& #3\\}
 }
 \def\@juryb{}{}{}
 \newcommand{\juryb}[3]{
-  \def\@juryb{#1,	& #2	& #3\\}
+  \def\@juryb{#1	& #2	& #3\\}
 }
 \def\@juryc{}{}{}
 \newcommand{\juryc}[3]{
-  \def\@juryc{#1,	& #2	& #3\\}
+  \def\@juryc{#1	& #2	& #3\\}
 }
 \def\@juryd{}{}{}
 \newcommand{\juryd}[3]{
-  \def\@juryd{#1,	& #2	& #3\\}
+  \def\@juryd{#1	& #2	& #3\\}
 }
 \def\@jurye{}{}{}
 \newcommand{\jurye}[3]{
-  \def\@jurye{#1,	& #2	& #3\\}
+  \def\@jurye{#1	& #2	& #3\\}
 }
 \def\@juryf{}{}{}
 \newcommand{\juryf}[3]{
-  \def\@juryf{#1,	& #2	& #3\\}
+  \def\@juryf{#1	& #2	& #3\\}
 }
 \def\@juryg{}{}{}
 \newcommand{\juryg}[3]{
-  \def\@juryg{#1,	& #2	& #3\\}
+  \def\@juryg{#1	& #2	& #3\\}
 }
 \def\@juryh{}{}{}
 \newcommand{\juryh}[3]{
-  \def\@juryh{#1,	& #2	& #3\\}
+  \def\@juryh{#1	& #2	& #3\\}
 }
 \def\@juryi{}{}{}
 \newcommand{\juryi}[3]{
-  \def\@juryi{#1,	& #2	& #3\\}
+  \def\@juryi{#1	& #2	& #3\\}
 }
+
+\def\@rapporteura{}{}{}
+\newcommand{\rapporteura}[2]{
+  \def\@rapporteura{#1	& #2\\}
+}
+\def\@rapporteurb{}{}{}
+\newcommand{\rapporteurb}[2]{
+  \def\@rapporteurb{#1	& #2\\}
+}
+
 \makeatother
 
 \newcommand\BackgroundPic{%
 	\put(0,0){%
 		\parbox[b][\paperheight]{\paperwidth}{%
-			\includegraphics[width=\paperwidth]{Fond.jpg}%
+			\includegraphics[width=\paperwidth]{fond.png}%
+			\vfill
+		}
+	}
+}
+
+\newcommand\AbstractBackgroundPic{%
+	\put(0,0){%
+		\parbox[b][\paperheight]{\paperwidth}{%
+			\includegraphics[width=\paperwidth]{fond_resume.png}%
 			\vfill
 		}
 	}
@@ -71,76 +91,150 @@
 
 \makeatletter
 \newcommand{\pagedegarde}{
-\newgeometry{top=2.5cm, bottom=2cm, left=2cm, right=1cm}
-\AddToShipoutPicture*{\BackgroundPic}
+\newgeometry{top=1.1cm, bottom=1cm, left=0.8cm, right=0.8cm}
+\AddToShipoutPictureBG*{\BackgroundPic}
   \begin{titlepage}
-  \vspace*{0.3\paperheight}
-  \centering
-      \includegraphics[width=0.3\paperwidth]{UBL.jpg}
-    
-    \vspace{0.015\paperheight}
-    \begin{minipage}{0.48\textwidth}
-        \begin{flushright}
-        \color{white}{
-        {\large \textbf{THÈSE / UNIVERSITÉ DE BRETAGNE-SUD}}\\
-        \textit{sous le sceau de l'Université Bretagne Loire}
+  \begin{minipage}{0.28\textwidth}
+      \includegraphics[width=\textwidth]{ubl.png}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.2\textwidth}
+      \includegraphics[width=\textwidth]{ubs.png}
+  \end{minipage}
+  \vspace*{0.07\paperheight}
+
+  {\sffamily
+  {\Huge \textbf\scshape{Thèse de doctorat de}}\\
+
+  \vspace*{0.08\paperheight}
+
+  {\Large L'UNIVERSITÉ BRETAGNE SUD}
+
+  \medskip
+
+  {\large \scshape{Comue Université Bretagne Loire}}
+
+  \medskip
+  \vspace{0.01\paperheight}
+
+  {\large \scshape{École Doctorale N\textsuperscript{o}601}}
+
+  \emph{Mathématiques et Sciences et Technologies}
+
+  \emph{de l'Information et de la Communication}
+
+  \emph{Spécialité\,: \@specialite}
 
         \medskip
-        pour obtenir le titre de\\
-        \textbf{DOCTEUR DE L'UNIVERSITÉ DE BRETAGNE-SUD}
+        ~~par\\
+        \medskip
+        {\Huge\hspace{2cm} \textbf{~~~\@author}}\\
 
         \medskip
-        \textit{Mention : \@specialite}
+        ~~intitulée\\
+        \medskip
+
+        {\LARGE~~~\@title}
 
         \medskip
-        \textbf{École doctorale :} MathSTIC
-        }
-        \end{flushright}
+        \textbf{Thèse présentée et soutenue à Palaiseau, le \@date,}
+
+        \textbf{préparée à l'ONERA et à l'IRISA.}
+
+        \textbf{Thèse n\up{o}\,: YYYY}
+
+    \vspace*{0.05\paperheight}
+    \begin{minipage}{0.30\textwidth}
+    \begin{tabularx}{\textwidth}{llY}
+      \multicolumn{3}{c}{\large \textbf{Rapporteurs avant soutenance\,:}}\\
+      \\
+      \@rapporteura
+      \@rapporteurb
+    \end{tabularx}
     \end{minipage}
     \hfill
-    \begin{minipage}{0.48\textwidth}
-    \color{white}{
-    Présentée par {\large \textbf{\@author}}
-    \medskip
-
-    Préparée à l'Office national d'études et de recherches aérospatiales au sein de l'équipe Image, Vision, Apprentissage
-
-    \smallskip
-    
-    et à l'Institut de recherche en informatique et systèmes aléatoires (UMR n°6074) au sein de l'équipe Observation de l'environnement par imagerie complexe
-    }
-    \end{minipage}
-
-    \vspace{0.05\paperheight}
-    \begin{minipage}{0.48\textwidth}
-       \centering
-       {\LARGE \@title}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.48\textwidth}
-        Directeur de thèse : {\bfseries \@directeur}\\
-        Co-encadrant de thèse : {\bfseries \@encadrant}\\
-    \vfill
-	\begin{tabular}{>{\bfseries}llr}
-		\large Jury\\
-		\@jurya
-		\@juryb
-		\@juryc
-		\@juryd
-		\@jurye
-		\@juryf
-		\@juryg
-		\@juryh
-		\@juryi
-	\end{tabular}
+    \begin{minipage}{0.70\textwidth}
+      	\begin{tabularx}{\textwidth}{lXl}
+      		\multicolumn{3}{l}{\Large \textbf{Composition du jury\,:}}\\
+          \\
+      		\@jurya
+      		\@juryb
+      		\@juryc
+      		\@juryd
+      		\@jurye
+      		\@juryf
+      		\@juryg
+      		\@juryh
+      		\@juryi
+          \\
+          \textbf{Directeur de thèse}\\
+          \@directeur\\
+          \textbf{Co-encadrant de thèse}\\
+          \@encadrant\\
+      	\end{tabularx}
      \end{minipage}
+  }
   \end{titlepage}
+\newpage
+\newgeometry{top=1.1cm, bottom=2cm, left=1cm, right=1cm}
+\AddToShipoutPictureBG*{\AbstractBackgroundPic}
+\begin{titlepage}
+\begin{minipage}{0.28\textwidth}
+    \includegraphics[width=\textwidth]{ubl.png}
+\end{minipage}
+\hfill
+\begin{minipage}{0.2\textwidth}
+    \includegraphics[width=\textwidth]{ubs.png}
+\end{minipage}
+\definecolor{rulepink}{RGB}{244,173,179}
+\definecolor{textpink}{RGB}{233,91,104}
+\vspace*{1.3cm}
 
+{\color{rulepink}\rule{\textwidth}{0.2cm}}
 
+\bigskip
 
+\begin{minipage}{\textwidth}
+{\color{textpink} \textbf{Titre\,:}}~~\@title
 
-\restoregeometry  
-  
-  
+\bigskip
+
+\textbf{Mots clés\,:} de 3 à 6 mots clefs
+\begin{multicols}{2}
+\textbf{Résumé\,:}
+Look, just because I don't be givin' no man a foot massage don't make it right for Marsellus to throw Antwone into a glass motherfuckin' house, fuckin' up the way the nigger talks. Motherfucker do that shit to me, he better paralyze my ass, 'cause I'll kill the motherfucker, know what I'm sayin'?
+
+Your bones don't break, mine do. That's clear. Your cells react to bacteria and viruses differently than mine. You don't get sick, I do. That's also clear. But for some reason, you and I react the exact same way to water. We swallow it too fast, we choke. We get some in our lungs, we drown. However unreal it may seem, we are connected, you and I. We're on the same curve, just on opposite ends.
+
+Now that we know who you are, I know who I am. I'm not a mistake! It all makes sense! In a comic, you know how you can tell who the arch-villain's going to be? He's the exact opposite of the hero. And most times they're friends, like you and me! I should've known way back when... You know why, David? Because of the kids. They called me Mr Glass.
+
+Now that there is the Tec-9, a crappy spray gun from South Miami. This gun is advertised as the most popular gun in American crime. Do you believe that shit? It actually says that in the little book that comes with it: the most popular gun in American crime. Like they're actually proud of that shit.
+\end{multicols}
+\end{minipage}
+\vfill
+{\color{rulepink}\rule{\textwidth}{0.2cm}}
+
+\bigskip
+
+\begin{minipage}{\textwidth}
+{\color{textpink} \textbf{Titre\,:}}~~\@title
+
+\bigskip
+
+\textbf{Mots clés\,:} de 3 à 6 mots clefs
+\begin{multicols}{2}
+\textbf{Résumé\,:}
+Look, just because I don't be givin' no man a foot massage don't make it right for Marsellus to throw Antwone into a glass motherfuckin' house, fuckin' up the way the nigger talks. Motherfucker do that shit to me, he better paralyze my ass, 'cause I'll kill the motherfucker, know what I'm sayin'?
+
+Your bones don't break, mine do. That's clear. Your cells react to bacteria and viruses differently than mine. You don't get sick, I do. That's also clear. But for some reason, you and I react the exact same way to water. We swallow it too fast, we choke. We get some in our lungs, we drown. However unreal it may seem, we are connected, you and I. We're on the same curve, just on opposite ends.
+
+Now that we know who you are, I know who I am. I'm not a mistake! It all makes sense! In a comic, you know how you can tell who the arch-villain's going to be? He's the exact opposite of the hero. And most times they're friends, like you and me! I should've known way back when... You know why, David? Because of the kids. They called me Mr Glass.
+
+Now that there is the Tec-9, a crappy spray gun from South Miami. This gun is advertised as the most popular gun in American crime. Do you believe that shit? It actually says that in the little book that comes with it: the most popular gun in American crime. Like they're actually proud of that shit.
+\end{multicols}
+\end{minipage}
+\end{titlepage}
+
+\restoregeometry
 }
 \makeatother
