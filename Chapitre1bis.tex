@@ -21,15 +21,15 @@ soit une approximation de $f$ à $\epsilon$ près, c'est-à-dire\,:
 $$\forall x \in [0,1]^n, ~\left| F(x) -f(x) \right| < \epsilon~.$$
 \end{theorem}
 
-En parallèle de ces avancées théoriques, les applications pratiques des perceptrons étaient étudiées, notamment dans le cadre de la vision artificielle pour la reconnaissance de formes. Ainsi, un des premiers problèmes étudiés est la reconnaissance de caractères écrits, en particulier les chiffres et les lettres. En 1980, Kunihiko Fukushima introduit le \emph{Neocognitron}~\cite{fukushima_neocognitron_1980}, un perceptron multi-couches dont la structure est inspirée par les travaux de Hubel et Wiesel sur les cortex visuels des chats et des singes~\cite{hubel_receptive_1959,hubel_receptive_1968}. Le neocognitron extrait des caractéristiques locales de l'image robustes aux légères déformations, qui sont graduellement combinées en cascade par le réseau. En 1989, Yann LeCun et collègues proposent une architecture de perceptron multi-couches dont la première couche est \emph{convolutive} pour la reconnaissance de chiffres manuscrits~\cite{lecun_backpropagation_1989}. Cette approche est reprise par la suite pour donner naissance à l'architecture LeNet-5~\cite{lecun_gradient-based_1998}, premier \gls{CNN} moderne. En 2004, les méthodes de détection et classification d'objets par \gls{CNN} sont évaluées comme étant compétitives, voire supérieure, que celles obtenues à partir de \gls{SVM} opérant directement sur les pixels. Des premiers travaux apparaissent utilisant les représentations apprises par les \gls{CNN} pour remplacer les descripteurs images \emph{ad hoc} comme \gls{SIFT}~\cite{lowe_object_1999} ou \gls{HOG}~\cite{dalal_histograms_2005} pour la classification d'objets~\cite{serre_object_2005,huang_large-scale_2006}.
+Autrement formulé, cela signifique que toute fonction relativement régulière (continue par morceaux sur un ensemble de compacts) peut être approximée avec une précision arbitraire par un perceptron. Ce théorème très fort suggère donc que de tels réseaux de neurones artificiels peuvent simuler quasiment n'importe quelle fonction, sans pour autant donner de méthode de construction de tels réseaux. En parallèle de ces avancées théoriques, les applications pratiques des perceptrons étaient étudiées, notamment dans le cadre de la vision artificielle pour la reconnaissance de formes. Ainsi, un des premiers problèmes étudiés est la reconnaissance de caractères écrits, en particulier les chiffres et les lettres. En 1980, Kunihiko Fukushima introduit le \emph{Neocognitron}~\cite{fukushima_neocognitron_1980}, un perceptron multi-couches dont la structure est inspirée par les travaux de Hubel et Wiesel sur les cortex visuels des chats et des singes~\cite{hubel_receptive_1959,hubel_receptive_1968}. Le neocognitron extrait des caractéristiques locales de l'image robustes aux légères déformations, qui sont graduellement combinées en cascade par le réseau. En 1989, Yann LeCun et collègues proposent une architecture de perceptron multi-couches dont la première couche est \emph{convolutive} pour la reconnaissance de chiffres manuscrits~\cite{lecun_backpropagation_1989}. Cette approche est reprise par la suite pour donner naissance à l'architecture LeNet-5~\cite{lecun_gradient-based_1998}, premier \gls{CNN} moderne. En 2004, les méthodes de détection et classification d'objets par \gls{CNN} sont évaluées comme étant compétitives, voire supérieure, que celles obtenues à partir de \gls{SVM} opérant directement sur les pixels. Des premiers travaux apparaissent utilisant les représentations apprises par les \gls{CNN} pour remplacer les descripteurs images \emph{ad hoc} comme \gls{SIFT}~\cite{lowe_object_1999} ou \gls{HOG}~\cite{dalal_histograms_2005} pour la classification d'objets~\cite{serre_object_2005,huang_large-scale_2006}.
 
 En 2006, Hinton et Salakhutdinov introduisent les réseaux de neurones auto-encodeurs pour la réduction de dimension~\cite{hinton_reducing_2006}. Leur approche utilise une pile de \gls{RBM}~\cite{ackley_learning_1985,salakhutdinov_deep_2009}, entraînées successivement couche par couche, chacune étant traitée comme entrée pour la suivante. Ce modèle hybride exploré dans un article de 2006~\cite{hinton_fast_2006} qui leur donne le nom de \gls{DBN}. L'année suivante, une équipe menée par Yoshua Bengio étend ce pré-entraînement par couche à des \gls{DBN} pour la régression~\cite{bengio_greedy_2007}. En outre, leurs travaux suggèrent que le pré-entraînement permet d'initialiser les couches supérieures à partir de meilleures représentations des abstractions de haut niveau que l'initialisation aléatoire. Bengio défend par ailleurs l'idée qu'un bon algorithme d'apprentissage doit être capable, en temps raisonnable, d'apprendre des représentations sémantiques pertinentes à des niveaux d'abstraction variés à partir de données non nécessairement annotées, c'est-à-dire en apprentissage non supervisé~\cite{bengio_learning_2009}. Il argumente en faveur des modèles profonds comme étant plus expressives et pouvant apprendre des meilleures représentations en s'appuyant sur des travaux en neurosciences concernant le cortex visuel~\cite{serre_quantitative_2007}. L'introduction de fonctions d'activation non-saturantes en 2011~\cite{glorot_deep_2011} permettent de s'affranchir du pré-entraînement et des problèmes d'explosion des gradients, rendant alors possible l'entraînement d'architectures plus profondes.
 
-Par ailleurs, c'est également en 2006 que les premières implémentations des \gls{CNN} sur \gls{GPU} voient le jour~\cite{chellapilla_high_2006} pour le traitement automatisée de documents. En 2011, Dan Cire\c{s}an propose des méthodes à base de \gls{CNN} qui obtiennent la première place dans deux compétitions\,: reconnaissance de caractères chinois~\cite{liu_icdar_2011} et classification de panneaux de signalisation~\cite{stallkamp_german_2011}. En 2010, la compétition \gls{ILSVRC} de reconnaissance d'objets démarre en utilisant la banque de données ImageNet~\cite{deng_imagenet_2009} comme référence. Un million d'images sont annotées pour mille classes d'intérêt différentes. En 2012, la compétition est remportée par Alex Krizhevsky, Ilya Sutskever et Geoffrey Hinton à l'aide du réseau convolutif profond AlexNet~\cite{krizhevsky_imagenet_2012} implémenté sur \gls{GPU} à l'aide de la bibliothèque \gls{CUDA}. AlexNet obtient 15\% d'erreur, tandis que la seconde méthode du podium n'obtient que 26\%. Ce succès a été à l'origine de l'explosion en popularité des réseaux convolutifs et de l'apprentissage profond, notamment dans la communauté vision. La compétition \gls{ILSVRC} est depuis dominée par les approches \gls{CNN}, aussi bien en reconnaissance qu'en détection et segmentation d'objets. Le succès récent des réseaux convolutifs profonds est donc dû à la convergence de trois facteurs\,: des avancée théoriques (\gls{ReLU}, réseaux convolutifs) permettant d'entraîner des réseaux plus profonds, la mise à disposition de grandes bases de données annotées pour l'apprentissage supervisées et des implémentations rapides sur \gls{GPU} rendant les temps de calcul tolérables.
+Par ailleurs, c'est également en 2006 que les premières implémentations des \gls{CNN} sur \gls{GPU} voient le jour~\cite{chellapilla_high_2006} pour le traitement automatisée de documents. En 2011, Dan Cire\c{s}an propose des méthodes à base de \gls{CNN} qui obtiennent la première place dans deux compétitions\,: reconnaissance de caractères chinois~\cite{liu_icdar_2011} et classification de panneaux de signalisation~\cite{stallkamp_german_2011}. Ces \gls{CNN} obtiennent en outre d'excellents résultants en reconnaissances de caractères latins et en classification d'objets pour des petits images sur la base de donneés CIFAR-10~\cite{ciresan_multi-column_2012}. En 2010, la compétition \gls{ILSVRC} de reconnaissance d'objets démarre en utilisant la banque de données ImageNet~\cite{deng_imagenet_2009} comme référence. Un million d'images sont annotées pour mille classes d'intérêt différentes. En 2012, la compétition est remportée par Alex Krizhevsky, Ilya Sutskever et Geoffrey Hinton à l'aide du réseau convolutif profond AlexNet~\cite{krizhevsky_imagenet_2012} implémenté sur \gls{GPU} à l'aide de la bibliothèque \gls{CUDA}. AlexNet obtient 15\% d'erreur, tandis que la seconde méthode du podium n'obtient que 26\%. Ce succès a été à l'origine de l'explosion en popularité des réseaux convolutifs et de l'apprentissage profond, notamment dans la communauté vision. La compétition \gls{ILSVRC} est depuis dominée par les approches \gls{CNN}, aussi bien en reconnaissance qu'en détection et segmentation d'objets. Le succès récent des réseaux convolutifs profonds est donc dû à la convergence de trois facteurs\,: des avancée théoriques (\gls{ReLU}, réseaux convolutifs) permettant d'entraîner des réseaux plus profonds, la mise à disposition de grandes bases de données annotées pour l'apprentissage supervisées et des implémentations rapides sur \gls{GPU} rendant les temps de calcul tolérables.
 
 \subsection{Réseaux de neurones artificiels}
 
-\begin{figure}
+\begin{figure}[t]
   \resizebox{\textwidth}{!}{
   \input{Chapitre1/neurone.tikz}
   }
@@ -37,22 +37,7 @@ Par ailleurs, c'est également en 2006 que les premières implémentations des \
 \label{fig:neurone}
 \end{figure}
 
-\begin{figure}
-  \begin{subfigure}[b]{0.5\textwidth}
-    \includegraphics[width=\textwidth]{activations}
-    \caption{Fonctions d'activation saturantes.}
-    \label{fig:activations}
-  \end{subfigure}
-\begin{subfigure}[b]{0.5\textwidth}
-  \includegraphics[width=\textwidth]{rectifiers}
-  \caption{Fonctions d'activation non-saturantes.}
-  \label{fig:rectifiers}
-\end{subfigure}
-\caption{Exemples de fonctions d'activation.}
-\label{fig:activations}
-\end{figure}
-
-\begin{figure}
+\begin{figure}[t]
   \begin{subfigure}[b]{0.5\textwidth}
     \resizebox{\textwidth}{!}{
     \input{Chapitre1/perceptron.tikz}
@@ -83,6 +68,21 @@ La fonction d'activation des neurones peut prendre de nombreuses formes. Il est 
   \item La fonction \textbf{SoftPlus}\,: $s(x) = ln(1 + e^x)$.
 \end{itemize}
 
+\begin{figure}[t]
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth]{activations}
+    \caption{Fonctions d'activation saturantes.}
+    \label{fig:activations}
+  \end{subfigure}
+\begin{subfigure}[b]{0.5\textwidth}
+  \includegraphics[width=\textwidth]{rectifiers}
+  \caption{Fonctions d'activation non-saturantes.}
+  \label{fig:rectifiers}
+\end{subfigure}
+\caption{Exemples de fonctions d'activation.}
+\label{fig:activations}
+\end{figure}
+
 La fonction sigmoïde, bien que populaire à l'origine, est une fonction saturante qui souffre de gradients évanescents. Ce problème n'est pas circonscrit à la sigmoïde et est particulièrement pregnant dans le cas des réseaux de neurones récurrents~\cite{hochreiter_gradient_2001}. L'accumulation de couches dans un réseau fait que la rétropropagation du gradient est similaire à une suite géométrique. Le produit cumulé de $n$ gradients dans des fonctions d'activation à tendance contractante produit un $n+1$ gradient plus faible que le précédent, et ainsi de suite. À l'inverse, il est possible d'avoir des gradients explosifs. Ce problème est empiré dans le cas des fonctions saturants comme la sigmoïde ou la tangente hyperbolique car leurs gradients sont nécessairement dans $[0,1]$. L'utilisation de la sigmoïde ou la tangente hyperbolique a varié dans la littérature. LeCun~\cite{lecun_efficient_1998} recommande d'utiliser la fonction hyperbolique modifiée $f(x) = 1,7159 tanh(\frac{2}{3} x)$, notamment car celle-ci est bornée par $[-1,1]$ et centrée en 0, ce qui est adapté au travail sur des données normalisées à moyenne nulle et variance unitaire.
 
 La marche de Heavyside, tout comme la fonction $signe$, a des gradients nuls presque partout, sa dérivée étant l'impulsion de Dirac $\delta$.
@@ -102,6 +102,125 @@ Le théorème d'approximation universelle~\cite{cybenko_approximation_1989,horni
 
 
 La deuxième limitation porte quant à elle sur la nature même du théorème. Celui-ci ne donne qu'une garantie purement théorique concernant l'existence d'un ensemble de paramètres permettant l'approximation à la précision voulue. Il ne donne pas de bornes sur le nombre de neurones nécessaire, ni de méthode de construction. Ainsi, il n'y aucune certitude que les poids puissent être obtenus par descente de gradient, ni d'indication sur l'architecture à choisir. En particulier, le théorème vaut pour des réseaux superficiels à une seule couche. Pourtant, le consensus scientifique dans la communauté tend à préférer des réseaux de plus en plus profonds. Ainsi, il a été démontré que des réseaux plus profonds demandent moins de poids et de neurones pour approximer des fonctions plus complexes~\cite{bianchini_complexity_2014,mhaskar_when_2017}. En particulier, la structure hiérarchique des réseaux multi-couches semble adapté à l'approximation de fonctions composées en contournant la malédiction de la dimension~\cite{poggio_why_2017}. Toutefois, cela augmente également le nombre d'hyperparamètres à régler pour définir l'architecture. L'absence de méthode systématique de construction des architectures de réseau profond conduit donc à l'utilisation intensive de la méthode essai-erreur ou à des méthodes de méta-apprentissage~\cite{zoph_neural_2016}.
+
+\subsection{Entraînement des réseaux de neurones}
+
+Un autre inconvénient au théorème d'approximation universelle est que même si l'architecture était connue, celui-ci ne donne aucune méthode pour trouver les valeurs des paramètres. En particulier, l'algorithme de rétropropagation du gradient~\cite{werbos_beyond_1975,rumelhart_learning_1986,lecun_learning_1986} décrit ci-après se base sur une méthode de descente de gradient. Toutefois, rien ne garantit que les poids optimaux dont l'existence est assurée par le théorème d'approximation universelle ne soit trouvables par cet algorithme.
+
+L'algorithme de rétropropagation du gradient se fonde sur la règle de dérivation en chaîne, c'est-à-dire le théorème de dérivation des fonctions composées~\cite{lhospital_analyse_1716,lagrange_theorie_1797}\,:
+\begin{theorem}
+Soient $f$ et $g$ deux fonctions telles que $f : I \rightarrow J \subset \mathbb{R}$ et $g : J \rightarrow \mathbb{R}$. Soit $x \in I$ tel que $f$ admet une dérivée en $x$. Alors, la fonction composée $h = g \circ f : I \rightarrow \mathbb{R}$ admet une dérivée en $x$ de valeur :
+$$h'(x) = (g \circ f)'(x) = f'(x) \times g'(f(x))~.$$
+
+Si $f$ et $g$ sont dérivables respectivement sur $I$ et $J$, alors\,:
+$$(g \circ f)' = f' \times (g' \circ f)~.$$
+
+ou encore, en utilisant la notation de Leibniz, avec $z = g(y)$ et $y = f(x)$:
+$$\frac{\diff z}{\diff x} = \frac{\diff z}{\diff y} \times \frac{\diff y}{\diff x}~.$$
+\end{theorem}
+
+Ce théorème s'étend aux dérivées partielles de fonctions à valeurs dans $\mathbb{R}^n$.
+
+Dans le cas des réseaux profondes, la propagation avant des activations se fait par la formule suivante\,:
+$$z_j^{k+1} = \varphi\left(\sum_{i=1}^n w^k_{i,j} \cdot z^k_i + b^k_j\right)$$
+avec $\varphi$ la fonction d'activation, $w_{i,j}$ le poids de la connexion, $b_i$ le biais et $k$ le numéro de la couche.
+
+En connaissant l'erreur $e^{k+1}$, c'est-à-dire le gradient pour la couche $k+1$, alors\,:
+
+$$e^k_j = \sum_{i=1}^N w^k_{i,j} e^{k+1}_j  \varphi'\left(\sum_{i=1}^n w^k_{i,j} \cdot z^k_i + b^k_j\right)$$
+
+Pour diminuer l'erreur, il est nécessaire de mettre à jour les poids $w^k$ dans la direction opposée au gradient $\frac{\diff e}{\diff w^k}$. Or, grâce à la règle de la dérivation en chaîne\,:
+$$\frac{\diff e}{\diff w^k} = \frac{\diff e}{\diff z^k} \times \frac{\diff z^k}{\diff w^k}$$.
+
+
+On peut alors utiliser l'algorithme de descente de gradient~\cite{cauchy_comptes_1847} afin de minimiser l'erreur totale en mettant à jour les poids. Cet algorithme, dit de la plus forte pente, permet d'approcher des minima locaux d'une fonction $f$ arbitraire en cherchant ses points stationnaires, c'est-à-dire les points où le gradient de $f$ s'annule. L'algorithme repose sur l'idée que $f$ décroît le plus rapidement dans la direction opposée à son gradient et fonctionne de la façon suivante\,:
+
+\begin{theorem}
+  Soit $f : \mathbb{R}^n \rightarrow \mathbb{R}$ une fonction différentiable et $\nabla f$ son gradient. Soit $x_0 \in \mathbb{R}^n$ un point initial, $\epsilon > 0$ le seuil de tolérance de l'algorithme et $\alpha > 0$ le pas de la descente. On définit alors la suite $(x_i)_{i \ge 0} \in \mathbb{R}^\mathbb{N}$ telle que\,:
+  $$x_{i+1} = x_i - \alpha \nabla f(x_i)~.$$
+  L'algorithme s'arrête lorsque $\nabla f(x_i) \le \epsilon$.
+\end{theorem}
+
+Dans le cas des réseaux de neurones, la fonction $f$ est appelée \og fonction objectif \fg et correspond à une mesure de la performance du modèle. Généralement, $f$ est une indicatrice de l'erreur totale du modèle sur l'ensemble du jeu de données d'entraînement $\Omega$, que l'on va chercher à minimiser. Ainsi, l'optimisation du réseau de neurones consiste à résoudre l'équation\,:
+$$W^* = \operatorname{argmin}_W E(W, \Omega)$$
+ pour un modèle paramétré par ses poids $W$ et de fonction objectif $E$.
+
+Tant que la fonction de coût $E$ est dérivable, il est possible de la minimise en utilisant l'algorithme de descente de gradient. En particulier, il est possible de calculer la mise à jour des poids en rétro-propageant la valeur du gradient d'une couche à la précédente\,: c'est l'algorithme de rétropropagation~\cite{werbos_beyond_1975,lecun_efficient_1998,rumelhart_learning_1986}. On va alors chercher à mettre à jour les poids du réseau dans la direction opposée du gradient par rapport à ces mêmes poids $\nabla_W E(W, \Omega)$.
+
+\begin{theorem}
+  \begin{enumerate}
+    \item Initialiser aléatoirement les poids $W$.
+    \item Calculer $\nabla_W E(W, \Omega)$ à partir de l'erreur sur chaque échantillon.
+    \item Tant que $\nabla_W E(W, \Omega) > \epsilon$\,:
+      \begin{itemize}
+          \item $W = W - \nabla_W E(W, \Omega)$
+      \end{itemize}
+  \end{enumerate}
+\end{theorem}
+
+ Cependant, le cardinal de $\Omega$ peut être très grand en pratique, les bases de données d'apprentissage pouvant contenir des milliers, voire des millions d'exemple. Par conséquent, il est généralement nécessaire d'utiliser une variante en ligne de l'algorithme de gradient, l'algorithme de descente de gradient \emph{stochastique}, qui réalise la mise à jour des poids pour chaque exemple, en approximant l'erreur moyenne à partir de l'erreur sur un seul échantillon, c'est-à-dire\,:
+\begin{theorem}
+  \begin{enumerate}
+    \item Initialiser aléatoirement les poids $W$.
+    \item Tant que le critère d'arrêt n'est pas atteint\,:
+      \begin{itemize}
+          \item Tirer aléatoirement un exemple d'apprentissage $\omega \in \Omega$
+          \item $W = W - \nabla_W E(W, \omega)$
+      \end{itemize}
+  \end{enumerate}
+L'algorithme s'arrête lorsque le critère d'arrêt est vérifié, généralement lorsqu'un nombre d'itérations prédéfini est atteint.
+\end{theorem}
+
+L'inconvénient de l'algorithme de descente de gradient stochastique est que l'approximation du gradient $\nabla_W E(W, \omega)$ est très bruitée et peut changer fortement de direction entre deux itérations successives. Afin de stabiliser la convergence, on utilise le plus souvent l'algorithme de descente de gradient stochastique \emph{par mini-lots}, également appelés \emph{mini-batches}. On approxime alors le gradient global non pas à partir d'un échantillon, mais à partir de la moyenne sur un nombre $k$ d'échantillons, qui forment un mini-lot ou \emph{mini-batch}\,:
+\begin{theorem}
+  \begin{enumerate}
+    \item Initialiser aléatoirement les poids $W$.
+    \item Tant que le critère d'arrêt n'est pas atteint\,:
+      \begin{itemize}
+          \item Tirer aléatoirement $k$ exemples d'apprentissage $(\omega_1,\dots,\omega_k) \in \Omega^k$
+          \item $W = W - \frac{1}{k} \sum_{i=1}^k \nabla_W E(W, \omega_i)$
+      \end{itemize}
+  \end{enumerate}
+L'algorithme s'arrête lorsque le critère d'arrêt est vérifié, généralement lorsqu'un nombre d'itérations prédéfini est atteint.
+\end{theorem}
+
+En pratique, le modèle approxime une fonction $\mathcal{F}$ sur laquelle on applique une fonction de coût $\mathcal{L}$. Cette fonction de coût est une indicatrice de l'erreur commise par le réseau. Cette fonction doit vérifier la propriété\,:
+$$\mathcal{L}(\hat{\mathcal{F_W}(x)} - \mathcal{F_W}(x)) \rightarrow 0 \Rightarrow \hat{\mathcal{F}} \rightarrow \mathcal{F}~~,$$
+c'est-à-dire que la minimisation de l'erreur implique la convergence du modèle vers la fonction réelle à approximer.
+
+La nature exacte de la fonction de coût dépend de la tâche. Dans un cadre de régression, il est courant d'utiliser la norme $L_2$ ou la norme $L_1$. Pour chaque échantillon, on pourra alors comparer la prédiction $x$ avec la vérité terrain $y$ par
+$$l(x,y) = |x - y| \text{ ou } l(x,y) = \lVert x - y \rVert~~.$$
+La première correspond à la méthode des moindres carrées. La norme $L_1$ se montre plus robuste aux observations aberrantes, qui explosent dans le cas de la norme euclidienne. Toutefois, la norme $L_2$ a l'avantage d'être partout dérivable et est plus stable, notamment de par sa tolérance aux faibles erreurs (fonction contractante sur $[-1, 1]$).
+
+Dans le cas de la classification, $y$ se présente sous la forme d'un encodage \emph{one-hot}. Pour un problème à $n$ classes, si $y$ appartient à la $k$\ieme classe, alors $y_i = \delta_{i,k}$ avec $\delta$ le symbole de Kronecker. Autrement dit, $y$ est le vecteur $(0, \dots, 0, 1, 0, \dots, 0)$ dont toutes les composantes sont nulles à l'exception de la $k$\ieme qui est unitaire. S'il est possible de traiter ces problèmes avec des fonctions de coût de régression, il est généralement plus pertinent d'utiliser la fonction d'entropie croisée. Celle-ci se calcule de la façon suivante\,:
+$$H(x,y) = -\sum_{i=1}^n y_i \log(x_i)~.$$
+
+L'entropie croisée est particulièrement intéressante dans ce cas car sa minimisation coïncide avec celle de la divergence de Kullback-Leibler entre la distribution statistique des $x$ et des $y$, c'est-à-dire l'image de $\mathcal{F}$ et celle de $\hat{mathcal{F}}$.
+
+Il est important de noter que l'algorithme de descente de gradient ne dispose d'une convergence garantie que dans le cas où la fonction $E$ est convexe, ce qui n'est jamais le cas en pratique pour des réseaux profonds. Des variantes de la descente de gradient ont été proposées pour améliorer ses propriétés de convergence. En particulier, le pas de la descente $\alpha$ joue un rôle important dans l'optimisation des réseaux de neurones profonds. Appelé généralement taux d'apprentissage, $\alpha$ contrôle à l'amplitude des mises à jour des poids du modèle. Si $\alpha$ est très élevé, les mises à jour seront très grande et la convergence très instable. Si $\alpha$ est très faible, la convergence peut être très lente voire se bloquer dans des minima locaux. La plupart des variantes de la descente de gradient stochastique utilisent des politiques particulières pour la mise à jour des poids. Des méthodes dites de \og moment \fg, inspirées du moment cinétique en mécanique, permettent notamment de faire conserver au gradient une partie de sa vélocité des itérations précédentes pour limiter les oscillations le long des courbes de niveaux de la fonction~\cite{qian_momentum_1999,nesterov_method_1983}. \citet{sutskever_importance_2013-1} ont notamment montré que l'utilisation d'une descente de gradient stochastique à moment permet d'améliorer les performances finales du modèle, y compris dans le cas d'une poids initiaux mal choisis. \citet{polyak_acceleration_1992} propose par ailleurs d'utiliser le gradient moyennée sur les $n$ dernières itérations pour la mise à jour des poids, ce qui correspond à une forme de mini-lot asynchrone.
+
+Une autre source d'amélioration proposée réside dans la politique du choix de $\alpha$. En effet, rien ne contraint $\alpha$ à être fixé dans l'algorithme de descente de gradient. Il est possible de l'ajuster manuellement au cours de l'apprentissage, par exemple en commençant avec un taux d'apprentissage élevé au début, puis en le multipliant par un ratio $\gamma < 1$ à intervalles réguliers. \citet{bottou_stochastic_2012} recommande ainsi de la descente de gradient stochastique moyennée couplée avec une évolution de $\alpha$ suivant la relation $\alpha_{i+1} = \alpha_0 (1 + \gamma \cdot i)^{-1}$. Plus récemment, \citet{loshchilov_sgdr_2016} ont proposé une méthode à base de recuit simulé. Toutefois, cela nécessite une intervention manuelle dans la mesure où il est nécessaire de configurer un certain nombre d'hyperparamètres au préalable. Plusieurs travaux se sont donc penchés sur des méthodes à moment dites adaptatives, dans lesquelles le taux d'apprentissage $\alpha$ est automatiquement ajusté selon une heuristique~\cite{duchi_adaptive_2011,tielman_lecture_2012,zeiler_adadelta_2012,kingma_adam_2014}.
+
+De façon orthogonale à l'algorithme de descente de gradient utilisé, un point crucial dans l'optimisation des réseaux profonds réside dans le choix des poids initiaux. L'\emph{initialisation} de ceux-ci conditionne également la capacité de la descente gradient à converger vers un optimal de bonne qualité. Si, comme nous avons pu le voir, les méthodes de pré-entraînement non-supervisées ont été plebiscitées par le passé~\cite{hinton_fast_2006,bengio_greedy_2007}, les réseaux sont dorénavant directement entraînés de façon supervisée. L'idée principale concernant l'initialisation des poids consiste à leur assigner des valeurs aléatoires qui limitent l'explosion ou l'évanescence des gradients. \citet{glorot_understanding_2010-1} propose ainsi une méthode d'initialisation permettant d'obtenir des activations initiales normalement distribuées, ce qui facilite l'apprentissage en garantissant un flot raisonnable des gradients. Cette approche a été reprise et adaptée par la suite pour les fonctions d'activation de type \gls{ReLU}~\cite{he_delving_2015}. Dans la même veine, \citet{saxe_exact_2013} ont proposé d'initialiser les noyaux de convolution profonds avec des matrices aléatoires orthogonales afin d'une part de conserver la norme des activations d'une couche à l'autre et d'autre part de décorreller entre eux les filtres initiaux.
+
+\todo[inline]{tips and tricks sur la SGD (Bottou, LeCun, Bengio, Schmidhuber)}
+Mélanger les données
+Normaliser les données
+SGD avec moment
+Évolution du learning rate
+Taille des batch
+etc.
+
+Il est important de noter que la descente de gradient minimise l'erreur sur le jeu d'entraînement, tandis que l'erreur qui nous intéresse réellement est celle de généralisation. Toutefois, nous n'avons pas accès à cette erreur et devons donc nous contenter de celle disponible. Cela conduit toutefois à un phénomène de surapprentissage, c'est-à-dire que le modèle va apprendre et intégrer des connaissances biaisées liées aux échantillons du jeu d'entraînement, mais dont les propriétés ne se généralisent pas aux données réelles. Par exemple, un modèle devant discriminer entre des images de chats et des images de chiens entraîné sur des photos de chats prises majoritairement de jour et des photos de chiens prises majoritairement de nuit risquerait d'apprendre des caractéristiques liées à l'illumination plutôt qu'à l'espèce de l'animal.
+Pour limiter ce phénomène de surapprentissage, il est nécessaire de faire intervenir des techniques de \emph{régularisation}. Celles-ci permettent de contrebalancer le fait que la fonction objectif à optimiser n'est connue que sur un sous-ensemble restreint et nécessairement biaisé de l'ensemble des observations du monde. Une première méthode consiste à imposer une contrainte sur l'amplitude des poids des connexions du réseau. Cette méthode, appelée \emph{weight decay}, ou dégradation des pondérations, ajoute une pénalité au terme d'erreur global dépend de la norme des poids. Ainsi, la fonction de coût totale devient\,:
+$$\mathcal{L}_{totale} = \mathcal{L}_{co\hat{u}t}(W, \Omega) + \lambda \sum_{w \in W} w^2~~.$$
+~\citet{krogh_simple_1991} ont montré que cette simple pénalité permet de réduire l'erreur de généralisation du modèle.
+
+Plus récemment, le Dropout~\cite{srivastava_dropout_2014} a été proposé comme méthode de régularisation pour lutter contre le surapprentissage. Les réseaux de neurones contenant de nombreux paramètres, l'idée est d'aléatoirement éteindre des neurones de certaines couches à chaque itération de la phase d'apprentissage. Toutes les connexions liées aux neurones éteints sont alors neutralisées avec une probabilité $p$ et seuls les poids du réseau réduit sont mis à jour lors de la descente de gradient pour cette itération. Lors de la phase d'inférence, toutes les activations liées à ces neurones sont pondérées par $p$ afin de conserver les amplitudes totales constantes. Les n\oe{}uds du réseau ne voient ainsi qu'une partie du jeu de données, ce qui force les représentations à contenir de la redondance pour conserver leur pouvoir discriminant. Les signaux faibles liés au biais intrinsèque du jeu de données ne peuvent alors être modélisés, palliant ainsi aux problèmes de surapprentissage. Une autre façon d'envisager le Dropout est de considérer qu'il s'agit d'une méthode de générer un grand nombre de réseaux réduits entraînés en parallèle. En effet, si à chaque itération les neurones sont supprimés avec une probabilité $p = 0,5$, alors en pratique cela est équivalent à entraîner aléatoirement un réseau parmi les $2^n$ réseaux réduits possibles, $n$ étant le nombre de paramètres sujets au Dropout. Lors de l'inférence, un seul réseau est toutefois utilisé, qui correspond à une moyenne de ces réseaux réduits. Il s'agit ainsi d'une forme de régularisation par apprentissage par ensemble. Des variantes inspirées du Dropout ont été proposées, comme le DropConnect~\cite{wan_regularization_2013}, supprimant des synapses plutôt que des neurones, ou l'échantillonnage stochastique~\cite{zeiler_stochastic_2013}.
+
+Une autre méthode pour lutter contre le surapprentissage consiste à alimenter le jeu de données d'entraînement en exemples synthétiques. En augmentant artificiellement le nombre d'échantillons d'apprentissage, il est possible d'espérer augmenter de fait la variété des exemples montrés au modèle et donc de limiter l'influence des biais intrinsèques du jeu de données. On parle alors d'\emph{augmentation de données}. Dans le cas des images, cela peut ainsi passer par des transformations géométriques qui n'affectent pas leur sémantique, notamment des symétries gauche-droite, des rotations et translations légères ou encore des redimensionnements.
+
+Enfin, la normalisation par lot~\cite{ioffe_batch_2015} est parfois présentée comme une méthode de régularisation, en ce que les moments statistiques qui y sont estimés le sont de façon stochastique, ce qui ajoute un faible bruit aux représentations internes à chaque couche.
 
 \subsection{Réseaux de neurones convolutifs profonds}
 
@@ -147,21 +266,23 @@ L'idée de LeCun~\cite{lecun_gradient-based_1998} est de remplacer les première
 Dans le cas discret, le produit de convolution se réécrit\,:
 $$(f * g)[n] = \sum_{k=-\infty}^{+\infty} f[n]g[k-n]$$
 
-Cette formulation s'intéresse toutefois aux signaux 1D, tandis que les images sont des signaux 2D par nature. La convolution discrète peut toutefois s'écrire sans problème pour des fonctions multivariées. Si l'on note $I : \llbracket 1;w \rrbracket \times \llbracket 1;h \rrbracket \rightarrow \mathbb{R}$ la fonction modélisant une image $I$ de dimensions $w\times{}h$ et $K\,: \llbracket 1;k_w \rrbracket \times \llbracket 1;k_h \rrbracket \rightarrow \mathbb{R}$ le \emph{noyau} de convolution de dimension $p \times q$, alors on peut définir le filtre $\mathcal{K}$ tel que\,:
+Cette formulation s'intéresse toutefois aux signaux 1D, tandis que les images sont des signaux 2D par nature. La convolution discrète peut toutefois s'écrire sans problème pour des fonctions multivariées. En deux dimensions, si l'on note $I : \llbracket 1;w \rrbracket \times \llbracket 1;h \rrbracket \rightarrow \mathbb{R}$ la fonction modélisant une image $I$ de taille $w\times{}h$ et $K\,: \llbracket 1;k_w \rrbracket \times \llbracket 1;k_h \rrbracket \rightarrow \mathbb{R}$ le \emph{noyau} de convolution de dimension $p \times q$, alors on peut définir le filtre $\mathcal{K}$ tel que\,:
 $$\mathcal{K}(I)(m,n) = \sum_{i=-p}^{+p} \sum_{i=-q}^{+q} I[m - i, n - j] \cdot k[i, j]~,$$
 avec $p = \frac{k_w-1}{2}$ et $q = \frac{k_h-1}{2}$. Ce calcul est illustré dans la~\cref{fig:convolution}.
 
 Cette formule souffre néanmoins d'une inconnue lorsque l'opérateur agit sur les bords de l'image, puis que les valeurs de $I$ sont alors manquantes. En règle générale, soit on ne calcule pas ces valeurs, auxquel cas la taille de l'image résultante est diminuée par rapport à celle de l'image initiale, soit on ajoute un nombre de zéros égal à la moitié de la taille du noyau de convolution dans chaque direction (\emph{padding}).
 
-En pratique, une couche convolutive d'un réseau de neurones est paramétrée par\,:
+En pratique, une couche de convolution en dimension $n$ d'un réseau de neurones est paramétrée par\,:
 \begin{itemize}
-  \item La taille $k$ des noyaux de convolution, généralement la même dans tous les dimensions,
+  \item Les dimensions $(k_1, \dots, k_n)$ des noyaux de convolution, généralement la même dans tous les dimensions,
   \item Le nombre $C$ de convolutions parallèles, qui définit le nombre de cartes d'activations en sortie de couche,
   \item Le pas $s$ de la convolution,
   \item Le \emph{padding} $p$.
 \end{itemize}
 
-Conventionnellement, on représente les cartes d'activation des neurones, ou cartes de caractéristiques, sous la forme de tenseurs de dimension 3 $(C, W, H)$ avec $C$ le nombre de canaux, également appelé nombre de plans de convolutions, $W$ la largeur et $H$ la hauteur des cartes.
+Ainsi, une couche de convolution possède $k_1 \times \dots \times k_n \times C$ paramètres optimisables. Dans le cas le plus courant de la dimension 2, les noyaux de convolution sont généralement carrés, c'est-à-dire qu'une couche de convolution 2D contient $C k^2$ paramètres.
+
+Conventionnellement, en 2D, on représente les cartes d'activation des neurones, ou cartes de caractéristiques, sous la forme de tenseurs de dimension 3 $(C, W, H)$ avec $C$ le nombre de canaux, également appelé nombre de plans de convolutions, $W$ la largeur et $H$ la hauteur des cartes.
 
 Une couche convolutive va donc combiner les $n_{in}$ cartes d'activation d'entrée avec le $j$\ieme{} noyau de convolution $K_j$\,:
 $$\forall j \in \llbracket 1;n_{out} \rrbracket,~~~o_j = b_j + \sum_{i=1}^{n_{in}} K(z_i)~,$$ c'est-à-dire\,:
@@ -171,7 +292,6 @@ Une convolution transforme donc un tenseur $(C_{in}, W_{in}, H_{in})$ en tenseur
 $$out = \left\lfloor \frac{in - kernel + 2\cdot{}padding}{stride}\right\rfloor + 1~.$$
 
 \todo[inline]{formule pour la convolution avec stride}
-
 
 \paragraph{Convolution à trous}
 
@@ -208,9 +328,13 @@ Max-pooling, average pooling, adaptative pooling
 Les dimensions d'une carte d'activation en sortie d'un sous-échantillonnage sont\,:
 $$out = \left\lfloor \frac{in - kernel}{stride}\right\rfloor + 1~.$$
 
+Le sous-échantillonnage n'a pas de paramètre optimisable, il s'agit d'une fonction complètement déterminée.
+
 \paragraph{Sur-échantillonnage}
 Les dimensions d'une carte d'activation en sortie d'un sur-échantillonnage sont\,:
 $$out = (in - 1) \cdot stride + kernel~.$$
+
+Comme pour le sous-échantillonnage dont il est la transpoée, le sur-échantillonnage ne comprend aucun paramètre optimisable.
 
 \subsubsection{Normalisation}
 
@@ -221,7 +345,7 @@ $$b_i[x,y] = a_i[x,y] - \sum_{p,q} w_{p,q} \cdot a_i[x+p,j+q]$$ avec $w_pq$ une 
 puis par normalisation des amplitudes par l'écart-type pondéré des caractéristiques sur une fenêtre spatiale\,:
 $$z_i[x,y] = b_i[x,y] / max(\operatorname{moy}(\sigma[x,y]), \sigma[x,y])$$ avec $\sigma[x,y] = \left(\sum_{p,q} w_{p,q} \cdot b_i^2[x+p,y+q] \right)^{\frac{1}{2}}$.
 
-L'article séminal de~\citet{krizhevsky_imagenet_2012} introduit également une couche de normalisation locale, \emph{Local Response Normalization}, qui vient inhiber les activations des cartes d'activations adjacentes à celle d'un neurone fortement excité. Ce procédé inspiré de l'inhibition latérale existant dans les neurones biologiques permet d'améliorer la généralisation du modèle. Contrairement à la normalisation du contraste de \citet{jarrett_what_2009}, cette normalisation ne s'applique pas sur un voisinage spatial, mais sur les cartes d'activations filtrées voisines de celle considérée, dans la troisième direction du tenseur. Cette normalisation peut s'exprimer sous la forme d'un noyau s'appliquant aux cartes d'activation 2D. Pour un tenseur de $N$ cartes d'activations $a^1,\dots,a^N$, les cartes normalisées $z^i$ s'obtiennent par\,:
+L'article séminal de~\citet{krizhevsky_imagenet_2012} introduit également une couche de normalisation locale,\gls{LRN}, qui vient inhiber les activations des cartes d'activations adjacentes à celle d'un neurone fortement excité. Ce procédé inspiré de l'inhibition latérale existant dans les neurones biologiques permet d'améliorer la généralisation du modèle. Contrairement à la normalisation du contraste de \citet{jarrett_what_2009}, cette normalisation ne s'applique pas sur un voisinage spatial, mais sur les cartes d'activations filtrées voisines de celle considérée, dans la troisième direction du tenseur. Cette normalisation peut s'exprimer sous la forme d'un noyau s'appliquant aux cartes d'activation 2D. Pour un tenseur de $N$ cartes d'activations $a^1,\dots,a^N$, les cartes normalisées $z^i$ s'obtiennent par\,:
 $$z^i[x,y] = \frac{a^i[x,y]}{\left(k + \alpha \sum_{j=max(0, i-n/2)}^{min(N-1, i+n/2)} (a^j[x,y])^2  \right)^\beta}~~.$$
 avec $n$ la taille du voisinage à considérer (dans la direction des canaux). Il est possible d'envisager cette normalisation en considérant pour chaque position spatiale des cartes d'activation qu'il s'agit d'une normalisation de l'intensité du vecteur d'activation $(a[x,y]^1, a[x,y]^2, \dots, a[x,y]^N)$.
 
@@ -231,115 +355,15 @@ $$\hat{a}_i = \frac{a_i - \mu_i}{\sqrt{\sigma_i^2 + \epsilon}}$$.
 Durant la phase d'apprentissage, $\mu$ et $\sigma$ sont calculés à la volée à partir du \emph{mini-batch}\,:
 $$\mu_i = \frac{1}{N} \sum_{j=1}^N a_i^{(j)}~~\text{ et }~~\sigma_i = \frac{1}{N} \sum_{j=1}^N (a_i^{(j)} - \mu_i)$$
 
-Afin de rendre les calculs en phase d'inférence indépendants de la taille du \emph{batch}, les moments estimés durant la phase d'apprentissage sont conservés en mémoire et fixés lors de l'évaluation. La normalisation par lot est généralement suivie d'une transformée affine $z_i = \alpha \hat{a}_i + \beta$.
+Afin de rendre les calculs en phase d'inférence indépendants de la taille du \emph{batch}, les moments estimés durant la phase d'apprentissage sont conservés en mémoire et fixés lors de l'évaluation. La normalisation par lot est généralement suivie d'une transformée affine $z_i = \alpha \hat{a}_i + \beta$.\footnote{Dans ce cas, la \emph{Batch Normalization} contient $2C$ paramètres optimisables.}
 
 Cette normalisation possède une propriété critique pour l'optimisation de réseaux très profonds\,: elle garantit le flux du gradient couche après couche en maintenant les amplitudes des activations constantes. Les activations ne peuvent ni être trop élevée, ni trop faibles, ce qui assure la stabilité numérique de l'ensemble du réseau. En outre, la normalisation des représentations permet de limiter l'impact de perturbations non sémantiquement pertienentes dans le calcul des caractéristiques. En pratique, l'utilisation de la \emph{batch normalization} permet d'améliorer les performances de classification des modèles et accélère significativement leur vitesse de convergence. Cette normalisation se retrouve dans la grande majorité des architectures de réseaux profonds conçues après sa publication.
 
-\subsection{Entraînement des réseaux de neurones}
+La fonction de transfert non-linéaire des neurones s'applique en sortie de convolution avant ou après la normalisation selon les modèles.
 
-Un autre inconvénient au théorème d'approximation universelle est que même si l'architecture était connue, celui-ci ne donne aucune méthode pour trouver les valeurs des paramètres. En particulier, l'algorithme de rétropropagation du gradient~\cite{werbos_beyond_1975,rumelhart_learning_1986,lecun_learning_1986} décrit ci-après se base sur une méthode de descente de gradient. Toutefois, rien ne garantit que les poids optimaux dont l'existence est assurée par le théorème d'approximation universelle ne soit trouvables par cet algorithme.
+\subsubsection{Couche entièrement connectée}
 
-L'algorithme de rétropropagation du gradient se fonde sur la règle de dérivation en chaîne, c'est-à-dire le théorème de dérivation des fonctions composées~\cite{lhospital_analyse_1716,lagrange_theorie_1797}\,:
-\begin{theorem}
-Soient $f$ et $g$ deux fonctions telles que $f : I \rightarrow J \subset \mathbb{R}$ et $g : J \rightarrow \mathbb{R}$. Soit $x \in I$ tel que $f$ admet une dérivée en $x$. Alors, la fonction composée $h = g \circ f : I \rightarrow \mathbb{R}$ admet une dérivée en $x$ de valeur :
-$$h'(x) = (g \circ f)'(x) = f'(x) \times g'(f(x))~.$$
-
-Si $f$ et $g$ sont dérivables respectivement sur $I$ et $J$, alors\,:
-$$(g \circ f)' = f' \times (g' \circ f)~.$$
-
-ou encore, en utilisant la notation de Leibniz, avec $z = g(y)$ et $y = f(x)$:
-$$\frac{\diff z}{\diff x} = \frac{\diff z}{\diff y} \times \frac{\diff y}{\diff x}~.$$
-\end{theorem}
-
-Ce théorème s'étend aux dérivées partielles de fonctions à valeurs dans $\mathbb{R}^n$.
-
-Dans le cas des réseaux profondes, la propagation avant des activations se fait par la formule suivante\,:
-$$z_j^{k+1} = \varphi\left(\sum_{i=1}^n w^k_{i,j} \cdot z^k_i + b^k_j\right)$$
-avec $\varphi$ la fonction d'activation, $w_{i,j}$ le poids de la connexion, $b_i$ le biais et $k$ le numéro de la couche.
-
-En connaissant l'erreur $e^{k+1}$, c'est-à-dire le gradient pour la couche $k+1$, alors\,:
-
-$$e^k_j = \sum_{i=1}^N w^k_{i,j} e^{k+1}_j  \varphi'\left(\sum_{i=1}^n w^k_{i,j} \cdot z^k_i + b^k_j\right)$$
-
-Pour diminuer l'erreur, il est nécessaire de mettre à jour les poids $w^k$ dans la direction opposée au gradient $\frac{\diff e}{\diff w^k}$. Or, grâce à la règle de la dérivation en chaîne\,:
-$$\frac{\diff e}{\diff w^k} = \frac{\diff e}{\diff z^k} \times \frac{\diff z^k}{\diff w^k}$$.
-
-Il est donc possible de calculer la mise à jour des poids en rétro-propageant la valeur du gradient d'une couche à la précédente.
-
-On peut alors utiliser l'algorithme de descente de gradient~\cite{cauchy_comptes_1847} afin de minimiser l'erreur totale en mettant à jour les poids. Cet algorithme, dit de la plus forte pente, permet d'approcher des minima locaux d'une fonction $f$ arbitraire en cherchant ses points stationnaires, c'est-à-dire les points où le gradient de $f$ s'annule. L'algorithme repose sur l'idée que $f$ décroît le plus rapidement dans la direction opposée à son gradient et fonctionne de la façon suivante\,:
-
-\begin{theorem}
-  Soit $f : \mathbb{R}^n \rightarrow \mathbb{R}$ une fonction différentiable et $\nabla f$ son gradient. Soit $x_0 \in \mathbb{R}^n$ un point initial, $\epsilon > 0$ le seuil de tolérance de l'algorithme et $\alpha > 0$ le pas de la descente. On définit alors la suite $(x_i)_{i \ge 0} \in \mathbb{R}^\mathbb{N}$ telle que\,:
-  $$x_{i+1} = x_i - \alpha \nabla f(x_i)~.$$
-  L'algorithme s'arrête lorsque $\nabla f(x_i) \le \epsilon$.
-\end{theorem}
-
-Dans le cas des réseaux de neurones, la fonction $f$ correspond à l'erreur totale du modèle sur l'ensemble du jeu de données d'entraînement $\Omega$. Ainsi, pour un modèle paramétré par ses poids $W$ et de fonction objectif $E$, on cherche à mettre à jour les poids du réseau dans la direction opposée du gradient par rapport à ces mêmes poids $\nabla_W E(W, \Omega)$.
-
-\begin{theorem}
-  \begin{enumerate}
-    \item Initialiser aléatoirement les poids $W$.
-    \item Calculer $\nabla_W E(W, \Omega)$ à partir de l'erreur sur chaque échantillon.
-    \item Tant que $\nabla_W E(W, \Omega) > \epsilon$\,:
-      \begin{itemize}
-          \item $W = W - \nabla_W E(W, \Omega)$
-      \end{itemize}
-  \end{enumerate}
-\end{theorem}
-
- Cependant, le cardinal de $\Omega$ peut être très grand en pratique, les bases de données d'apprentissage pouvant contenir des milliers, voire des millions d'exemple. Par conséquent, il est généralement nécessaire d'utiliser une variante en ligne de l'algorithme de gradient, l'algorithme de descente de gradient \emph{stochastique}, qui réalise la mise à jour des poids pour chaque exemple, en approximant l'erreur moyenne à partir de l'erreur sur un seul échantillon, c'est-à-dire\,:
-\begin{theorem}
-  \begin{enumerate}
-    \item Initialiser aléatoirement les poids $W$.
-    \item Tant que le critère d'arrêt n'est pas atteint\,:
-      \begin{itemize}
-          \item Tirer aléatoirement un exemple d'apprentissage $\omega \in \Omega$
-          \item $W = W - \nabla_W E(W, \omega)$
-      \end{itemize}
-  \end{enumerate}
-L'algorithme s'arrête lorsque le critère d'arrêt est vérifié, généralement lorsqu'un nombre d'itérations prédéfini est atteint.
-\end{theorem}
-
-L'inconvénient de l'algorithme de descente de gradient stochastique est que l'approximation du gradient $\nabla_W E(W, \omega)$ est très bruitée et peut changer fortement de direction entre deux itérations successives. Afin de stabiliser la convergence, on utilise le plus souvent l'algorithme de descente de gradient stochastique \emph{par mini-lots}, également appelés \emph{mini-batches}. On approxime alors le gradient global non pas à partir d'un échantillon, mais à partir de la moyenne sur un nombre $k$ d'échantillons, qui forment un mini-lot ou \emph{mini-batch}\,:
-\begin{theorem}
-  \begin{enumerate}
-    \item Initialiser aléatoirement les poids $W$.
-    \item Tant que le critère d'arrêt n'est pas atteint\,:
-      \begin{itemize}
-          \item Tirer aléatoirement $k$ exemples d'apprentissage $(\omega_1,\dots,\omega_k) \in \Omega^k$
-          \item $W = W - \frac{1}{k} \sum_{i=1}^k \nabla_W E(W, \omega_i)$
-      \end{itemize}
-  \end{enumerate}
-L'algorithme s'arrête lorsque le critère d'arrêt est vérifié, généralement lorsqu'un nombre d'itérations prédéfini est atteint.
-\end{theorem}
-
-Il est important de noter que l'algorithme de descente de gradient ne dispose d'une convergence garantie que dans le cas où la fonction $f$ est convexe, ce qui n'est jamais le cas en pratique pour des réseaux profonds. Des variantes de la descente de gradient ont été proposées pour améliorer ses propriétés de convergence. En particulier, le pas de la descente $\alpha$ joue un rôle important dans l'optimisation des réseaux de neurones profonds. Appelé généralement taux d'apprentissage, $\alpha$ contrôle à l'amplitude des mises à jour des poids du modèle. Si $\alpha$ est très élevé, les mises à jour seront très grande et la convergence très instable. Si $\alpha$ est très faible, la convergence peut être très lente voire se bloquer dans des minima locaux. La plupart des variantes de la descente de gradient stochastique utilisent des politiques particulières pour la mise à jour des poids. Des méthodes dites de \og moment \fg, inspirées du moment cinétique en mécanique, permettent notamment de faire conserver au gradient une partie de sa vélocité des itérations précédentes pour limiter les oscillations le long des courbes de niveaux de la fonction~\cite{qian_momentum_1999,nesterov_method_1983}. \citet{sutskever_importance_2013-1} ont notamment montré que l'utilisation d'une descente de gradient stochastique à moment permet d'améliorer les performances finales du modèle, y compris dans le cas d'une poids initiaux mal choisis. \citet{polyak_acceleration_1992} propose par ailleurs d'utiliser le gradient moyennée sur les $n$ dernières itérations pour la mise à jour des poids, ce qui correspond à une forme de mini-lot asynchrone.
-
-Une autre source d'amélioration proposée réside dans la politique du choix de $\alpha$. En effet, rien ne contraint $\alpha$ à être fixé dans l'algorithme de descente de gradient. Il est possible de l'ajuster manuellement au cours de l'apprentissage, par exemple en commençant avec un taux d'apprentissage élevé au début, puis en le multipliant par un ratio $\gamma < 1$ à intervalles réguliers. \citet{bottou_stochastic_2012} recommande ainsi de la descente de gradient stochastique moyennée couplée avec une évolution de $\alpha$ suivant la relation $\alpha_{i+1} = \alpha_0 (1 + \gamma \cdot i)^{-1}$. Plus récemment, \citet{loshchilov_sgdr_2016} ont proposé une méthode à base de recuit simulé. Toutefois, cela nécessite une intervention manuelle dans la mesure où il est nécessaire de configurer un certain nombre d'hyperparamètres au préalable. Plusieurs travaux se sont donc penchés sur des méthodes à moment dites adaptatives, dans lesquelles le taux d'apprentissage $\alpha$ est automatiquement ajusté selon une heuristique~\cite{duchi_adaptive_2011,tielman_lecture_2012,zeiler_adadelta_2012,kingma_adam_2014}.
-
-De façon orthogonale à l'algorithme de descente de gradient utilisé, un point crucial dans l'optimisation des réseaux profonds réside dans le choix des poids initiaux. L'\emph{initialisation} de ceux-ci conditionne également la capacité de la descente gradient à converger vers un optimal de bonne qualité. Si, comme nous avons pu le voir, les méthodes de pré-entraînement non-supervisées ont été plebiscitées par le passé~\cite{hinton_fast_2006,bengio_greedy_2007}, les réseaux sont dorénavant directement entraînés de façon supervisée. L'idée principale concernant l'initialisation des poids consiste à leur assigner des valeurs aléatoires qui limitent l'explosion ou l'évanescence des gradients. \citet{glorot_understanding_2010-1} propose ainsi une méthode d'initialisation permettant d'obtenir des activations initiales normalement distribuées, ce qui facilite l'apprentissage en garantissant un flot raisonnable des gradients. Cette approche a été reprise et adaptée par la suite pour les fonctions d'activation de type \gls{ReLU}~\cite{he_delving_2015}. Dans la même veine, \citet{saxe_exact_2013} ont proposé d'initialiser les noyaux de convolution profonds avec des matrices aléatoires orthogonales afin d'une part de conserver la norme des activations d'une couche à l'autre et d'autre part de décorreller entre eux les filtres initiaux.
-
-\todo[inline]{tips and tricks sur la SGD (Bottou, LeCun, Bengio, Schmidhuber)}
-Mélanger les données
-Normaliser les données
-SGD avec moment
-Évolution du learning rate
-Taille des batch
-etc.
-
-Il est important de noter que la descente de gradient minimise l'erreur sur le jeu d'entraînement, tandis que l'erreur qui nous intéresse réellement est celle de généralisation. Toutefois, nous n'avons pas accès à cette erreur et devons donc nous contenter de celle disponible. Cela conduit toutefois à un phénomène de surapprentissage, c'est-à-dire que le modèle va apprendre et intégrer des connaissances biaisées liées aux échantillons du jeu d'entraînement, mais dont les propriétés ne se généralisent pas aux données réelles. Par exemple, un modèle devant discriminer entre des images de chats et des images de chiens entraîné sur des photos de chats prises majoritairement de jour et des photos de chiens prises majoritairement de nuit risquerait d'apprendre des caractéristiques liées à l'illumination plutôt qu'à l'espèce de l'animal.
-Pour limiter ce phénomène de surapprentissage, il est nécessaire de faire intervenir des techniques de \emph{régularisation}. Celles-ci permettent de contrebalancer le fait que la fonction objectif à optimiser n'est connue que sur un sous-ensemble restreint et nécessairement biaisé de l'ensemble des observations du monde. Une première méthode consiste à imposer une contrainte sur l'amplitude des poids des connexions du réseau. Cette méthode, appelée \emph{weight decay}, ou dégradation des pondérations, ajoute une pénalité au terme d'erreur global dépend de la norme des poids. Ainsi, la fonction de coût totale devient\,:
-$$E_{totale} = E_{coût} + \lambda \sum_{w \in W} w^2~~.$$
-~\citet{krogh_simple_1991} ont montré que cette simple pénalité permet de réduire l'erreur de généralisation du modèle.
-
-Plus récemment, le Dropout~\cite{srivastava_dropout_2014} a été proposé comme méthode de régularisation pour lutter contre le surapprentissage. Les réseaux de neurones contenant de nombreux paramètres, l'idée est d'aléatoirement éteindre des neurones de certaines couches à chaque itération de la phase d'apprentissage. Toutes les connexions liées aux neurones éteints sont alors neutralisées avec une probabilité $p$ et seuls les poids du réseau réduit sont mis à jour lors de la descente de gradient pour cette itération. Lors de la phase d'inférence, toutes les activations liées à ces neurones sont pondérées par $p$ afin de conserver les amplitudes totales constantes. Les n\oe{}uds du réseau ne voient ainsi qu'une partie du jeu de données, ce qui force les représentations à contenir de la redondance pour conserver leur pouvoir discriminant. Les signaux faibles liés au biais intrinsèque du jeu de données ne peuvent alors être modélisés, palliant ainsi aux problèmes de surapprentissage. Une autre façon d'envisager le Dropout est de considérer qu'il s'agit d'une méthode de générer un grand nombre de réseaux réduits entraînés en parallèle. En effet, si à chaque itération les neurones sont supprimés avec une probabilité $p = 0,5$, alors en pratique cela est équivalent à entraîner aléatoirement un réseau parmi les $2^n$ réseaux réduits possibles, $n$ étant le nombre de paramètres sujets au Dropout. Lors de l'inférence, un seul réseau est toutefois utilisé, qui correspond à une moyenne de ces réseaux réduits. Il s'agit ainsi d'une forme de régularisation par apprentissage par ensemble. Des variantes inspirées du Dropout ont été proposées, comme le DropConnect~\cite{wan_regularization_2013}, supprimant des synapses plutôt que des neurones, ou l'échantillonnage stochastique~\cite{zeiler_stochastic_2013}.
-
-Une autre méthode pour lutter contre le surapprentissage consiste à alimenter le jeu de données d'entraînement en exemples synthétiques. En augmentant artificiellement le nombre d'échantillons d'apprentissage, il est possible d'espérer augmenter de fait la variété des exemples montrés au modèle et donc de limiter l'influence des biais intrinsèques du jeu de données. On parle alors d'\emph{augmentation de données}. Dans le cas des images, cela peut ainsi passer par des transformations géométriques qui n'affectent pas leur sémantique, notamment des symétries gauche-droite, des rotations et translations légères ou encore des redimensionnements.
-
-Enfin, la normalisation par lot~\cite{ioffe_batch_2015} est parfois présentée comme une méthode de régularisation, en ce que les moments statistiques qui y sont estimés le sont de façon stochastique, ce qui ajoute un faible bruit aux représentations internes à chaque couche.
-
-\todo[inline]{Détailler}
-Fonctions de coût : régression\,: L1, L2 (et variantes "Huber"), classification\,: cross-entropy
+Une couche entièrement connectée correspond à un graphe biparti complet, au sein duquel tous les neurones d'entrée sont connectés par des synapses à tous les neurones de sortie. Cela correspond de fait au perceptron de~\citet{rosenblatt_perceptron_1957}. La non-linéarité est appliquée sous la forme d'une fonction d'activation sur le vecteur de sortie. Une couche entièrement connectée peut se conceptualiser comme une simple multiplication matricielle, transformant un vecteur de dimensions $1\times{}N$ en vecteur de dimensions $1\times{}M$ par le biais d'une matrice de poids $N\times{}M$. Lorsqu'il est utilisé, le \emph{Dropout}~\cite{srivastava_dropout_2014} est généralement appliqué sur les poids des couches entièrement connectées. En effet, ces couches contiennent un nombre important de paramètres et sont sensibles au surapprentissage. À l'inverse, les couches convolutives sont rarement soumises au \emph{Dropout}, car la suppression stochastique de neurones risque d'avoir des effets négatifs sur la structure spatiale des cartes d'activation.
 
 \subsection{Réseaux de neurones et apprentissage multi-modal}
 
@@ -361,7 +385,7 @@ Une des premières méthodes développées pour l'apprentissage multi-modal s'in
 
 \begin{figure}
   \hfill
-  \begin{subfigure}[b]{0.45\textwidth}
+  \begin{subfigure}[b]{0.43\textwidth}
     \resizebox{\textwidth}{!}{
       \input{Chapitre1/ngiam.tikz}
     }
@@ -390,7 +414,11 @@ De nombreux jeux de données multi-modaux ont été proposés pour une grande va
 
 \subsection{De la classification à la segmentation}
 
-\missingfigure{Classif vs segmentation}
+\begin{figure}[t]
+  \resizebox{\textwidth}{!}{\input{Chapitre1/classification_segmentation.tikz}}
+  \caption{Exemple de classification et de segmentation sur une même image. La classification s'intéresse à la reconnaissance d'objet pour toute l'image, tandis que la segmentation opère sur chaque pixel.}
+  \label{fig:classif_vs_seg}
+\end{figure}
 
 La segmentation d'image est une des premières tâches envisagée dans le cadre de la vision artificielle.
 La légende veut que Minsky en 1964 ait demandé à un ses étudiants, Gerald Sussman, de \og passer l'été à connecter une caméra à un ordinateur et réussir à faire en sorte que l'ordinateur décrive ce qu'il voit \fg\footnote{``\emph{spend the summer linking a camera to a computer and getting the computer to describe what it saw}'', tel que rapporté par ~\citet{szeliski_computer_2011}, citant lui-même~\citet{boden_mind_2008} reprenant~\citet{crevier_ai_1993}.}.
@@ -400,7 +428,17 @@ Si cette tâche semble triviale pour un humain, elle est représente pourtant un
 
 De nombreux travaux se sont dès lors penchés sur le problème de la reconnaissance d'objet, c'est-à-dire l'identification et le nommage d'un objet présent dans une image. On parlera ici de classification d'images, tâche consistant à associer une classe d'objet à une image. Cette tâche a concentré la majorité des efforts de la communauté, de l'utilisation de descripteurs \emph{ad hoc}~\cite{ullman_aligning_1989} aux caractéristiques apprises~\cite{vidal-naquet_object_2003} en passant par les modèles probabilistes~\cite{schneiderman_probabilistic_1998}. L'arrivée récente de larges bases de données d'images annotées comme CIFAR-10 et CIFAR-100~\cite{krizhevsky_learning_2009}, puis ImageNet~\cite{deng_imagenet_2009,russakovsky_imagenet_2015} ont notamment permis d'aboutir au succès des réseaux convolutifs profonds en classification de chiffres sur la base de données MNIST~\cite{lecun_gradient-based_1998}, en reconnaissance de panneaux de signalisation~\cite{stallkamp_german_2011}, en identification de caractères chinois~\cite{liu_icdar_2011} et bien sûr en reconnaissance d'objets en tout genre sur ImageNet~\cite{krizhevsky_imagenet_2012}.
 
-\begin{figure}
+\begin{figure}[t]
+  \resizebox{\textwidth}{!}{
+    \input{Chapitre1/lenet.tikz}
+  }
+  \caption{Architecture LeNet-5~\cite{lecun_gradient-based_1998}}
+  \label{fig:lenet}
+\end{figure}
+
+L'architecture LeNet-5, developpée par \citet{lecun_gradient-based_1998}, a posé les bases des \gls{CNN}. Elle consiste en deux couches convolutives suivies de trois couches entièrement connectées, comme illustré dans la~\cref{fig:lenet}. La partie convolutive du modèle réalise l'extraction de caractéristiques dans le domaine image, tandis que les couches entièrement connectées opèrent sur une représentation vectorielle unidimensionnelle et réalisent la classification finale. Initialement, LeNet-5 a été développé pour la reconnaissance de chiffres manuscrits dans des images en niveaux de gris et est conçu pour des images de dimensions $32\times32$px. En comparaison de la taille de l'image, les filtres convolutifs utilisés sont relativement grands puisque les noyaux de convolution sont de taille $5\times5$. La première couche $C1$ comporte 6 noyaux, c'est-à-dire que six cartes d'activation sont générées. Elles sont sous-échantillonnées avec un pas de 2, puis transmises à la couche convolutive suivante $C2$. Chaque carte d'activation de $C1$ est filtrée par chaque noyau de convolution de la couche $C2$, qui en comporte 16. Les cartes sont à nouveau sous-échantillonnée, ce qui produit finalement 16 cartes d'activation $5\times5$. Celles-ci sont alors aplaties en un vecteur de taille $1\times400$, entièrement connecté à une première couche cachée de dimension $120$, puis à une seconde de dimension $84$. Finalement, ce descripteur est entièrement connecté au vecteur de taille $10$, chaque activation correspondant alors à un des 10 chiffres possibles. La présence des couches entièrement connectées, dont le nombre de neurones est fixé, impose aux cartes d'activation issues des couches convolutives d'être de la bonne dimension. Cette contrainte impose en cascade que la taille des images traitées par LeNet soit toujours la même. Utiliser des images d'autres dimensions nécessiterait de ré-entraîner des couches entièrement connectées avec le nombre adéquat de neurones. Cette déficience due à la présence des couches entièrement connectées est partagée par la plupart des \gls{CNN}.
+
+\begin{figure}[t]
   \resizebox{\textwidth}{!}{
     \input{Chapitre1/alexnet.tikz}
   }
@@ -408,7 +446,11 @@ De nombreux travaux se sont dès lors penchés sur le problème de la reconnaiss
   \label{fig:alexnet}
 \end{figure}
 
-\begin{figure}
+Pour le traitement des images en couleur, le réseau AlexNet~\cite{krizhevsky_imagenet_2012} utilise une approche similaire. Ce modèle, détaillé dans la~\cref{fig:alexnet} comporte 8 couches, dont 5 convolutives, et traite des images \gls{RVB} de dimensions $224\times224$. La première convolution possède un noyau relativement grand, de dimensions $11\times11$ suivi d'un sous-échantillonnage, ce qui réduit fortement les dimensions de l'image. Ainsi, les cartes d'activation en sortie de la première couche sont de dimensions $96\times27\times27$, puis $256\times13\times13$ après la seconde. Une normalisation \gls{LRN} est utilisée après les deux premières convolutions pour favoriser la généralisation du modèle. La structure convolutive d'AlexNet est conçue de telle sorte à ce que le nombre de cartes d'activation augmente de façon inversement proportionnelle à la réduction des dimensions spatiales. Cela permet de conserver un nombre raisonnable de valeurs à calculer tout en accroissant l'expressivité de la représentation apprise. Les trois couches de convolutions suivantes sont suivies par un sous-échantillonnage final qui permet d'obtenir 256 cartes de dimensions $6\times6$, transformée en un vecteur de caractéristique de longueur $9216$. Les couches entièrement connectées le réduisent ensuite à 2048 puis le projettent dans un vecteur de classification de taille 1000, correspondant aux classes d'ImageNet~\cite{deng_imagenet_2009}. Ce modèle a permis à~\citet{krizhevsky_imagenet_2012} de remporter la compétition \gls{ILSVRC}~\cite{russakovsky_imagenet_2015} en 2012 avec un taux d'erreur de 15,3\%.
+
+\citet{zeiler_visualizing_2014-1} se sont penchés sur l'architecture AlexNet afin d'établir un diagnostic de ses points forts et de ses points faibles. En particulier, ils proposent d'inverser les opérations de convolution afin de pouvoir relier les représentations internes aux pixels de l'image originale. Ils définissent ainsi les opérations transposées de la couche de convolution et du sous-échantillonnage et construisent un \emph{Deconvnet} permettant de visualiser les caractéristiques apprises par AlexNet. En outre, ils étudient attentivement les filtres convolutifs appris par les couches basses du réseau. Leurs travaux mettent en évidence plusieurs propriétés intéressantes. La première est que les caractéristiques des couches supérieures présentent une plus grande invariance aux transformations géométriques et colorimétriques de bas niveau, traduisant ainsi un meilleur niveau d'abstraction. La seconde est que les deux premières couches convolutives d'AlexNet contienennt des filtres liés aux hautes et basses fréquences, mais conservent peu d'information des fréquences intermédiaires. Ils proposent ainsi de remplacer la première couche, dont les noyaux sont de dimension $11\times11$, par des filtres $7\times7$ appliqués sur l'image avec un pas de 2 plutôt qu'un pas de 4, afin de conserver plus d'information. Leurs filtres appris de cette façon présentent une meilleure variété et moins de filtres ``morts'' à très faible amplitude. Enfin, la visualisation des représentations internes permet de constater que celles-ci ne sont pas aléatoires, mais possèdent bien une sémantique liée à la discrimination des objets, certains neurones se focalisant par exemple sur les visages, d'autres sur les roues, etc.
+
+\begin{figure}[t]
   \resizebox{\textwidth}{!}{
     \input{Chapitre1/vgg.tikz}
   }
@@ -416,7 +458,11 @@ De nombreux travaux se sont dès lors penchés sur le problème de la reconnaiss
   \label{fig:vgg}
 \end{figure}
 
-\begin{figure}
+Le modèle VGG-16 affine l'architecture en proposant notamment de réduire la dimension des noyaux de convolution. L'argument principal évoqué par~\cite{chatfield_return_2014,simonyan_very_2014} est qu'il est plus simple d'optimiser plusieurs convolutions successives de noyaux $3\times3$ qu'une seule couche convolutive avec un noyau large $11\times11$. En outre, la présence de non-linéarités supplémentaires augmente l'expressivité du modèle. L'approche utilisée pour le modèle VGG-16 est donc de remplacer les convolutions larges classiques par des blocs de 2 ou 3 convolutions $3\times3$. Le modèle comporte 16 couches dont 13 convolutives et 3 entièrement connectées, suivant l'approche canonique de LeNet et AlexNet. Elle comporte 5 blocs convolutifs $3\times3$ chacun suivi d'un sous-échantillonnage de pas 2. Les deux premiers blocs comportent 2 couches de convolution, les trois suivants en comportant 3. Les cartes d'activations finales sont de dimension $512\times7\times7$, VGG-16 réalisant ainsi une réduction de dimension d'un facteur 32. Ce vecteur de longueur 25088 est ensuite réduit à 4096, puis aux 1000 classes d'intérêt d'ImageNet. Afin de limiter le surapprentissage, les couches entièrement connectées sont soumises au \emph{Dropout}. Ces améliorations proposés à l'architecture classiques des \gls{CNN} a permis d'obtenir en 2014 un taux d'erreur de 7,4\% en reconnaissance d'objet durant la compétition \gls{ILSVRC}.
+
+\todo[inline]{Dropout dans les figures ?}
+
+\begin{figure}[t]
   \resizebox{\textwidth}{!}{
     \input{Chapitre1/googlenet.tikz}
   }
@@ -424,29 +470,49 @@ De nombreux travaux se sont dès lors penchés sur le problème de la reconnaiss
   \label{fig:googlenet}
 \end{figure}
 
-\missingfigure{inception module}
+\begin{figure}[t]
+  \resizebox{0.5\textwidth}{!}{
+    \input{Chapitre1/inception.tikz}
+  }
+  \caption{Module \emph{Inception}~\cite{szegedy_going_2015}}
+  \label{fig:inception}
+\end{figure}
 
-\begin{figure}
+En parallèle, \citet{szegedy_going_2015} proposent le modèle GoogLeNet avec 22 couches. Cette architecture introduit notamment le module \emph{Inception} empilant plusieurs couches en parallèle, et plus seulement en profondeur. L'idée est de réaliser, pour une carte d'activation, l'extraction de caractéristiques à plusieurs niveaux de contextes en utilisant soit une convolution $1\times1$, c'est-à-dire une combinaison linéaire suivie d'une non-linéarité, soit des convolutions $3\times3$ ou $5\times5$. Le module \emph{Inception} est illustré dans la~\cref{fig:inception}. L'architecture complète du modèle GoogLeNet est détaillée dans la~\cref{fig:googlenet}. Compte-tenu de la profondeur du réseau (22 couches), ses auteurs proposent de faciliter l'optimisation des couches les plus basses en ajoutant un classifieur au niveau des représentations intermédiaires, après les modules \emph{Inception} (4a) et (4d), cette approche ayant déjà montré son efficacité pour lutter contre les problèmes de gradients évanescents par le passé~\cite{lee_deeply-supervised_2015}. Ce modèle obtient un taux d'ereur de seulement 6,4\% en reconnaissance d'objets à l'\gls{ILSVRC}. Ce modèle sera amélioré~\cite{szegedy_rethinking_2015} par la suite en remplaçant les convolutions $5\times5$ du module \emph{Inception} par deux convolutions $3\times3$, comme proposé dans le modèle VGG~\cite{simonyan_very_2014} et en intégrant la \emph{Batch Normalization}~\cite{ioffe_batch_2015}.
+\todo[inline]{ajouter la supervision profonde au graphique Inception + LRN après Pool1 et Pool2}
+
+\begin{figure}[t]
   \resizebox{\textwidth}{!}{
     \input{Chapitre1/resnet.tikz}
   }
   \caption{Architecture ResNet-34~\cite{he_deep_2016}}
-  \label{fig:googlenet}
+  \label{fig:resnet}
 \end{figure}
 
 \missingfigure{residual connection}
 
-\missingfigure{densenet}
+En 2015, \citet{he_deep_2016} parviennent à obtenir un taux d'erreur de seulement 3,5\% en reconnaissance d'objet durant le \gls{ILSVRC}. Leur approche consiste en un réseau très profond comprenant plus de 100 couches convolutives. L'optimisation est rendue possible d'une part grâce à la \emph{Batch Normalization}, mais surtout grâce à l'apprentissage par résidu. L'idée est de briser la structure purement séquentielle des réseaux à propagation avant en ajoutant des connexions permettant de shunter la couche suivante. Ces connexions, dites résiduelles, correspondent à une simple opération identité et permettent alors aux activations et au gradient de parcourir l'ensemble du réseau sans subir d'évanescene ou d'explosion dues à la règle de la dérivation en chaîne. Plutôt de cherche à approximer $f\,: x \rightarrow f(x)$, le bloc résiduel va approximer $\hat{f}\,: x \rightarrow f(x) - x$, plus simple car d'amplitude a priori plus faible. Le bloc de convolution résiduel est illustré dans la~\cref{fig:residual} et un exemple de modèle dit \emph{ResNet} à 34 couches est détaillé dans la~\cref{fig:resnet}. L'introduction de l'apprentissage par résidu change en partie le paradigme utilisée jusqu'alors pour la conception des \gls{CNN}. Les ResNet possèdent beaucoup de couches mais comparativement peu de paramètres, car seule la dernière couche est entièrement connectée. Comme nous l'avons vu, les couches entièrement connectées concentrent en général la majorité des poids des \gls{CNN} et sont également les plus sensibles au surapprentissage, nécessitant l'intégration de régularisations comme le \emph{Dropout}~\cite{srivastava_dropout_2014}. ResNet ne contient quasiment que des convolutions $3\times3$, à l'exception de la première $7\times7$ qui permet de réduire brutalement les dimensions spatiales de l'image. Il est intéressant de constater que la réduction de dimension finale avant la couche entièrement connectée se fait à l'aide d'un sous-échantillonnage adaptatif. Ainsi, peu importe la taille de l'image de l'entrée\,: le sous-échantillonnage moyennera les activations pour produire le vecteur de caractéristiques de taille attendue par la couche entièrement connectée. Cependant, il faut noter que le nombre élevé d'activations et de gradients intermédiaires à calculer rend les ResNet coûteux en mémoire et peu pratiques sur de grandes images. L'architecture \emph{Inception} sera également augmentée par des connexions résiduelles~\cite{szegedy_inception-v4_2016}.
 
-Des progrès considérables ont été réalisés depuis le succès d'AlexNet~\cite{krizhevsky_imagenet_2012}, notamment\,:
-les modèles VGG~\cite{chatfield_return_2014} et \cite{simonyan_very_2014}
-le modèle Inception~\cite{szegedy_going_2015} et ses variantes~\cite{szegedy_rethinking_2015,szegedy_inception-v4_2016}
-Le modèle ResNet~\cite{he_deep_2016}
-Puis le modèle DenseNet~\cite{huang_densely_2017}
 
-Toutefois, la classification d'images ne donne aucune information particulière de localisation, seulement une information binaire de présence d'un objet dans une image. Des approches à base de réseaux profonds pour la détection d'objet à partir de classification de sous-régions de l'image ont rapidement vu le jour~\cite{girshick_rich_2014,liu_ssd_2016,girshick_region-based_2016} supplantant les approches traditionnelles de localisation~\cite{lowe_object_1999,dalal_histograms_2005,gu_recognition_2009,uijlings_selective_2013}. Cependant, ces approches ne répondent pas exactement au problème décrit par Papert en 1966. La question n'est pas uniquement de pouvoir identifier des objets, mais aussi d'en estimer la forme et de les séparer du fond. Cette tâche consiste donc à la segmentation sémantique, c'est-à-dire à l'association d'une classe d'intérêt non pas à chaque image, mais à chaque pixel.
+\begin{figure}[t]
+  \resizebox{\textwidth}{!}{
+    \input{Chapitre1/densenet.tikz}
+  }
+  \caption{Architecture DenseNet-121~\cite{huang_densely_2017}}
+  \label{fig:densenet}
+\end{figure}
 
-Plusieurs jeux de données ont été introduits dans la communauté vision par ordinateur afin d'évaluer des méthodes sur cette tâche, notamment sur des scènes de la vie quotidienne, comme PASCAL VOC~\cite{everingham_pascal_2014}, Microsoft COCO~\cite{lin_microsoft_2014} et également sur des scènes de conduite autonome avec des jeux de données tels que CamVid~\cite{brostow_semantic_2009}, Cityscapes~\cite{cordts_cityscapes_2016} ou encore Mapillary Vistas~\cite{neuhold_mapillary_2017}. Les premières approches de segmentation sémantique ont réalisé des classification à partir de caractéristiques denses calculées sur l'ensemble de l'image, regroupées \emph{a posterio} par régions homogènes~\cite{shotton_semantic_2008,shotton_real-time_2011}. Les réseaux convolutifs profonds également utilisés à cette fin en calculant une classification pour chaque pixel de l'image~\cite{grangier_deep_2009,ciresan_deep_2012} ou pour chaque région~\cite{farabet_towards_2013,sermanet_overfeat_2013}. Une observation importante est que les cartes de caractéristiques issues des couches convolutives conservent la structure spatiale de l'image, c'est-à-dire qu'il est possible de faire correspondre chaque caractéristique à un ou plusieurs pixels. Cette extraction de caractéristique dense se prête particulièrement aux problématiques de localisation d'objet et est rapidement adoptée par la communauté~\cite{zou_generic_2014}.
+\missingfigure{denseblock}
+
+
+L'utilisation de cartes d'activation intermédiaires et leur propagation aux couches supérieures permet une meilleure classification en prenant en compte plusieurs niveaux d'abstraction. Toutefois, les connexions résiduelles ne permettent que d'accéder aux activations de la couche précédente. \citet{huang_densely_2017} ont donc proposé une architecture dite \emph{DenseNet} comportant des connexions denses, construisant un modèle au sein duquel toutes les cartes d'activation issues des couches inférieures sont transmises à toutes les couches supérieures. Pour éviter l'explosion du nombre de paramètres et d'activations, le modèle est divisé en plusieurs blocs denses, comme illustré dans la~\cref{fig:densenet}. Chaque bloc se détaille comme illustré dans la~\cref{fig:denseblock}. La présence des connexions denses permet au gradient de se propager immédiatement des couches supérieures aux couches inférieures, appliquant ainsi une forme implicite de supervision profonde~\cite{lee_deeply-supervised_2015}. Entre deux blocs, une couche convolutive de transition set appliquée pour réduire le nombre de plans et est suivie d'un \emph{max-pooling} pour réduire les dimensions spatiales. Cette architecture obtient comparativement de meilleurs résultats que les modèles ResNet sur la base de validation de l'\gls{ILSVRC}2012. Toutefois, comme pour les ResNet, si le nombre de paramètres des architectures DenseNet est faible, ils sont coûteux en espace mémoire nécessaire pour stocker les activations et gradients intermédiaires.
+
+\todo[inline]{depthwise/separable convolutions}
+
+
+Toutefois, la classification d'images ne donne aucune information particulière de localisation, seulement une information binaire de présence d'un objet dans une image. Des approches à base de réseaux profonds pour la détection d'objet à partir de classification de sous-régions de l'image ont rapidement vu le jour~\cite{girshick_rich_2014,liu_ssd_2016,girshick_region-based_2016} supplantant les approches traditionnelles de localisation~\cite{lowe_object_1999,dalal_histograms_2005,gu_recognition_2009,uijlings_selective_2013}. Cependant, ces approches ne répondent pas exactement au problème décrit par Papert en 1966. La question n'est pas uniquement de pouvoir identifier des objets, mais aussi d'en estimer la forme et de les séparer du fond, comme illustré dans la~\cref{fig:classif_vs_seg}. Cette tâche consiste donc à la segmentation sémantique, c'est-à-dire à l'association d'une classe d'intérêt non pas à chaque image, mais à chaque pixel.
+
+Plusieurs jeux de données ont été introduits dans la communauté vision par ordinateur afin d'évaluer des méthodes sur cette tâche, notamment sur des scènes de la vie quotidienne, comme PASCAL VOC~\cite{everingham_pascal_2014}, Microsoft COCO~\cite{lin_microsoft_2014} et également sur des scènes de conduite autonome avec des jeux de données tels que CamVid~\cite{brostow_semantic_2009}, Cityscapes~\cite{cordts_cityscapes_2016} ou encore Mapillary Vistas~\cite{neuhold_mapillary_2017}. Les premières approches de segmentation sémantique ont réalisé des classification à partir de caractéristiques denses calculées sur l'ensemble de l'image, regroupées \emph{a posteriori} par régions homogènes~\cite{shotton_semantic_2008,shotton_real-time_2011}. Les réseaux convolutifs profonds également utilisés à cette fin en calculant une classification pour chaque pixel de l'image~\cite{grangier_deep_2009,ciresan_deep_2012} ou pour chaque région~\cite{farabet_towards_2013,sermanet_overfeat_2013}. Une observation importante est que les cartes de caractéristiques issues des couches convolutives conservent la structure spatiale de l'image, c'est-à-dire qu'il est possible de faire correspondre chaque caractéristique à un ou plusieurs pixels. Cette extraction de caractéristique dense se prête particulièrement aux problématiques de localisation d'objet et est rapidement adoptée par la communauté~\cite{zou_generic_2014}.
 
 \subsection{Approches entièrement convolutives}
 
@@ -514,23 +580,24 @@ Cependant, plusieurs jeux de données comprenant des annotations denses ont ét�
 \subsubsection{ISPRS 2D Semantic Labeling}
 
 \begin{figure}[t]
-	\begin{subfigure}{0.5\textwidth}
 		\foreach\picid in {7,21,28}{%
 		\begin{subfigure}{0.33\textwidth}
-			\includegraphics[width=\textwidth]{vaihingen_top_\picid}
+			\includegraphics[angle=90,width=\textwidth]{vaihingen_top_\picid}
 			\caption*{Image RVB}
 		\end{subfigure}%
 		\begin{subfigure}{0.33\textwidth}
-			\includegraphics[width=\textwidth]{vaihingen_ndsm_\picid}
+			\includegraphics[angle=90,width=\textwidth]{vaihingen_ndsm_\picid}
 			\caption*{\gls{MNH}}
 		\end{subfigure}%
 		\begin{subfigure}{0.33\textwidth}
-			\includegraphics[width=\textwidth]{vaihingen_top_\picid}
+			\includegraphics[angle=90,width=\textwidth]{vaihingen_gt_\picid}
 			\caption*{Vérité terrain}
 		\end{subfigure}
 		}
-	\end{subfigure}%
-	\begin{subfigure}{0.5\textwidth}
+    \caption{Images ortho-rectifiées et \gls{MNH} pour le jeu de données ISPRS Vaihingen .}
+    \label{fig:isprs_vaihingen}
+\end{figure}
+\begin{figure}
 		\foreach\picid in {3_10,6_11,7_12}{%
 		\begin{subfigure}{0.33\textwidth}
 			\includegraphics[width=\textwidth]{potsdam_top_\picid}
@@ -545,9 +612,8 @@ Cependant, plusieurs jeux de données comprenant des annotations denses ont ét�
 			\caption*{Vérité terrain}
 		\end{subfigure}
 		}
-	\end{subfigure}
-	\caption{Images ortho-rectifiées et \gls{MNH} pour les jeux de données ISPRS Vaihingen et ISPRS Potsdam.}
-	\label{fig:isprs_dataset}
+	\caption{Images ortho-rectifiées et \gls{MNH} pour le jeu de données ISPRS Potsdam.}
+	\label{fig:isprs_potsdam}
 \end{figure}
 
 Le jeu de données ISPRS 2D Semantic Labeling~\cite{rottensteiner_isprs_2012} est constitué de deux ensembles d'images aériennes \glsfirst{THR}. Dans les deux cas, il s'agit de scènes urbaines diposant de cinq classes d'intérêt pour la segmentation sémantique\,: surfaces imperméables (routes, parkings, trottoirs\dots), bâtiments, végétation basse, arbres et véhicules. Une classe de rejet est également définie et comprend le mobilier urbain (bancs, poubelles, conteneurs\dots) et les surfaces exotiques (terrains de basketball, zones en travaux, points d'eau).
@@ -556,7 +622,7 @@ Le jeu de données se décline en deux scènes. La première est issue d'une acq
 
 La seconde scène est une acquisition aéroportée sur la ville de Potsdam (Allemagne) et comporte une mosaïque de 38 tuiles \gls{IRRVB} à une résolution de 5cm/px. Les tuiles présentent toutes les mêmes dimensions, à savoir $6000\times6000$px, soit une surface de $90 000m^2$. Un \gls{MNE} et un \gls{MNH} dérivé sont également fournis. Des annotations denses sont disponibles pour les mêmes classes que précédemment sur 24 images. À nouveau, l'ensemble des modalités sont recalées sur la même grille de pixels et les images sont fournies en \gls{TIFF} sur 8 bits, tandis que les modèles de surface sont fournis en flottant sur 32 bits. Potsdam est une ville urbanisée relativement grande (161 468 habitants en 2013), caractérisée par de nombreux immeubles, un réseau routier dense. À noter la présence d'un canal et de nombreux travaux de construction à la date de l'acquisition des images.
 
-Quelques exemples représentatifs des deux acquisitions sont montrés dans la~\cref{fig:isprs_dataset}.
+Quelques exemples représentatifs des deux acquisitions sont montrés dans les~\cref{fig:isprs_vaihingen,fig:isprs_potsdam}.
 
 Les images dont les annotations ne sont pas rendues publiques servent à évaluer en aveugle les méthodes proposées par la communauté. La commission WG II/4 de l'\gls{ISPRS} gère ainsi un tableau de résultat public\footnote{\url{http://www2.isprs.org/commissions/comm2/wg4/vaihingen-2d-semantic-labeling-contest.html}}\footnote{\url{http://www2.isprs.org/commissions/comm2/wg4/potsdam-2d-semantic-labeling.html}}, détaillant les performances obtenues par différentes méthodes de l'état-de-l'art.
 
@@ -580,7 +646,18 @@ Des annotations partielles sont fournies pour la moitié du jeu de données sur 
 Un tableau de résultats public est maintenu par l'\gls{IEEE} \gls{GRSS}\footnote{\url{http://dase.ticinumaerospace.com/}}.
 
 \subsubsection{Inria Aerial Image Labeling}
-Le jeu de données INRIA Aerial Image Labeling~\cite{maggiori_can_2017} contient 360 images \gls{RVB} ortho-rectifiées de taille $5000\times5000$px à une résolution de 30cm/px, soit une surface de $2,25km²$. Les images ont été compilées depuis plusieurs sources gouvernementales à des résolutions diverses. Il s'agit néanmoins systématiquement d'acquisitions aéroportées, ortho-rectifiées et rééchantillonnée à 30cm/px si besoin. Les acquisitions ont été réalisées sur 10 agglomérations de divers points du globe. La moitié des villes sont utilisées pour associées à des annotations publiques d'empreintes de bâtiments provenant de sources cadastrales. Ces images peuvent être utilisées pour l'entraînement de modèles d'extraction de bâtiments. Le reste du jeu de données est réservé à l'évaluation des modèles.
+
+\begin{figure}
+  \foreach \picpath\picname in {chicago5_top/Ortho-image (Chicago),chicago5_gt/Vérité terrain (Chicago),vienna2_top/Ortho-image (Vienne),vienna2_gt/Vérité terrain (Vienne)}{%
+  \begin{subfigure}[b]{0.25\textwidth}%
+    \includegraphics[width=\textwidth]{\picpath}%
+    \caption{\picname}
+  \end{subfigure}%
+  }
+  \caption{Exemples d'images extraites de la base de données \emph{Inria Aerial Image Labeling}.}
+\end{figure}
+
+Le jeu de données \emph{Inria Aerial Image Labeling}~\cite{maggiori_can_2017} contient 360 images \gls{RVB} ortho-rectifiées de taille $5000\times5000$px à une résolution de 30cm/px, soit une surface de $2,25km²$. Les images ont été compilées depuis plusieurs sources gouvernementales à des résolutions diverses. Il s'agit néanmoins systématiquement d'acquisitions aéroportées, ortho-rectifiées et rééchantillonnée à 30cm/px si besoin. Les acquisitions ont été réalisées sur 10 agglomérations de divers points du globe. La moitié des villes sont utilisées pour associées à des annotations publiques d'empreintes de bâtiments provenant de sources cadastrales. Ces images peuvent être utilisées pour l'entraînement de modèles d'extraction de bâtiments. Le reste du jeu de données est réservé à l'évaluation des modèles.
 
 Les organisateurs gèrent un tableau de résultats public\footnote{\url{https://project.inria.fr/aerialimagelabeling/leaderboard/}} permettant de comparer les performances obtenues par différentes méthodes.
 

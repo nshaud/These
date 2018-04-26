@@ -1,0 +1,30 @@
+\documentclass{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usepackage{xcolor}
+\input{../CommandesPerso.tex}
+
+\begin{document}
+  \definecolor{lpurple}{RGB}{173,0,171}
+  \definecolor{lyellow}{RGB}{252,241,135}
+  \definecolor{lcyan}{RGB}{45,192,192}
+  \definecolor{lblue}{RGB}{52,62,243}
+  \definecolor{lred}{RGB}{224,19,19}
+
+  \begin{tikzpicture}
+    \node (input) at (0,0) {\includegraphics[width=5cm]{montgolfieres}};
+    \node (probas) at (10, 2) {\includegraphics[width=5cm]{montgolfieres_probas}};
+    \node (segmentation) at (9.5, -2) {\includegraphics[width=4cm]{montgolfieres_segmentation}};
+    \node [minimum width=1.9cm, fill=lpurple] at (12.5, -1) {\footnotesize Montgolfière};
+    \node [minimum width=1.9cm, fill=lyellow] at (12.5, -1.5) {\footnotesize Ciel};
+    \node [minimum width=1.9cm, fill=lcyan] at (12.5, -2) {\footnotesize Eau};
+    \node [minimum width=1.9cm, fill=lblue] at (12.5, -2.5) {\footnotesize Bâtiment};
+    \node [minimum width=1.9cm, fill=lred] at (12.5, -3) {\footnotesize Route};
+    \node[below] at (probas.south) {Classification};
+    \node[below] at (segmentation.south) {Segmentation};
+    \node[below] at (input.south) {Image};
+    \draw (input) edge[in=180,out=0,->,ultra thick] (probas);
+    \draw (input) edge[in=180,out=0,->,ultra thick] (segmentation);
+  \end{tikzpicture}
+\end{document}
