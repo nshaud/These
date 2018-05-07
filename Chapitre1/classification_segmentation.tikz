@@ -13,14 +13,15 @@
   \definecolor{lred}{RGB}{224,19,19}
 
   \begin{tikzpicture}
-    \node (input) at (0,0) {\includegraphics[width=5cm]{montgolfieres}};
-    \node (probas) at (10, 2) {\includegraphics[width=5cm]{montgolfieres_probas}};
-    \node (segmentation) at (9.5, -2) {\includegraphics[width=4cm]{montgolfieres_segmentation}};
-    \node [minimum width=1.9cm, fill=lpurple] at (12.5, -1) {\footnotesize Montgolfière};
-    \node [minimum width=1.9cm, fill=lyellow] at (12.5, -1.5) {\footnotesize Ciel};
-    \node [minimum width=1.9cm, fill=lcyan] at (12.5, -2) {\footnotesize Eau};
-    \node [minimum width=1.9cm, fill=lblue] at (12.5, -2.5) {\footnotesize Bâtiment};
-    \node [minimum width=1.9cm, fill=lred] at (12.5, -3) {\footnotesize Route};
+    \node (input) at (1,0) {\includegraphics[width=7cm]{montgolfieres}};
+    \def\x{10}
+    \node (probas) at (\x+0.5, 2) {\includegraphics[width=6cm]{montgolfieres_probas}};
+    \node (segmentation) at (\x-0.5, -2) {\includegraphics[width=3.8cm]{montgolfieres_segmentation}};
+    \node [minimum width=2.1cm, fill=lpurple] at (\x+2.5, -1) {\footnotesize \textcolor{white}{Montgolfière}};
+    \node [minimum width=2.1cm, fill=lyellow] at (\x+2.5, -1.5) {\footnotesize Ciel};
+    \node [minimum width=2.1cm, fill=lcyan] at (\x+2.5, -2) {\footnotesize Eau};
+    \node [minimum width=2.1cm, fill=lblue] at (\x+2.5, -2.5) {\footnotesize \textcolor{white}{Bâtiment}};
+    \node [minimum width=2.1cm, fill=lred] at (\x+2.5, -3) {\footnotesize Route};
     \node[below] at (probas.south) {Classification};
     \node[below] at (segmentation.south) {Segmentation};
     \node[below] at (input.south) {Image};
