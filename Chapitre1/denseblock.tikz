@@ -1,0 +1,68 @@
+\documentclass{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usepackage{ifthen}
+\input{../CommandesPerso.tex}
+
+\begin{document}
+  \begin{tikzpicture}
+  \usetikzlibrary{3d}
+
+  \def\scale{3}
+  \def\netx{0}
+  \def\nety{0}
+  \def\netz{0}
+
+  \def\coblue{blue!50!gray}
+  \def\copurple{purple!50!gray}
+  \def\coorange{orange!70!gray}
+  \def\cogreen{green!50!gray}
+  \def\copink{pink!50!gray}
+  \def\comagenta{magenta!50!gray}
+  \def\coyellow{yellow!50!white}
+  \def\cored{red!50!white}
+
+  \def\zoff{\netz+0.5*\scale}
+  \def\yoff{\nety-0.5*\scale}
+  \newcommand\denselink[2]{%
+      \draw[->] (#1, \yoff, \zoff) to[bend right=30] (#2, \yoff, \zoff);
+  }
+
+  \convlayer{1*\scale}{1*\scale}{0.1*\scale}{Carte d'activation}{\copurple}{0.*\scale+\netx}{\nety}{\netz}{{}{}{}}
+  \denselink{\netx+0*\scale}{\netx+1.1*\scale}
+  \denselink{\netx+0*\scale}{\netx+2.2*\scale}
+  \denselink{\netx+0*\scale}{\netx+3.3*\scale}
+  \denselink{\netx+0*\scale}{\netx+4.4*\scale}
+
+  \convlayer{1*\scale}{1*\scale}{0.1*\scale}{BN-ReLU-Conv}{\coblue}{\netx+1*\scale}{\nety}{\netz}{{}{}{}}
+  \denselink{\netx+1*\scale}{\netx+2.1*\scale}
+  \denselink{\netx+1*\scale}{\netx+3.2*\scale}
+  \denselink{\netx+1*\scale}{\netx+4.3*\scale}
+
+  \denselink{\netx+2*\scale}{\netx+3.1*\scale}
+  \denselink{\netx+2*\scale}{\netx+4.2*\scale}
+
+  \denselink{\netx+3*\scale}{\netx+4.1*\scale}
+
+  \convlayer{1*\scale}{1*\scale}{0.1*\scale}{}{\copurple}{1.1*\scale+\netx}{\nety}{\netz}{{}{}{}}
+
+  \convlayer{1*\scale}{1*\scale}{0.1*\scale}{BN-ReLU-Conv}{\copink}{\netx+2*\scale}{\nety}{\netz}{{}{}{}}
+  \convlayer{1*\scale}{1*\scale}{0.1*\scale}{}{\coblue}{2.1*\scale+\netx}{\nety}{\netz}{{}{}{}}
+  \convlayer{1*\scale}{1*\scale}{0.1*\scale}{}{\copurple}{2.2*\scale+\netx}{\nety}{\netz}{{}{}{}}
+
+  \convlayer{1*\scale}{1*\scale}{0.1*\scale}{BN-ReLU-Conv}{\cored}{\netx+3*\scale}{\nety}{\netz}{{}{}{}}
+  \convlayer{1*\scale}{1*\scale}{0.1*\scale}{}{\copink}{3.1*\scale+\netx}{\nety}{\netz}{{}{}{}}
+  \convlayer{1*\scale}{1*\scale}{0.1*\scale}{}{\coblue}{3.2*\scale+\netx}{\nety}{\netz}{{}{}{}}
+  \convlayer{1*\scale}{1*\scale}{0.1*\scale}{}{\copurple}{3.3*\scale+\netx}{\nety}{\netz}{{}{}{}}
+
+  \convlayer{1*\scale}{1*\scale}{0.1*\scale}{BN-ReLU-Conv}{\comagenta}{\netx+4*\scale}{\nety}{\netz}{{}{}{}}
+  \convlayer{1*\scale}{1*\scale}{0.1*\scale}{}{\cored}{4.1*\scale+\netx}{\nety}{\netz}{{}{}{}}
+  \convlayer{1*\scale}{1*\scale}{0.1*\scale}{}{\copink}{4.2*\scale+\netx}{\nety}{\netz}{{}{}{}}
+  \convlayer{1*\scale}{1*\scale}{0.1*\scale}{}{\coblue}{4.3*\scale+\netx}{\nety}{\netz}{{}{}{}}
+  \convlayer{1*\scale}{1*\scale}{0.1*\scale}{}{\copurple}{4.4*\scale+\netx}{\nety}{\netz}{{}{}{}}
+
+  \convlayer{1*\scale}{1*\scale}{0.2*\scale}{Transition}{\coyellow}{\netx+5.1*\scale}{\nety}{\netz}{{}{}{}}
+  \convlayer{0.6*\scale}{0.6*\scale}{0.2*\scale}{Pooling}{\coorange}{\netx+5.7*\scale}{\nety}{\netz}{{}{}{}}
+  \end{tikzpicture}
+\end{document}

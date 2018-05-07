@@ -22,8 +22,8 @@
   \def\cogreen{green!50!gray}
   \def\copurple{purple!50!white}
 
-  \imagelayer{1.3*\scale}{-0.3*\scale+\vggx}{\vggy}{\vggz}{nobu}{Image}{$224\times224\times3$}
-  \convlayer{1.3*\scale}{1.3*\scale}{0.02*\scale}{Image}{\coblue}{0.2*\scale+\vggx}{\vggy}{\vggz}{{224}{}{3}}
+  \imagelayer{1.3*\scale}{0.*\scale+\vggx}{\vggy}{\vggz}{nobu}{Image}{$224\times224\times3$}
+  %\convlayer{1.3*\scale}{1.3*\scale}{0.02*\scale}{Image}{\coblue}{0.2*\scale+\vggx}{\vggy}{\vggz}{{224}{}{3}}
   \convlayer{1*\scale}{1*\scale}{0.04*\scale}{Conv1}{\coblue}{\vggx+0.6*\scale}{\vggy}{\vggz}{{112}{112}{64}}
   \convlayer{0.8*\scale}{0.8*\scale}{0.04*\scale}{Pool1}{\coorange}{\vggx+1*\scale}{\vggy}{\vggz}{{56}{56}{}}
 
