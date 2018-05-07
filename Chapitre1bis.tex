@@ -655,11 +655,46 @@ Un tableau de résultats public est maintenu par l'\gls{IEEE} \gls{GRSS}\footnot
   \end{subfigure}%
   }
   \caption{Exemples d'images extraites de la base de données \emph{Inria Aerial Image Labeling}.}
+  \label{fig:inria}
 \end{figure}
 
-Le jeu de données \emph{Inria Aerial Image Labeling}~\cite{maggiori_can_2017} contient 360 images \gls{RVB} ortho-rectifiées de taille $5000\times5000$px à une résolution de 30cm/px, soit une surface de $2,25km²$. Les images ont été compilées depuis plusieurs sources gouvernementales à des résolutions diverses. Il s'agit néanmoins systématiquement d'acquisitions aéroportées, ortho-rectifiées et rééchantillonnée à 30cm/px si besoin. Les acquisitions ont été réalisées sur 10 agglomérations de divers points du globe. La moitié des villes sont utilisées pour associées à des annotations publiques d'empreintes de bâtiments provenant de sources cadastrales. Ces images peuvent être utilisées pour l'entraînement de modèles d'extraction de bâtiments. Le reste du jeu de données est réservé à l'évaluation des modèles.
+Le jeu de données \emph{Inria Aerial Image Labeling}~\cite{maggiori_can_2017} contient 360 images \gls{RVB} ortho-rectifiées de taille $5000\times5000$px à une résolution de 30cm/px, soit une surface de $2,25km²$. Les images ont été compilées depuis plusieurs sources gouvernementales à des résolutions diverses. Il s'agit néanmoins systématiquement d'acquisitions aéroportées, ortho-rectifiées et rééchantillonnée à 30cm/px si besoin. Les acquisitions ont été réalisées sur 10 agglomérations de divers points du globe. La moitié des villes sont utilisées pour associées à des annotations publiques d'empreintes de bâtiments provenant de sources cadastrales. Ces images peuvent être utilisées pour l'entraînement de modèles d'extraction de bâtiments. Le reste du jeu de données est réservé à l'évaluation des modèles. Quelques images et annotations du jeu d'apprentissage sont illustrées dans la~\cref{fig:inria}.
 
 Les organisateurs gèrent un tableau de résultats public\footnote{\url{https://project.inria.fr/aerialimagelabeling/leaderboard/}} permettant de comparer les performances obtenues par différentes méthodes.
+
+\subsection{Classification d'images de télédétection}
+
+\subsubsection{Approches pixelliques}
+
+Une acquisition d'observation de la Terre est caractérisée par sa résolution spatiale. Celle-ci détermine l'unité de surface minimale au sein laquelle il devient impossible de séparer deux observations. Dans le cas d'une image, cette résolution en unité de longueur par pixel. Ainsi, une image à résolution de $10m/px$ est un ensemble d'observations, chacune effectuée sur une surface de $10\times10$m. De fait, en traitement d'images de télédétection, le pixel est l'unité atomique de surface. Par conséquent, une mesure pour 1 pixel est la mesure la plus pure disponible. Sans toutefois prétendre qu'une observation sur un pixel ne souffre pas de problèmes de mélanges (en fonction des objets d'intérêt, un pixel peut mélanger plusieurs classes hétérogènes), le pixel représente la mesure la plus fine disponible.
+
+En première approche, il semble raisonnable de traiter le problème de cartographie comme un problème de classification des pixels. Pour ce faire, il est dans un premier temps nécessaire d'extraire des attributs du pixel. Dans le cas d'une image multispectrale, cela peut par exemple être la proportion de lumière réfléchie dans chacune des longueurs d'onde mesurées. Mais il est également possible d'y ajouter d'autres attributs : la valeur moyenne de l'intensité lumineuse ou les observations voisines. Une fois l'extraction d'attributs effectuée, il est possible de réaliser une classification.
+
+L'avantage de cette méthode est qu'elle garantit une résolution identique à celle de la donnée.
+
+Le premier inconvénient est que cette méthode est particulièrement susceptible au bruit. En effet, la classification s'effectuant pixel à pixel, la nature des pixels voisins n'est pas forcément prise en compte. Toutefois, les objets géographiques considérés s'étendent bien souvent sur plusieurs pixels et possèdent des propriétés géométriques particulières de connexité et de convexité. Ainsi, un pixel particulier soumis à un bruit extrême (suite à une défaillance du capteur ou à un matériau particulier), celui risque d'être mal classé de manière isolée, alors que son appartenance à une région particulière aurait pu permettre de contourner cette erreur en se basant sur des critères d'homogénéité. Ainsi la classification pixellique tend à produire des cartes exhibant un comportement de bruit poivre-et-sel.
+
+Le second inconvénient est que le nombre de pixels croît quadratiquement avec la taille de l'image à traiter. Or, les tailles d'images considérées en télédétection peuvent rapidement conduire à devoir traiter des millions de pixels. Le problème de classification peut alors devenir intraitable sur ces images, alors que les capteurs tendent justement à s'améliorer en résolution. En particulier, la litérature s'étant intéressée à ces approches ne traite que d'images de tailles réduites~\cite{nogueira_learning_2016}, notamment dans le cadre de l'imagerie hyperspectrale~\cite{fauvel_advances_2013}.
+
+\subsubsection{Approches par région}
+
+\begin{figure}
+\resizebox{\textwidth}{!}{%
+\input{Chapitre1/framework.tikz}
+}
+\caption{Segmentation sémantique par régions d'une image aérienne. Chaque région de l'image segmentée est classifiée à partir de caractéristiques profondes extraites d'un réseau convolutif pré-entraîné.}
+\label{fig:framework}
+\end{figure}
+
+Compte-tenu de l'explosion du coût calculatoire des classifications pixelliques sur des images \gls{HR}, \gls{THR} et \gls{EHR}, plusieurs travaux se sont penchés sur des approches considérant d'autres découpages de l'image que la grille de pixels. En particulier, il est envisageable de regrouper des pixels similaires dans des régions homogènes. La similarité peut alors uniquement se fonder sur des critères statistiques liées aux valeurs des pixels, ou à des critères sémantiques. Dans le premier cas, on parlera de ``superpixels'' et dans le second cas de ``segmentation''.
+
+L'avantage de ces méthodes est qu'elles permettent de regrouper des pixels d'apparence similaire dans une même région. Or, on peut raisonnablement s'attendre à ce que des pixels spatiallement et spectralement proches possèdent la même sémantique, c'est-à-dire que l'on puisse les associer à la même classe d'intérêt. Dans ce cas, plutôt que de réaliser la classification pixel par pixel, il est possible de ne réaliser qu'une seule extraction d'attributs pour l'ensemble de la région homogène et de ne faire qu'une unique prédiction. Ainsi, dans le cas d'une image de dimensions $1500\times1500$ segmentée en $20 000$ régions, on peut alors cartographier l'image en classifiant $20 000$ régions plutôt qu'en classifiant \nombre{2250000} pixels, soit ungain en temps de calcul d'un facteur $112$ (segmentation exclue).
+
+De nombreux algorithmes de segmentation ont été proposés, aussi bien dans la communauté télédétection que dans la communauté vision par ordinateur. Ces algorithmes de segmentation viennent partitionner l'ensemble des pixels de façon non-supervisée. Une fois ce partitionnement effectué, il est possible d'extraire des attributs pour chaque région et d'entraîner un classifieur de la façon usuelle, l'inférence se faisant de façon analogue. Ce procéde est illustré dans la~\cref{fig:framework}.
+
+L'avantage principal de ces méthodes est de grandement réduire la complexité calculatoire. Notamment, lorsque l'image augmente de résolution spatiale, de nombreuses régions conservent leur homogénéité et il est ainsi très avantageux de les conserver regroupées\,: l'augmentation de la résolution ne nécessite pas obligatoirement une évolution quadratique du nombre de régions segmentées. Ces approches ont ainsi été utilisées avec succès dans le cadre de la segmentation sémantique d'images aériennes \gls{THR}~\cite{lagrange_benchmarking_2015,vargas_superpixel-based_2014}.
+
+On peut noter que traiter l'image par une fenêtre glissante ou même par une grille de pixels correspond à des cas particuliers de classification par région.
 
 Approches par patch, puis par segments, puis FCN
 
