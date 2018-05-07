@@ -232,8 +232,8 @@ Ce produit est commutatif et bilinéaire.
 L'intérêt principal du produit de convolution est son lien fondamental avec la transformée de Fourier~\cite{fourier_propagation_1822}. En effet, en notant $\fourier$ la transformation de Fourier, alors\,:
 $$\fourier(f \ast g) = \fourier (f)\fourier (g)~.$$
 
-
-Les convolutions avaient déjà été utilisées de nombreuses fois, en particulier compte-tenu des résultats de Fourier en analyse harmonique~\cite{fourier_propagation_1822}. En partiuclier, la convolution discrète permet de réaliser des calculs de gradients, utilisés dans les \gls{SIFT}~\cite{lowe_object_1999} et \gls{HOG}~\cite{dalal_histograms_2005}. Les filtres convolutifs sont également à la base de la théorie des ondelettes~\cite{mallat_exploration_2001}, utilisés notamment dans le format compressé \gls{JPEG}~\cite{daubechies_ten_1992}. Les filtres de Gabor en particulier ont trouvé de nombreuses applications comme caractéristique image~\cite{pati_word_2008}. Incidemment, plusieurs travaux de neurosciences ont mis en évidence la proximité entre le modèle de filtre de Gabor et les réponses des cellules du cortex visuel chez les mammifères, notamment le chat~\cite{marcelja_mathematical_1980,jones_evaluation_1987}. La~\cref{fig:convolution_exemples} illustre le résultat de filtrages par divers noyaux de convolution classiques.
+Les convolutions avaient déjà été utilisées de nombreuses fois, en particulier compte-tenu des résultats de Fourier en analyse harmonique~\cite{fourier_propagation_1822}. En partiuclier, la convolution discrète permet de réaliser des calculs de gradients, utilisés dans les \gls{SIFT}~\cite{lowe_object_1999} et \gls{HOG}~\cite{dalal_histograms_2005}. Les filtres convolutifs sont également à la base de la théorie des ondelettes~\cite{mallat_exploration_2001}, utilisés notamment dans le format compressé \gls{JPEG}~\cite{daubechies_ten_1992} et dans les caractéristiques de pseudo-Haar~\cite{viola_robust_2001}, dérivées des ondelettes homonyme~\cite{papageorgiou_general_1998}.
+Les filtres de Gabor en particulier ont trouvé de nombreuses applications comme caractéristique image~\cite{pati_word_2008}. Incidemment, plusieurs travaux de neurosciences ont mis en évidence la proximité entre le modèle de filtre de Gabor et les réponses des cellules du cortex visuel chez les mammifères, notamment le chat~\cite{marcelja_mathematical_1980,jones_evaluation_1987}. La~\cref{fig:convolution_exemples} illustre le résultat de filtrages par divers noyaux de convolution classiques.
 
 L'idée de LeCun~\cite{lecun_gradient-based_1998} est de remplacer les premières couches d'un réseau de neurones par des couches convolutives. Les neurones seront donc regroupés localement et calculeront chacun une convolution sur une partie de l'image. Pour simplifier le modèle, les poids seront partagés, c'est-à-dire que tous les neurones calculeront la même convolution. Plusieurs convolutions pourront toutefois être calculées en parallèle. Les noyaux de convolution étant optimisés durant l'apprentissage, l'apprentissage par représentation va donc se faire naturellement dans le domaine image avec des opérateurs adaptés. Incidemment, il s'avère qu'en pratique, la première couche convolutive tend à approximer des filtres de Gabor~\cite{yosinski_how_2014}.
 
@@ -267,10 +267,14 @@ Dans le cas discret, le produit de convolution se réécrit\,:
 $$(f * g)[n] = \sum_{k=-\infty}^{+\infty} f[n]g[k-n]$$
 
 Cette formulation s'intéresse toutefois aux signaux 1D, tandis que les images sont des signaux 2D par nature. La convolution discrète peut toutefois s'écrire sans problème pour des fonctions multivariées. En deux dimensions, si l'on note $I : \llbracket 1;w \rrbracket \times \llbracket 1;h \rrbracket \rightarrow \mathbb{R}$ la fonction modélisant une image $I$ de taille $w\times{}h$ et $K\,: \llbracket 1;k_w \rrbracket \times \llbracket 1;k_h \rrbracket \rightarrow \mathbb{R}$ le \emph{noyau} de convolution de dimension $p \times q$, alors on peut définir le filtre $\mathcal{K}$ tel que\,:
-$$\mathcal{K}(I)(m,n) = \sum_{i=-p}^{+p} \sum_{i=-q}^{+q} I[m - i, n - j] \cdot k[i, j]~,$$
+$$\mathcal{K}(I)(m,n) = \sum_{i=-p}^{+p} \sum_{i=-q}^{+q} I[m - i, n - j] \cdot K[i, j]~,$$
 avec $p = \frac{k_w-1}{2}$ et $q = \frac{k_h-1}{2}$. Ce calcul est illustré dans la~\cref{fig:convolution}.
 
-Cette formule souffre néanmoins d'une inconnue lorsque l'opérateur agit sur les bords de l'image, puis que les valeurs de $I$ sont alors manquantes. En règle générale, soit on ne calcule pas ces valeurs, auxquel cas la taille de l'image résultante est diminuée par rapport à celle de l'image initiale, soit on ajoute un nombre de zéros égal à la moitié de la taille du noyau de convolution dans chaque direction (\emph{padding}).
+Un des inconvénients de ce produit est que le noyau de convolution $K$ et l'image $I$ sont parcourus en sens inverse, les indices de l'un augmentant tandis que les indices de l'autre décroissent. En pratique, la plupart des bibliothèques implémentent l'opérateur de \emph{corrélation croisée}\,:
+$$\mathcal{K}(I)(m,n) = K \star I = \sum_{i=-p}^{+p} \sum_{i=-q}^{+q} I[m + i, n + j] \cdot K[i, j]~.$$
+Cette opérateur perd la commutativité mais est plus simple à programmer. Les paramètres de $K$ étant optimisables, il est équivalent en pratique d'utiliser une corrélation croisée ou une convolution, car leurs matrices sont identiques à symétrie près. Les autres opérations intervenant dans des \gls{CNN} n'étant pas commutatives, la perte de cette propriété n'a donc que peu d'importance.
+
+La corrélation croisée et la convolution souffrent toutes deux d'une inconnue lorsque l'opérateur agit sur les bords de l'image, puis que les valeurs de $I$ sont alors indéfinies. En règle générale, on ne calcule pas ces valeurs et les lignes et colonnes pour lesquelles le produit de convolution est indéfini sont ignorées, ce qui réduit la taille effective de l'image. On parle alors de corrélation croisée \emph{valide}. Il est également possible de remplir les valeurs manquants de $I$ par des zéros (\emph{zero-padding}), pour un nombre de lignes et de colonnes égal à la moitié de la taille du noyau de convolution dans chaque direction. On parle alors de corrélation croisée \emph{identique}, car le résultat est de même dimension que l'image d'entrée. Enfin, il est possible de remplir les valeurs manquantes par autant de zéros que nécessaire pour que chaque élément de $I$ soit visité par chaque élément de $K$, auquel cas on parle de corrélation croisée \emph{complète}..
 
 En pratique, une couche de convolution en dimension $n$ d'un réseau de neurones est paramétrée par\,:
 \begin{itemize}
@@ -282,6 +286,14 @@ En pratique, une couche de convolution en dimension $n$ d'un réseau de neurones
 
 Ainsi, une couche de convolution possède $k_1 \times \dots \times k_n \times C$ paramètres optimisables. Dans le cas le plus courant de la dimension 2, les noyaux de convolution sont généralement carrés, c'est-à-dire qu'une couche de convolution 2D contient $C k^2$ paramètres.
 
+L'intérêt de la convolution dans les réseaux de neurones profondes est triple~\cite{goodfellow_deep_2016}\,:
+\begin{itemize}
+  \item Les interactions convolutives sont parcimonieuses, la taille des noyaux de convolution étant très faibles devant la taille des images,
+  \item Les caractéristiques extraites par convolution sont équivariantes aux translations de l'image, c'est-à-dire qu'une translation de l'image d'entrée translate les cartes d'activation de la même façon,
+  \item Les paramètres de la convolution sont partagés pour l'ensemble de l'image, ce qui permet de détecter les mêmes caractéristiques peu importe leur position dans l'image avec un très faible coût de stockage en mémoire des paramètres.
+\end{itemize}
+Comparé à une couche entièrement connectée, la couche convolutive n'est pas invariante à la permutation des pixels car elle possède un \emph{a priori} fort sur la structure spatiale des données. Cet \emph{a priori} est lié à la notion d'équivariance sémantique des images par rapport à diverses transformations. Néanmoins, il faut garder à l'esprit que cette connaissance structurelle n'est pas toujours respectée. Dans une série temporelle, l'apparition d'une anomalie peut avoir un sens différent en fonction du moment auquel elle se produit. À l'inverse, la convolution 1D part du principe que l'anomalie excitera les neurones de la même façon quelle que soit sa position dans le temps. Toutefois, cet \emph{a priori} fort s'applique bien sur les images, et tout particulièrement les images aériennes et satellitaires, qui présentent des régularités spécifiques qui seront détaillées plus tard. La structure même des \gls{CNN}, indépendamment de leurs poids, est particulièrement adaptée au traitement d'images, qu'ils permettent de décomposer dans un espace de représentation dotée d'une équivariance forte à diverses transformations~\cite{ulyanov_deep_2017}.
+
 Conventionnellement, en 2D, on représente les cartes d'activation des neurones, ou cartes de caractéristiques, sous la forme de tenseurs de dimension 3 $(C, W, H)$ avec $C$ le nombre de canaux, également appelé nombre de plans de convolutions, $W$ la largeur et $H$ la hauteur des cartes.
 
 Une couche convolutive va donc combiner les $n_{in}$ cartes d'activation d'entrée avec le $j$\ieme{} noyau de convolution $K_j$\,:
@@ -289,22 +301,33 @@ $$\forall j \in \llbracket 1;n_{out} \rrbracket,~~~o_j = b_j + \sum_{i=1}^{n_{in
 $$\forall j \in \llbracket 1;n_{out} \rrbracket,~~~o_j(m, n) = b_j + \sum_{i=1}^{n_{in}} \sum_{p=-\frac{k-1}{2}}^{+\frac{k-1}{2}} \sum_{q=-\frac{k-1}{2}}^{+\frac{k-1}{2}} z_i(m - p, n - q) \cdot k_j(p, q)$$
 
 Une convolution transforme donc un tenseur $(C_{in}, W_{in}, H_{in})$ en tenseur $(C_{out}, W_{out}, H_{out})$ avec les dimensions spatiales se calculant par\,:
-$$out = \left\lfloor \frac{in - kernel + 2\cdot{}padding}{stride}\right\rfloor + 1~.$$
+$$out = in - kernel + 2\cdot{}padding+ 1~.$$
 
-\todo[inline]{formule pour la convolution avec stride}
+\paragraph{Convolution à pas}
+
+Une première variante du produit de convolution consiste à sous-échantillonner virtuellement la dimension des cartes d'activation produites d'un facteur $s$. Pour ce faire, il suffit de ne visiter les éléments de $I$ qu'avec un pas de $s$\,:
+$$\mathcal{K}_s(I)(m,n) = K_s \star I = \sum_{i=-p}^{+p} \sum_{i=-q}^{+q} I[s\times{}m + i, s\times{}n + j] \cdot K[i, j]~.$$
+
+Une convolution à pas transforme donc un tenseur $(C_{in}, W_{in}, H_{in})$ en tenseur $(C_{out}, W_{out}, H_{out})$ avec les dimensions spatiales se calculant par\,:
+$$out = \left\lfloor \frac{in - kernel + 2\cdot{}padding}{stride}\right\rfloor + 1~.$$
 
 \paragraph{Convolution à trous}
 
-Avec un facteur de dilatation $d$\,:
+La convolution à trous, ou convolution dilatée~\cite{yu_multi-scale_2015}\footnote{L'algorithme à trous~\cite{shensa_discrete_1992} applique un même filtre à plusieurs échelles en utilisant des convolutions dilatées. La différence entre les deux est subtile et ne sera pas discutée ici.}, consiste à réaliser une convolution en observant $I$ à une résolution plus faible que sa résolution réelle, en sautant certaines de ses valeurs. Le noyau de convolution est ainsi virtuellement dilaté d'un facteur $d$, les valeurs manquantes étant remplacés par des 0. En pratique, la convolution à trous se calcule par la formule\,:
 $$\forall j \in \llbracket 1;n_{out} \rrbracket,~~~o_j(m, n) = b_j + \sum_{i=1}^{n_{in}} \sum_{p=-\frac{k-1}{2}}^{+\frac{k-1}{2}} \sum_{q=-\frac{k-1}{2}}^{+\frac{k-1}{2}} z_i(m - dp, n - dq) \cdot k_j(p, q)$$
 
 À trous\,:
 $$out = \left\lfloor \frac{in - kernel - (kernel -1)(dilation - 1) + 2\cdot{}padding}{stride}\right\rfloor + 1~.$$
 
 
-\paragraph{Déconvolution}
+\paragraph{Convolution transposée}
 
+La convolution transposée est une opération s'opposant à la convolution traditionnelle en ce qu'elle correspond à son gradient par rapport à ses entrées. Pour un noyau de convolution $k$ donné, la convolution transposée permet de reconstruire une image $I$ à partir des activations $Z$, dont les dimensions s'obtiennent par
 $$out = (in - 1) \cdot stride + kernel - 2padding~.$$
+
+Plus prosaïquement, il est possible d'envisager la convolution transposée comme une convolution à pas fractionnel, c'est-à-dire une convolution de pas $s = \frac{1}{s'}$ avec $s' \in \mathbb{N}$.
+
+Cette convolution est parfois appelée à tort \og déconvolution \fg dans la litérature, sans toutefois correspondre à l'opérateur mathématique de déconvolution, défini comme l'inverse de l'opérateur de convolution. La convolution transposée est particulièrement utile pour inverser les effets d'une couche convolutive, par exemple dans la phase de décodage d'un auto-encodeur convolutif~\cite{zhao_stacked_2015-1}.
 
 \subsubsection{Échantillonnage}
 
@@ -318,7 +341,7 @@ $$out = (in - 1) \cdot stride + kernel - 2padding~.$$
 
 \paragraph{Sous-échantillonnage}
 
-Afin de réduire la dimension des cartes d'activation dans le réseau, il est utile d'opérer à des sous-échantillonnages. Il s'agit généralement d'appliquer un filtre par fenêtre glissante non-recouvrante sur les données d'entrée. Ce filtre est en règle général l'opérateur $\max$ ou l'opérateur de moyenne sur une fenêtre de taille fixe.
+Afin de réduire la dimension des cartes d'activation dans le réseau, il est utile d'opérer à des sous-échantillonnages. Il s'agit généralement d'appliquer un filtre par fenêtre glissante non-recouvrante sur les données d'entrée. Ce filtre est en règle général l'opérateur $\max$ ou l'opérateur de moyenne sur une fenêtre de taille fixe. On parle alors de \emph{max pooling} ou d'\emph{average pooling}~\cite{zhou_stereo_1988}. Un exemple de sous-échantillonnage en 2D est illustré dans la~\cref{fig:pooling}.
 
 Outre la réduction de dimension, l'intérêt de ces opérateurs est d'introduire une invariance aux déformations légères.
 
@@ -331,6 +354,8 @@ $$out = \left\lfloor \frac{in - kernel}{stride}\right\rfloor + 1~.$$
 Le sous-échantillonnage n'a pas de paramètre optimisable, il s'agit d'une fonction complètement déterminée.
 
 \paragraph{Sur-échantillonnage}
+
+Le sur-échantillonnage, ou \emph{unpooling}, est l'opération inverse du sous-échantillonnage et tente de reconstruire une entrée à partir de sa sortie. Le sous-échantillonnage étant une opération perdant de l'information, le sur-échantillonnage est généralement approximatif. Dans le cas du sur-échantillonnage par valeur moyenne, la même valeur sera répliquée plusieurs fois dans l'image à résolution augmentée. Dans le cas du sur-échantillonnage par valeur maximale, le maximum sera replacé à sa position initial et les valeurs restantes complétées par des zéro, comme illustré dans la~\cref{fig:pooling}.
 Les dimensions d'une carte d'activation en sortie d'un sur-échantillonnage sont\,:
 $$out = (in - 1) \cdot stride + kernel~.$$
 
@@ -343,9 +368,9 @@ Si la normalisation des données afin de faire travailler les modèles sur des d
 \citet{jarrett_what_2009} propose ainsi une normalisation locale du contraste des cartes d'activation après les couches convolutives en s'inspirant des modèles biologiques~\cite{pinto_why_2008}. Pour un tenseur de $N$ cartes d'activations $a_1,\dots,a_N$, les cartes normalisées $z_i$ s'obtiennent par d'abord par soustraction d'une valeur moyenne locale sur une fenêtre spatiale gaussienne\,:
 $$b_i[x,y] = a_i[x,y] - \sum_{p,q} w_{p,q} \cdot a_i[x+p,j+q]$$ avec $w_pq$ une fenêtre gaussienne telle que $\sum_{p,q} w_{p,q} = 1$
 puis par normalisation des amplitudes par l'écart-type pondéré des caractéristiques sur une fenêtre spatiale\,:
-$$z_i[x,y] = b_i[x,y] / max(\operatorname{moy}(\sigma[x,y]), \sigma[x,y])$$ avec $\sigma[x,y] = \left(\sum_{p,q} w_{p,q} \cdot b_i^2[x+p,y+q] \right)^{\frac{1}{2}}$.
+$$z_i[x,y] = b_i[x,y] / \max(\operatorname{moy}(\sigma[x,y]), \sigma[x,y])$$ avec $\sigma[x,y] = \left(\sum_{p,q} w_{p,q} \cdot b_i^2[x+p,y+q] \right)^{\frac{1}{2}}$.
 
-L'article séminal de~\citet{krizhevsky_imagenet_2012} introduit également une couche de normalisation locale,\gls{LRN}, qui vient inhiber les activations des cartes d'activations adjacentes à celle d'un neurone fortement excité. Ce procédé inspiré de l'inhibition latérale existant dans les neurones biologiques permet d'améliorer la généralisation du modèle. Contrairement à la normalisation du contraste de \citet{jarrett_what_2009}, cette normalisation ne s'applique pas sur un voisinage spatial, mais sur les cartes d'activations filtrées voisines de celle considérée, dans la troisième direction du tenseur. Cette normalisation peut s'exprimer sous la forme d'un noyau s'appliquant aux cartes d'activation 2D. Pour un tenseur de $N$ cartes d'activations $a^1,\dots,a^N$, les cartes normalisées $z^i$ s'obtiennent par\,:
+L'article séminal de~\citet{krizhevsky_imagenet_2012} introduit également une couche de normalisation locale, \gls{LRN}, qui vient inhiber les activations des cartes d'activations adjacentes à celle d'un neurone fortement excité. Ce procédé inspiré de l'inhibition latérale existant dans les neurones biologiques permet d'améliorer la généralisation du modèle. Contrairement à la normalisation du contraste de \citet{jarrett_what_2009}, cette normalisation ne s'applique pas sur un voisinage spatial, mais sur les cartes d'activations filtrées voisines de celle considérée, dans la troisième direction du tenseur. Cette normalisation peut s'exprimer sous la forme d'un noyau s'appliquant aux cartes d'activation 2D. Pour un tenseur de $N$ cartes d'activations $a^1,\dots,a^N$, les cartes normalisées $z^i$ s'obtiennent par\,:
 $$z^i[x,y] = \frac{a^i[x,y]}{\left(k + \alpha \sum_{j=max(0, i-n/2)}^{min(N-1, i+n/2)} (a^j[x,y])^2  \right)^\beta}~~.$$
 avec $n$ la taille du voisinage à considérer (dans la direction des canaux). Il est possible d'envisager cette normalisation en considérant pour chaque position spatiale des cartes d'activation qu'il s'agit d'une normalisation de l'intensité du vecteur d'activation $(a[x,y]^1, a[x,y]^2, \dots, a[x,y]^N)$.
 
@@ -353,7 +378,7 @@ Toutefois, la normalisation des activations la plus courante est la normalisatio
 $$\hat{a}_i = \frac{a_i - \mu_i}{\sqrt{\sigma_i^2 + \epsilon}}$$.
 
 Durant la phase d'apprentissage, $\mu$ et $\sigma$ sont calculés à la volée à partir du \emph{mini-batch}\,:
-$$\mu_i = \frac{1}{N} \sum_{j=1}^N a_i^{(j)}~~\text{ et }~~\sigma_i = \frac{1}{N} \sum_{j=1}^N (a_i^{(j)} - \mu_i)$$
+$$\mu_i = \frac{1}{N} \sum_{n=1}^N a_i^{(n)}~~\text{ et }~~\sigma_i = \frac{1}{N} \sum_{n=1}^N (a_i^{(n)} - \mu_i)$$
 
 Afin de rendre les calculs en phase d'inférence indépendants de la taille du \emph{batch}, les moments estimés durant la phase d'apprentissage sont conservés en mémoire et fixés lors de l'évaluation. La normalisation par lot est généralement suivie d'une transformée affine $z_i = \alpha \hat{a}_i + \beta$.\footnote{Dans ce cas, la \emph{Batch Normalization} contient $2C$ paramètres optimisables.}
 
@@ -470,15 +495,32 @@ Le modèle VGG-16 affine l'architecture en proposant notamment de réduire la di
   \label{fig:googlenet}
 \end{figure}
 
-\begin{figure}[t]
-  \resizebox{0.5\textwidth}{!}{
+\begin{figure}
+  \resizebox{\textwidth}{!}{
     \input{Chapitre1/inception.tikz}
   }
   \caption{Module \emph{Inception}~\cite{szegedy_going_2015}}
   \label{fig:inception}
 \end{figure}
 
-En parallèle, \citet{szegedy_going_2015} proposent le modèle GoogLeNet avec 22 couches. Cette architecture introduit notamment le module \emph{Inception} empilant plusieurs couches en parallèle, et plus seulement en profondeur. L'idée est de réaliser, pour une carte d'activation, l'extraction de caractéristiques à plusieurs niveaux de contextes en utilisant soit une convolution $1\times1$, c'est-à-dire une combinaison linéaire suivie d'une non-linéarité, soit des convolutions $3\times3$ ou $5\times5$. Le module \emph{Inception} est illustré dans la~\cref{fig:inception}. L'architecture complète du modèle GoogLeNet est détaillée dans la~\cref{fig:googlenet}. Compte-tenu de la profondeur du réseau (22 couches), ses auteurs proposent de faciliter l'optimisation des couches les plus basses en ajoutant un classifieur au niveau des représentations intermédiaires, après les modules \emph{Inception} (4a) et (4d), cette approche ayant déjà montré son efficacité pour lutter contre les problèmes de gradients évanescents par le passé~\cite{lee_deeply-supervised_2015}. Ce modèle obtient un taux d'ereur de seulement 6,4\% en reconnaissance d'objets à l'\gls{ILSVRC}. Ce modèle sera amélioré~\cite{szegedy_rethinking_2015} par la suite en remplaçant les convolutions $5\times5$ du module \emph{Inception} par deux convolutions $3\times3$, comme proposé dans le modèle VGG~\cite{simonyan_very_2014} et en intégrant la \emph{Batch Normalization}~\cite{ioffe_batch_2015}.
+\begin{figure}[t]
+  \begin{minipage}{0.5\textwidth}
+    \resizebox{\textwidth}{!}{
+      \input{Chapitre1/residual.tikz}
+    }
+    \caption{Bloc convolutif résiduel~\cite{he_deep_2016}}
+    \label{fig:residual}
+  \end{minipage}
+  \begin{minipage}{0.5\textwidth}
+  \resizebox{\textwidth}{!}{
+    \input{Chapitre1/denseblock.tikz}
+  }
+  \caption{Bloc convolutif dense~\cite{huang_densely_2017}}
+  \label{fig:denseblock}
+  \end{minipage}
+\end{figure}
+
+En parallèle, \citet{szegedy_going_2015} proposent le modèle GoogLeNet avec 22 couches. Cette architecture introduit notamment le module \emph{Inception} empilant plusieurs couches en parallèle, et plus seulement en profondeur. L'idée est de réaliser, pour une carte d'activation, l'extraction de caractéristiques à plusieurs niveaux de contextes en utilisant soit une convolution $1\times1$, c'est-à-dire une combinaison linéaire suivie d'une non-linéarité, soit un \emph{pooling}, soit des convolutions $3\times3$ ou $5\times5$. Cela permet de coupler des caractéristiques dotées de l'invariance aux translations locales (issues du sous-échantillonnage) et des caractéristiques qui ne le sont pas, permettant donc de traiter une plus grande variété de cas. Le module \emph{Inception} est illustré dans la~\cref{fig:inception}. L'architecture complète du modèle GoogLeNet est détaillée dans la~\cref{fig:googlenet}. Compte-tenu de la profondeur du réseau (22 couches), ses auteurs proposent de faciliter l'optimisation des couches les plus basses en ajoutant un classifieur au niveau des représentations intermédiaires, après les modules \emph{Inception} (4a) et (4d), cette approche ayant déjà montré son efficacité pour lutter contre les problèmes de gradients évanescents par le passé~\cite{lee_deeply-supervised_2015}. Ce modèle obtient un taux d'ereur de seulement 6,4\% en reconnaissance d'objets à l'\gls{ILSVRC}. Ce modèle sera amélioré~\cite{szegedy_rethinking_2015} par la suite en remplaçant les convolutions $5\times5$ du module \emph{Inception} par deux convolutions $3\times3$, comme proposé dans le modèle VGG~\cite{simonyan_very_2014} et en intégrant la \emph{Batch Normalization}~\cite{ioffe_batch_2015}.
 \todo[inline]{ajouter la supervision profonde au graphique Inception + LRN après Pool1 et Pool2}
 
 \begin{figure}[t]
@@ -489,9 +531,8 @@ En parallèle, \citet{szegedy_going_2015} proposent le modèle GoogLeNet avec 22
   \label{fig:resnet}
 \end{figure}
 
-\missingfigure{residual connection}
-
-En 2015, \citet{he_deep_2016} parviennent à obtenir un taux d'erreur de seulement 3,5\% en reconnaissance d'objet durant le \gls{ILSVRC}. Leur approche consiste en un réseau très profond comprenant plus de 100 couches convolutives. L'optimisation est rendue possible d'une part grâce à la \emph{Batch Normalization}, mais surtout grâce à l'apprentissage par résidu. L'idée est de briser la structure purement séquentielle des réseaux à propagation avant en ajoutant des connexions permettant de shunter la couche suivante. Ces connexions, dites résiduelles, correspondent à une simple opération identité et permettent alors aux activations et au gradient de parcourir l'ensemble du réseau sans subir d'évanescene ou d'explosion dues à la règle de la dérivation en chaîne. Plutôt de cherche à approximer $f\,: x \rightarrow f(x)$, le bloc résiduel va approximer $\hat{f}\,: x \rightarrow f(x) - x$, plus simple car d'amplitude a priori plus faible. Le bloc de convolution résiduel est illustré dans la~\cref{fig:residual} et un exemple de modèle dit \emph{ResNet} à 34 couches est détaillé dans la~\cref{fig:resnet}. L'introduction de l'apprentissage par résidu change en partie le paradigme utilisée jusqu'alors pour la conception des \gls{CNN}. Les ResNet possèdent beaucoup de couches mais comparativement peu de paramètres, car seule la dernière couche est entièrement connectée. Comme nous l'avons vu, les couches entièrement connectées concentrent en général la majorité des poids des \gls{CNN} et sont également les plus sensibles au surapprentissage, nécessitant l'intégration de régularisations comme le \emph{Dropout}~\cite{srivastava_dropout_2014}. ResNet ne contient quasiment que des convolutions $3\times3$, à l'exception de la première $7\times7$ qui permet de réduire brutalement les dimensions spatiales de l'image. Il est intéressant de constater que la réduction de dimension finale avant la couche entièrement connectée se fait à l'aide d'un sous-échantillonnage adaptatif. Ainsi, peu importe la taille de l'image de l'entrée\,: le sous-échantillonnage moyennera les activations pour produire le vecteur de caractéristiques de taille attendue par la couche entièrement connectée. Cependant, il faut noter que le nombre élevé d'activations et de gradients intermédiaires à calculer rend les ResNet coûteux en mémoire et peu pratiques sur de grandes images. L'architecture \emph{Inception} sera également augmentée par des connexions résiduelles~\cite{szegedy_inception-v4_2016}.
+En 2015, \citet{he_deep_2016} parviennent à obtenir un taux d'erreur de seulement 3,5\% en reconnaissance d'objet durant le \gls{ILSVRC}. Leur approche consiste en un réseau très profond comprenant plus de 100 couches convolutives. L'optimisation est rendue possible d'une part grâce à la \emph{Batch Normalization}, mais surtout grâce à l'apprentissage par résidu. L'idée est de briser la structure purement séquentielle des réseaux à propagation avant en ajoutant des connexions permettant de shunter la couche suivante. Ces connexions, dites résiduelles, correspondent à une simple opération identité et permettent alors aux activations et au gradient de parcourir l'ensemble du réseau sans subir d'évanescene ou d'explosion dues à la règle de la dérivation en chaîne. Plutôt de cherche à approximer $f\,: x \rightarrow f(x)$, le bloc résiduel va approximer $\hat{f}\,: x \rightarrow f(x) - x$, plus simple car d'amplitude a priori plus faible. Le bloc de convolution résiduel est illustré dans la~\cref{fig:residual} et un exemple de modèle dit \emph{ResNet} à 34 couches est détaillé dans la~\cref{fig:resnet}. L'introduction de l'apprentissage par résidu change en partie le paradigme utilisée jusqu'alors pour la conception des \gls{CNN}. Le bloc de base constitutif du réseau passe ainsi au bloc résiduel.
+Les ResNet possèdent beaucoup de couches mais comparativement peu de paramètres, car seule la dernière couche est entièrement connectée. Comme nous l'avons vu, les couches entièrement connectées concentrent en général la majorité des poids des \gls{CNN} et sont également les plus sensibles au surapprentissage, nécessitant l'intégration de régularisations comme le \emph{Dropout}~\cite{srivastava_dropout_2014}. ResNet ne contient quasiment que des convolutions $3\times3$, à l'exception de la première $7\times7$ qui permet de réduire brutalement les dimensions spatiales de l'image. Il est intéressant de constater que la réduction de dimension finale avant la couche entièrement connectée se fait à l'aide d'un sous-échantillonnage adaptatif. Ainsi, peu importe la taille de l'image de l'entrée\,: le sous-échantillonnage moyennera les activations pour produire le vecteur de caractéristiques de taille attendue par la couche entièrement connectée. Cependant, il faut noter que le nombre élevé d'activations et de gradients intermédiaires à calculer rend les ResNet coûteux en mémoire et peu pratiques sur de grandes images. L'architecture \emph{Inception} sera également augmentée par des connexions résiduelles~\cite{szegedy_inception-v4_2016}.
 
 
 \begin{figure}[t]
@@ -502,15 +543,13 @@ En 2015, \citet{he_deep_2016} parviennent à obtenir un taux d'erreur de seuleme
   \label{fig:densenet}
 \end{figure}
 
-\missingfigure{denseblock}
-
 
 L'utilisation de cartes d'activation intermédiaires et leur propagation aux couches supérieures permet une meilleure classification en prenant en compte plusieurs niveaux d'abstraction. Toutefois, les connexions résiduelles ne permettent que d'accéder aux activations de la couche précédente. \citet{huang_densely_2017} ont donc proposé une architecture dite \emph{DenseNet} comportant des connexions denses, construisant un modèle au sein duquel toutes les cartes d'activation issues des couches inférieures sont transmises à toutes les couches supérieures. Pour éviter l'explosion du nombre de paramètres et d'activations, le modèle est divisé en plusieurs blocs denses, comme illustré dans la~\cref{fig:densenet}. Chaque bloc se détaille comme illustré dans la~\cref{fig:denseblock}. La présence des connexions denses permet au gradient de se propager immédiatement des couches supérieures aux couches inférieures, appliquant ainsi une forme implicite de supervision profonde~\cite{lee_deeply-supervised_2015}. Entre deux blocs, une couche convolutive de transition set appliquée pour réduire le nombre de plans et est suivie d'un \emph{max-pooling} pour réduire les dimensions spatiales. Cette architecture obtient comparativement de meilleurs résultats que les modèles ResNet sur la base de validation de l'\gls{ILSVRC}2012. Toutefois, comme pour les ResNet, si le nombre de paramètres des architectures DenseNet est faible, ils sont coûteux en espace mémoire nécessaire pour stocker les activations et gradients intermédiaires.
 
 \todo[inline]{depthwise/separable convolutions}
 
 
-Toutefois, la classification d'images ne donne aucune information particulière de localisation, seulement une information binaire de présence d'un objet dans une image. Des approches à base de réseaux profonds pour la détection d'objet à partir de classification de sous-régions de l'image ont rapidement vu le jour~\cite{girshick_rich_2014,liu_ssd_2016,girshick_region-based_2016} supplantant les approches traditionnelles de localisation~\cite{lowe_object_1999,dalal_histograms_2005,gu_recognition_2009,uijlings_selective_2013}. Cependant, ces approches ne répondent pas exactement au problème décrit par Papert en 1966. La question n'est pas uniquement de pouvoir identifier des objets, mais aussi d'en estimer la forme et de les séparer du fond, comme illustré dans la~\cref{fig:classif_vs_seg}. Cette tâche consiste donc à la segmentation sémantique, c'est-à-dire à l'association d'une classe d'intérêt non pas à chaque image, mais à chaque pixel.
+Toutefois, la classification d'images ne donne aucune information particulière de localisation, seulement une information binaire de présence d'un objet dans une image. Les premières approches se sont intéressés au calcul de caractéristiques denses sur l'image associées à des cascades multi-échelles de classifieurs pour détecter des objets dans chaque sous-région de l'image. C'est l'approche utilisée par les descripteurs \gls{SIFT}~\cite{lowe_object_1999}, les pseudo-Haar de la méthode de Viola et Jones~\cite{viola_robust_2001} ou encore des \gls{HOG}~\cite{dalal_histograms_2005}. Des approches à base de réseaux profonds pour la détection d'objet à partir de classification de sous-régions de l'image ont rapidement vu le jour~\cite{girshick_rich_2014,liu_ssd_2016,girshick_region-based_2016} supplantant les approches traditionnelles de localisation à partir d'extraction de fenêtres candidates~\cite{gu_recognition_2009,uijlings_selective_2013}. L'idée principale tourne toujours autour d'une extraction dense de caractéristique et de l'identification de régions de l'image susceptibles de contenir un des objets d'intérêt. Cependant, ces approches ne répondent pas exactement au problème décrit par Papert en 1966. La question n'est pas uniquement de pouvoir identifier des objets, mais aussi d'en estimer la forme et de les séparer du fond, comme illustré dans la~\cref{fig:classif_vs_seg}. Cette tâche consiste donc à la segmentation sémantique, c'est-à-dire à l'association d'une classe d'intérêt non pas à chaque image, mais à chaque pixel.
 
 Plusieurs jeux de données ont été introduits dans la communauté vision par ordinateur afin d'évaluer des méthodes sur cette tâche, notamment sur des scènes de la vie quotidienne, comme PASCAL VOC~\cite{everingham_pascal_2014}, Microsoft COCO~\cite{lin_microsoft_2014} et également sur des scènes de conduite autonome avec des jeux de données tels que CamVid~\cite{brostow_semantic_2009}, Cityscapes~\cite{cordts_cityscapes_2016} ou encore Mapillary Vistas~\cite{neuhold_mapillary_2017}. Les premières approches de segmentation sémantique ont réalisé des classification à partir de caractéristiques denses calculées sur l'ensemble de l'image, regroupées \emph{a posteriori} par régions homogènes~\cite{shotton_semantic_2008,shotton_real-time_2011}. Les réseaux convolutifs profonds également utilisés à cette fin en calculant une classification pour chaque pixel de l'image~\cite{grangier_deep_2009,ciresan_deep_2012} ou pour chaque région~\cite{farabet_towards_2013,sermanet_overfeat_2013}. Une observation importante est que les cartes de caractéristiques issues des couches convolutives conservent la structure spatiale de l'image, c'est-à-dire qu'il est possible de faire correspondre chaque caractéristique à un ou plusieurs pixels. Cette extraction de caractéristique dense se prête particulièrement aux problématiques de localisation d'objet et est rapidement adoptée par la communauté~\cite{zou_generic_2014}.
 
