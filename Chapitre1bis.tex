@@ -238,8 +238,8 @@ L'idée de LeCun~\cite{lecun_gradient-based_1998} est de remplacer les première
 
 
 \begin{figure}
-  \foreach \picpath\piclegend in {nobu/Image originale,nobu_gabor/Filtre de Gabor,nobu_sobel/Filtre de Sobel~\cite{sobel_isotropic_2014},nobu_frangi/Filtre de Frangi~\cite{frangi_multiscale_1998}}{%
-  \begin{subfigure}{0.25\textwidth}
+  \foreach \picpath\piclegend in {nobu/Image originale,nobu_gaussian/Filtre gaussien (flou),nobu_sobel_h/Filtre de Sobel (contours horizontaux)~\cite{sobel_isotropic_2014},nobu_sobel_v/Filtre de Sobel (contours verticaux)~\cite{sobel_isotropic_2014}}{%
+  \begin{subfigure}[t]{0.25\textwidth}
     \includegraphics[width=\textwidth]{\picpath}
     \caption*{\piclegend}
   \end{subfigure}%
