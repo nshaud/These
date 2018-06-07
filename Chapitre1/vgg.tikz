@@ -10,7 +10,7 @@
   \usetikzlibrary{calc}
   \usetikzlibrary{3d}
 
-  \def\scale{4}
+  \def\scale{3.5}
   \def\vggx{0}
   \def\vggy{0}
   \def\vggz{0}
@@ -20,8 +20,7 @@
   \def\cogreen{green!50!gray}
   \def\copurple{purple!50!white}
 
-  \imagelayer{1.3*\scale}{-0.3*\scale+\vggx}{\vggy}{\vggz}{nobu}{Image}{$224\times224\times3$}
-  \convlayer{1.3*\scale}{1.3*\scale}{0.02*\scale}{Image}{\coblue}{0.2*\scale+\vggx}{\vggy}{\vggz}{{224}{}{3}}
+  \imagelayer{1.3*\scale}{0.1*\scale+\vggx}{\vggy}{\vggz}{nobu}{Image}{$224\times224\times3$}
   \convlayer{1.1*\scale}{1.1*\scale}{0.04*\scale}{Conv1-2}{\coblue}{\vggx+0.6*\scale}{\vggy}{\vggz}{{}{}{64}}
   \convlayer{1.1*\scale}{1.1*\scale}{0.04*\scale}{}{\coblue}{\vggx+0.7*\scale}{\vggy}{\vggz}{{}{}{64}}
   \convlayer{0.8*\scale}{0.8*\scale}{0.04*\scale}{Pool1}{\coorange}{\vggx+1*\scale}{\vggy}{\vggz}{{112}{112}{}}
@@ -42,10 +41,10 @@
   \convlayer{0.15*\scale}{0.15*\scale}{0.4*\scale}{Pool5}{\coorange}{\vggx+7.05*\scale}{\vggy}{\vggz}{{7}{7}{512}}
 
   \fclayer{\scale}{0.1*\scale}{FC1}{\copurple}{\vggx+7.4*\scale}{\vggy}{\vggz}{4096}
-  \fclayer{\scale}{0.1*\scale}{FC2}{\copurple}{\vggx+7.7*\scale}{\vggy}{\vggz}{4096}
-  \fclayer{\scale}{0.1*\scale}{FC3}{\copurple}{\vggx+8*\scale}{\vggy}{\vggz}{1000}
-  \node (out) at (\vggx+8.4*\scale,\vggy) {\Large ``Chat''};
-  \draw[->] (\vggx+8.05*\scale,\vggy) -- (out.west);
+  \fclayer{\scale}{0.1*\scale}{FC2}{\copurple}{\vggx+7.6*\scale}{\vggy}{\vggz}{4096}
+  \fclayer{0.8*\scale}{0.1*\scale}{FC3}{\copurple}{\vggx+7.8*\scale}{\vggy}{\vggz}{1000}
+  \node (out) at (\vggx+8.2*\scale,\vggy) {\Large ``Chat''};
+  \draw[->] (\vggx+7.85*\scale,\vggy) -- (out.west);
 
   \end{tikzpicture}
 \end{document}

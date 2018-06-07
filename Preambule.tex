@@ -19,14 +19,14 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %           Liste des packages         %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\usepackage[utf8]{inputenc}		% LaTeX, comprend les accents !
 
 %% Standalone
 \usepackage{standalone}
 
 %% Réglage des fontes et typo
-\usepackage[utf8]{inputenc}		% LaTeX, comprend les accents !
 \usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}		% LaTeX, comprend les accents !
 
 \usepackage[numbers]{natbib}	% Doit être chargé avant babel
 \usepackage{chapterbib}
@@ -42,7 +42,7 @@
 %\usepackage[sfdefault]{AlegreyaSans} % Autre fonte sans serif
 \usepackage[babel,kerning,protrusion,expansion]{microtype} % Ajuste finement les espaces
 % En outre, les options babel et kerning permettent d'utiliser ':' avec babel en français et cleveref dans les \caption (en théorie ':' est un caractère actif avec babel)
-
+\usepackage{bbding}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Allure générale du document
@@ -65,6 +65,7 @@
 \usepackage{nicefrac}			% Fractions 'inline'
 \usepackage{amsthm} 		       % Théorèmes
 \newtheorem{theorem}{Théorème}
+\newtheorem{definition}{Définition}
 \newcommand{\diff}{\mathrm{d}} % Dérivation
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -145,4 +146,4 @@
 	\makeglossaries
 	\loadglsentries{Glossaire}			% Utilisation d'un fichier externe pour la définition des entrées (Glossaire.tex)
 \makeglossaries
-\usepackage[capitalize]{cleveref}
+\usepackage[capitalize,french]{cleveref}

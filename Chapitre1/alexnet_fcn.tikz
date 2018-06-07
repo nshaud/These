@@ -1,0 +1,41 @@
+\documentclass{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usepackage{ifthen}
+\input{../CommandesPerso.tex}
+
+\begin{document}
+  \begin{tikzpicture}
+  \usetikzlibrary{calc}
+  \usetikzlibrary{3d}
+
+  \def\scale{4}
+  \def\alexx{0}
+  \def\alexy{0}
+  \def\alexz{0}
+
+  \def\coblue{blue!50!gray}
+  \def\coorange{orange!50!gray}
+  \def\cogreen{green!50!gray}
+  \def\copurple{purple!50!white}
+
+  \imagelayer{1.3*\scale}{0.*\scale+\alexx}{\alexy}{\alexz}{cat}{Image}{$224\times224\times3$}
+  \convlayer{1.1*\scale}{1.1*\scale}{0.1*\scale}{Conv1}{\coblue}{\alexx+0.6*\scale}{\alexy}{\alexz}{{55}{55}{96}}
+  \convlayer{0.7*\scale}{0.7*\scale}{0.1*\scale}{Pool1}{\coorange}{\alexx+1*\scale}{\alexy}{\alexz}{{}{}{96}}
+  \convlayer{0.7*\scale}{0.7*\scale}{0.1*\scale}{LRN}{\cogreen}{\alexx+1.35*\scale}{\alexy}{\alexz}{{}{}{96}}
+  \convlayer{0.7*\scale}{0.7*\scale}{0.4*\scale}{Conv2}{\coblue}{\alexx+2*\scale}{\alexy}{\alexz}{{27}{27}{256}}
+  \convlayer{0.5*\scale}{0.5*\scale}{0.1*\scale}{Pool2}{\coorange}{\alexx+2.5*\scale}{\alexy}{\alexz}{{13}{13}{}}
+  \convlayer{0.5*\scale}{0.5*\scale}{0.1*\scale}{LRN}{\cogreen}{\alexx+2.75*\scale}{\alexy}{\alexz}{{}{}{}}
+  \convlayer{0.5*\scale}{0.5*\scale}{0.6*\scale}{Conv3}{\coblue}{\alexx+3.35*\scale}{\alexy}{\alexz}{{}{}{384}}
+  \convlayer{0.5*\scale}{0.5*\scale}{0.6*\scale}{Conv4}{\coblue}{\alexx+4.2*\scale}{\alexy}{\alexz}{{}{}{384}}
+  \convlayer{0.5*\scale}{0.5*\scale}{0.4*\scale}{Conv5}{\coblue}{\alexx+5*\scale}{\alexy}{\alexz}{{}{}{256}}
+  \convlayer{0.2*\scale}{0.2*\scale}{0.1*\scale}{Pool5}{\coorange}{\alexx+5.5*\scale}{\alexy}{\alexz}{{7}{7}{256}}
+  \node at (\alexx+6.9*\scale, \alexy+0.5*\scale) {\large Couches entièrement connectées convolutionalisées};
+  \convlayer{0.2*\scale}{0.2*\scale}{0.8*\scale}{Conv-FC1}{\copurple}{\alexx+6.1*\scale}{\alexy}{\alexz}{{}{}{4096}}
+  \convlayer{0.2*\scale}{0.2*\scale}{0.8*\scale}{Conv-FC2}{\copurple}{\alexx+7.05*\scale}{\alexy}{\alexz}{{}{}{4096}}
+  \convlayer{0.2*\scale}{0.2*\scale}{0.5*\scale}{Conv-FC3}{\copurple}{\alexx+7.85*\scale}{\alexy}{\alexz}{{}{}{1000}}
+  \imagelayer{1.3*\scale}{8.4*\scale+\alexx}{\alexy}{\alexz}{cat_heatmap}{Carte de chaleur}{$7\times7$}
+
+  \end{tikzpicture}
+\end{document}

@@ -1,0 +1,24 @@
+\begin{tikzpicture}[]
+
+\node at (-5, 0) {\includegraphics[width=4cm]{/home/naudeber/Documents/Timeless/Publications/GEOBIA16/images/sliding_window_rgb}};
+\node at (-5, -3) {\Large{Sliding window}};
+\node at (-5, -3.75) {\Large{on RGB data}};
+
+\draw [ultra thick,->] (-2, 0) -- node[above] {\includegraphics[width=4cm]{/home/naudeber/Documents/Timeless/Illustrations/tikz/segnet.pdf}} node[below] {\large segmentation} (1,0);
+\node at (-0.5, -1) {\large deep net};
+
+\node at (4, 0) {\includegraphics[width=4cm]{/home/naudeber/Documents/Timeless/Publications/GEOBIA16/images/potsdam_vehicle_0_pred}};
+\node at (4, -3) {\Large Semantic map};
+
+\draw [ultra thick,->] (6.5, 0) -- node[above] {\large extract} node[below] {\large vehicles} (9.5,0);
+
+\node at (12, 0) {\includegraphics[width=4cm]{/home/naudeber/Documents/Timeless/Illustrations/potsdam_vehicle_0_gt_vehicles}};
+\node at (12,-3) {\Large Vehicle mask};
+
+\draw [ultra thick,->] (14.5, 0) -- node[above] {\includegraphics[width=3.8cm]{/home/naudeber/Documents/Timeless/Illustrations/tikz/alexnet.pdf}} node[below] {\large classification} (17.5,0);
+\node at (16, -1) {\large deep net};
+
+\node at (20, 0) {\includegraphics[width=4cm]{/home/naudeber/Documents/Timeless/Publications/GEOBIA16/images/classif}};
+\node at (20, -3) {\Large Classified vehicles};
+
+\end{tikzpicture}

@@ -1,5 +1,6 @@
 %!TEX root = Manuscrit.tex
 \chapter{Introduction}
+\label{chap:intro}
 	\citationChap{}{}
 	\minitoc
 	\newpage
@@ -7,11 +8,19 @@
 
 % Début du chapitre
 \section{Problématique}
+
+\begin{figure}[t]
+	\includegraphics[width=\textwidth]{atrain}
+	\caption{Satellites de la constellation A-Train pour l'observation de la Terre en 2018.}
+	{\small Crédits image\,: \href{https://commons.wikimedia.org/w/index.php?curid=33645603}{NASA JPL (domaine public)}}
+	\label{fig:atrain}
+\end{figure}
+
 L'observation est à la base de la méthode scientifique. Tout objet d'étude est susceptible d'être examiné sous toutes ses coutures pour en comprendre les propriétés. La Terre ne fait pas exception à cette logique. Ce n'est donc pas une surprise si, lors de l'avènement des premiers programmes spatiaux, les premiers satellites mis en orbite étaient résolument tournés vers notre planète. En effet, l'altitude a permis à la communauté scientifique d'acquérir une toute nouvelle perspective.
 
-L'imagerie aérienne et satellitaire est donc devenu un outil particulièrement présent dans les sciences modernes. Comprendre la Terre est un enjeu scientifique majeur, et l'observation est le premier pas nécessaire à toute tentative de modélisation. Qu'il s'agisse de météorologie, d'océanographie, d'écologie ou de géographie, les images aéroportées fournissent une information formidablement riche.
+L'imagerie aérienne et satellitaire est donc devenu un outil particulièrement présent dans les sciences modernes. Comprendre la Terre est un enjeu scientifique majeur, et l'observation est le premier pas nécessaire à toute tentative de modélisation. Qu'il s'agisse de météorologie, d'océanographie, d'écologie ou de géographie, les images aéroportées et satellitaires fournissent une information formidablement riche.
 
-L'intensification des efforts pour imager la Terre dans son intégralité à haute fréquence n'a donc rien d'étonnant. Des initiatives telles que Landsat, Sentinel ou SPOT permettent d'imager le globe tout entier presque chaque semaine. Pour autant, exploiter cette masse de données n'est pas chose aisée. Interpréter et comprendre une image satellite nécessite une expertise forte, aussi bien liée au capteur utilisé pour acquérir l'image qu'aux connaissances relevant du champ d'application visé.
+L'intensification des efforts pour imager la Terre dans son intégralité à haute fréquence n'a donc rien d'étonnant. Des initiatives telles que \gls{Landsat}, \gls{Sentinel} ou \gls{SPOT} permettent d'imager le globe tout entier chaque semaine. Pour autant, exploiter cette masse de données n'est pas chose aisée. Interpréter et comprendre une image satellite nécessite une expertise forte, aussi bien liée au capteur utilisé pour acquérir l'image qu'aux connaissances relevant du champ d'application visé.
 
 Extraire de l'information de ces images a un intérêt important dans de nombreux domaines applicatifs :
 \begin{itemize}
@@ -27,7 +36,7 @@ C'est le sujet de cette thèse.
 
 Nous cherchons à concevoir, implémenter et de valider des modèles de réseaux de neurones artificiels profonds pour l'interprétation automatisée d'images aériennes et satellites, issues de capteurs multiples, sur une large variété de scènes et pour différents champs d'application.
 
-\begin{figure}
+\begin{figure}[t]
     \centering
     \def\svgwidth{\columnwidth}
     \input{Chapitre1/dessin.pdf_tex}
@@ -59,6 +68,7 @@ L'émergence de l'apprentissage profond dans les années 2000 a fortement contri
 
 Cette thèse se pose ainsi à l'interface entre la télédétection, la vision par ordinateur et l'apprentissage automatique. En particulier, nous nous proposons de mettre en \oe{}uvre des méthodes d'apprentissage profond pour l'interprétation automatique d'images d'observation de la Terre.
 
+\subsection{Vision par ordinateur}
 
 \section{Contributions}
 

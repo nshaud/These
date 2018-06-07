@@ -76,8 +76,9 @@ Légende\,: \textcolor{Black}{blanc}\,: routes, \textcolor{Blue}{bleu}\,: bâtim
     % Face haut
     %\draw [left color=\col!60!white, right color=\col!80!white, shading=axis, shading angle=180] (C) -- (D)  -- (H) -- (G) -- cycle;
     \draw [fill opacity=0.9, fill=\col!70!white] (C) -- node[rotate=45,above] {\small \name} (D) -- (H) -- (G) -- cycle;
+    %\draw [fill opacity=0.9, fill=\col!70!white] (C) -- (D) -- node[above] {\small \name} (H) -- (G) -- cycle;
     % Face droite
-    \draw [fill opacity=0.9, fill=\col!60!white] (E) -- node[rotate=45,below] {\scriptsize \notew} (F) -- (G) --  (H) -- cycle;
+    \draw [fill opacity=0.9, fill=\col!60!white] (E) -- node[pos=0.75,rotate=45,below] {\scriptsize \notew} (F) -- (G) --  (H) -- cycle;
     % Face avant
     %\draw [shading=axis, left color=\col!60!white, right color=\col!40!white, shading angle=-45] (B) -- node[above,rotate=90] {\scriptsize \noteh} (C) -- (G) -- (F) -- node[below] {\scriptsize \noted}  cycle;
     \draw [fill opacity=0.9, fill=\col!50!white] (B) -- node[above,rotate=90] {\scriptsize \noteh} (C) -- (G) -- (F) -- node[below] {\scriptsize \noted}  cycle;
@@ -140,7 +141,28 @@ Légende\,: \textcolor{Black}{blanc}\,: routes, \textcolor{Blue}{bleu}\,: bâtim
     % this *defines* a custom colormap ...
     colormap={slategraywhite}{color(0cm)=(red); color(1cm)=(red); color(2cm)=(red); color(3cm)=(red); color(4cm)=(orange); color(5cm)=(yellow); color(6cm)=(green); color(7cm)=(blue); color(8cm)=(blue); color(9cm)=(purple); color(10cm)=(purple); color(12cm)=(black)}
 }
+\node at (1.5, 2.7) {\small 1mm};
+\node at (4, 3) {Infrarouge};
+\node at (7.75, 2.7) {\small 800nm};
+\node at (9, 3) {Visible};
+\node at (10.5, 2.7) {\small 400nm};
+\node at (12, 3) {Ultraviolet};
+\node at (13.5, 2.7) {\small 10nm};
+\draw[->] (1, 2.5) -- (14, 2.5);
 \begin{axis}[hide axis,width=16cm,height=4cm,colormap name=slategraywhite]
 \addplot[domain=20:1000,samples=1500,ultra thick, point meta=x*x,mesh]{sin(x*x/80)};
 \end{axis}
+}
+
+% Union généralisée
+\newcommand{\wbigcup}{\mathop{\bigcup}\displaylimits}
+
+\newcommand{\res}[2]{#1 {\footnotesize $\pm$ #2}}
+\newcommand{\bres}[2]{\textbf{#1} {\footnotesize $\pm$ #2}}
+
+\newcommand{\chapsummary}[1]{
+\section*{Résumé du chapitre :}
+\begin{quote}
+#1
+\end{quote}
 }

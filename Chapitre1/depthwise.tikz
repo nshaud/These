@@ -1,0 +1,70 @@
+\documentclass{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usepackage{ifthen}
+\input{../CommandesPerso.tex}
+
+\begin{document}
+  \begin{tikzpicture}
+  \usetikzlibrary{calc}
+  \usetikzlibrary{3d}
+
+  \def\scale{3}
+  \def\netx{0}
+  \def\nety{0}
+  \def\netz{0}
+
+  \def\coblue{blue!50!gray}
+  \def\coorange{orange!70!gray}
+  \def\cogreen{green!50!gray}
+  \def\coyellow{yellow!50!white}
+  \def\copurple{purple!50!white}
+
+  \foreach\l [count=\ni] in {0,0.1,...,0.8}{%
+      \pgfmathparse{10*\ni}\let\colint\pgfmathresult
+      \convlayer{1*\scale}{1*\scale}{0.1*\scale}{}{red!\colint!white}{0*\scale+\l*\scale}{\nety}{\netz}{{}{}{}}
+  }
+
+  \begin{scope}[canvas is yz plane at x=0.75*\scale]
+  \draw[step=0.1*\scale,thick] (0.5*\scale, 0.5*\scale) grid (0.2*\scale, 0.2*\scale);
+  \end{scope}
+  \begin{scope}[canvas is xy plane at z=0.5*\scale]
+  \draw[thick] (0.75*\scale, 0.3*\scale) -- (0.45*\scale, 0.3*\scale);
+  \draw[thick] (0.75*\scale, 0.2*\scale) -- (0.45*\scale, 0.2*\scale);
+  \draw[thick] (0.75*\scale, 0.4*\scale) -- (0.45*\scale, 0.4*\scale);
+  \end{scope}
+  \begin{scope}[canvas is xz plane at y=0.5*\scale]
+  \draw[thick] (0.75*\scale, 0.3*\scale) -- (0.45*\scale, 0.3*\scale);
+  \draw[thick] (0.75*\scale, 0.2*\scale) -- (0.45*\scale, 0.2*\scale);
+  \draw[thick] (0.75*\scale, 0.4*\scale) -- (0.45*\scale, 0.4*\scale);
+  \end{scope}
+
+  \node at (0.5*\scale, 0.8*\scale) {Cartes d'activations};
+  \node at (0.2*\scale, -0.9*\scale) {$N_{in}\times W \times H$};
+
+  \foreach\l [count=\ni] in {0,0.1,...,0.8}{%
+      \pgfmathparse{10*\ni}\let\colint\pgfmathresult
+      \convlayer{1*\scale}{1*\scale}{0.1*\scale}{}{red!\colint!white}{1.5*\scale+\l*\scale}{\nety}{\netz}{{}{}{}}
+  }
+  \node at (2*\scale, 0.8*\scale) {Convolution $3\times3$};
+  \node at (1.7*\scale, -0.9*\scale) {$N_{in}\times W \times H$};
+
+  \begin{scope}[canvas is yz plane at x=2.25*\scale]
+  \draw (0.5*\scale, 0.5*\scale) rectangle (0.4*\scale, 0.4*\scale);
+  \end{scope}
+  \begin{scope}[canvas is xy plane at z=0.5*\scale]
+  \draw (2.25*\scale, 0.4*\scale) -- (1.95*\scale, 0.4*\scale);
+  \end{scope}
+  \begin{scope}[canvas is xz plane at y=0.5*\scale]
+  \draw (2.25*\scale, 0.4*\scale) -- (1.95*\scale, 0.4*\scale);
+  \end{scope}
+
+  \convlayer{1*\scale}{1*\scale}{1.2*\scale}{}{\cogreen}{3.5*\scale}{\nety}{\netz}{{}{}{}}
+  \node at (3.6*\scale, 0.8*\scale) {Convolution $1\times1$};
+  \node at (3.3*\scale, -0.9*\scale) {$N_{out}\times W \times H$};
+
+  \draw (2.9*\scale, 0.4*\scale, 0.5*\scale) -- (4.1*\scale, 0.4*\scale, 0.5*\scale) -- (4.1*\scale, 0.4*\scale, 0.38*\scale) -- (4.1*\scale, 0.5*\scale, 0.38*\scale) -- (2.9*\scale, 0.5*\scale, 0.38*\scale);
+
+  \end{tikzpicture}
+\end{document}

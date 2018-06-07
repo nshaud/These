@@ -1,4 +1,7 @@
 %!TEX root = Manuscrit.tex
+\chapter{État de l'art}
+\label{chap:etat}
+
 \section{Apprentissage profond pour la vision artificielle}
 
 \subsection{Historique de l'apprentissage profond}
@@ -194,7 +197,12 @@ La première correspond à la méthode des moindres carrées. La norme $L_1$ se 
 Dans le cas de la classification, $y$ se présente sous la forme d'un encodage \emph{one-hot}. Pour un problème à $n$ classes, si $y$ appartient à la $k$\ieme classe, alors $y_i = \delta_{i,k}$ avec $\delta$ le symbole de Kronecker. Autrement dit, $y$ est le vecteur $(0, \dots, 0, 1, 0, \dots, 0)$ dont toutes les composantes sont nulles à l'exception de la $k$\ieme qui est unitaire. S'il est possible de traiter ces problèmes avec des fonctions de coût de régression, il est généralement plus pertinent d'utiliser la fonction d'entropie croisée. Celle-ci se calcule de la façon suivante\,:
 $$H(x,y) = -\sum_{i=1}^n y_i \log(x_i)~.$$
 
-L'entropie croisée est particulièrement intéressante dans ce cas car sa minimisation coïncide avec celle de la divergence de Kullback-Leibler entre la distribution statistique des $x$ et des $y$, c'est-à-dire l'image de $\mathcal{F}$ et celle de $\hat{\mathcal{F}}$.
+L'entropie croisée est particulièrement intéressante dans ce cas car sa minimisation coïncide avec celle de la divergence de Kullback-Leibler entre la distribution statistique des $x$ et des $y$, c'est-à-dire l'image de $\mathcal{F}$ et celle de $\hat{\mathcal{F}}$. Toutefois, dans ce cas il est attendu que $x$ soit un vecteur de probabilité, c'est-à-dire que $x_i \in [0,1]$ et $\sum_i x_i = 1$. En pratique, les activations en sortie du réseau sont donc passées dans une fonction \emph{softmax}\,:
+\begin{equation}
+z_i = \mathit{softmax}(x)_i = \frac{\exp(x_i)}{\sum_j \exp(x_j)}
+\end{equation}
+
+qui est une généralisation de la fonction sigmoïde au cas multi-classes.
 
 Il est important de noter que l'algorithme de descente de gradient ne dispose d'une convergence garantie que dans le cas où la fonction $\mathcal{L}$ est convexe, ce qui n'est jamais le cas en pratique pour des réseaux profonds. Des variantes de la descente de gradient ont été proposées pour améliorer ses propriétés de convergence. En particulier, le pas de la descente $\alpha$ joue un rôle important dans l'optimisation des réseaux de neurones profonds. Appelé généralement taux d'apprentissage, $\alpha$ contrôle à l'amplitude des mises à jour des poids du modèle. Si $\alpha$ est très élevé, les mises à jour seront très grande et la convergence très instable. Si $\alpha$ est très faible, la convergence peut être très lente voire se bloquer dans des minima locaux. La plupart des variantes de la descente de gradient stochastique utilisent des politiques particulières pour la mise à jour des poids. Des méthodes dites de \og moment \fg, inspirées du moment cinétique en mécanique, permettent notamment de faire conserver au gradient une partie de sa vélocité des itérations précédentes pour limiter les oscillations le long des courbes de niveaux de la fonction~\cite{qian_momentum_1999,nesterov_method_1983}. \citet{sutskever_importance_2013-1} ont notamment montré que l'utilisation d'une descente de gradient stochastique à moment permet d'améliorer les performances finales du modèle, y compris dans le cas d'une poids initiaux mal choisis. \citet{polyak_acceleration_1992} proposent par ailleurs d'utiliser le gradient moyennée sur les $n$ dernières itérations pour la mise à jour des poids, ce qui correspond à une forme de mini-lot asynchrone.
 
@@ -469,7 +477,7 @@ L'architecture LeNet-5, developpée par \citet{lecun_gradient-based_1998}, a pos
 
 Pour le traitement des images en couleur, le réseau AlexNet~\cite{krizhevsky_imagenet_2012} utilise une approche similaire. Ce modèle, détaillé dans la~\cref{fig:alexnet} comporte 8 couches, dont 5 convolutives, et traite des images \gls{RVB} de dimensions $224\times224$. La première convolution possède un noyau relativement grand, de dimensions $11\times11$ suivi d'un sous-échantillonnage, ce qui réduit fortement les dimensions de l'image. Ainsi, les cartes d'activation en sortie de la première couche sont de dimensions $96\times27\times27$, puis $256\times13\times13$ après la seconde. Une normalisation \gls{LRN} est utilisée après les deux premières convolutions pour favoriser la généralisation du modèle. La structure convolutive d'AlexNet est conçue de telle sorte à ce que le nombre de cartes d'activation augmente de façon inversement proportionnelle à la réduction des dimensions spatiales. Cela permet de conserver un nombre raisonnable de valeurs à calculer tout en accroissant l'expressivité de la représentation apprise. Les trois couches de convolutions suivantes sont suivies par un sous-échantillonnage final qui permet d'obtenir 256 cartes de dimensions $6\times6$, transformée en un vecteur de caractéristique de longueur $9216$. Les couches entièrement connectées le réduisent ensuite à 2048 puis le projettent dans un vecteur de classification de taille 1000, correspondant aux classes d'ImageNet~\cite{deng_imagenet_2009}. Ce modèle a permis à~\citet{krizhevsky_imagenet_2012} de remporter la compétition \gls{ILSVRC}~\cite{russakovsky_imagenet_2015} en 2012 avec un taux d'erreur de 15,3\%.
 
-\citet{zeiler_visualizing_2014-1} se sont penchés sur l'architecture AlexNet afin d'établir un diagnostic de ses points forts et de ses points faibles. En particulier, ils proposent d'inverser les opérations de convolution afin de pouvoir relier les représentations internes aux pixels de l'image originale. Ils définissent ainsi les opérations transposées de la couche de convolution et du sous-échantillonnage et construisent un \emph{Deconvnet} permettant de visualiser les caractéristiques apprises par AlexNet. En outre, ils étudient attentivement les filtres convolutifs appris par les couches basses du réseau. Leurs travaux mettent en évidence plusieurs propriétés intéressantes. La première est que les caractéristiques des couches supérieures présentent une plus grande invariance aux transformations géométriques et colorimétriques de bas niveau, traduisant ainsi un meilleur niveau d'abstraction. La seconde est que les deux premières couches convolutives d'AlexNet contienennt des filtres liés aux hautes et basses fréquences, mais conservent peu d'information des fréquences intermédiaires. Ils proposent ainsi de remplacer la première couche, dont les noyaux sont de dimension $11\times11$, par des filtres $7\times7$ appliqués sur l'image avec un pas de 2 plutôt qu'un pas de 4, afin de conserver plus d'information. Leurs filtres appris de cette façon présentent une meilleure variété et moins de filtres ``morts'' à très faible amplitude. Enfin, la visualisation des représentations internes permet de constater que celles-ci ne sont pas aléatoires, mais possèdent bien une sémantique liée à la discrimination des objets, certains neurones se focalisant par exemple sur les visages, d'autres sur les roues, etc.
+\citet{zeiler_visualizing_2014} se sont penchés sur l'architecture AlexNet afin d'établir un diagnostic de ses points forts et de ses points faibles. En particulier, ils proposent d'inverser les opérations de convolution afin de pouvoir relier les représentations internes aux pixels de l'image originale. Ils définissent ainsi les opérations transposées de la couche de convolution et du sous-échantillonnage et construisent un \emph{Deconvnet} permettant de visualiser les caractéristiques apprises par AlexNet. En outre, ils étudient attentivement les filtres convolutifs appris par les couches basses du réseau. Leurs travaux mettent en évidence plusieurs propriétés intéressantes. La première est que les caractéristiques des couches supérieures présentent une plus grande invariance aux transformations géométriques et colorimétriques de bas niveau, traduisant ainsi un meilleur niveau d'abstraction. La seconde est que les deux premières couches convolutives d'AlexNet contienennt des filtres liés aux hautes et basses fréquences, mais conservent peu d'information des fréquences intermédiaires. Ils proposent ainsi de remplacer la première couche, dont les noyaux sont de dimension $11\times11$, par des filtres $7\times7$ appliqués sur l'image avec un pas de 2 plutôt qu'un pas de 4, afin de conserver plus d'information. Leurs filtres appris de cette façon présentent une meilleure variété et moins de filtres ``morts'' à très faible amplitude. Enfin, la visualisation des représentations internes permet de constater que celles-ci ne sont pas aléatoires, mais possèdent bien une sémantique liée à la discrimination des objets, certains neurones se focalisant par exemple sur les visages, d'autres sur les roues, etc.
 
 \begin{figure}[t]
   \resizebox{\textwidth}{!}{
@@ -547,7 +555,7 @@ Les ResNet possèdent beaucoup de couches mais comparativement peu de paramètre
 \end{figure}
 
 
-L'utilisation de cartes d'activation intermédiaires et leur propagation aux couches supérieures permet une meilleure classification en prenant en compte plusieurs niveaux d'abstraction. Toutefois, les connexions résiduelles ne permettent que d'accéder aux activations de la couche précédente. \citet{huang_densely_2017} ont donc proposé une architecture dite \emph{DenseNet} comportant des connexions denses, construisant un modèle au sein duquel toutes les cartes d'activation issues des couches inférieures sont transmises à toutes les couches supérieures. Pour éviter l'explosion du nombre de paramètres et d'activations, le modèle est divisé en plusieurs blocs denses, comme illustré dans la~\cref{fig:densenet}. Chaque bloc se détaille comme illustré dans la~\cref{fig:denseblock}. La présence des connexions denses permet au gradient de se propager immédiatement des couches supérieures aux couches inférieures, appliquant ainsi une forme implicite de supervision profonde~\cite{lee_deeply-supervised_2015}. Entre deux blocs, une couche convolutive de transition set appliquée pour réduire le nombre de plans et est suivie d'un \emph{max-pooling} pour réduire les dimensions spatiales. Cette architecture obtient comparativement de meilleurs résultats que les modèles ResNet sur la base de validation de l'\gls{ILSVRC}2012. Toutefois, comme pour les ResNet, si le nombre de paramètres des architectures DenseNet est faible, ils sont coûteux en espace mémoire nécessaire pour stocker les activations et gradients intermédiaires.
+L'utilisation de cartes d'activation intermédiaires et leur propagation aux couches supérieures permet une meilleure classification en prenant en compte plusieurs niveaux d'abstraction. En outre, plusieurs travaux suggèrent que ces approches permettent en pratique de combiner plusieurs modèles en un seul, les activations étant en mesure de suivre plusieurs chemins dans la topologie du réseau~\cite{veit_residual_2016-1,huang_deep_2016-1}. Toutefois, les connexions résiduelles ne permettent que d'accéder aux activations de la couche précédente. \citet{huang_densely_2017} ont donc proposé une architecture dite \emph{DenseNet} comportant des connexions denses, construisant un modèle au sein duquel toutes les cartes d'activation issues des couches inférieures sont transmises à toutes les couches supérieures. Pour éviter l'explosion du nombre de paramètres et d'activations, le modèle est divisé en plusieurs blocs denses, comme illustré dans la~\cref{fig:densenet}. Chaque bloc se détaille comme illustré dans la~\cref{fig:denseblock}. La présence des connexions denses permet au gradient de se propager immédiatement des couches supérieures aux couches inférieures, appliquant ainsi une forme implicite de supervision profonde~\cite{lee_deeply-supervised_2015}. Entre deux blocs, une couche convolutive de transition set appliquée pour réduire le nombre de plans et est suivie d'un \emph{max-pooling} pour réduire les dimensions spatiales. Cette architecture obtient comparativement de meilleurs résultats que les modèles ResNet sur la base de validation de l'\gls{ILSVRC}2012. Toutefois, comme pour les ResNet, si le nombre de paramètres des architectures DenseNet est faible, ils sont coûteux en espace mémoire nécessaire pour stocker les activations et gradients intermédiaires.
 
 Plus récemment, \cite{chollet_xception_2017} introduit les convolutions séparables en profondeur. Celles-ci opèrent un filtre par plan du tenseur d'activations et sont recombinées pixel à pixel par une convolution point à point de noyau $1\times1$. Ainsi, il s'agit d'un cas spécifique de la convolution usuelle dans laquelle chaque plan du tenseur est filtré par un et un seul noyau de convolution, comme illustré dans la~\cref{fig:depthwise} Ces convolutions sont introduites pour remplacer le module \emph{Inception} dans l'architecture éponyme et en ont amélioré les performances sur les jeux de données ImageNet et JFT, interne à Google. Un avantage notable de ces convolutions est de nécessiter moins de paramètres que la convolution classique. En effet, une convolution $k_1 \times k_2$ opérant sur $N_{in}$ cartes d'activations produisant $N_{out}$ cartes d'activations nécessite $k_1 \times k_2 \times N_{in} \times N_{out}$ paramètres. La convolution séparable en profondeur nécessite $N_{in} \times N_{in} \times k_1 \times k_2$ paramètres pour la première phase puis $N_{in} \times N_{out}$ pour la seconde, soit un total de $N_{in} \times (N_{in} \cdot k_1 \cdot k_2 + N_{out})$, ce qui est avantageux quand $N_{out} \ge N_{in}$, ce qui est le cas le plus courant.
 
@@ -557,22 +565,29 @@ Plusieurs jeux de données ont été introduits dans la communauté vision par o
 
 \subsection{Approches entièrement convolutives}
 
-\missingfigure{Convolutionalisation}
+\begin{figure}
+  \resizebox{\textwidth}{!}{%
+  \input{Chapitre1/alexnet_fcn.tikz}
+  }
+  \caption{AlexNet entièrement convolutif proposé par~\citet{long_fully_2015}.}
+\end{figure}
 
-La forme moderne des réseaux convolutifs profonds pour la segmentation sémantique est popularisée par~\citet{long_fully_2015}. L'idée fondamentale est de ne manipuler que des réseaux entièrement convolutifs, c'est-à-dire sans couche entièrement connectées. Dès lors, les cartes d'activation conservent leurs propriétés spatiales et peuvent être relocalisées sur l'image originale par un simple jeu de sur-échantillonnage, par exemple par interpolation bilinéaire. L'approche choisie par~\citet{long_fully_2015} consiste à transformer les couches entièrement connectées en convolutions par des noyaux $1\times1$ en conservant les poids de ceux-ci. De fait, ils proposent ainsi d'utiliser les poids de VGG-16 entraîné pour la classification d'objets sur ImageNet en convolutionalisant ses dernières couches afin de prédire des prédictions denses à résolution $1:32$. Ce modèle peut ensuite être utilisé pour initialiser un réseau réalisant une segmentation plus fine en produisant des cartes sémantiques à résolution $1:16$ puis $1:8$. Cette approche permettent immédiatement d'établir de nouveaux état de l'art sur les jeux de données de segmentation sémantique et dominent largement les compétitions depuis 2015.
 
-Plusieurs axes d'amélioration ont été proposés dans la litérature concernant la segmentation sémantique d'images naturelles. Tout d'abord, en conservant la structure des couches convolutives de VGG-16~\cite{simonyan_very_2014},~\citet{l._c._chen_deeplab_2018} proposent d'une part d'utiliser les convolutions à trous pour agrandir le champ réceptif du réseau tout en retirant les couches de \emph{maxpooling}, qui réduisent la résolution spatiale, et d'autre part d'utiliser un \gls{CRF} \emph{a posteriori} pour régulariser les cartes prédites. De façon similaire,~\citet{yu_multi-scale_2015} proposent l'utilisation de la convolution à trous (nommée convolution dilatée) pour agréger des cartes d'activation à plusieurs échelles, combinant ainsi l'agrandissement du champ réceptif avec le principe de convolutions parallèles du module Inception~\cite{szegedy_going_2015}.
-La communauté se penche en outre sur l'utilisation des modèles graphiques structurés pour la régularisation des cartes sémantiques inférées par les \gls{FCN}. En particulier, les \gls{CRF} sont reformulés de manière à s'exprimer sous forme d'un réseau récurrent optimisable conjointement avec le \gls{FCN}~\cite{zheng_conditional_2015} ou comme post-traitement~\cite{arnab_higher_2015}.
+La forme moderne des réseaux convolutifs profonds pour la segmentation sémantique est popularisée par~\citet{long_fully_2015}. L'idée fondamentale est de ne manipuler que des réseaux entièrement convolutifs, c'est-à-dire sans couche entièrement connectées. Dès lors, les cartes d'activation conservent leurs propriétés spatiales et peuvent être relocalisées sur l'image originale par un simple jeu de sur-échantillonnage, par exemple par interpolation bilinéaire. L'approche choisie par~\citet{long_fully_2015} consiste à transformer la première couche entièrement connectée en convolution dont le noyau recouvre l'intégralité des cartes d'activation. En effet, ces deux opérations sont mathématiquement équivalentes, mais l'expression sous forme de convolution permet de ne plus se limiter à une taille précise d'images. La première couche entièrement connectée est donc remplacée par une convolution $7\times7$ et les suivantes par des convolutions de noyaux $1\times1$. En particulier, cette transformation permet de conserver les poids de l'ensemble du réseau déjà entraîné pour la classification d'images. De fait, ils proposent ainsi d'utiliser les poids de VGG-16 entraîné pour la classification d'objets sur ImageNet en convolutionalisant ses dernières couches afin de prédire des prédictions denses à résolution $1:32$. Ce modèle peut ensuite être utilisé pour initialiser un réseau réalisant une segmentation plus fine en produisant des cartes sémantiques à résolution $1:16$ puis $1:8$ à l'aide d'un décodeur augmentant la résolution des activations. Cette approche permettent immédiatement d'établir de nouveaux état de l'art sur les jeux de données de segmentation sémantique comme Pascal VOC~\cite{everingham_pascal_2014} et dominent largement les compétitions depuis 2015.
 
-En parallèle, une famille de \gls{FCN} dérivée des auto-encodeurs convolutifs~\cite{zhao_stacked_2015-1} émerge. Tandis que les modèles de \citet{long_fully_2015} consistent en un encodeur profond calqué sur la topologie d'un réseau classifieur suivi d'un décodeur constitué de peu de couches de déconvolution, ces \gls{FCN} présentent une architecture symétrique. Il s'agit alors de projeter les cartes d'activation basse résolution issues de l'encodeur dans l'espace des classes à haute résolution, soit le biais de la convolution transposée ~\cite{nekrasov_global_2016,noh_learning_2015}, soit par le biais de sur-échantillonnage parcimonieux~\cite{badrinarayanan_segnet_2017}. L'architecture U-Net~\cite{ronneberger_u-net_2015} utilise ainsi des \emph{skip connections} pour réinjecter les cartes d'activation des couches d'encodage dans la phase de décodage et des convolutions transposées pour reconstituer la résolution de l'image.
+Plusieurs axes d'amélioration ont été proposés dans la litérature concernant la segmentation sémantique d'images naturelles. Tout d'abord, en conservant la structure des couches convolutives de VGG-16~\cite{simonyan_very_2014},~\citet{l._c._chen_deeplab_2018} proposent d'une part d'utiliser les convolutions à trous pour agrandir le champ réceptif du réseau tout en retirant les couches de \emph{maxpooling}, qui réduisent la résolution spatiale, et d'autre part d'utiliser un \gls{CRF} \emph{a posteriori} pour régulariser les cartes prédites. De façon similaire,~\citet{yu_multi-scale_2015} proposent l'utilisation de la convolution à trous (nommée convolution dilatée) pour agréger des cartes d'activation à plusieurs échelles, combinant ainsi l'agrandissement du champ réceptif avec le principe de convolutions parallèles du module Inception~\cite{szegedy_going_2015}. Ces modèles réalisent ainsi une extraction de dense de caractéristique sur l'ensemble de l'image, produisant des cartes d'activation à résolution réduite d'un facteur 4 ou 8.
 
-Le passage aux architectures ResNet~\cite{wu_high-performance_2016} puis DenseNet~\cite{jegou_one_2017} permettent d'améliorer encore les performances mais au prix d'un surcoût calculatoire conséquent.
+En parallèle, une famille de \gls{FCN} dérivée des auto-encodeurs convolutifs~\cite{zhao_stacked_2015} émerge. Tandis que les modèles de \citet{long_fully_2015} consistent en un encodeur profond calqué sur la topologie d'un réseau classifieur suivi d'un décodeur constitué de peu de couches de déconvolution, ces \gls{FCN} présentent une architecture symétrique. Il s'agit alors de projeter les cartes d'activation basse résolution issues de l'encodeur dans l'espace des classes à haute résolution, soit par le biais de la convolution transposée ~\cite{nekrasov_global_2016,noh_learning_2015}, soit par un sur-échantillonnage parcimonieux~\cite{badrinarayanan_segnet_2017}. L'architecture U-Net~\cite{ronneberger_u-net_2015} utilise ainsi des \emph{skip connections} pour réinjecter les cartes d'activation des couches d'encodage dans la phase de décodage et des convolutions transposées pour reconstituer la résolution de l'image. Ces approches utilisent comme encodeur les couches convolutives de \gls{CNN} pré-entraînés pour la classification, notamment VGG-16. L'intérêt de ces approches symétriques est de générer des prédictions à la même résolution spatiale que l'image d'entrée. En effet, l'encodeur produit des cartes d'activation sous-résolues, d'un facteur 8 pour VGG-16, qui vont être reconstruites à résolution plus élevée par les couches successives du décodeur.
 
-L'approche GridNet~\cite{fourure_residual_2017} généralise plusieurs de ces topologies de réseaux pour la segmentation en proposant une architecture consistant en plusieurs ResNet parallèle dont les activations peuvent évoluer aussi en profondeur que latéralement.
+Toutefois, compte-tenu des performances supérieures obtenues en reconnaissance d'objet par les modèles ResNet et DenseNet, plusieurs travaux se sont donc penchés sur leur adaptation au cadre de la segmentation sémantique. Un verrou majeur de ces approches réside dans leur important coût en mémoire, compte-tenu du nombre important d'activations intermédiaires à stocker dans des réseaux aussi profonds. L'augmentation des capacités de calcul des \gls{GPU} aidant, \citet{wu_high-performance_2016} proposent ainsi une première approche pour les ResNet, qui sera également utilisée pour le modèle DeepLab~\cite{l._c._chen_deeplab_2018}. Compte-tenu du coût en mémoire, ces modèles suivent l'approche initiale de~\cite{long_fully_2015} et génèrent ainsi des cartes de prédiction à un facteur d'échelle $1:4$. Récemment, une version entièrement convolutive des DenseNet~\cite{jegou_one_2017} a également été proposée pour la segmentation sémantique en combinant une approche encodeur-décodeur avec le passage d'activations inspiré de U-Net~\cite{ronneberger_u-net_2015}.
 
-Par ailleurs, \citet{peng_large_2017} ont proposé un module global de déconvolution pour mieux modéliser les relations spatiales à longue distance entre les éléments constitutifs d'une scène, combiné à une apprentissage résiduel pour raffiner les bordures des objets.
+Enfin, hormis les travaux sur l'architecture de base des \gls{FCN}, plusieurs améliorations connexes ont été proposées pour raffiner la qualité des segmentations sémantiques obtenues à partir des différents modèles. La communauté s'est ainsi penchée sur l'utilisation des modèles graphiques structurés pour la régularisation des cartes sémantiques inférées par les \gls{FCN}. En particulier, les \gls{CRF} sont reformulés de manière à s'exprimer sous forme d'un réseau récurrent optimisable conjointement avec le \gls{FCN}~\cite{zheng_conditional_2015} ou comme post-traitement~\cite{arnab_higher_2015}.
 
-Diverses approches multi-échelles sont proposées, aussi bien dans DeepLab~\cite{l._c._chen_deeplab_2018} en utilisant des prédictions à plusieurs résolutions que par des approches utilisant des noyaux de convolution à différentes tailles, soit via la dilation~\cite{yu_multi-scale_2015}, soit par des convolutions parallèle à la Inception~\cite{szegedy_going_2015,nekrasov_global_2016,zhao_pyramid_2017}.
+Dans la veine des \emph{skip connections}, le modèle GridNet~\cite{fourure_residual_2017} s'intéresse à des topologies de réseaux non-conventionnelles en proposant une architecture constituée de plusieurs ResNet parallèle dont les activations peuvent évoluer aussi en profondeur que latéralement.
+
+Finalement, diverses approches multi-échelles sont proposées, aussi bien dans DeepLab~\cite{l._c._chen_deeplab_2018} en utilisant des prédictions à plusieurs résolutions que par des approches utilisant des noyaux de convolution à différentes tailles, soit via la dilation~\cite{yu_multi-scale_2015}, soit par des convolutions parallèle à la Inception~\cite{szegedy_going_2015,nekrasov_global_2016,zhao_pyramid_2017}. \citet{peng_large_2017} ont proposé un module global de déconvolution pour mieux modéliser les relations spatiales à longue distance entre les éléments constitutifs d'une scène, combiné à une apprentissage résiduel pour raffiner les bordures des objets. Ainsi, la plupart de ces approches se fondent sur un système de convolutions parallèles opérant sur une pyramide de cartes d'activation à divers facteurs d'échelle.
+
+En résumé, il est crucial de constater que la segmentation sémantique d'images multimédia a été largement étudié dans la littérature. Les jeux de données Microsoft COCO~\cite{lin_microsoft_2014}, Pascal VOC~\cite{everingham_pascal_2014}, Cityscapes~\cite{cordts_cityscapes_2016} ou ADE20k~\cite{zhou_scene_2017} sont tous d'une part dominés par les approches \gls{FCN} et d'autre part focalisés sur la compréhension de scènes de la vie quotidienne\,: images d'intérieurs ou de conduite urbaine contenant de nombreux objets observés par une multitude de points de vue avec occlusions, acquises par des appareils photos ou des caméras du commerce. Notre travail consiste ainsi à comprendre dans quelle mesure la cartographie automatisée peut bénéficier des connaissances et techniques mises en place sur ces données multimédia.
 
 \section{Apprentissage pour le traitement d'images de télédétection}
 
@@ -605,9 +620,10 @@ L'imagerie hyperspectrale consiste à effectuer des acquisitions sur de nombreus
 Il est important de noter que ces capteurs optiques sont passifs. Ils ne reçoivent que l'énergie lumineuse réfléchie ou émise par le corps observé, ce qui restreint ce qu'il est possible de réaliser. Notamment, ces capteurs sont sensibles aux variations d'illumination et aux effets météorologiques, en particulier la couche nuageuse qui les rendre entièrement inopérationnels. Ainsi, de nombreux satellites sont eux munis de capteurs actifs qui émettent un signal et mesurent le retour de celui-ci. C'est cette approche qui est utilisée pour les satellites radar, et notamment \gls{SAR}, qui envoient une ou plusieurs ondes électromagnétiques et utilisent la mesure de l'onde réfléchie pour extraire des paramètres physiques de la zone observée.
 
 \begin{figure}
-  \resizebox{\textwidth}{!}{
-  \input{Chapitre1/mnt.pdf_tex}
-  }
+  % \resizebox{\textwidth}{!}{
+  % \input{Chapitre1/mnt.pdf_tex}
+  % }
+  \includegraphics[width=\textwidth]{mnt.pdf}
   \caption{Schéma représentatif de la différence entre \gls{MNT} et \gls{MNE}.}
   \label{fig:mnt}
 \end{figure}
@@ -615,134 +631,6 @@ Il est important de noter que ces capteurs optiques sont passifs. Ils ne reçoiv
 En outre, le \gls{Lidar} est un capteur actif émettant une impulsion laser dont il mesure l'écho. La position du maximum d'amplitude permet de déterminer le temps d'aller-retour du signal lumineux et donc de mesurer la distance parcourue par les photons. Ces capteurs sont très utilisés aussi bien en télédétection qu'en robotique pour effectuer des relevés topographiques et la reconstruction 3D. L'inconvénient principal du \gls{Lidar} est que la mesure laser est ponctuelle et qu'il ne permet donc que de construire des nuages de points peu denses. Dans le cas du \gls{Lidar} satellitaire, les points de mesure sont généralement espacés d'environ \SI{20}{\meter}, et \SI{10}{\centi\meter} dans le cas de l'aéroporté. Une fois le nuage de points construit, il est possible d'en extraire un maillage qui modélise la topographie de la surface observée. Il est ensuite possible de rastériser ce maillage pour obtenir un \gls{MNT} ou un \gls{MNE} en fonction de la résolution. Le \gls{MNE} se distingue du \gls{MNT} en ce qu'il prend en compte les objets surélevés par-dessus la surface topographique, comme illustré par la~\cref{fig:mnt}. La différence entre ces deux modèles est appelée \gls{MNH} et correspond à la hauteur normalisée des points au-dessus du sol.
 
 Nos travaux portent principalement sur l'utilisation de données optiques pour la cartographie automatisée, cependant, nous utiliserons également des données issues de capteurs \gls{Lidar}.
-
-\subsection{Jeux de données en télédétection}
-
-Il existe plusieurs jeux de données pour la classification d'images optiques de télédétection. Citons ainsi les jeux de données UC Merced~\cite{yang_bag--visual-words_2010} contenant 2 100 images aériennes dans 21 classes d'occupation des sols, Brazilian Coffe~\cite{penatti_deep_2015} d'images \gls{SPOT} pour la classification de terrains cultivés et SAT-4/SAT-6~\cite{basu_deepsat_2015} contenant respectivement 500 000 et 405 000 images aériennes pour plusieurs classes d'occupation des sols. L'inconvénient de ces jeux de données est d'une part la faible taille des images (256$\times$\SI{256}{\px} pour UC Merced et Brazilian Coffe, 28$\times$\SI{28}{\px} pour SAT) et la faible quantité d'annotations. En effet, ces jeux de données, prévus pour la classification, ne peuvent que difficilement être utilisés pour la segmentation sémantique. Cependant, plusieurs jeux de données comprenant des annotations denses ont été proposés.
-
-\subsubsection{ISPRS 2D Semantic Labeling}
-
-\begin{figure}[t]
-		\foreach\picid in {7,21,28}{%
-		\begin{subfigure}{0.33\textwidth}
-			\includegraphics[angle=90,width=\textwidth]{vaihingen_top_\picid}
-			\caption*{Image RVB}
-		\end{subfigure}%
-		\begin{subfigure}{0.33\textwidth}
-			\includegraphics[angle=90,width=\textwidth]{vaihingen_ndsm_\picid}
-			\caption*{\gls{MNH}}
-		\end{subfigure}%
-		\begin{subfigure}{0.33\textwidth}
-			\includegraphics[angle=90,width=\textwidth]{vaihingen_gt_\picid}
-			\caption*{Vérité terrain}
-		\end{subfigure}
-		}
-    \caption{Images ortho-rectifiées et \gls{MNH} pour le jeu de données ISPRS Vaihingen .}
-    \label{fig:isprs_vaihingen}
-\end{figure}
-\begin{figure}
-		\foreach\picid in {3_10,6_11}{%7_12}{%
-		\begin{subfigure}{0.33\textwidth}
-			\includegraphics[width=\textwidth]{potsdam_top_\picid}
-			\caption*{Image RVB}
-		\end{subfigure}%
-		\begin{subfigure}{0.33\textwidth}
-			\includegraphics[width=\textwidth]{potsdam_ndsm_\picid}
-			\caption*{\gls{MNH}}
-		\end{subfigure}%
-		\begin{subfigure}{0.33\textwidth}
-			\includegraphics[width=\textwidth]{potsdam_gt_\picid}
-			\caption*{Vérité terrain}
-		\end{subfigure}
-		}
-	\caption{Images ortho-rectifiées et \gls{MNH} pour le jeu de données ISPRS Potsdam.}
-	\label{fig:isprs_potsdam}
-\end{figure}
-
-Le jeu de données ISPRS 2D Semantic Labeling~\cite{rottensteiner_isprs_2012} est constitué de deux ensembles d'images aériennes \glsfirst{THR}. Dans les deux cas, il s'agit de scènes urbaines disposant de cinq classes d'intérêt pour la segmentation sémantique\,: surfaces imperméables (routes, parkings, trottoirs\dots), bâtiments, végétation basse, arbres et véhicules. Une classe de rejet est également définie et comprend le mobilier urbain (bancs, poubelles, conteneurs\dots) et les surfaces exotiques (terrains de basketball, zones en travaux, points d'eau).
-
-Le jeu de données se décline en deux scènes. La première est issue d'une acquisition aéroportée sur la ville de Vaihingen (Allemagne) et comporte une mosaïque de 33 tuiles \gls{IRRV} ortho-rectifiées à une résolution de \SI{9}{\centi\meter/\px}. L'acquisition optique est accompagnée d'une acquisition \gls{Lidar} à la même résolution, dont a été extrait un \gls{MNE}. Un \gls{MNH} pré-calculé~\cite{gerke_use_2015} dérivé du \gls{MNE} est également disponible. Les ortho-images sont fournies en format \gls{TIFF} encodés sur 8 bits, tandis que le \gls{MNE} est fourni en flottant sur 32 bits. Toutes les données ont été recalées sur la même grille de pixels. Les images ont une taille moyenne d'environ $2600\times1900$px, soit une surface d'approximativement $40 000m^2$. Vaihingen est une ville de taille moyenne (28 853 habitants en 2009), caractérisée par une urbanisation moyenne composée majoritairement de pavillons résidentiels et d'espace verts urbains.
-
-La seconde scène est une acquisition aéroportée sur la ville de Potsdam (Allemagne) et comporte une mosaïque de 38 tuiles \gls{IRRVB} à une résolution de \SI{5}{\centi\meter/\px}. Les tuiles présentent toutes les mêmes dimensions, à savoir $6000\times6000$px, soit une surface de \SI{90 000}{\meter\squared}. Un \gls{MNE} et un \gls{MNH} dérivé sont également fournis. Des annotations denses sont disponibles pour les mêmes classes que précédemment sur 24 images. À nouveau, l'ensemble des modalités sont recalées sur la même grille de pixels et les images sont fournies en \gls{TIFF} sur 8 bits, tandis que les modèles de surface sont fournis en flottant sur 32 bits. Potsdam est une ville urbanisée relativement grande (161 468 habitants en 2013), caractérisée par de nombreux immeubles, un réseau routier dense. À noter la présence d'un canal et de nombreux travaux de construction à la date de l'acquisition des images.
-
-Quelques exemples représentatifs des deux acquisitions sont montrés dans les~\cref{fig:isprs_vaihingen,fig:isprs_potsdam}.
-
-Les images dont les annotations ne sont pas rendues publiques servent à évaluer en aveugle les méthodes proposées par la communauté. La commission WG II/4 de l'\gls{ISPRS} gère ainsi un tableau de résultat public\footnote{\url{http://www2.isprs.org/commissions/comm2/wg4/vaihingen-2d-semantic-labeling-contest.html}}\footnote{\url{http://www2.isprs.org/commissions/comm2/wg4/potsdam-2d-semantic-labeling.html}}, détaillant les performances obtenues par différentes méthodes de l'état-de-l'art.
-
-\subsubsection{Data Fusion Contest 2015}
-
-\begin{figure}
-		\foreach\picid in {1,2}{%
-		\begin{subfigure}{0.33\textwidth}
-			\includegraphics[width=\textwidth]{dfc2015_top\picid}
-			\caption*{Image RVB}
-		\end{subfigure}%
-		\begin{subfigure}{0.33\textwidth}
-			\includegraphics[width=\textwidth]{dfc2015_dsm\picid}
-			\caption*{\gls{MNH}}
-		\end{subfigure}%
-		\begin{subfigure}{0.33\textwidth}
-			\includegraphics[width=\textwidth]{dfc2015_gt\picid}
-			\caption*{Vérité terrain}
-		\end{subfigure}
-		}
-	\caption{Images ortho-rectifiées et \gls{MNH} pour le jeu de données \gls{DFC} 2015.}
-	\label{fig:dfc2015}
-\end{figure}
-
-Le jeu de données \gls{DFC} 2015~\cite{campos-taberner_processing_2016} est issu d'une compétition de fusion de données organisée par le groupe de travail \gls{GRSS} de l'\gls{IEEE}. Ce jeu de données comporte une mosaïque de 7 images couleurs ortho-rectifiées de dimensions $10 000\times10 000$ à une résolution au sol de \SI{5}{\centi\meter/\px}, soit une surface par tuile de \SI{250 000}{\meter\squared}. L'acquisition a été réalisée sur la zone portuaire de Zeebruges (Belgique) en mars 2011. Il est accompagné d'une acquisition \gls{Lidar} comprenant environ \SI{65}{points/\meter\squared} espacés chacun de \SI{10}{\centi\meter}. Les données couleurs sont fournies en \gls{TIFF} encodé sur 8 bits et les données \gls{Lidar} sont fournis rastérisées sous la forme d'un \gls{MNE} en flottant sur 32 bits, ainsi qu'un nuage de points. Des annotations denses réalisées par l'\gls{ONERA} sont disponibles pour les classes bateau, voiture, végétation basse, arbre, bâtiment, eau et surface imperméable. La~\cref{fig:dfc2015} montre quelques exemples d'images extraites du jeu de données.
-
-Un tableau de résultats public est maintenu par l'\gls{IEEE} \gls{GRSS}\footnote{\url{http://dase.ticinumaerospace.com/}}.
-
-\subsubsection{Data Fusion Contest 2017}
-
-Le jeu de données \gls{DFC} 2017~\cite{tuia_2017_2017} contient une variété d'images satellites issues de Landsat et Sentinel-2, rééchantillonnées à une résolution spatiale de \SI{100}{\meter/\px} ainsi que des tuiles OpenStreetMap rastérisées à \SI{20}{\meter/\px} contenant les empreintes de bâtiments et les annotations des utilisateurs pour les classes d'occupations du sol. Des annotations partielles sont fournies contenant les 17 zones climatiques locales définies par~\citet{stewart_local_2012}.
-
-Un tableau de résultats public est maintenu par l'\gls{IEEE} \gls{GRSS}\footnote{\url{http://dase.ticinumaerospace.com/}}.
-
-\subsubsection{Data Fusion Contest 2018}
-
-\begin{figure}
-  \begin{subfigure}{\textwidth}
-    \includegraphics[width=\textwidth]{dfc2018_top}
-    \caption{Image \gls{RVB}}
-  \end{subfigure}
-  \begin{subfigure}{\textwidth}
-    \includegraphics[width=\textwidth]{dfc2018_dsm}
-    \caption{\gls{MNH}}
-  \end{subfigure}
-  \begin{subfigure}{\textwidth}
-    \includegraphics[width=\textwidth]{dfc2018_hsi}
-    \caption{Image hyperspectrale (fausses couleurs)}
-  \end{subfigure}
-  \begin{subfigure}{\textwidth}
-    \includegraphics[width=\textwidth]{dfc2018_gt}
-    \caption{Vérité terrain}
-  \end{subfigure}
-  \caption{Données d'entraînement du concours \gls{DFC} 2018.}
-  \label{fig:dfc2018}
-\end{figure}
-
-Le jeu de données \gls{DFC} 2018~\cite{le_saux_2018_2018} contient 14 images aériennes \gls{RVB} ortho-rectifiées \gls{THR} à \SI{5}{\centi\meter/\px} de dimensions $12000\times12000$, accompagnées par une image hyperspectrale à 48 bandes à \SI{1}{\meter/\px}. Une acquisition \gls{Lidar} multispectrale est également disponible à une résolution de \SI{0,5}{\meter/\px}, dont est dérivé un \gls{MNH}. Des annotations partielles sont fournies pour la moitié du jeu de données sur diverses classes d'intérêt urbaines, l'autre moitié des annotations étant conservées secrètes pour l'évaluation. Le jeu d'apprentissage est illustré par la~\cref{fig:dfc2018}.
-
-Un tableau de résultats public est maintenu par l'\gls{IEEE} \gls{GRSS}\footnote{\url{http://dase.ticinumaerospace.com/}}.
-
-\subsubsection{Inria Aerial Image Labeling}
-
-\begin{figure}
-  \foreach \picpath\picname in {chicago5_top/Ortho-image (Chicago),chicago5_gt/Vérité terrain (Chicago),vienna2_top/Ortho-image (Vienne),vienna2_gt/Vérité terrain (Vienne)}{%
-  \begin{subfigure}[t]{0.25\textwidth}%
-    \includegraphics[width=\textwidth]{\picpath}%
-    \caption*{\picname}
-  \end{subfigure}%
-  }
-  \caption{Exemples d'images extraites de la base de données \emph{Inria Aerial Image Labeling}.}
-  \label{fig:inria}
-\end{figure}
-
-Le jeu de données \emph{Inria Aerial Image Labeling}~\cite{maggiori_can_2017} contient 360 images \gls{RVB} ortho-rectifiées de taille $5000\times5000$px à une résolution de 30cm/px, soit une surface de $2,25km²$. Les images ont été compilées depuis plusieurs sources gouvernementales à des résolutions diverses. Il s'agit néanmoins systématiquement d'acquisitions aéroportées, ortho-rectifiées et ré-échantillonnée à 30cm/px si besoin. Les acquisitions ont été réalisées sur 10 agglomérations de divers points du globe. La moitié des villes sont utilisées pour associées à des annotations publiques d'empreintes de bâtiments provenant de sources cadastrales. Ces images peuvent être utilisées pour l'entraînement de modèles d'extraction de bâtiments. Le reste du jeu de données est réservé à l'évaluation des modèles. Quelques images et annotations du jeu d'apprentissage sont illustrées dans la~\cref{fig:inria}.
-
-Les organisateurs gèrent un tableau de résultats public\footnote{\url{https://project.inria.fr/aerialimagelabeling/leaderboard/}} permettant de comparer les performances obtenues par différentes méthodes.
 
 \subsection{Classification d'images de télédétection}
 
@@ -756,7 +644,9 @@ L'avantage de cette méthode est qu'elle garantit une résolution identique à c
 
 Le premier inconvénient est que cette méthode est particulièrement susceptible au bruit. En effet, la classification s'effectuant pixel à pixel, la nature des pixels voisins n'est pas forcément prise en compte. Toutefois, les objets géographiques considérés s'étendent bien souvent sur plusieurs pixels et possèdent des propriétés géométriques particulières de connexité et de convexité. Ainsi, un pixel particulier soumis à un bruit extrême (suite à une défaillance du capteur ou à un matériau particulier), celui risque d'être mal classé de manière isolée, alors que son appartenance à une région particulière aurait pu permettre de contourner cette erreur en se basant sur des critères d'homogénéité. Ainsi la classification pixellique tend à produire des cartes exhibant un comportement de bruit poivre-et-sel.
 
-Le second inconvénient est que le nombre de pixels croît de façon quadratique avec la taille de l'image à traiter. Or, les tailles d'images considérées en télédétection peuvent rapidement conduire à devoir traiter des millions de pixels. Le problème de classification peut alors devenir intraitable sur ces images, alors que les capteurs tendent justement à s'améliorer en résolution. En particulier, la litérature s'étant intéressée à ces approches ne traite que d'images de tailles réduites~\cite{nogueira_learning_2016}, notamment dans le cadre de l'imagerie hyperspectrale~\cite{fauvel_advances_2013}.
+Des méthodes de classification dites par \emph{patch} sont apparues afin de prendre en compte le contexte spatial d'un pixel. Notamment, ces méthodes réalisent une classification pour chaque imagette extraite autour d'un pixel par fenêtre glissante. Ces approches ont connu un succès considérable grâce au retour sur le devant de la scène des réseaux convolutifs pour la classification d'images. En effet, il est ainsi possible d'utiliser ces réseaux pour réaliser la classification du pixel central d'une image et par fenêtre glisante, d'obtenir une carte pour l'ensemble de l'image. Cela a par exemple été appliqué en détection de bâtiment~\cite{vakalopoulou_building_2015-1} ou en étude d'occupation des sols~\cite{papadomanolaki_patch-based_2017}.
+
+Néanmoins, le second inconvénient est que le nombre de pixels croît de façon quadratique avec la taille de l'image à traiter. Or, les tailles d'images considérées en télédétection peuvent rapidement conduire à devoir traiter des millions de pixels. Le problème de classification peut alors devenir intraitable sur ces images, alors que les capteurs tendent justement à s'améliorer en résolution. En particulier, la litérature s'étant intéressée à ces approches ne traite que d'images de tailles réduites~\cite{nogueira_learning_2016}, notamment dans le cadre de l'imagerie hyperspectrale~\cite{fauvel_advances_2013}.
 
 \subsubsection{Approches par région}
 
@@ -776,11 +666,9 @@ De nombreux algorithmes de segmentation ont été proposés, aussi bien dans la 
 
 L'avantage principal de ces méthodes est de grandement réduire la complexité calculatoire. Notamment, lorsque l'image augmente de résolution spatiale, de nombreuses régions conservent leur homogénéité et il est ainsi très avantageux de les conserver regroupées\,: l'augmentation de la résolution ne nécessite pas obligatoirement une évolution quadratique du nombre de régions segmentées. Ces approches ont ainsi été utilisées avec succès dans le cadre de la segmentation sémantique d'images aériennes \gls{THR}~\cite{lagrange_benchmarking_2015,vargas_superpixel-based_2014}.
 
-On peut noter que traiter l'image par une fenêtre glissante ou même par une grille de pixels correspond à des cas particuliers de classification par région.
+Il existe par ailleurs des approches nativement multi-échelles utilisant une segmentation sous forme d'arbre hiérarchique. Il est alors possible d'extraire des profils d'attributs à différents niveaux de l'arbre et de les utiliser comme caractéristiques pour une classification supervisée~\cite{cui_combining_2016,pham_feature_2018}.
 
-Approches par patch, puis par segments, puis FCN
-
-En hyperspectral, approches pixelliques car images petites
+On peut noter que traiter l'image par une fenêtre glissante ou même par une grille de pixels correspond à des cas particuliers de classification par région. Les méthodes de classification par \emph{patch} entrent ainsi dans cette famille de méthodes~\cite{papadomanolaki_patch-based_2017,vakalopoulou_building_2015}.
 
 
 \bibliographystyle{plainnat}
