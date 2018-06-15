@@ -1,0 +1,63 @@
+\documentclass{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\input{../CommandesPerso.tex}
+\begin{document}
+
+\begin{tikzpicture}[every node/.style={inner sep=0,outer sep=0}]
+\usetikzlibrary{calc}
+
+\definecolor{colred}{RGB}{211,57,57}
+\definecolor{colblue}{RGB}{83,210,246}
+\definecolor{colgreen}{RGB}{90,225,79}
+\definecolor{colgray}{RGB}{233,232, 198}
+
+\newcommand{\gearmacro}[5]{%
+\foreach \i in {1,...,#1} {%
+  [rotate=(\i-1)*360/#1]  (0:#2)  arc (0:#4:#2) {[rounded corners=1.5pt]
+             -- (#4+#5:#3)  arc (#4+#5:360/#1-#5:#3)} --  (360/#1:#2)
+}}  
+
+\node (image) at (0,0) {\includegraphics[width=4cm]{ortho.jpg}};
+
+\node (port) at (3.5, 0) {\includegraphics[width=1cm]{port.jpg}};
+\node (ubs) at (5.5, -1) {\includegraphics[width=2.5cm]{ubs.jpg}};
+\node (jardins) at (5.5, 1.2) {\includegraphics[width=2cm]{jardins.jpg}};
+
+
+\fill[draw=black,fill=colgray] (7.8,2) rectangle node[yshift=-0.6cm,rotate=90] {Interprétation} (9.2,-2);
+\node (interp) at (7.8,0) {};
+\node (interpout) at (9.2,0) {};
+
+\node[colblue,draw,line width=0.5mm,minimum width=0.2cm,minimum height=1cm] (portinimage) at ($(image.west)+(1.5,0.5)$) {};
+\node[colred,draw,line width=0.5mm,minimum width=1cm,minimum height=0.7cm] (ubsinimage) at ($(image.south)+(1.5,0.35)$) {};
+\node[colgreen,draw,line width=0.5mm,minimum width=0.7cm,minimum height=0.5cm] (jardinsinimage) at ($(image.north)+(0.25,-0.7)$) {};
+
+\begin{scope}[shift={(8.5*5,1.2*5)},transform canvas={scale=0.2}]
+   \fill[gray] (0,0) circle (2cm);
+   \draw[thick,rotate=12,fill=gray] \gearmacro{8}{2}{2.4}{20}{4};
+   \draw[thick,fill=colgray] (0,0) circle(1.35);
+\end{scope}
+
+\draw (portinimage.east) edge[->,thick,colblue,out=0,in=180,looseness=1] (port.west);
+\draw (ubsinimage.south) edge[->,thick,colred,out=-90,in=-90,looseness=0.5] (ubs.south);
+\draw (jardinsinimage.north) edge[->,thick,colgreen,out=90,in=90,looseness=0.5] (jardins.north);
+
+\draw (port.east) edge[->,thick,colblue] (interp);
+\draw (ubs.east) edge[->,colred,thick] ($(interp)+(0,-0.5)$);
+\draw (jardins.east) edge[->,colgreen,thick] ($(interp)+(0,0.5)$);
+
+\node (ua) at (13, 0) {\includegraphics[width=4cm]{ua2012_buildings.png}};
+
+\node[colblue,draw,line width=0.5mm,minimum width=0.2cm,minimum height=1cm] (portinua) at ($(ua.west)+(1.5,0.5)$) {};
+\node[colred,draw,line width=0.5mm,minimum width=1cm,minimum height=0.7cm] (ubsinua) at ($(ua.south)+(1.5,0.35)$) {};
+\node[colgreen,draw,line width=0.5mm,minimum width=0.7cm,minimum height=0.5cm] (jardinsinua) at ($(ua.north)+(0.25,-0.7)$) {};
+
+\draw (interpout) edge[out=0,in=180,->,thick,colblue] node[above,xshift=-0.8cm,colblue!50!black] {Port} (portinua);
+\draw ($(interpout)-(0,1.8)$) edge[->,out=0,in=-90,looseness=0.7,thick,colred] node[colred!50!black,below,yshift=-0.2cm] {Université} (ubsinua.south);
+\draw ($(interpout)+(0,1.8)$) edge[->,in=90,out=0,thick,colgreen] node[colgreen!50!black,above,yshift=0.15cm] {Jardins} (jardinsinua.north);
+
+\end{tikzpicture}
+
+\end{document}

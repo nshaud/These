@@ -1,0 +1,54 @@
+\documentclass{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\input{../CommandesPerso.tex}
+\begin{document}
+
+\begin{tikzpicture}[]
+\usetikzlibrary{decorations.markings}
+\tikzset{->-/.style={decoration={
+  markings,
+  mark=at position 0.5 with {\arrow{>}}},postaction={decorate}}}
+\tikzset{ultra thick/.style={line width=2pt}}
+
+\def\colblue{blue!50!gray!30!white}
+\def\colred{red!80!gray!75!white}
+
+ \node[transform shape] (source) at (7, 0.75) {\includegraphics[width=2.5cm]{/home/naudeber/Documents/Timeless/Illustrations/Vaihingen/vaihingen_sample_top.jpg}};
+\draw[dashed,<-,\colred] (source.west) to (4,0.75);
+
+\draw [<-,ultra thick,\colred] (2, 1.3) -- (2, 6);
+\fill[fill=\colblue,draw=black] (0,-0.2) rectangle node {Encodeur} (4,1.3); 
+\fill[fill=\colblue,draw=black] (0,2) rectangle node {Convolution 5} (4,2.5);
+\fill[fill=\colblue,draw=black] (0,2.7) rectangle node {Convolution 4} (4,3.3);
+\fill[fill=\colblue,draw=black] (0,3.5) rectangle node {Convolution 3} (4,4);
+\fill[fill=\colblue,draw=black] (0,4.2) rectangle node {Convolution 2} (4,4.7);
+\fill[fill=\colblue,draw=black] (0,4.9) rectangle node {Convolution 1} (4,5.4);
+\draw (-0.1,1.5) rectangle (4.1,5.6);
+\node at (3.2, 1.7) {Décodeur};
+
+\node[minimum height=0.7cm,draw=black,fill=\colblue] (out2) at (5, 5.25) {};
+\node[minimum height=0.7cm,draw=black,fill=\colblue] (out3) at (5, 4.45) {};
+\node[minimum height=0.7cm,draw=black,fill=\colblue] (out4) at (5, 3.65) {};
+\draw (4, 3) edge[<-,\colred,out=0,in=180,thick] (out4.west);
+\draw (4, 3.75) edge[<-,\colred,out=0,in=180,thick] (out3.west);
+\draw (4, 4.45) edge[<-,\colred,out=0,in=180,thick] (out2.west);
+
+\node (map4) at (6, 3.65) {\includegraphics[width=0.6cm] {/home/naudeber/Documents/Timeless/Illustrations/Vaihingen/vaihingen_sample_gt.jpg}};
+\node (map3) at (6.5, 4.45) {\includegraphics[width=1cm] {/home/naudeber/Documents/Timeless/Illustrations/Vaihingen/vaihingen_sample_gt.jpg}};
+\node (map2) at (7, 5.25) {\includegraphics[width=1.5cm] {/home/naudeber/Documents/Timeless/Illustrations/Vaihingen/vaihingen_sample_gt.jpg}};
+
+\node (map) at (2,7.3)  {\includegraphics[width=2.5cm] {/home/naudeber/Documents/Timeless/Illustrations/Vaihingen/vaihingen_sample_gt.jpg}};
+
+\draw[<-,\colred,thick] (out4.east) -- (map4.west);
+\draw[<-,\colred,thick] (out3.east) -- (map3.west);
+\draw[<-,\colred,thick] (out2.east) -- (map2.west);
+
+\node[draw=black,circle] (sum) at (4,7.3) {\scriptsize +};
+
+\draw[thick] (map2.north) edge[<-,\colred,out=90,in=0] (sum.east);
+\draw[red,thick] (sum.west) edge (map.east);
+
+\end{tikzpicture}
+\end{document}

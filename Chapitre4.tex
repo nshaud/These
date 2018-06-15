@@ -1,6 +1,8 @@
 %!TEX root = Manuscrit.tex
 \chapter{Segmentation sémantique multi-modale}
 \label{chap:multimodal}
+%\citationChap{Watson, you can see everything. You fail, however, to reason from what you see.}{Sherlock Holmes (Arthur Conan Doyle)}
+\minitoc
 
 \chapsummary{%
 Nous avons vu dans les chapitres précédents que les réseaux de neurones entièrement convolutifs permettaient d'établir de nouveaux états de l'art en segmentation sémantique d'images de télédétection et ce y compris pour des capteurs non-conventionnels. Toutefois, nous avons souligné la difficulté d'obtenir des résultats satisfaisants avec des sources de données n'offrant qu'une information partielle, comme le \gls{Lidar}.
@@ -9,6 +11,8 @@ Dans ce chapitre, nous investiguons des méthodes de fusion de données permetta
 
 Nous étendons ensuite ces travaux à des sources de données non physiques. En particulier, nous étudions la possibilité d'intégrer de l'information sémantique \emph{a priori} venant de bases de données géographiques en ligne pour consolider les cartes sémantiques prédites par le réseau. En traitant ces données comme un nouveau capteur virtuel, nous pouvons ainsi utiliser nos architectures multi-modales profondes pour injecter de l'information connue dans le processus d'apprentissage et d'inférence de nos réseaux de neurones.
 }
+
+\newpage
 
 \section{Apprentissage multi-modal}
 
@@ -121,6 +125,184 @@ De fait, cela peut se traduire par l'approximation de l'erreur moyenne en foncti
 Laisser le modèle trouver la combinaison intéressante : ~moyenne avec pondération adaptative
 
 Approche résiduelle : correction d'erreur
+
+\begin{table}
+    \caption{Final results on the Vaihingen dataset.}
+    \label{table:final_vaihingen}
+    \setlength\tabcolsep{5pt}
+	\begin{tabularx}{\textwidth}{Y c c c c c c}
+    \toprule
+	Method & imp. surf. & buildings & low veg. & trees & cars & Overall\\
+    \midrule
+    FCN~\cite{sherrah_fully_2016} & 90.5 & 93.7 & 83.4 & 89.2 & 72.6 & 89.1\\
+    FCN + fusion + boundaries~\cite{marmanis_classification_2016} & \textbf{92.3} & \textbf{95.2} & 84.1 & \textbf{90.0} & 79.3 & \textbf{90.3}\\
+    \midrule
+    SegNet (IRRG) & 91.5 & 94.3 & 82.7 & 89.3 & 85.7 & 89.4\\
+	SegNet-RC & 91.0 & 94.5 & 84.4 & 89.9 & 77.8 & 89.8\\
+    FuseNet & 91.3 & 94.3 & \textbf{84.8} & 89.9 & 85.9 & 90.1\\
+    V-FuseNet & 91.0 & 94.4 & 84.5 & 89.9 & \textbf{86.3} & 90.0\\
+    \bottomrule
+    \end{tabularx}
+\end{table}
+
+\begin{table}
+    \caption{Final results on the Potsdam dataset.}
+    \label{table:final_potsdam}
+    \setlength\tabcolsep{4pt}
+	\begin{tabularx}{\textwidth}{Y c c c c c c}
+    \toprule
+	Method & imp. surf. & buildings & low veg. & trees & cars & Overall\\
+    \midrule
+    FCN + CRF + expert features~\cite{Liu_2017_CVPR_Workshops} & 91.2 & 94.6 & 85.1 & 85.1 & 92.8 & 88.4\\
+    FCN~\cite{sherrah_fully_2016} & 92.5 & \textbf{96.4} & 86.7 & 88.0 & 94.7 & 90.3\\
+    \midrule
+    SegNet (IRRG) & 92.4 & 95.8 & 86.7 & 87.4 & 95.1 & 90.0\\
+	SegNet-RC & 91.3 & 95.9 & 86.2 & 85.6 & 94.8 & 89.0\\
+    V-FuseNet & \textbf{92.7} & 96.3 & \textbf{87.3} & \textbf{88.5} & \textbf{95.4} & \textbf{90.6}\\
+    \bottomrule
+    \end{tabularx}
+\end{table}
+
+
+\begin{figure}[!tb]
+	\begin{subfigure}{\textwidth}
+    	\captionsetup[subfigure]{singlelinecheck=off,justification=centering}
+  		\captionsetup[subfigure]{labelformat=empty}
+    	\begin{subfigure}{0.19\textwidth}
+        	\includegraphics[width=\textwidth]{tile5_irrg_top}
+      		\caption*{IRRG image}
+        \end{subfigure}
+        \begin{subfigure}{0.19\textwidth}
+        	\includegraphics[width=\textwidth]{tile5_gt}
+        	\caption*{Ground truth}
+        \end{subfigure}
+        \begin{subfigure}{0.19\textwidth}
+        	\includegraphics[width=\textwidth]{tile5_segnet_pred}
+        	\caption*{SegNet}
+        \end{subfigure}
+        \begin{subfigure}{0.19\textwidth}
+        	\includegraphics[width=\textwidth]{tile5_fusenet_pred}
+        	\caption*{FuseNet}
+        \end{subfigure}
+        \begin{subfigure}{0.19\textwidth}
+        	\includegraphics[width=\textwidth]{tile5_rc_pred}
+        	\caption*{SegNet-RC}
+        \end{subfigure}
+        \caption{Predictions from various models on a patch of the Vaihingen dataset.}
+        \label{fig:fusion_exemple1}
+    \end{subfigure}
+    	\begin{subfigure}{\textwidth}
+    	\captionsetup[subfigure]{singlelinecheck=off,justification=centering}
+  		\captionsetup[subfigure]{labelformat=empty}
+    	\begin{subfigure}{0.19\textwidth}
+        	\includegraphics[width=\textwidth]{tile5_irrg_confidence_buildings}
+      		\caption*{SegNet IRRG confidence (buildings)}
+        \end{subfigure}
+        \begin{subfigure}{0.19\textwidth}
+        	\includegraphics[width=\textwidth]{tile5_irrg_confidence_roads}
+        	\caption*{SegNet IRRG confidence (roads)}
+        \end{subfigure}
+        \begin{subfigure}{0.19\textwidth}
+        	\includegraphics[width=\textwidth]{tile5_irrg_confidence_cars}
+        	\caption*{SegNet IRRG confidence (cars)}
+        \end{subfigure}
+        \begin{subfigure}{0.19\textwidth}
+        	\includegraphics[width=\textwidth]{tile5_comp_confidence_buildings}
+        	\caption*{SegNet comp. confidence (buildings)}
+        \end{subfigure}
+        \begin{subfigure}{0.19\textwidth}
+        	\includegraphics[width=\textwidth]{tile5_comp_confidence_cars}
+        	\caption*{SegNet comp. confidence (cars)}
+        \end{subfigure}
+        \caption{SegNet confidence heat maps for various classes using several inputs.}
+        \label{fig:confidence_vaihingen_fusion}
+    \end{subfigure}
+    \begin{subfigure}{\textwidth}
+    	\captionsetup[subfigure]{singlelinecheck=off,justification=centering}
+  		\captionsetup[subfigure]{labelformat=empty}
+    	\begin{subfigure}{0.19\textwidth}
+        	\includegraphics[width=\textwidth]{tile21_irrg_top}
+      		\caption*{IRRG image}
+        \end{subfigure}
+        \begin{subfigure}{0.19\textwidth}
+        	\includegraphics[width=\textwidth]{tile21_gt}
+        	\caption*{Ground truth}
+        \end{subfigure}
+        \begin{subfigure}{0.19\textwidth}
+        	\includegraphics[width=\textwidth]{tile21_segnet_pred}
+        	\caption*{SegNet}
+        \end{subfigure}
+        \begin{subfigure}{0.19\textwidth}
+        	\includegraphics[width=\textwidth]{tile21_fusenet_pred}
+        	\caption*{FuseNet}
+        \end{subfigure}
+        \begin{subfigure}{0.19\textwidth}
+        	\includegraphics[width=\textwidth]{tile21_rc_pred}
+        	\caption*{SegNet-RC}
+        \end{subfigure}
+        \caption{Predictions from various models on a patch of the Vaihingen dataset.}
+        \label{fig:fusion_exemple2}
+    \end{subfigure}
+
+	\caption{Successful predictions using the fusion strategies.}
+   	\label{fig:fusion_success}
+\end{figure}
+
+Comme attendu, les deux méthodes de fusion permettent d'améliorer les performances du classifieur sur les deux jeux de données, comme illustré par la~\cref{fig:potsdam_images}. En particulier, la~\cref{fig:fusion_success} montre plusieurs exemples d'objets erronnément classifiés à partir de l'image optique seule qui sont corrigés en intégrant l'image composite dans le modèle. Dans la~\cref{fig:fusion_exemple1,fig:confidence_vaihingen_fusion}, le réseau SegNet ne parvient pas à discriminer entre les classes de route et de bâtiment, compte-tenu du fait qu'il s'agit d'un parking aérien à l'apparence proche de ceux pouvant se trouver au sol, confusion renforcée par la présence des voitures. FuseNet utilise le \gls{MNH} pour trancher en faveur de la classe bâtiment et ignore de fait les véhicules. L'approche par correction résiduelle parvient en plus à conserver une partie de l'information spatiale liée aux voitures. Dans la~\cref{fig:fusion_exemple2}, SegNet confond également route et bâtiment et végétation haute et basse tandis que les deux architectures de fusion parviennent à correctement prédire les différentes objets grâce au \gls{MNH}.
+%As expected, both fusion methods improve the classification accuracy on the two datasets, as illustrated in~\cref{fig:potsdam_images}. We show some examples of misclassified patches that are corrected using the fusion process in~\cref{fig:fusion_success}. In~\cref{fig:fusion_exemple1,fig:confidence_vaihingen_fusion}, SegNet is confused by the material of the building and the presence of cars. However, FuseNet uses the nDSM to decide that the structure is a building and ignore the cars, while the late fusion manages to mainly to recover the cars. This is similar to~\cref{fig:fusion_exemple2}, in which SegNet confuses the building with a road while FuseNet and the residual correction recover the information thanks to the nDSM both for the road and the trees in the top row.
+La fusion dans l'encodeur par FuseNet est qu'elle permet d'exploiter conjointement les modalités multiples en utilisant moins de paramètres que la correction résiduelle d'un ensemble de modèles et converge vers une meilleure performance globale. À l'opposé, la fusion tardive par correction résiduelle améliore les performances de manière moins équilibrée, les gains étant principalement concentrés sur les classes ``routes'' et ``bâtiments''.
+%One advantage of using the early fusion is that complementarity between the multiple modalities is leveraged more efficiently as it requires less parameters, yet achieves a better classification accuracy for all classes. At the opposite, late fusion with residual correction improves the overall accuracy at the price of less balanced predictions. Indeed, the increase mostly affects the ``building'' and ``impervious surface'' classes, while all the other F1 scores decrease slightly.
+
+\begin{table}
+    \caption{Validation results on Vaihingen.}
+    \label{table:val_vaihingen}
+	\begin{tabularx}{\textwidth}{Y c c}
+    \toprule
+    Model & Overall accuracy & Average F1\\
+    \midrule
+    SegNet (IRRG) & 90.2 {\small $\pm$ 1.4} & 89.3 {\small $\pm$ 1.2}\\
+    SegNet (composite) & 88.3 {\small $\pm$ 0.9} & 81.6 {\small $\pm$ 0.8}\\
+    SegNet-RC & 90.6 {\small $\pm$ 1.4} & 89.2 {\small $\pm$ 1.2}\\
+    FuseNet & 90.8 {\small $\pm$ 1.4} & 90.1 {\small $\pm$ 1.2}\\
+    V-FuseNet & \textbf{91.1} {\small $\pm$ 1.5} & \textbf{90.3} {\small $\pm$ 1.2}\\
+    \midrule
+    ResNet-34 (IRRG) & 90.3 {\small $\pm$ 1.0} & 89.1 {\small $\pm$ 0.7}\\
+    ResNet-34 (composite) & 88.8 {\small $\pm$ 1.1} & 83.4 {\small $\pm$ 1.3}\\
+    ResNet-34-RC & 90.8 {\small $\pm$ 1.0} & 89.1 {\small $\pm$ 1.1}\\
+    FusResNet & 90.6 {\small $\pm$ 1.1} & 89.3 {\small $\pm$ 0.7}\\
+    \bottomrule
+    \end{tabularx}
+\end{table}
+
+
+En outre, la correction résiduelle est moins utile lorsque la confiance accordée par les modèles dans leurs prédictions est faible. Sur le jeu de données ISPRS Potsdam, le SegNet composite n'atteint que 79\% de taux de bonne classification, car l'image composite est moins informative pour discriminer des objets à résolution de \SI{5}{\centi\meter/\px}. Par conséquent, la correction résiduelle dégrade légèrement les performances. En revanche, sur le jeu de données ISPRS Vaihingen, l'image composite est nettement plus informative (85\% de taux de bonne classification) et l'ensemble parvient à combiner efficacement les deux sources de données car les deux sont informatives avec un bon taux de confiance, comme illustré dans la~\cref{fig:confidence_vaihingen_fusion}. On observe par ailleurs qu'améliorer les performances sur l'image composite en utilisant un ResNet-34 permet également d'améliorer la performance de la correction résiduelle.
+\todo{mesurer le gain théorique union entre les deux sources de données}
+%However, on the Potsdam dataset, the residual correction strategy slightly decreases the model accuracy. Indeed, the late fusion is mostly useful to combine strong predictions that are complementary. For example, as illustrated in~\cref{fig:confidence_vaihingen_fusion}, the composite SegNet has a strong confidence in its building prediction while the IRRG SegNet has a strong confidence in its cars predictions. Therefore, the residual correction is able to leverage those predictions and to fuse them to alleviate the uncertainty around the cars in the rooftop parking lot. This works well on Vaihingen as both the IRRG and composite sources achieve a global accuracy higher than 85\%. However, on Potsdam, the composite SegNet is less informative and achieves only 79\% accuracy, as the annotations are more precise and the dataset overall more challenging for a data source that relies only on Lidar and NDVI. Therefore, the residual correction fails to make the most of the two data sources. This analysis is comforted by the fact that, on the Vaihingen validation set, the residual correction achieves a better global accuracy with ResNets than with SegNets, thanks to the stronger ResNet-34 trained on the composite source.
+
+L'architecture FuseNet apprend une représentation conjointe des deux sources de données, mais fait face aux même problématiques que le modèle SegNet standard\,: les cas rares comme les voitures sur un toit sont incorrectement prédits. Les caractéristiques conjointes apprises par les deux encodeurs sont plus performantes, mais FuseNet reste susceptible au sur-apprentissage et aux biais intrinsèques du jeu de données, là où la correction résiduelle parvient à corriger des erreurs même sur des cas rares.
+
+%Meanwhile, the FuseNet architecture learns a joint representation of the two data sources, but faces the same pitfall as the standard SegNet model : edge cases such as cars on rooftop parking lots disappear. However, the joint-features are significantly stronger and the decoder can perform a better classification using this multi-modal representation, therefore improving the global accuracy of the model.
+\todo[inline]{En fait, la fusion tardive est forte pour combiner des prédictions complémentaires quand les deux modèles sont sûrs d'eux (par exemple, le parking sur le toit : le composite est sûr que c'est un bâtiment grâce au Lidar, l'optique est sûr que ce sont des voitures. FuseNet va plutôt être fort pour apprendre des représentations conjointes, mais tombe dans le même travers initial que SegNet : les voitures sur le toit disparaissent car c'est un cas hyper rare qui n'arrive que dans quelques occurrences (et normalement, une voiture c'est sur la route...).}
+%Sur Vaihingen, ça marche bien car le composite et l'IRRG donnent à peu près la même quantité d'info (les deux modèles sont à au moins 85\%). Par contre sur Potsdam, la fusion tardive ne marche pas terrible, car le composite est à 79\% et a tendance à être moins informatif (surtout que les annotations sur Potsdam sont bien plus précises). Donc la fusion tardive va plutôt galérer. Il me semble qu'on retrouve quand même le même phénomène de véhicules sur le toit, il faut que je retrouve la tuile concernée.}
+
+En conclusion, ces deux stratégies de fusion sont applicables à différentes cas d'utilisation. La fusion tardive par correction résiduelle est utile pour combiner des classifieurs forts très complémentaires, tandis que la stratégie FuseNet est plus adaptée pour exploiter de l'information annexe ancillaire dans le processus d'apprentissage.
+%In conclusion, the two fusion strategies can be used for different use cases. Late fusion by residual correction is more suited to combine several strong classifiers that are confident in their predictions, while the FuseNet early fusion scheme is more adapted for integrating weaker ancillary data into the main learning pipeline.
+
+%\todo{Explanation for V-FuseNet (visual if possible)}
+%On the held-out testing set, the V-FuseNet strategy does not perform as well as expected. Its global accuracy is marginally under the original FuseNet model, although F1 scores on smaller and harder classes are improved, especially ``clutter'' which is improved from 49.3\% to 51.0\%. As the ``clutter'' class is ignored in the dataset metrics, this is not reflected in the final accuracy.
+
+\subsection{Robustness to uncertainties and missing data}
+
+Bien que les données \gls{Lidar} du jeu de données ISPRS soient très denses, la normalisation du modèle de terrain est imparfaite et quelques artefacts ont été générés. Comme signalé par~\citet{marmanis_classification_2017}, plusieurs bâtiments sont absents du \gls{MNH}, une hauteur de \SI{0}{\meter} ayant été attribuée aux pixels correspondants. Cela cause des problèmes significatifs de classification pour les deux méthodes de fusion, comme illustré par la~\cref{fig:ndsm_fail}. La solution proposée par~\cite{marmanis_classification_2017} consiste à manuellement corriger le \gls{MNH}, mais cette méthode ne passe pas à l'échelle. Des stratégies robustes à la perte d'une modalité ou aux données bruitées pourraient permettre de résoudre ce problème, en utilisant par exemple les \emph{hallucination networks} de~\citet{hoffman_learning_2016} pour inférer les données manquantes~\cite{kampffmeyer_semantic_2016}. Les travaux récents sur les modèles génératifs pourraient également permettre de diminuer le sur-apprentissage et améliorer la robustesse des modèles en entraînant ceux-ci sur des données synthétiques bruitées~\cite{Xie_2017_ICCV}.
+
+%Due to limitations and noise in the Lidar point cloud, such as missing or aberrant points, the DSM and subsequently the nDSM present some artifacts. As reported in~\cite{marmanis_classification_2016}, some buildings vanish in the nDSM and the relevant pixels are falsely attributed a height of 0. This causes significant misclassification in the composite image that are poorly handled by both fusion methods, as illustrated in~\cref{fig:ndsm_fail}. \cite{marmanis_classification_2016} worked around this problem by manually correcting the nDSM, though this method does not scale to bigger datasets. Therefore, improving the method to be robust to impure data and artifacts could be helpful, e.g. by using hallucination networks~\cite{hoffman_learning_2016} to infer the missing modality as proposed in~\cite{kampffmeyer_semantic_2016}. We think that the V-FuseNet architecture could be adapted for such a purpose by using the virtual branch to encode missing data. Moreover, recent work on generative models might help alleviate overfitting and improve robustness by training on synthetic data, as proposed in~\cite{Xie_2017_ICCV}.
+
+
+
+
+
+
+
 
 \section{Connaissances \textit{a priori}}
 
@@ -250,6 +432,35 @@ L'évaluation s'effectue via une fenêtre glissante de taille $128\times128$ ave
 
 %\paragraph{OSM data representation}
 %As can be seen in~\cref{table_potsdam_results}, the signed distance transform (SDT) representation for the OpenStreetMap layers performs slightly worse than its binary counterpart. This might seem counter-intuitive, as the distance transform contains a denser information. However, we suggest that this information might be too diffuse and that the model loses the sharp boundaries and clear transitions of the binary raster on some parts of the dataset. Yet, the difference between the two representations does not impact strongly the final accuracy.
+
+\begin{figure*}
+\begin{subfigure}{0.33\linewidth}
+	\includegraphics[width=\textwidth]{potsdam_rgb_4_12}
+    \caption{RGB input}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.33\linewidth}
+    \includegraphics[width=\textwidth]{potsdam_osm_4_12}
+    \caption{OSM input}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.33\linewidth}
+	\includegraphics[width=\textwidth]{potsdam_gt_4_12}
+    \caption{Target ground truth}
+\end{subfigure}
+\begin{subfigure}{0.49\linewidth}
+	\includegraphics[width=\textwidth]{segnet_irrg_potsdam_4_12}
+    \caption{SegNet (RGB)}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.49\linewidth}
+	\includegraphics[width=\textwidth]{fusenet_osm_rgb_potsdam_4_12}
+    \caption{FuseNet (OSM+RGB)}
+\end{subfigure}
+\caption{Excerpt from the classification results on Potsdam}
+\label{fig:potsdam_qualitative}
+\end{figure*}
+
 
 Les résultats obtenus sur les données de validation de l'ISPRS Potsdam sont détaillés dans le~\cref{table_potsdam_results}. Nous indiquons le pourcentage global de pixels correctement classés et les scores F1 pour chaque classe, calculés sur une version alternative de la vérité terrain dans laquelle les bordures ont été érodées de 3 pixels.
 %We report in~\cref{table_potsdam_results} the results of our methods on our validation set of the ISPRS Potsdam dataset. In accordance with the dataset guidelines, we compare our predictions with the ground-truth where the borders have been eroded by a disk of radius 3 pixels. We report the overall pixel-wise accuracy and the F1 score for each class, computed as follows:

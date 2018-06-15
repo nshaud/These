@@ -1,6 +1,8 @@
 %!TEX root = Manuscrit.tex
 \chapter{Extension aux capteurs non-conventionnels}
 \label{chap:extension}
+%\citationChap{I suppose it is tempting, if the only tool you have is a hammer, to treat everything as if it were a nail.}{Abraham Maslow}
+\minitoc
 
 \chapsummary{%
   Les images multispectrales peuvent être traitées par des réseaux type SegNet de la même façon que les images usuelles. Toutefois, il n'est pas possible de faire de l'apprentissage par transfert et du pré-entraînement compte-tenu de la différence de nombre de bandes. En pratique, les expériences montrent que trois bandes suffisent à obtenir des résultats équivalents. Utiliser quatre bandes IRRVB ne semble pas apporter de gain et dégrade même légèrement les performances compte-tenu de l'absence de pré-entraînement.
@@ -10,6 +12,8 @@
   Travailler sur les images hyperspectrales demande d'être soigneux et de faire attention à ce que l'on fait, mais dans l'ensemble la litérature propose des solutions pertinentes.
 }
 
+\newpage
+
 \section{Images multispectrales}
 
 \subsection{Prise en compte du proche infrarouge}
@@ -18,7 +22,7 @@ Les images multispectrales les plus simples sont des images à trois ou quatre c
 
 Dans le chapitre précédent, nous avons montré qu'il était possible et de traiter les images \gls{IRRV} de la même façon que les images \gls{RVB} traditionnelles. En particulier, cela nous a permis de transférer les poids de réseaux de pré-entraînés sur ImageNet à des images de télédétection \gls{IRRV}. Toutefois, dans le cas des images multispectrales \gls{IRRVB}, il est impossible de réaliser ce transfert en conservant les quatre canaux. Notre approche précédente a consisté à utiliser seulement les trois canaux \gls{RVB}, en omettant le canal infrarouge.
 
-Nous réalisons une étude préliminaire sur le jeu de données \gls{ISPRS} Potsdam en reprenant les modèles et hyperparamètres obtenus dans le~\cref{chap:2}. En particulier, nous étudions différentes variantes de SegNet, avec et sans initialisation de l'encodeur à partir des poids de VGG-16 pré-entraîné sur ImageNet, sur différentes combinaisons de canaux. Les résultats sont détaillés dans le~\cref{tab:comparaison_bandes}. Les tuiles 2\_11, 7\_10, 4\_10, 7\_9, 7\_12, 6\_8, 6\_7, 6\_9, 5\_11, 2\_10, 2\_12, 3\_10, 6\_10, 6\_11, 3\_12, 3\_11, 5\_12 et 4\_12 sont utilisées pour l'entraînement tandis que la validation s'effectue sur les tuiles 4\_11, 6\_12, 7\_11, 5\_10, 7\_8 et 7\_7.
+Nous réalisons une étude préliminaire sur le jeu de données \gls{ISPRS} Potsdam en reprenant les modèles et hyperparamètres obtenus dans le~\cref{chap:cartographie}. En particulier, nous étudions différentes variantes de SegNet, avec et sans initialisation de l'encodeur à partir des poids de VGG-16 pré-entraîné sur ImageNet, sur différentes combinaisons de canaux. Les résultats sont détaillés dans le~\cref{tab:comparaison_bandes}. Les tuiles 2\_11, 7\_10, 4\_10, 7\_9, 7\_12, 6\_8, 6\_7, 6\_9, 5\_11, 2\_10, 2\_12, 3\_10, 6\_10, 6\_11, 3\_12, 3\_11, 5\_12 et 4\_12 sont utilisées pour l'entraînement tandis que la validation s'effectue sur les tuiles 4\_11, 6\_12, 7\_11, 5\_10, 7\_8 et 7\_7.
 
 \begin{table}
   \setlength\tabcolsep{3pt}

@@ -1,16 +1,20 @@
 %!TEX root = Manuscrit.tex
 \chapter{Structure spatiale des cartes prédites}
 \label{chap:structure}
+%\citationChap{}{}
+\minitoc
 
 \chapsummary{%
 Jusqu'à présent, nous nous sommes intéressé à la segmentation sémantique au travers le problème de classification dense. En effet, nous avons cherché à classifier les pixels indépendamment les uns des autres. Bien que les modèles aient pris en compte le contexte spatial, la fonction de coût ne s'intéressait qu'à réduire l'erreur moyenne sur les pixels. Toutefois, la compréhension de scènes nécessite bien d'extraire et de manipuler des concepts liés aux objets et à leurs instances, et non des pixels.
 
 Ce chapitre s'intéresse ainsi aux extensions des modèles de réseaux de neurones permettant de jouer avec la structure spatiale des objets d'intérêt dans les images.
 
-Dans un premier temps, nous nous intéressons à la possibilité de structurer \emph{a posteriori} les prédictions pixelliques issues des \gls{CNN} que nous avons entraîné afin d'analyser les images de télédétecion sous l'angle des objets. En particulier, nous montrons que les cartes sémantiques obtenues par nos \gls{FCN} peuvent être aisément structurées pour permettre la détection et la reconnaissance individuelle d'instances de véhicules dans des images aériennes.
+Dans un premier temps, nous nous intéressons à la possibilité de structurer \emph{a posteriori} les prédictions pixelliques issues des \gls{CNN} que nous avons entraîné afin d'analyser les images de télédétection sous l'angle des objets. En particulier, nous montrons que les cartes sémantiques obtenues par nos \gls{FCN} peuvent être aisément structurées pour permettre la détection et la reconnaissance individuelle d'instances de véhicules dans des images aériennes.
 
-Dans un second temps, nous nous intéressons à des représentations alternatives de la vérité terrain et à des fonctions de coût auxiliaires permettant d'intégrer des notions spatiales dans l'optimisation des réseaux de neurones. Précisément, nous suggérons de compléter les annotations sémantiques par leur équivalent continu, obtenues par transformée en distance euclidienne. Cette représentation alternative peut ensuite servir à entraîner un modèle de régression, complémentaire au modèle de classifiation. En pratique, nous proposons d'entraîner un réseau multi-tâches réalisant en simultanée la régression des cartes de distances et la classification des pixels. Cette méthode permet d'intégrer une proportion de structure spatiale dans la fonction de coût et régularise ainsi les cartes sémantiques prédites.
+Dans un second temps, nous nous intéressons à des représentations alternatives de la vérité terrain et à des fonctions de coût auxiliaires permettant d'intégrer des notions spatiales dans l'optimisation des réseaux de neurones. Précisément, nous suggérons de compléter les annotations sémantiques par leur équivalent continu, obtenues par transformée en distance euclidienne. Cette représentation alternative peut ensuite servir à entraîner un modèle de régression, complémentaire au modèle de classification. En pratique, nous proposons d'entraîner un réseau multi-tâches réalisant en simultanée la régression des cartes de distances et la classification des pixels. Cette méthode permet d'intégrer une proportion de structure spatiale dans la fonction de coût et régularise ainsi les cartes sémantiques prédites.
 }
+
+\newpage
 
 \section{Modèles objet}
 

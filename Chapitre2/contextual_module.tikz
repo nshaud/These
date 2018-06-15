@@ -1,0 +1,58 @@
+\begin{tikzpicture}[]
+	\def \width {4}
+
+     \def\colblue{blue!30!white};
+     \newcommand\convblock[4]{%{x}{y}{texte}{style}
+     \fill[#4]  (#1,#2) rectangle node[] {\scriptsize #3} (3+#1, 0.5+#2);
+     }
+
+     \fill[draw=black,fill=\colblue]  (-1.5,-0.5) rectangle node[black] {Encodeur} (1.5,0.5);
+     \convblock{-1.5}{-2}{Convolution 5}{draw=black,fill=\colblue};
+     \node (dots) at (0,-2.5) {\dots};
+     \convblock{-1.5}{-3.5}{Convolution 2}{draw=black,fill=\colblue};
+     \node at (1, -1) {Décodeur};
+     \draw[] (-1.6, -4.7)  rectangle (1.6, -1.3);
+     \convblock{-1.5}{-4.5}{Convolution 1 (5$\times$5)}{draw=black,fill=orange!50};
+     \draw[thick,->] (0,-0.5) -- (0,-1.3);
+     \draw[thick,->] (0, -2) -- (dots.north);
+     \draw[thick,->] (dots.south) -- (0,-3);
+     \draw[thick,->] (0,-3.5) -- (0, -4);
+
+     \def\leftx{-4.8}
+     \fill[draw=black!40,dashed,fill=blue!10]  (-1.5+\leftx,-0.5) rectangle node[black] {Encodeur} (1.5+\leftx,0.5);
+     \convblock{-1.5+\leftx}{-2}{Convolution 5}{draw=black!40,fill=blue!10,dashed};
+     \node (dots) at (\leftx,-2.5) {\dots};
+     \convblock{-1.5+\leftx}{-3.5}{Convolution 2}{draw=black!40,fill=blue!10,dashed};
+     \draw[dotted,black!40] (-1.6+\leftx, -4.7) rectangle (1.6+\leftx, -1.3);
+     \convblock{-1.5+\leftx}{-4.5}{Convolution 1 (3$\times$3)}{draw=black,fill=yellow!50};
+     \draw[->,dashed,black!40] (\leftx,-0.5) -- (\leftx,-1.3);
+     \draw[->,dashed,black!40] (\leftx, -2) -- (dots.north);
+     \draw[->,dashed,black!40] (dots.south) -- (\leftx,-3.);
+     \draw[->,dashed,black!40] (\leftx,-3.5) -- (\leftx, -4);
+
+     \def\leftx{4.8}
+     \fill[draw=black!40,dashed,fill=blue!10]  (-1.5+\leftx,-0.5) rectangle node[black] {Encodeur} (1.5+\leftx,0.5);
+     \convblock{-1.5+\leftx}{-2}{Convolution 5}{draw=black!40,fill=blue!10,dashed};
+     \node (dots) at (\leftx,-2.5) {\dots};
+     \convblock{-1.5+\leftx}{-3.5}{Convolution 2}{draw=black!40,fill=blue!10,dashed};
+     \draw[dotted,black!40] (-1.6+\leftx, -4.7) rectangle (1.6+\leftx, -1.3);
+     \convblock{-1.5+\leftx}{-4.5}{Convolution 1 (7$\times$7)}{draw=black,fill=red!50};
+     \draw[->,dashed,black!40] (\leftx,-0.5) -- (\leftx,-1.3);
+     \draw[->,dashed,black!40] (\leftx, -2) -- (dots.north);
+     \draw[->,dashed,black!40] (dots.south) -- (\leftx,-3.);
+     \draw[->,dashed,black!40] (\leftx,-3.5) -- (\leftx, -4);
+
+     \node[draw=black,circle] (+) at (0,-5.5) {+};
+     \draw[dashed] (-1.8-\leftx, -6) rectangle (1.8+\leftx, -3.8);
+
+     \draw (0, -3.5) edge[thick,->,out=-45,in=90,looseness=0.5] (3.5,-4);
+     \draw (0, -3.5) edge[thick,->,out=225,in=90,looseness=0.5] (-3.5,-4);
+
+     \draw (0, -4.5) edge[thick,->] (+.north);
+     \draw (-3.5, -4.5) edge[thick,->,in=180,out=270,looseness=0.8] (+.west);
+     \draw (3.5, -4.5) edge[thick,->,in=0,out=270,looseness=0.8] (+.east);
+
+     \node at (-5.3, -5.7) {Multi-kernel};
+     \node (out) at (0, -6.5) {Prédiction};
+     \draw[thick,->] (+.south) to (out.north);
+\end{tikzpicture}
