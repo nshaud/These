@@ -81,7 +81,7 @@ Un des inconvénients de FuseNet est que cette approche nécessite d'avoir des m
 
 Par exemple, il est envisageable d'entraîner un modèle par modalité et de réaliser la moyenne des prédiction. Toutefois, cela ne permet pas de prendre en compte les particularités de chaque capteur. Nous introduisons donc un module de correction résiduel qui prend en entrée les dernières cartes d'activation des réseaux et réalise une fusion des cartes de probabilités~\cite{audebert_semantic_2016}. Le module de correction résiduel apprend la correction $\epsilon$ à appliquer à la prédiction moyenne pour améliorer les performances globales du modèle combiné. Ce processus est illustré dans la~\cref{fig:residual_correction} pour SegNet et dans la~\cref{fig:residual_correction_resnet} pour ResNet.
 
-Building on the idea of residual deep learning~\cite{he_deep_2016}, we propose a fusion network based on residual correction. We define a convolutional residual block using the same parameters as the rest of the SegNet network ($3\times3$ convolutions and $1$ pixel of padding). Intermediate feature maps from the decoding parts of the two SegNets are fed as inputs to a 3-convolution layers ``correction'' network (cf. \cref{fig:residual_correction}. The output of the residual block is then summed in the residual fashion with the average of the two predictions, as illustrated by \cref{fig:residual_correction}. Residual learning fits this use case, as the average score is already a close estimate of the truth. To improve the results, we aim to use the complementary channels to correct small errors in the prediction maps. In this context, the residual can be seen as a corrective term for our predictive model. This module is trained using backpropagation on the standard softmax loss. Learning rates for the input SegNets are set to zero, as this considerably speeds up the training without significant loss.
+Ce module réalise une fusion au niveau décisionnel en utilisant le principe de l'apprentissage résiduel~\cite{he_deep_2016}. Il comporte trois couches convolutives de noyau $3\times3$ et un \emph{padding} de \SI{1}{\px}. Les cartes d'activation intermédiaires des deux décodeurs de SegNet sont concaténées et utilisées comme entrée pour le module de correction (cf. \cref{fig:residual_correction}). La sortie du module est sommée de façon résiduelle avec la moyenne de prédictions issues des SegNet, comme illustré dans la\cref{fig:residual_correction}. Dans ce cas, l'apprentissage par résidu est particulièrement adapté car la prédiction moyenne peut déjà être considérée comme proche du résultat visé. Le module additionnel vient donc fusionner les décisions en appliquant une moyenne pondérée adaptative dépendant des cartes d'activations afin d'ajouter un terme correctif à la prédiction moyenne. Ce module, entraîné par rétropropagation, est simplement optimisé \emph{a posteriori} par \emph{fine-tuning}, les SegNet n'étant pas ré-entraînés. Ce procédé est donc rapide, car seuls les gradients sur les couches du module correctif sont calculés.
 
 %Let $M_r$ denote the input of the $r^{th}$ stream ($r \in \{1,\dots,R\}$ with $R = 2$ here), $P_{r}$ the output probability tensor and $Z_r$ the intermediate feature map used for the correction. The corrected prediction is:
 
@@ -244,7 +244,8 @@ Approche résiduelle : correction d'erreur
         \label{fig:fusion_exemple2}
     \end{subfigure}
 
-	\caption{Successful predictions using the fusion strategies.}
+	\caption{Successful predictions using the fusion strategies.\\
+  \isprslegende}
    	\label{fig:fusion_success}
 \end{figure}
 
@@ -298,17 +299,10 @@ Bien que les données \gls{Lidar} du jeu de données ISPRS soient très denses, 
 %Due to limitations and noise in the Lidar point cloud, such as missing or aberrant points, the DSM and subsequently the nDSM present some artifacts. As reported in~\cite{marmanis_classification_2016}, some buildings vanish in the nDSM and the relevant pixels are falsely attributed a height of 0. This causes significant misclassification in the composite image that are poorly handled by both fusion methods, as illustrated in~\cref{fig:ndsm_fail}. \cite{marmanis_classification_2016} worked around this problem by manually correcting the nDSM, though this method does not scale to bigger datasets. Therefore, improving the method to be robust to impure data and artifacts could be helpful, e.g. by using hallucination networks~\cite{hoffman_learning_2016} to infer the missing modality as proposed in~\cite{kampffmeyer_semantic_2016}. We think that the V-FuseNet architecture could be adapted for such a purpose by using the virtual branch to encode missing data. Moreover, recent work on generative models might help alleviate overfitting and improve robustness by training on synthetic data, as proposed in~\cite{Xie_2017_ICCV}.
 
 
-
-
-
-
-
-
 \section{Connaissances \textit{a priori}}
 
 \subsection{OpenStreetMap}
 
-Présentation d'OSM
 \glsfirst{OSM} est un \gls{SIG} libre et participatif alimenté par un ensemble de contributeurs bénévoles qui cartographient leurs environs. Les contributeurs peuvent utiliser l'éditeur en ligne pour annoter des fonds de carte géoréférencés en y ajoutant ou en mettant à jour les éléments du réseau routier, les empreintes au sol des bâtiments, les espaces verts, etc. En plus de ces éditions manuelles, la communauté \gls{OSM} utilise certaines sources de données officielles, comme le cadastre de l'État français afin de mettre à jour les limites administratives des entités géographiques ou pour importer les nouveaux bâtis. Le principal intérêt d'\gls{OSM} est qu'il s'agit de la plus grande base de données d'information géographique sous licence libre au monde. La base de données contient des informations sur une large taxonomie d'entités géographiques, allant des autoroutes aux parcs de loisir en passant par les églises, les cimetières ou les parcelles agricoles.
 
 Peu de travaux se sont penchés sur l'intégration des données \gls{OSM} pour l'apprentissage automatique depuis l'ouverture du site en 2004. Le plus souvent, \gls{OSM} est utilisée comme vérité terrain pour la détection de routes et de bâtiments~\cite{mnih_machine_2013,maggiori_learning_2017} dans un contexte d'apprentissage supervisé ou pour le recalage automatique d'images satellites~\cite{vakalopoulou_simultaneous_2016}. \citet{isola_image--image_2016} se sont intéressés à la génération automatique de tuiles \gls{OSM} à partir d'images satellites, mais seulement à des fins visuelles, sans évaluation selon des métriques de classification. Pourtant, \gls{OSM} est une source de données riche permettant d'extraire de l'information géographique sémantique de haut niveau. \citet{chen_deepvgi_2017} ont de fait utilisé des méthodes d'apprentissage actif pour détecter automatiquement les objets non encore présents dans \gls{OSM} afin de les suggérer aux contributeurs. \citet{danylo_contributing_2016} ont utilisé des forêts aléatoires appliquées sur certaines couches de données \gls{OSM} pour prédire des zones climatologiques locales, tandis que \citet{geis_joint_2017} se sont penchés sur la détection automatique de zones sujettes à des catastrophes naturelles.
@@ -374,7 +368,9 @@ E_{i+1}^{opt}(I,O) = B_i^{opt}(E_i^{opt}(I, O)) + B_i^{osm}(E_i^{osm}(O))~.
     \caption*{\picname}
   \end{subfigure}%
   }%
-  \caption{Tuile 4\_12 du jeu de données ISPRS Potsdam et données \gls{OSM} correspondantes.}
+  \caption{Tuile 4\_12 du jeu de données ISPRS Potsdam et données \gls{OSM} correspondantes.\\
+  \isprslegende
+  }
   \label{fig:dataset_potsdam}
 \end{figure}
 
@@ -496,8 +492,8 @@ VT &
 \includegraphics[width=\linewidth]{evolution/gt} \\
 itération & 10 000 & 20 000 & 50 000 & 80 000 & 120 000\\
 \end{tabularx}
-\caption{Évolution des prédictions de SegNet RVB et RBV+OSM. L'ajout de OSM rend les prédictions visuellement plus structurées.
-\small{Légende: blanc : routes, \textcolor{Blue}{bleu} : bâtiments, \textcolor{Cerulean}{cyan} : végétation basse, \textcolor{OliveGreen}{vert} : arbres, \textcolor{Dandelion}{jaune} : véhicules, \textcolor{BrickRed}{rouge} : autre}}
+\caption{Évolution des prédictions de SegNet RVB et RBV+OSM. L'ajout de OSM rend les prédictions visuellement plus structurées.\\
+\isprslegende}
 \label{fig:training_evolution}
 \end{figure}
 
