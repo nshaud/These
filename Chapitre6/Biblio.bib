@@ -1,4 +1,19 @@
 
+@article{kokkinos_pushing_2015,
+  archivePrefix = {arXiv},
+  eprinttype = {arxiv},
+  eprint = {1511.07386},
+  primaryClass = {cs},
+  title = {Pushing the {{Boundaries}} of {{Boundary Detection}} Using {{Deep Learning}}},
+  abstract = {In this work we show that adapting Deep Convolutional Neural Network training to the task of boundary detection can result in substantial improvements over the current state-of-the-art in boundary detection. Our contributions consist firstly in combining a careful design of the loss for boundary detection training, a multi-resolution architecture and training with external data to improve the detection accuracy of the current state of the art. When measured on the standard Berkeley Segmentation Dataset, we improve theoptimal dataset scale F-measure from 0.780 to 0.808 - while human performance is at 0.803. We further improve performance to 0.813 by combining deep learning with grouping, integrating the Normalized Cuts technique within a deep network. We also examine the potential of our boundary detector in conjunction with the task of semantic segmentation and demonstrate clear improvements over state-of-the-art systems. Our detector is fully integrated in the popular Caffe framework and processes a 320x420 image in less than a second.},
+  journal = {arXiv:1511.07386 [cs]},
+  author = {Kokkinos, Iasonas},
+  month = nov,
+  year = {2015},
+  keywords = {Computer Science - Learning,Computer Science - Computer Vision and Pattern Recognition},
+  file = {/home/naudeber/Bibliographie//arXiv1511.07386 [cs]/2015/Kokkinos 2015 - Pushing the Boundaries of Boundary Detection using Deep Learning.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/AXI3T7VT/1511.html}
+}
+
 @article{simonyan_very_2014,
   archivePrefix = {arXiv},
   eprinttype = {arxiv},
@@ -60,6 +75,45 @@
   keywords = {neural nets,object detection,vehicles,hybrid Deep convolutional neural networks,max-pooling field sizes,max-pooling layer,satellite images,variable receptive field sizes,variable-scale feature extraction,vehicle detection,Satellites,Deep convolutional neural networks (DNNs),hybrid DNNs (HDNNs),Training,feature extraction,remote sensing},
   pages = {1797-1801},
   file = {/home/naudeber/Bibliographie//IEEE Geoscience and Remote Sensing Letters/2014/Chen et al 2014 - Vehicle Detection in Satellite Images by Hybrid Deep Convolutional Neural_3.pdf;/home/naudeber/Bibliographie//IEEE Geoscience and Remote Sensing Letters/2014/Chen et al 2014 - Vehicle Detection in Satellite Images by Hybrid Deep Convolutional Neural.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/9KUQEURF/abs_all.html;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/B35IGN5I/abs_all.html}
+}
+
+@article{audebert_segment-before-detect_2017,
+  title = {Segment-before-{{Detect}}: {{Vehicle Detection}} and {{Classification}} through {{Semantic Segmentation}} of {{Aerial Images}}},
+  volume = {9},
+  copyright = {http://creativecommons.org/licenses/by/3.0/},
+  shorttitle = {Segment-before-{{Detect}}},
+  doi = {10.3390/rs9040368},
+  abstract = {Like computer vision before, remote sensing has been radically changed by the introduction of deep learning and, more notably, Convolution Neural Networks. Land cover classification, object detection and scene understanding in aerial images rely more and more on deep networks to achieve new state-of-the-art results. Recent architectures such as Fully Convolutional Networks can even produce pixel level annotations for semantic mapping. In this work, we present a deep-learning based segment-before-detect method for segmentation and subsequent detection and classification of several varieties of wheeled vehicles in high resolution remote sensing images. This allows us to investigate object detection and classification on a complex dataset made up of visually similar classes, and to demonstrate the relevance of such a subclass modeling approach. Especially, we want to show that deep learning is also suitable for object-oriented analysis of Earth Observation data as effective object detection can be obtained as a byproduct of accurate semantic segmentation. First, we train a deep fully convolutional network on the ISPRS Potsdam and the NZAM/ONERA Christchurch datasets and show how the learnt semantic maps can be used to extract precise segmentation of vehicles. Then, we show that those maps are accurate enough to perform vehicle detection by simple connected component extraction. This allows us to study the repartition of vehicles in the city. Finally, we train a Convolutional Neural Network to perform vehicle classification on the VEDAI dataset, and transfer its knowledge to classify the individual vehicle instances that we detected.},
+  language = {en},
+  number = {4},
+  journal = {Remote Sensing},
+  author = {Audebert, Nicolas and Le Saux, Bertrand and Lef{\`e}vre, S{\'e}bastien},
+  month = apr,
+  year = {2017},
+  keywords = {deep learning,object classification,semantic segmentation,vehicle detection},
+  pages = {368},
+  file = {/home/naudeber/Bibliographie//Remote Sensing/2017/Audebert et al 2017 - Segment-before-Detect.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/DDKN2ZJK/368.html}
+}
+
+@article{rottensteiner_isprs_2012,
+  title = {The {{ISPRS}} Benchmark on Urban Object Classification and {{3D}} Building Reconstruction},
+  volume = {1},
+  journal = {ISPRS Annals of the Photogrammetry, Remote Sensing and Spatial Information Sciences},
+  author = {Rottensteiner, Franz and Sohn, Gunho and Jung, Jaewook and Gerke, Markus and Baillard, Caroline and Benitez, Sebastien and Breitkopf, Uwe},
+  year = {2012},
+  pages = {3},
+  file = {/home/naudeber/Bibliographie//ISPRS Ann. Photogramm. Remote Sens. Spat. Inf. Sci/2012/Rottensteiner et al 2012 - The ISPRS benchmark on urban object classification and 3D building.pdf}
+}
+
+@inproceedings{lin_efficient_2015,
+  title = {Efficient Piecewise Training of Deep Structured Models for Semantic Segmentation},
+  abstract = {Recent advances in semantic image segmentation have mostly been achieved by training deep convolutional neural networks (CNNs) for the task. We show how to improve semantic segmentation through the use of contextual information. Specifically, we explore ‘patch-patch' context and ‘patch-background' context with deep CNNs. For learning the patch-patch context between image regions, we formulate Conditional Random Fields (CRFs) with CNN-based pairwise potential functions to capture semantic correlations between neighboring patches. Efficient piecewise training of the proposed deep structured model is then applied to avoid repeated expensive CRF inference for back propagation. In order to capture the patch-background context, we show that a network design with traditional multi-scale image input and sliding pyramid pooling is effective for improving performance. Our experiment results set new state-of-the-art performance on a number of popular semantic segmentation datasets, including NYUDv2, PASCAL VOC 2012, PASCAL-Context, and SIFT-flow. Particularly, we achieve an intersection-over-union score of \$77.8\$ on the challenging PASCAL VOC 2012 dataset.},
+  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}}},
+  author = {Lin, Guosheng and Shen, Chunhua and Van Den Hengel, Anton and Reid, Ian},
+  month = apr,
+  year = {2015},
+  keywords = {À lire,Computer Science - Computer Vision and Pattern Recognition},
+  file = {/home/naudeber/Bibliographie//undefined/2015/Lin et al 2015 - Efficient piecewise training of deep structured models for semantic segmentation.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/9VAWMIBH/1504.html}
 }
 
 @inproceedings{randrianarivo_contextual_2016,
@@ -184,6 +238,27 @@
   file = {/home/naudeber/Bibliographie//arXiv1612.01337 [cs]/2016/Marmanis et al 2016 - Classification With an Edge.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/XBNT2Q32/Marmanis et al_2016_Classification With an Edge.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/VEPZ68S6/1612.html;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/Z3Z4WVNI/1612.html}
 }
 
+@incollection{lin_microsoft_2014,
+  series = {Lecture Notes in Computer Science},
+  title = {Microsoft {{COCO}}: {{Common Objects}} in {{Context}}},
+  copyright = {\textcopyright{}2014 Springer International Publishing Switzerland},
+  isbn = {978-3-319-10601-4 978-3-319-10602-1},
+  shorttitle = {Microsoft {{COCO}}},
+  abstract = {We present a new dataset with the goal of advancing the state-of-the-art in object recognition by placing the question of object recognition in the context of the broader question of scene understanding. This is achieved by gathering images of complex everyday scenes containing common objects in their natural context. Objects are labeled using per-instance segmentations to aid in precise object localization. Our dataset contains photos of 91 objects types that would be easily recognizable by a 4 year old. With a total of 2.5 million labeled instances in 328k images, the creation of our dataset drew upon extensive crowd worker involvement via novel user interfaces for category detection, instance spotting and instance segmentation. We present a detailed statistical analysis of the dataset in comparison to PASCAL, ImageNet, and SUN. Finally, we provide baseline performance analysis for bounding box and segmentation detection results using a Deformable Parts Model.},
+  language = {en},
+  number = {8693},
+  booktitle = {Computer {{Vision}} \textendash{} {{ECCV}} 2014},
+  publisher = {{Springer International Publishing}},
+  author = {Lin, Tsung-Yi and Maire, Michael and Belongie, Serge and Hays, James and Perona, Pietro and Ramanan, Deva and Doll{\'a}r, Piotr and Zitnick, C. Lawrence},
+  editor = {Fleet, David and Pajdla, Tomas and Schiele, Bernt and Tuytelaars, Tinne},
+  month = sep,
+  year = {2014},
+  keywords = {Artificial Intelligence (incl. Robotics),Computer Graphics,Image Processing and Computer Vision,Pattern Recognition},
+  pages = {740-755},
+  file = {/home/naudeber/Bibliographie//Springer International Publishing/2014/Lin et al 2014 - Microsoft COCO.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/27T2J7FZ/978-3-319-10602-1_48.html},
+  doi = {10.1007/978-3-319-10602-1_48}
+}
+
 @inproceedings{randrianarivo_urban_2013,
   title = {Urban Structure Detection with Deformable Part-Based Models},
   doi = {10.1109/IGARSS.2013.6721126},
@@ -192,7 +267,7 @@
   author = {Randrianarivo, H. and Saux, B. Le and Ferecatu, M.},
   month = jul,
   year = {2013},
-  keywords = {object detection,support vector machines,geophysical image processing,object recognition,Buildings,computer vision,Image resolution,computer vision related tasks,deformable part-based models,urban structure detection,very high resolution aerial images,Computational modeling,Deformable models,image analysis,very high resolution,feature extraction,remote sensing},
+  keywords = {Buildings,Computational modeling,computer vision,computer vision related tasks,Deformable models,deformable part-based models,feature extraction,geophysical image processing,image analysis,Image resolution,object detection,object recognition,remote sensing,support vector machines,urban structure detection,very high resolution,very high resolution aerial images},
   pages = {200-203},
   file = {/home/naudeber/Bibliographie//undefined/2013/Randrianarivo et al 2013 - Urban structure detection with deformable part-based models.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/QP3KRFWC/6721126.html}
 }
@@ -297,6 +372,21 @@
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/A86J7264/10.1.1.364.980.pdf}
 }
 
+@inproceedings{hazirbas_fusenet_2016,
+  title = {{{FuseNet}}: {{Incorporating Depth}} into {{Semantic Segmentation}} via {{Fusion}}-{{Based CNN Architecture}}},
+  shorttitle = {{{FuseNet}}},
+  doi = {10.1007/978-3-319-54181-5_14},
+  abstract = {In this paper we address the problem of semantic labeling of indoor scenes on RGB-D data. With the availability of RGB-D cameras, it is expected that additional depth measurement will improve the accuracy. Here we investigate a solution how to incorporate complementary depth information into a semantic segmentation framework by making use of convolutional neural networks (CNNs). Recently encoder-decoder type fully convolutional CNN architectures have achieved a great success in the field of semantic segmentation. Motivated by this observation we propose an encoder-decoder type network, where the encoder part is composed of two branches of networks that simultaneously extract features from RGB and depth images and fuse depth features into the RGB feature maps as the network goes deeper. Comprehensive experimental evaluations demonstrate that the proposed fusion-based architecture achieves competitive results with the state-of-the-art methods on the challenging SUN RGB-D benchmark obtaining 76.27\% global accuracy, 48.30\% average class accuracy and 37.29\% average intersection-over-union score.},
+  language = {en},
+  booktitle = {Computer {{Vision}} \textendash{} {{ACCV}} 2016},
+  publisher = {{Springer, Cham}},
+  author = {Hazirbas, Caner and Ma, Lingni and Domokos, Csaba and Cremers, Daniel},
+  month = nov,
+  year = {2016},
+  pages = {213-228},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/CBE66U65/Hazirbas et al_2016_FuseNet.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/KCPWN6WW/978-3-319-54181-5_14.html}
+}
+
 @inproceedings{he_deep_2016,
   title = {Deep {{Residual Learning}} for {{Image Recognition}}},
   doi = {10.1109/CVPR.2016.90},
@@ -310,6 +400,19 @@
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/KUCF9Q86/7780459.html}
 }
 
+@inproceedings{long_fully_2015,
+  title = {Fully Convolutional Networks for Semantic Segmentation},
+  doi = {10.1109/CVPR.2015.7298965},
+  abstract = {Convolutional networks are powerful visual models that yield hierarchies of features. We show that convolutional networks by themselves, trained end-to-end, pixels-to-pixels, exceed the state-of-the-art in semantic segmentation. Our key insight is to build ``fully convolutional'' networks that take input of arbitrary size and produce correspondingly-sized output with efficient inference and learning. We define and detail the space of fully convolutional networks, explain their application to spatially dense prediction tasks, and draw connections to prior models. We adapt contemporary classification networks (AlexNet [20], the VGG net [31], and GoogLeNet [32]) into fully convolutional networks and transfer their learned representations by fine-tuning [3] to the segmentation task. We then define a skip architecture that combines semantic information from a deep, coarse layer with appearance information from a shallow, fine layer to produce accurate and detailed segmentations. Our fully convolutional network achieves state-of-the-art segmentation of PASCAL VOC (20\% relative improvement to 62.2\% mean IU on 2012), NYUDv2, and SIFT Flow, while inference takes less than one fifth of a second for a typical image.},
+  booktitle = {2015 {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
+  author = {Long, Jonathan and Shelhamer, Evan and Darrell, Trevor},
+  month = jun,
+  year = {2015},
+  keywords = {Adaptation models,Computer architecture,contemporary classification networks,convolution,Deconvolution,fully convolutional networks,image classification,image segmentation,inference,inference mechanisms,learning,learning (artificial intelligence),NYUDv2,Pascal VOC,pixels-to-pixels,semantic segmentation,Semantics,SIFT flow,Training,visual models},
+  pages = {3431-3440},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/BGDX4IA8/7298965.html;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/VAQSQ2JQ/7298965.html}
+}
+
 @inproceedings{penatti_deep_2015,
   title = {Do Deep Features Generalize from Everyday Objects to Remote Sensing and Aerial Scenes Domains?},
   doi = {10.1109/CVPRW.2015.7301382},
@@ -318,9 +421,89 @@
   author = {Penatti, Ot{\'a}vio A. B. Penatti Ot{\'a}vio A. B. and Nogueira, Keiller and Santos, Jefersson A.},
   month = jun,
   year = {2015},
-  keywords = {Accuracy,Image color analysis,Visualization,correlation methods,geophysical image processing,image colour analysis,object recognition,BIC,UCMerced dataset,aerial images,aerial scenes domains,correlation analysis,deep features,generalization power,low-level color descriptors,multiple ConvNets,remote sensing image classification,Correlation,Histograms,feature extraction,image classification,remote sensing},
+  keywords = {Accuracy,aerial images,aerial scenes domains,BIC,Correlation,correlation analysis,correlation methods,deep features,feature extraction,generalization power,geophysical image processing,Histograms,image classification,Image color analysis,image colour analysis,low-level color descriptors,multiple ConvNets,object recognition,remote sensing,remote sensing image classification,UCMerced dataset,Visualization},
   pages = {44-51},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/AHDUQXD8/7301382.html}
+}
+
+@inproceedings{he_delving_2015,
+  title = {Delving {{Deep}} into {{Rectifiers}}: {{Surpassing Human}}-{{Level Performance}} on {{ImageNet Classification}}},
+  shorttitle = {Delving {{Deep}} into {{Rectifiers}}},
+  doi = {10.1109/ICCV.2015.123},
+  abstract = {Rectified activation units (rectifiers) are essential for state-of-the-art neural networks. In this work, we study rectifier neural networks for image classification from two aspects. First, we propose a Parametric Rectified Linear Unit (PReLU) that generalizes the traditional rectified unit. PReLU improves model fitting with nearly zero extra computational cost and little overfitting risk. Second, we derive a robust initialization method that particularly considers the rectifier nonlinearities. This method enables us to train extremely deep rectified models directly from scratch and to investigate deeper or wider network architectures. Based on the learnable activation and advanced initialization, we achieve 4.94\% top-5 test error on the ImageNet 2012 classification dataset. This is a 26\% relative improvement over the ILSVRC 2014 winner (GoogLeNet, 6.66\% [33]). To our knowledge, our result is the first to surpass the reported human-level performance (5.1\%, [26]) on this dataset.},
+  booktitle = {Proceedings of the {{IEEE International Conference}} on {{Computer Vision}}},
+  author = {He, Kaiming and Zhang, Xiangyu and Ren, Shaoqing and Sun, Jian},
+  month = dec,
+  year = {2015},
+  keywords = {Adaptation models,Biological neural networks,Computational modeling,Gaussian distribution,human-level performance,ILSVRC 2014 winner,image classification,ImageNet 2012 classification dataset,ImageNet classification,model fitting,network architectures,neural nets,overfitting risk,parametric rectified linear unit,PReLU,rectified activation units,rectifier neural networks,rectifier nonlinearities,robust initialization method,state-of-the-art neural networks,Testing,Training},
+  pages = {1026-1034},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/NXDQWID9/7410480.html}
+}
+
+@article{badrinarayanan_segnet_2017,
+  title = {{{SegNet}}: {{A Deep Convolutional Encoder}}-{{Decoder Architecture}} for {{Scene Segmentation}}},
+  volume = {39},
+  issn = {0162-8828},
+  shorttitle = {{{SegNet}}},
+  doi = {10.1109/TPAMI.2016.2644615},
+  abstract = {We present a novel and practical deep fully convolutional neural network architecture for semantic pixel-wise segmentation termed SegNet. This core trainable segmentation engine consists of an encoder network, a corresponding decoder network followed by a pixel-wise classification layer. The architecture of the encoder network is topologically identical to the 13 convolutional layers in the VGG16 network [1]. The role of the decoder network is to map the low resolution encoder feature maps to full input resolution feature maps for pixel-wise classification. The novelty of SegNet lies is in the manner in which the decoder upsamples its lower resolution input feature map(s). Specifically, the decoder uses pooling indices computed in the max-pooling step of the corresponding encoder to perform non-linear upsampling. This eliminates the need for learning to upsample. The upsampled maps are sparse and are then convolved with trainable filters to produce dense feature maps. We compare our proposed architecture with the widely adopted FCN [2] and also with the well known DeepLab-LargeFOV [3], DeconvNet [4] architectures. This comparison reveals the memory versus accuracy trade-off involved in achieving good segmentation performance. SegNet was primarily motivated by scene understanding applications. Hence, it is designed to be efficient both in terms of memory and computational time during inference. It is also significantly smaller in the number of trainable parameters than other competing architectures and can be trained end-to-end using stochastic gradient descent. We also performed a controlled benchmark of SegNet and other architectures on both road scenes and SUN RGB-D indoor scene segmentation tasks. These quantitative assessments show that SegNet provides good performance with competitive inference time and most efficient inference memory-wise as compared to other architectures. We also provide a Caffe implementation of SegNet and a web demo at http://mi.eng.cam.a- .uk/projects/segnet/.},
+  number = {12},
+  journal = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  author = {Badrinarayanan, Vijay and Kendall, Alex and Cipolla, Roberto},
+  month = dec,
+  year = {2017},
+  keywords = {Computer architecture,Decoder,Decoding,Deep Convolutional Neural Networks,Encoder,image segmentation,Indoor Scenes,Neural networks,Pooling,Road Scenes,Roads,Semantic Pixel-Wise Segmentation,Semantics,Training,Upsampling},
+  pages = {2481-2495},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/9SZV73FK/7803544.html}
+}
+
+@inproceedings{shen_deepcontour_2015,
+  title = {{{DeepContour}}: {{A}} Deep Convolutional Feature Learned by Positive-Sharing Loss for Contour Detection},
+  shorttitle = {{{DeepContour}}},
+  doi = {10.1109/CVPR.2015.7299024},
+  abstract = {Contour detection serves as the basis of a variety of computer vision tasks such as image segmentation and object recognition. The mainstream works to address this problem focus on designing engineered gradient features. In this work, we show that contour detection accuracy can be improved by instead making the use of the deep features learned from convolutional neural networks (CNNs). While rather than using the networks as a blackbox feature extractor, we customize the training strategy by partitioning contour (positive) data into subclasses and fitting each subclass by different model parameters. A new loss function, named positive-sharing loss, in which each subclass shares the loss for the whole positive class, is proposed to learn the parameters. Compared to the sofmax loss function, the proposed one, introduces an extra regularizer to emphasizes the losses for the positive and negative classes, which facilitates to explore more discriminative features. Our experimental results demonstrate that learned deep features can achieve top performance on Berkeley Segmentation Dataset and Benchmark (BSDS500) and obtain competitive cross dataset generalization result on the NYUD dataset.},
+  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}}},
+  author = {Shen, Wei and Wang, Xinggang and Wang, Yan and Bai, Xiang and Zhang, Z.},
+  month = jun,
+  year = {2015},
+  keywords = {Berkeley segmentation dataset and benchmark,blackbox feature extractor,BSDS500,CNN,computer vision,computer vision tasks,contour detection accuracy,convolution,convolutional neural networks,cross dataset generalization,Data models,deep convolutional feature,DeepContour,discriminative features,engineered gradient features,feature extraction,image segmentation,Machine learning,negative classes,neural nets,Neural networks,NYUD dataset,object recognition,positive classes,positive-sharing loss,Shape,sofmax loss function,Standards,Training,training strategy,visual databases},
+  pages = {3982-3991},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/N5TVCAG7/7299024.html}
+}
+
+@inproceedings{zheng_conditional_2015,
+  title = {Conditional {{Random Fields}} as {{Recurrent Neural Networks}}},
+  doi = {10.1109/ICCV.2015.179},
+  abstract = {Pixel-level labelling tasks, such as semantic segmentation, play a central role in image understanding. Recent approaches have attempted to harness the capabilities of deep learning techniques for image recognition to tackle pixel-level labelling tasks. One central issue in this methodology is the limited capacity of deep learning techniques to delineate visual objects. To solve this problem, we introduce a new form of convolutional neural network that combines the strengths of Convolutional Neural Networks (CNNs) and Conditional Random Fields (CRFs)-based probabilistic graphical modelling. To this end, we formulate Conditional Random Fields with Gaussian pairwise potentials and mean-field approximate inference as Recurrent Neural Networks. This network, called CRF-RNN, is then plugged in as a part of a CNN to obtain a deep network that has desirable properties of both CNNs and CRFs. Importantly, our system fully integrates CRF modelling with CNNs, making it possible to train the whole deep network end-to-end with the usual back-propagation algorithm, avoiding offline post-processing methods for object delineation. We apply the proposed method to the problem of semantic image segmentation, obtaining top results on the challenging Pascal VOC 2012 segmentation benchmark.},
+  booktitle = {Proceedings of the {{IEEE International Conference}} on {{Computer Vision}}},
+  author = {Zheng, S. and Jayasumana, S. and {Romera-Paredes}, B. and Vineet, V. and Su, Z. and Du, D. and Huang, C. and Torr, P. H. S.},
+  month = dec,
+  year = {2015},
+  keywords = {back-propagation algorithm,backpropagation,CNN,computer vision,conditional random field,convolutional neural network,CRF,deep learning technique,Gaussian pairwise potential,Gaussian processes,Graphical models,image segmentation,image understanding,Labeling,Machine learning,mean-field approximate inference,neural nets,pixel-level labelling task,probabilistic graphical modelling,probability,random processes,recurrent neural network,semantic image segmentation,Semantics,Training},
+  pages = {1529-1537},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/VS4NUXVR/CRFasRNN.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/UERRSF27/7410536.html}
+}
+
+@inproceedings{zhao_pyramid_2017,
+  title = {Pyramid {{Scene Parsing Network}}},
+  booktitle = {2017 {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
+  author = {Zhao, Hengshuang and Shi, Jianping and Qi, Xiaojuan and Wang, Xiaogang and Jia, Jiaya},
+  year = {2017},
+  pages = {2881-2890},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/PIQ3MQHG/Zhao_Pyramid_Scene_Parsing_CVPR_2017_paper.html}
+}
+
+@inproceedings{zampirolli_fast_2017,
+  title = {A {{Fast CUDA}}-{{Based Implementation}} for the {{Euclidean Distance Transform}}},
+  doi = {10.1109/HPCS.2017.123},
+  abstract = {In Image Processing efficient algorithms are always pursued for applications that use the most advanced hardware architectures. Distance Transform is a classic operation for blurring effects, skeletonizing, segmentation and various other purposes. This article presents two implementations of the Euclidean Distance Transform using CUDA (Compute Unified Device Architecture) in GPU (Graphics Process Unit): of the Meijster's Sequential Algorithm and another is a very efficient algorithm of simple structure. Both using only shared memory. The results presented herein used images of various types and sizes to show a faster run time compared with the best-known implementations in CPU.},
+  booktitle = {International {{Conference}} on {{High Performance Computing Simulation}}},
+  author = {Zampirolli, F. d A. and Filipe, L.},
+  month = jul,
+  year = {2017},
+  keywords = {advanced hardware architectures,Algorithm design and analysis,blurring effects,Compute Unified Device Architecture,Computer architecture,CUDA,Euclidean distance,Euclidean Distance Transform,fast CUDA-based implementation,GPU,Graphics Process Unit,graphics processing units,Image Processing,image processing efficient algorithm,Instruction sets,Meijster sequential algorithm,parallel architectures,transforms},
+  pages = {815-818},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/5KKP7IZX/8035162.html}
 }
 
 @inproceedings{he_mask_2017,
@@ -333,6 +516,381 @@
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/5PC3KSS7/He et al_2017_Mask R-CNN.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/GZZ2UHUE/1703.html}
 }
 
+@inproceedings{cordts_cityscapes_2016,
+  title = {The {{Cityscapes Dataset}} for {{Semantic Urban Scene Understanding}}},
+  doi = {10.1109/CVPR.2016.350},
+  booktitle = {2016 {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
+  author = {Cordts, M. and Omran, M. and Ramos, S. and Rehfeld, T. and Enzweiler, M. and Benenson, R. and Franke, U. and Roth, S. and Schiele, B.},
+  month = jun,
+  year = {2016},
+  keywords = {Benchmark testing,Cityscapes dataset,Complexity theory,computer vision,image sequences,object detection,semantic urban scene understanding,Semantics,stereo image processing,stereo video sequence,Training,Urban areas,vehicles,video signal processing,Visualization},
+  pages = {3213-3223},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/QVHASJX3/7780719.html}
+}
+
+@article{ulman_objective_2017,
+  title = {An Objective Comparison of Cell-Tracking Algorithms},
+  volume = {advance online publication},
+  copyright = {\textcopyright{} 2017 Nature Publishing Group, a division of Macmillan Publishers Limited. All Rights Reserved.},
+  issn = {1548-7091},
+  doi = {10.1038/nmeth.4473},
+  abstract = {We present a combined report on the results of three editions of the Cell Tracking Challenge, an ongoing initiative aimed at promoting the development and objective evaluation of cell segmentation and tracking algorithms. With 21 participating algorithms and a data repository consisting of 13 data sets from various microscopy modalities, the challenge displays today's state-of-the-art methodology in the field. We analyzed the challenge results using performance measures for segmentation and tracking that rank all participating methods. We also analyzed the performance of all of the algorithms in terms of biological measures and practical usability. Although some methods scored high in all technical aspects, none obtained fully correct solutions. We found that methods that either take prior information into account using learning strategies or analyze cells in a global spatiotemporal video context performed better than other methods under the segmentation and tracking scenarios included in the challenge.},
+  language = {en},
+  journal = {Nature Methods},
+  author = {Ulman, Vladim{\'\i}r and Maska, Martin and Magnusson, Klas E. G. and Ronneberger, Olaf and Haubold, Carsten and Harder, Nathalie and Matula, Pavel and Matula, Petr and Svoboda, David and Radojevic, Miroslav and Smal, Ihor and Rohr, Karl and Jald{\'e}n, Joakim and Blau, Helen M. and Dzyubachyk, Oleh and Lelieveldt, Boudewijn and Xiao, Pengdong and Li, Yuexiang and Cho, Siu-Yeung and Dufour, Alexandre C. and {Olivo-Marin}, Jean-Christophe and {Reyes-Aldasoro}, Constantino C. and {Solis-Lemus}, Jose A. and Bensch, Robert and Brox, Thomas and Stegmaier, Johannes and Mikut, Ralf and Wolf, Steffen and Hamprecht, Fred A. and Esteves, Tiago and Quelhas, Pedro and Demirel, {\"O}mer and Malmstr{\"o}m, Lars and Jug, Florian and Tomancak, Pavel and Meijering, Erik and {Mu{\~n}oz-Barrutia}, Arrate and Kozubek, Michal and {Ortiz-de-Solorzano}, Carlos},
+  month = oct,
+  year = {2017},
+  keywords = {Cell migration,Image Processing},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/STUZV2XM/Ulman et al_2017_An objective comparison of cell-tracking algorithms.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/9RAWQ8PM/nmeth.4473.html}
+}
+
+@inproceedings{sommer_semantic_2017,
+  title = {Semantic Labeling for Improved Vehicle Detection in Aerial Imagery},
+  doi = {10.1109/AVSS.2017.8078510},
+  abstract = {Growing cities and increasing traffic densities result in an increased demand for applications such as traffic monitoring, traffic analysis, and support of rescue work. These applications share the need for accurate detection of relevant vehicles, e.g. in aerial imagery. Recently, the application of deep learning based detection frameworks like Faster R-CNN clearly outperformed conventional detection methods for vehicle detection in aerial images. In this paper, we propose a detection framework that fuses Faster R-CNN and semantic labeling to integrate contextual information. We achieve an improved detection performance by decreasing the number of false positive detections while the number of candidate regions to classify is reduced. To demonstrate the generalization of our approach, we evaluate our detection framework for various ground sampling distances on a publicly available dataset.},
+  booktitle = {{{IEEE International Conference}} on {{Advanced Video}} and {{Signal Based Surveillance}} ({{AVSS}})},
+  author = {Sommer, L. and Nie, K. and Schumann, A. and Schuchert, T. and Beyerer, J.},
+  month = aug,
+  year = {2017},
+  keywords = {automobiles,Buildings,image segmentation,Labeling,Proposals,Semantics,Vegetation},
+  pages = {1-6},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/NPDPE32I/Sommer et al_2017_Semantic labeling for improved vehicle detection in aerial imagery.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/I2FJP3NQ/8078510.html}
+}
+
+@inproceedings{maggiori_can_2017,
+  title = {Can {{Semantic Labeling Methods Generalize}} to {{Any City}}? {{The Inria Aerial Image Labeling Benchmark}}},
+  shorttitle = {Can {{Semantic Labeling Methods Generalize}} to {{Any City}}?},
+  abstract = {New challenges in remote sensing impose the necessity of designing pixel classification methods that, once trained on a certain dataset, generalize to other areas of the earth. This may include regions where the appearance of the same type of objects is significantly different. In the literature it is common to use a single image and split it into training and test sets to train a classifier and assess its performance, respectively. However, this does not prove the generalization capabilities to other inputs. In this paper, we propose an aerial image labeling dataset that covers a wide range of urban settlement appearances, from different geographic locations. Moreover, the cities included in the test set are different from those of the training set. We also experiment with convolutional neural networks on our dataset.},
+  language = {en},
+  booktitle = {Proceedings of the {{IEEE International Symposium}} on {{Geoscience}} and {{Remote Sensing}} ({{IGARSS}})},
+  author = {Maggiori, Emmanuel and Tarabalka, Yuliya and Charpiat, Guillaume and Alliez, Pierre},
+  month = jul,
+  year = {2017},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/UV49DI3R/Maggiori et al_2017_Can Semantic Labeling Methods Generalize to Any City.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/K7CHRHV4/hal-01468452.html}
+}
+
+@inproceedings{yu_casenet_2017,
+  title = {{{CASENet}}: {{Deep Category}}-{{Aware Semantic Edge Detection}}},
+  shorttitle = {{{CASENet}}},
+  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}}},
+  author = {Yu, Zhiding and Feng, Chen and Liu, Ming-Yu and Ramalingam, Srikumar},
+  year = {2017},
+  pages = {5964-5973},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/4PWZRT5R/Yu_CASENet_Deep_Category-Aware_CVPR_2017_paper.html}
+}
+
+@inproceedings{liu_richer_2017,
+  title = {Richer {{Convolutional Features}} for {{Edge Detection}}},
+  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}}},
+  author = {Liu, Yun and Cheng, Ming-Ming and Hu, Xiaowei and Wang, Kai and Bai, Xiang},
+  year = {2017},
+  pages = {3000-3009},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/DHCWI4BF/Liu_Richer_Convolutional_Features_CVPR_2017_paper.html}
+}
+
+@inproceedings{hayder_boundary-aware_2017,
+  title = {Boundary-Aware {{Instance Segmentation}}},
+  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}}},
+  author = {Hayder, Zeeshan and He, Xuming and Salzmann, Mathieu},
+  year = {2017},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/M2UDAU7I/Hayder et al_2017_Boundary-aware Instance Segmentation.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/NP2RNGNX/Hayder et al. - 2017 - Boundary-aware Instance Segmentation.pdf}
+}
+
+@article{brostow_semantic_2009,
+  series = {Video-based Object and Event Analysis},
+  title = {Semantic Object Classes in Video: {{A}} High-Definition Ground Truth Database},
+  volume = {30},
+  issn = {0167-8655},
+  shorttitle = {Semantic Object Classes in Video},
+  doi = {10.1016/j.patrec.2008.04.005},
+  number = {2},
+  journal = {Pattern Recognition Letters},
+  author = {Brostow, Gabriel J. and Fauqueur, Julien and Cipolla, Roberto},
+  month = jan,
+  year = {2009},
+  keywords = {Label propagation,object recognition,semantic segmentation,Video database,Video understanding},
+  pages = {88-97},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/I8FJM7EM/Brostow et al_2009_Semantic object classes in video.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/FTC9XV9V/S0167865508001220.html}
+}
+
+@inproceedings{song_sun_2015,
+  title = {{{SUN RGB}}-{{D}}: {{A RGB}}-{{D}} Scene Understanding Benchmark Suite},
+  shorttitle = {{{SUN RGB}}-{{D}}},
+  doi = {10.1109/CVPR.2015.7298655},
+  abstract = {Although RGB-D sensors have enabled major break-throughs for several vision tasks, such as 3D reconstruction, we have not attained the same level of success in high-level scene understanding. Perhaps one of the main reasons is the lack of a large-scale benchmark with 3D annotations and 3D evaluation metrics. In this paper, we introduce an RGB-D benchmark suite for the goal of advancing the state-of-the-arts in all major scene understanding tasks. Our dataset is captured by four different sensors and contains 10,335 RGB-D images, at a similar scale as PASCAL VOC. The whole dataset is densely annotated and includes 146,617 2D polygons and 64,595 3D bounding boxes with accurate object orientations, as well as a 3D room layout and scene category for each image. This dataset enables us to train data-hungry algorithms for scene-understanding tasks, evaluate them using meaningful 3D metrics, avoid overfitting to a small testing set, and study cross-sensor bias.},
+  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}}},
+  author = {Song, S. and Lichtenberg, S. P. and Xiao, J.},
+  month = jun,
+  year = {2015},
+  keywords = {2D polygons,3D annotations,3D bounding boxes,3D evaluation metrics,3D reconstruction,3D room layout,Benchmark testing,Cameras,cross-sensor bias,data-hungry algorithms,Estimation,high-level scene understanding,image colour analysis,image sensors,Iterative closest point algorithm,Layout,object orientations,Pascal VOC,RGB-D images,RGB-D scene understanding benchmark suite,RGB-D sensors,scene category,Sensors,SUN RGB-D,Three-dimensional displays,vision tasks},
+  pages = {567-576},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/WSU485C5/7298655.html}
+}
+
+@inproceedings{jegou_one_2017,
+  title = {The {{One Hundred Layers Tiramisu}}: {{Fully Convolutional DenseNets}} for {{Semantic Segmentation}}},
+  shorttitle = {The {{One Hundred Layers Tiramisu}}},
+  doi = {10.1109/CVPRW.2017.156},
+  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition Workshops}}},
+  author = {J{\'e}gou, S. and Drozdzal, M. and Vazquez, D. and Romero, A. and Bengio, Y.},
+  month = jul,
+  year = {2017},
+  keywords = {Benchmark testing,Computer architecture,convolution,convolutional DenseNets,convolutional neural networks,feature extraction,image classification,Image resolution,image segmentation,learning (artificial intelligence),semantic image segmentation,Semantics,Spatial resolution,Standards,Tiramisu layers,upsampling path training},
+  pages = {1175-1183},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/MHA9Z9FV/8014890.html}
+}
+
+@inproceedings{deng_imagenet_2009,
+  title = {{{ImageNet}}: {{A}} Large-Scale Hierarchical Image Database},
+  shorttitle = {{{ImageNet}}},
+  doi = {10.1109/CVPR.2009.5206848},
+  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}}},
+  author = {Deng, J. and Dong, W. and Socher, R. and Li, L. J. and Li, Kai and {Fei-Fei}, Li},
+  month = jun,
+  year = {2009},
+  keywords = {computer vision,Explosions,Image databases,Image resolution,image retrieval,ImageNet database,Information retrieval,Internet,large-scale hierarchical image database,large-scale ontology,Large-scale systems,multimedia computing,multimedia data,Multimedia databases,Ontologies,ontologies (artificial intelligence),Robustness,Spine,subtree,trees (mathematics),very large databases,visual databases,wordNet structure},
+  pages = {248-255},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/FFXN3NBD/5206848.html}
+}
+
+@inproceedings{bertasius_semantic_2016,
+  title = {Semantic {{Segmentation With Boundary Neural Fields}}},
+  booktitle = {{{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
+  author = {Bertasius, Gedas and Shi, Jianbo and Torresani, Lorenzo},
+  year = {2016},
+  pages = {3602-3610},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/6MZ7MCPQ/Bertasius et al. - 2016 - Semantic Segmentation With Boundary Neural Fields.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/ZSNJ5JM8/Bertasius_Semantic_Segmentation_With_CVPR_2016_paper.html}
+}
+
+@inproceedings{chen_dcan_2016,
+  title = {{{DCAN}}: {{Deep Contour}}-{{Aware Networks}} for {{Accurate Gland Segmentation}}},
+  shorttitle = {{{DCAN}}},
+  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}}},
+  author = {Chen, Hao and Qi, Xiaojuan and Yu, Lequan and Heng, Pheng-Ann},
+  year = {2016},
+  pages = {2487-2496},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/S4AZDJ2E/Chen et al. - 2016 - DCAN Deep Contour-Aware Networks for Accurate Gla.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/3QMA8G46/Chen_DCAN_Deep_Contour-Aware_CVPR_2016_paper.html}
+}
+
+@article{le_reformulating_2017,
+  title = {Reformulating {{Level Sets}} as {{Deep Recurrent Neural Network Approach}} to {{Semantic Segmentation}}},
+  volume = {1704},
+  abstract = {Variational Level Set (LS) has been a widely used method in medical 
+segmentation. However, it is limited when dealing with multi-instance
+objects in the real world. In addition, its segmentation results are
+quite sensitive to initial settings and highly depend on the number of
+iterations. To address these issues and boost the classic variational LS
+methods to a new level of the learnable deep learning approaches, we
+propose a novel definition of contour evolution named Recurrent Level
+Set (RLS)\vphantom\{\} to employ Gated Recurrent Unit under the energy minimization
+of a variational LS functional. The curve deformation process in RLS is
+formed as a hidden state evolution procedure and updated by minimizing
+an energy functional composed of fitting forces and contour length. By
+sharing the convolutional features in a fully end-to-end trainable
+framework, we extend RLS to Contextual RLS (CRLS) to address semantic
+segmentation in the wild. The experimental results have shown that our
+proposed RLS improves both computational time and segmentation accuracy
+against the classic variations LS-based method, whereas the fully
+end-to-end system CRLS achieves competitive performance compared to the
+state-of-the-art semantic segmentation approaches.},
+  journal = {ArXiv e-prints},
+  author = {Le, Ngan and Gia Quach, Kha and Luu, Khoa and Savvides, Marios and Zhu, Chenchen},
+  month = apr,
+  year = {2017},
+  keywords = {Computer Science - Computer Vision and Pattern Recognition},
+  pages = {arXiv:1704.03593}
+}
+
+@article{garcia-garcia_review_2017,
+  archivePrefix = {arXiv},
+  eprinttype = {arxiv},
+  eprint = {1704.06857},
+  primaryClass = {cs},
+  title = {A {{Review}} on {{Deep Learning Techniques Applied}} to {{Semantic Segmentation}}},
+  journal = {arXiv:1704.06857 [cs]},
+  author = {{Garcia-Garcia}, Alberto and {Orts-Escolano}, Sergio and Oprea, Sergiu and {Villena-Martinez}, Victor and {Garcia-Rodriguez}, Jose},
+  month = apr,
+  year = {2017},
+  keywords = {Computer Science - Artificial Intelligence,Computer Science - Computer Vision and Pattern Recognition},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/S9W9B9FE/Garcia-Garcia et al. - 2017 - A Review on Deep Learning Techniques Applied to Se.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/A3R5PJNY/1704.html}
+}
+
+@incollection{ronneberger_u-net_2015,
+  address = {Cham},
+  title = {U-{{Net}}: {{Convolutional Networks}} for {{Biomedical Image Segmentation}}},
+  isbn = {978-3-319-24574-4},
+  abstract = {There is large consent that successful training of deep networks requires many thousand annotated training samples. In this paper, we present a network and training strategy that relies on the strong use of data augmentation to use the available annotated samples more efficiently. The architecture consists of a contracting path to capture context and a symmetric expanding path that enables precise localization. We show that such a network can be trained end-to-end from very few images and outperforms the prior best method (a sliding-window convolutional network) on the ISBI challenge for segmentation of neuronal structures in electron microscopic stacks. Using the same network trained on transmitted light microscopy images (phase contrast and DIC) we won the ISBI cell tracking challenge 2015 in these categories by a large margin. Moreover, the network is fast. Segmentation of a 512x512 image takes less than a second on a recent GPU. The full implementation (based on Caffe) and the trained networks are available at                                           http://lmb.informatik.uni-freiburg.de/people/ronneber/u-net                                                          .},
+  booktitle = {Medical {{Image Computing}} and {{Computer}}-{{Assisted Intervention}} \textendash{} {{MICCAI}} 2015: 18th {{International Conference}}, {{Munich}}, {{Germany}}, {{October}} 5-9, 2015, {{Proceedings}}, {{Part III}}},
+  publisher = {{Springer International Publishing}},
+  author = {Ronneberger, Olaf and Fischer, Philipp and Brox, Thomas},
+  editor = {Navab, Nassir and Hornegger, Joachim and Wells, William M. and Frangi, Alejandro F.},
+  year = {2015},
+  pages = {234-241},
+  doi = {10.1007/978-3-319-24574-4_28}
+}
+
+@inproceedings{pinheiro_learning_2016,
+  series = {Lecture Notes in Computer Science},
+  title = {Learning to {{Refine Object Segments}}},
+  isbn = {978-3-319-46447-3 978-3-319-46448-0},
+  doi = {10.1007/978-3-319-46448-0_5},
+  abstract = {Object segmentation requires both object-level information and low-level pixel data. This presents a challenge for feedforward networks: lower layers in convolutional nets capture rich spatial information, while upper layers encode object-level knowledge but are invariant to factors such as pose and appearance. In this work we propose to augment feedforward nets for object segmentation with a novel top-down refinement approach. The resulting bottom-up/top-down architecture is capable of efficiently generating high-fidelity object masks. Similarly to skip connections, our approach leverages features at all layers of the net. Unlike skip connections, our approach does not attempt to output independent predictions at each layer. Instead, we first output a coarse `mask encoding' in a feedforward pass, then refine this mask encoding in a top-down pass utilizing features at successively lower layers. The approach is simple, fast, and effective. Building on the recent DeepMask network for generating object proposals, we show accuracy improvements of 10\textendash{}20\% in average recall for various setups. Additionally, by optimizing the overall network architecture, our approach, which we call SharpMask, is 50 \% faster than the original DeepMask network (under .8 s per image).},
+  language = {en},
+  booktitle = {Computer {{Vision}} \textendash{} {{ECCV}} 2016},
+  publisher = {{Springer, Cham}},
+  author = {Pinheiro, Pedro O. and Lin, Tsung-Yi and Collobert, Ronan and Doll{\'a}r, Piotr},
+  month = oct,
+  year = {2016},
+  pages = {75-91},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/V9GRZYHU/Pinheiro et al. - 2016 - Learning to Refine Object Segments.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/TWXMC7KF/978-3-319-46448-0_5.html}
+}
+
+@article{z._liu_deep_2017,
+  title = {Deep {{Learning Markov Random Field}} for {{Semantic Segmentation}}},
+  volume = {PP},
+  issn = {0162-8828},
+  doi = {10.1109/TPAMI.2017.2737535},
+  number = {99},
+  journal = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  author = {{Z. Liu} and {X. Li} and {P. Luo} and {C. Change Loy} and {X. Tang}},
+  year = {2017},
+  keywords = {Neural networks,Computer architecture,Computational modeling,Semantics,Convolutional Neural Network,Image segmentation,Markov Random Field,Markov random fields,Semantic Image/Video Segmentation,Videos},
+  pages = {1-1}
+}
+
+@article{k._k._maninis_convolutional_2018,
+  title = {Convolutional {{Oriented Boundaries}}: {{From Image Segmentation}} to {{High}}-{{Level Tasks}}},
+  volume = {40},
+  issn = {0162-8828},
+  doi = {10.1109/TPAMI.2017.2700300},
+  number = {4},
+  journal = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  author = {{K. K. Maninis} and {J. Pont-Tuset} and {P. Arbelaez} and {L. Van Gool}},
+  month = apr,
+  year = {2018},
+  keywords = {Proposals,Machine learning,Semantics,Detectors,Benchmark testing,Image segmentation,contour detection,contour orientation,Feature extraction,hierarchical image segmentation,object proposals,semantic contours},
+  pages = {819-833}
+}
+
+@inproceedings{v._premachandran_pascal_2017,
+  title = {{{PASCAL Boundaries}}: {{A Semantic Boundary Dataset}} with a {{Deep Semantic Boundary Detector}}},
+  doi = {10.1109/WACV.2017.16},
+  booktitle = {2017 {{IEEE Winter Conference}} on {{Applications}} of {{Computer Vision}} ({{WACV}})},
+  author = {{V. Premachandran} and {B. Bonev} and {X. Lian} and {A. Yuille}},
+  month = mar,
+  year = {2017},
+  keywords = {Context,Image edge detection,object detection,edge detection,Semantics,Detectors,visual databases,Image segmentation,BSDS500 dataset,Computer vision,Databases,deep network-based multiscale semantic boundary detector,edge detection performance measurement,foreground objects,ground truth boundaries,image database,instance-level semantic boundary detection,M-DSBD,MS-COCO,multiscale deep-semantic boundary detector,PASCAL Boundaries dataset,semantic boundary dataset,semantic classes,transfer capabilities},
+  pages = {73-81}
+}
+
+@article{d._cheng_fusionnet_2017,
+  title = {{{FusionNet}}: {{Edge Aware Deep Convolutional Networks}} for {{Semantic Segmentation}} of {{Remote Sensing Harbor Images}}},
+  volume = {10},
+  issn = {1939-1404},
+  doi = {10.1109/JSTARS.2017.2747599},
+  number = {12},
+  journal = {IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing},
+  author = {{D. Cheng} and {G. Meng} and {S. Xiang} and {C. Pan}},
+  month = dec,
+  year = {2017},
+  keywords = {Image edge detection,Semantics,semantic segmentation,Image segmentation,Feature extraction,Edge aware regularization,harbor images,Head,Marine vehicles,multitask learning,Remote sensing},
+  pages = {5769-5783}
+}
+
+@inproceedings{l._c._chen_semantic_2016,
+  title = {Semantic {{Image Segmentation}} with {{Task}}-{{Specific Edge Detection Using CNNs}} and a {{Discriminatively Trained Domain Transform}}},
+  doi = {10.1109/CVPR.2016.492},
+  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}}},
+  author = {{L. C. Chen} and {J. T. Barron} and {G. Papandreou} and {K. Murphy} and {A. L. Yuille}},
+  month = jun,
+  year = {2016},
+  keywords = {Image edge detection,neural nets,learning (artificial intelligence),edge detection,Kernel,Semantics,feature extraction,image segmentation,semantic image segmentation,Standards,Image segmentation,CNNs,CRF inference,deep convolutional neural networks,discriminatively trained domain transform,domain transform filtering,edge-preserving filtering method,filters,fully-connected conditional random fields,intermediate CNN features,Logic gates,object localization,reference edge map learning,task-specific edge detection,Transforms},
+  pages = {4545-4554}
+}
+
+@inproceedings{q._z._ye_signed_1988,
+  title = {The Signed {{Euclidean}} Distance Transform and Its Applications},
+  doi = {10.1109/ICPR.1988.28276},
+  booktitle = {[1988 {{Proceedings}}] 9th {{International Conference}} on {{Pattern Recognition}}},
+  author = {{Q. Z. Ye}},
+  month = nov,
+  year = {1988},
+  keywords = {transforms,Cities and towns,Algorithm design and analysis,Pixel,Euclidean distance,convex hulls,curve smoothing,digital curves,Dirichlet tessellations,Discrete transforms,distance map,Geometry,integer components,Parallel algorithms,picture processing,pixel,signed Euclidean distance transform,Smoothing methods},
+  pages = {495-499 vol.1}
+}
+
+@article{maurer_linear_2003,
+  title = {A Linear Time Algorithm for Computing Exact {{Euclidean}} Distance Transforms of Binary Images in Arbitrary Dimensions},
+  volume = {25},
+  issn = {0162-8828},
+  doi = {10.1109/TPAMI.2003.1177156},
+  number = {2},
+  journal = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  author = {Maurer, Calvin R. and Qi, Rensheng and Raghavan, Vijay},
+  month = feb,
+  year = {2003},
+  keywords = {Anisotropic magnetoresistance,anisotropic voxel dimensions,binary images,chamfer metrics,computational complexity,computational geometry,Computer vision,dimensionality reduction,Euclidean distance,exact Euclidean distance transform computation,exact Euclidean DT,feature voxels,image processing,Image processing,Image registration,Interpolation,linear time algorithm,linear time complexity,multidimensional binary image,Nearest neighbor searches,partial Voronoi diagram construction,Pattern matching,Skeleton,Surface morphology,transforms,Voronoi diagram},
+  pages = {265-270}
+}
+
+@inproceedings{arnab_pixelwise_2017,
+  title = {Pixelwise {{Instance Segmentation With}} a {{Dynamically Instantiated Network}}},
+  booktitle = {{{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
+  author = {Arnab, Anurag and Torr, Philip H. S.},
+  year = {2017},
+  pages = {441-450},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/LK4QY96S/Arnab_Pixelwise_Instance_Segmentation_CVPR_2017_paper.html}
+}
+
+@article{l._c._chen_deeplab_2018,
+  title = {{{DeepLab}}: {{Semantic Image Segmentation}} with {{Deep Convolutional Nets}}, {{Atrous Convolution}}, and {{Fully Connected CRFs}}},
+  volume = {40},
+  issn = {0162-8828},
+  doi = {10.1109/TPAMI.2017.2699184},
+  number = {4},
+  journal = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  author = {{L. C. Chen} and {G. Papandreou} and {I. Kokkinos} and {K. Murphy} and {A. L. Yuille}},
+  month = apr,
+  year = {2018},
+  keywords = {Context,Neural networks,Image resolution,Computational modeling,Semantics,Image segmentation,Atrous Convolution,Conditional Random Fields,Convolution,Convolutional Neural Networks,Semantic Segmentation},
+  pages = {834-848}
+}
+
+@misc{jones_scipy_2001,
+  title = {{{SciPy}}: {{Open}} Source Scientific Tools for {{Python}}},
+  howpublished = {http://www.scipy.org/},
+  author = {Jones, Eric and Oliphant, Travis and Peterson, Pearu and {others}},
+  year = {2001}
+}
+
+@misc{noauthor_pytorch_2016,
+  title = {{{PyTorch}}: {{Tensors}} and {{Dynamic}} Neural Networks in {{Python}} with Strong {{GPU}} Acceleration},
+  howpublished = {http://pytorch.org/},
+  year = {2016}
+}
+
+@article{bischke_multi-task_2017,
+  archivePrefix = {arXiv},
+  eprinttype = {arxiv},
+  eprint = {1709.05932},
+  primaryClass = {cs},
+  title = {Multi-{{Task Learning}} for {{Segmentation}} of {{Building Footprints}} with {{Deep Neural Networks}}},
+  abstract = {The increased availability of high resolution satellite imagery allows to sense very detailed structures on the surface of our planet. Access to such information opens up new directions in the analysis of remote sensing imagery. However, at the same time this raises a set of new challenges for existing pixel-based prediction methods, such as semantic segmentation approaches. While deep neural networks have achieved significant advances in the semantic segmentation of high resolution images in the past, most of the existing approaches tend to produce predictions with poor boundaries. In this paper, we address the problem of preserving semantic segmentation boundaries in high resolution satellite imagery by introducing a new cascaded multi-task loss. We evaluate our approach on Inria Aerial Image Labeling Dataset which contains large-scale and high resolution images. Our results show that we are able to outperform state-of-the-art methods by 8.3$\backslash$\% without any additional post-processing step.},
+  journal = {arXiv:1709.05932 [cs]},
+  author = {Bischke, Benjamin and Helber, Patrick and Folz, Joachim and Borth, Damian and Dengel, Andreas},
+  month = sep,
+  year = {2017},
+  keywords = {Computer Science - Computer Vision and Pattern Recognition},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/X9PGQV87/Bischke et al. - 2017 - Multi-Task Learning for Segmentation of Building F.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/2BEQCC2U/1709.html}
+}
+
+@inproceedings{qi_3d_2017,
+  title = {{{3D Graph Neural Networks}} for {{RGBD Semantic Segmentation}}},
+  booktitle = {Proceedings of the {{International Conference}} on {{Computer Vision}}},
+  author = {Qi, Xiaojuan and Liao, Renjie and Jia, Jiaya and Fidler, Sanja and Urtasun, Raquel},
+  year = {2017}
+}
+
 @inproceedings{krizhevsky_imagenet_2012,
   title = {{{ImageNet Classification}} with {{Deep Convolutional Neural Networks}}},
   booktitle = {Proceedings of the {{Neural Information Processing Systems}} ({{NIPS}})},
@@ -340,6 +898,32 @@
   year = {2012},
   pages = {1097--1105},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/CPT7II8U/Krizhevsky et al. - 2012 - ImageNet Classification with Deep Convolutional Ne.html}
+}
+
+@article{beucher_morphological_1993,
+  title = {The Morphological Approach to Segmentation: The Watershed Transformation. {{Mathematical}} Morphology in Image Processing.},
+  volume = {34},
+  shorttitle = {The Morphological Approach to Segmentation},
+  journal = {Optical Engineering},
+  author = {Beucher, S and Meyer, F},
+  year = {1993},
+  pages = {433-481}
+}
+
+@inproceedings{uhrig_pixel-level_2016,
+  series = {Lecture Notes in Computer Science},
+  title = {Pixel-{{Level Encoding}} and {{Depth Layering}} for {{Instance}}-{{Level Semantic Labeling}}},
+  isbn = {978-3-319-45885-4 978-3-319-45886-1},
+  doi = {10.1007/978-3-319-45886-1_2},
+  abstract = {Recent approaches for instance-aware semantic labeling have augmented convolutional neural networks (CNNs) with complex multi-task architectures or computationally expensive graphical models. We present a method that leverages a fully convolutional network (FCN) to predict semantic labels, depth and an instance-based encoding using each pixel's direction towards its corresponding instance center. Subsequently, we apply low-level computer vision techniques to generate state-of-the-art instance segmentation on the street scene datasets KITTI and Cityscapes. Our approach outperforms existing works by a large margin and can additionally predict absolute distances of individual instances from a monocular image as well as a pixel-level semantic labeling.},
+  language = {en},
+  booktitle = {Pattern {{Recognition}}},
+  publisher = {{Springer, Cham}},
+  author = {Uhrig, Jonas and Cordts, Marius and Franke, Uwe and Brox, Thomas},
+  month = sep,
+  year = {2016},
+  pages = {14-25},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/B943E8XC/Uhrig et al. - 2016 - Pixel-Level Encoding and Depth Layering for Instan.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/LB9BU2FJ/978-3-319-45886-1_2.html}
 }
 
 @article{yang_building_2018,
@@ -356,6 +940,159 @@
   year = {2018},
   keywords = {Computer Science - Computer Vision and Pattern Recognition},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/EBCVF954/Yang et al. - 2018 - Building Extraction at Scale using Convolutional N.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/RDCQLIPA/1805.html}
+}
+
+@inproceedings{tan_road_2008,
+  title = {Road {{Vehicle Detection}} and {{Classification}} from {{Very}}-{{High}}-{{Resolution Color Digital Orthoimagery}} Based on {{Object}}-{{Oriented Method}}},
+  volume = {4},
+  doi = {10.1109/IGARSS.2008.4779761},
+  abstract = {In the paper, we adopted an object-oriented image analysis method to detect and classify road vehicles from airborne color digital orthoimagery at a ground pixel resolution of 20 cm. Firstly; a vector-generated road mask was used to constrain detection and classification of vehicles to road region. Secondly, image segmentation and edge detection algorithms were performed to separate vehicles from the background in the road region. Then, a fuzzy logic classifier was constructed to classify the extracted object regions into the vehicle and the non-vehicle regions by using the feature information of image objects. Finally, based on the calculated average length and width of vehicles, we classified vehicles into three categories, that is, small, medium and big. And the counts of the three vehicle classes were derived. The automatic counts match manual counts very well.},
+  booktitle = {{{IGARSS}} 2008 - 2008 {{IEEE International Geoscience}} and {{Remote Sensing Symposium}}},
+  author = {Tan, Q. and Wang, J. and Aldred, D. A.},
+  month = jul,
+  year = {2008},
+  keywords = {segmentation,object detection,Image color analysis,edge detection,geophysical techniques,Spatial resolution,Image resolution,image classification,image segmentation,Pixel,Image segmentation,Classification,geophysics computing,Data mining,edge detection algorithms,feature information,fuzzy logic,fuzzy logic classifier,Object oriented modeling,object-oriented,object-oriented image analysis method,Remote monitoring,road vehicles,Road vehicles,road vehicles classification,road vehicles detection,vector-generated road mask,Vehicle detection,very-high-resolution digital orthoimagery},
+  pages = {IV - 475-IV - 478},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/HUYS25XR/Tan et al. - 2008 - Road Vehicle Detection and Classification from Ver.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/86YLJA8X/4779761.html}
+}
+
+@article{tang_vehicle_2017,
+  title = {Vehicle {{Detection}} in {{Aerial Images Based}} on {{Region Convolutional Neural Networks}} and {{Hard Negative Example Mining}}},
+  volume = {17},
+  issn = {1424-8220},
+  doi = {10.3390/s17020336},
+  abstract = {Detecting vehicles in aerial imagery plays an important role in a wide range of applications. The current vehicle detection methods are mostly based on sliding-window search and handcrafted or shallow-learning-based features, having limited description capability and heavy computational costs. Recently, due to the powerful feature representations, region convolutional neural networks (CNN) based detection methods have achieved state-of-the-art performance in computer vision, especially Faster R-CNN. However, directly using it for vehicle detection in aerial images has many limitations: (1) region proposal network (RPN) in Faster R-CNN has poor performance for accurately locating small-sized vehicles, due to the relatively coarse feature maps; and (2) the classifier after RPN cannot distinguish vehicles and complex backgrounds well. In this study, an improved detection method based on Faster R-CNN is proposed in order to accomplish the two challenges mentioned above. Firstly, to improve the recall, we employ a hyper region proposal network (HRPN) to extract vehicle-like targets with a combination of hierarchical feature maps. Then, we replace the classifier after RPN by a cascade of boosted classifiers to verify the candidate regions, aiming at reducing false detection by negative example mining. We evaluate our method on the Munich vehicle dataset and the collected vehicle dataset, with improvements in accuracy and robustness compared to existing methods.},
+  number = {2},
+  journal = {Sensors (Basel, Switzerland)},
+  author = {Tang, Tianyu and Zhou, Shilin and Deng, Zhipeng and Zou, Huanxin and Lei, Lin},
+  month = feb,
+  year = {2017},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/8JK5WKK2/Tang et al. - 2017 - Vehicle Detection in Aerial Images Based on Region.pdf},
+  pmid = {28208587},
+  pmcid = {PMC5335960}
+}
+
+@inproceedings{sommer_fast_2017,
+  title = {Fast {{Deep Vehicle Detection}} in {{Aerial Images}}},
+  doi = {10.1109/WACV.2017.41},
+  abstract = {Vehicle detection in aerial images is a crucial image processing step for many applications like screening of large areas. In recent years, several deep learning based frameworks have been proposed for object detection. However, these detectors were developed for datasets that considerably differ from aerial images. In this paper, we systematically investigate the potential of Fast R-CNN and Faster R-CNN for aerial images, which achieve top performing results on common detection benchmark datasets. Therefore, the applicability of 8 state-of-the-art object proposals methods used to generate a set of candidate regions and of both detectors is examined. Relevant adaptations of the object proposals methods are provided. To overcome shortcomings of the original approach in case of handling small instances, we further propose our own network that clearly outperforms state-of-the-art methods for vehicle detection in aerial images. All experiments are performed on two publicly available datasets to account for differing characteristics such as ground sampling distance, number of objects per image and varying backgrounds.},
+  booktitle = {2017 {{IEEE Winter Conference}} on {{Applications}} of {{Computer Vision}} ({{WACV}})},
+  author = {Sommer, L. W. and Schuchert, T. and Beyerer, J.},
+  month = mar,
+  year = {2017},
+  keywords = {Image edge detection,object detection,Proposals,aerial images,convolutional neural networks,vehicle detection,remote sensing,Detectors,feedforward neural nets,Image segmentation,Vehicle detection,Computational efficiency,fast R-CNN,faster R-CNN,ground sampling distance,object proposals methods,recurrent neural nets},
+  pages = {311-319},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/BHQS7XSX/7926624.html}
+}
+
+@article{ren_faster_2017,
+  title = {Faster {{R}}-{{CNN}}: {{Towards Real}}-{{Time Object Detection}} with {{Region Proposal Networks}}},
+  volume = {39},
+  issn = {0162-8828},
+  shorttitle = {Faster {{R}}-{{CNN}}},
+  doi = {10.1109/TPAMI.2016.2577031},
+  abstract = {State-of-the-art object detection networks depend on region proposal algorithms to hypothesize object locations. Advances like SPPnet [1] and Fast R-CNN [2] have reduced the running time of these detection networks, exposing region proposal computation as a bottleneck. In this work, we introduce a Region Proposal Network(RPN) that shares full-image convolutional features with the detection network, thus enabling nearly cost-free region proposals. An RPN is a fully convolutional network that simultaneously predicts object bounds and objectness scores at each position. The RPN is trained end-to-end to generate high-quality region proposals, which are used by Fast R-CNN for detection. We further merge RPN and Fast R-CNN into a single network by sharing their convolutional features-using the recently popular terminology of neural networks with 'attention' mechanisms, the RPN component tells the unified network where to look. For the very deep VGG-16 model [3], our detection system has a frame rate of 5 fps (including all steps) on a GPU, while achieving state-of-the-art object detection accuracy on PASCAL VOC 2007, 2012, and MS COCO datasets with only 300 proposals per image. In ILSVRC and COCO 2015 competitions, Faster R-CNN and RPN are the foundations of the 1st-place winning entries in several tracks. Code has been made publicly available.},
+  number = {6},
+  journal = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  author = {Ren, S. and He, K. and Girshick, R. and Sun, J.},
+  month = jun,
+  year = {2017},
+  keywords = {neural nets,object detection,convolutional neural network,Proposals,Training,Detectors,graphics processing units,GPU,Feature extraction,Object detection,Convolutional codes,attention mechanisms,COCO 2015 competitions,deep VGG-16 model,faster-R-CNN,full-image convolutional features,high-quality region proposals,ILSVRC,MS COCO datasets,object detection accuracy,PASCAL VOC 2007,PASCAL VOC 2012,real-time object detection,region proposal,region proposal networks,RPN,Search problems},
+  pages = {1137-1149},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/RSUKVWIH/Ren et al. - 2017 - Faster R-CNN Towards Real-Time Object Detection w.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/SIY5FFXP/7485869.html}
+}
+
+@article{van_etten_you_2018,
+  archivePrefix = {arXiv},
+  eprinttype = {arxiv},
+  eprint = {1805.09512},
+  primaryClass = {cs},
+  title = {You {{Only Look Twice}}: {{Rapid Multi}}-{{Scale Object Detection In Satellite Imagery}}},
+  shorttitle = {You {{Only Look Twice}}},
+  abstract = {Detection of small objects in large swaths of imagery is one of the primary problems in satellite imagery analytics. While object detection in ground-based imagery has benefited from research into new deep learning approaches, transitioning such technology to overhead imagery is nontrivial. Among the challenges is the sheer number of pixels and geographic extent per image: a single DigitalGlobe satellite image encompasses $>$64 km2 and over 250 million pixels. Another challenge is that objects of interest are minuscule (often only \textasciitilde{}10 pixels in extent), which complicates traditional computer vision techniques. To address these issues, we propose a pipeline (You Only Look Twice, or YOLT) that evaluates satellite images of arbitrary size at a rate of $>$0.5 km2/s. The proposed approach can rapidly detect objects of vastly different scales with relatively little training data over multiple sensors. We evaluate large test images at native resolution, and yield scores of F1 $>$ 0.8 for vehicle localization. We further explore resolution and object size requirements by systematically testing the pipeline at decreasing resolution, and conclude that objects only \textasciitilde{}5 pixels in size can still be localized with high confidence. Code is available at https://github.com/CosmiQ/yolt.},
+  journal = {arXiv:1805.09512 [cs]},
+  author = {Van Etten, Adam},
+  month = may,
+  year = {2018},
+  keywords = {Computer Science - Computer Vision and Pattern Recognition},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/QAS6EMIV/Van Etten - 2018 - You Only Look Twice Rapid Multi-Scale Object Dete.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/HD9ZHR6X/1805.html}
+}
+
+@inproceedings{redmon_you_2016,
+  title = {You {{Only Look Once}}: {{Unified}}, {{Real}}-{{Time Object Detection}}},
+  shorttitle = {You {{Only Look Once}}},
+  doi = {10.1109/CVPR.2016.91},
+  abstract = {We present YOLO, a new approach to object detection. Prior work on object detection repurposes classifiers to perform detection. Instead, we frame object detection as a regression problem to spatially separated bounding boxes and associated class probabilities. A single neural network predicts bounding boxes and class probabilities directly from full images in one evaluation. Since the whole detection pipeline is a single network, it can be optimized end-to-end directly on detection performance. Our unified architecture is extremely fast. Our base YOLO model processes images in real-time at 45 frames per second. A smaller version of the network, Fast YOLO, processes an astounding 155 frames per second while still achieving double the mAP of other real-time detectors. Compared to state-of-the-art detection systems, YOLO makes more localization errors but is less likely to predict false positives on background. Finally, YOLO learns very general representations of objects. It outperforms other detection methods, including DPM and R-CNN, when generalizing from natural images to other domains like artwork.},
+  booktitle = {2016 {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
+  author = {Redmon, J. and Divvala, S. and Girshick, R. and Farhadi, A.},
+  month = jun,
+  year = {2016},
+  keywords = {bounding boxes,class probabilities,Computer architecture,detection performance,detection pipeline,DPM,image classification,image representation,Microprocessors,natural images,neural nets,neural network,Neural networks,object classifiers,object detection,Object detection,object representation,Pipelines,R-CNN,Real-time systems,Training,unified real-time object detection,YOLO model,you only look once},
+  pages = {779-788},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/NXG9KLYS/Redmon et al. - 2016 - You Only Look Once Unified, Real-Time Object Dete.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/SPGRAZ3M/7780460.html}
+}
+
+@inproceedings{leberl_recognizing_2007,
+  title = {Recognizing Cars in Aerial Imagery to Improve Orthophotos},
+  doi = {10.1145/1341012.1341015},
+  abstract = {The automatic creation of 3D models of urban spaces has be- come a very active field of research. This has been inspired by recent applications in the location-awareness on the Inter- net, as demonstrated in maps.live.com and similar websites. The level of automation in creating 3D city models has in- creased considerably, and has benefited from an increase in the redundancy of the source imagery, namely digital aerial photography. In this paper we argue that the next big step forward is to replace photographic texture by an interpreta- tion of what the texture describes, and to achieve this fully automatically. One calls the result "semantic knowledge". For example we want to know that a certain part of the im- age is a car, a person, a building, a tree, a shrub, a window, a door, instead of just a collection of 3D points or triangles with a superimposed photographic texture. We investigate object recognition methods to make this next big step. We demonstrate an early result of using the on-line variant of a Boosting algorithm to indeed detect cars in aerial digital imagery to a satisfactory and useful level of completeness. And we show that we can use this semantic knowledge to produce improved orthophotos. We expect that also the 3D models will be improved by the knowledge of cars.},
+  booktitle = {{{GIS}}: {{Proceedings}} of the {{ACM International Symposium}} on {{Advances}} in {{Geographic Information Systems}}},
+  author = {Leberl, Franz and Bischof, Horst and Grabner, Helmut and Kluckner, Stefan},
+  month = jan,
+  year = {2007},
+  pages = {2},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/6L37W2TI/Leberl et al. - 2007 - Recognizing cars in aerial imagery to improve orth.pdf}
+}
+
+@inproceedings{liu_context-aware_2017,
+  title = {Context-Aware Cascade Network for Semantic Labeling in {{VHR}} Image},
+  doi = {10.1109/ICIP.2017.8296346},
+  abstract = {Semantic labeling for the very high resolution (VHR) image of urban areas is challenging, because of many complex manmade objects with different materials and fine-structured objects located together. Under the framework of convolutional neural networks (CNNs), this paper proposes a novel end-to-end network for semantic labeling. Specifically, our network not only improves the labeling accuracy of complex manmade objects by aggregating multiple context semantics with a cascaded architecture, but also refines fine-structured objects by utilizing the low-level detail in shallow layers of CNNs with a hierarchical pyramid structure. Throughout the network, a dedicated residual correction scheme is employed to amend the latent fitting residual. As a result of these specific components, the whole model works in a global-to-local and coarse-to-fine manner. Experimental results show that our network outperforms the state-of-the-art methods on the large-scale ISPRS Vaihingen 2D Semantic Labeling Challenge dataset.},
+  booktitle = {2017 {{IEEE International Conference}} on {{Image Processing}} ({{ICIP}})},
+  author = {Liu, Y. and Fan, B. and Wang, L. and Bai, J. and Xiang, S. and Pan, C.},
+  month = sep,
+  year = {2017},
+  keywords = {Automobiles,Context,context-aware cascade network,Convolution,convolutional neural networks,Convolutional Neural Networks,end-to-end network,feature extraction,fine-structured objects,geography,hierarchical pyramid structure,high resolution image,image classification,image segmentation,ISPRS Vaihingen 2D Semantic Labeling Challenge dataset,Labeling,labeling accuracy,learning (artificial intelligence),manmade objects,multiple context semantics,neural nets,object detection,Residual Correction,residual correction scheme,semantic labeling,Semantic Labeling,Semantics,terrain mapping,Training,Vegetation,VHR image,VHR Image},
+  pages = {575-579},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/CN83W673/Liu et al. - 2017 - Context-aware cascade network for semantic labelin.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/662P34A3/8296346.html}
+}
+
+@inproceedings{bai_deep_2017,
+  title = {Deep {{Watershed Transform}} for {{Instance Segmentation}}},
+  doi = {10.1109/CVPR.2017.305},
+  abstract = {Most contemporary approaches to instance segmentation use complex pipelines involving conditional random fields, recurrent neural networks, object proposals, or template matching schemes. In this paper, we present a simple yet powerful end-to-end convolutional neural network to tackle this task. Our approach combines intuitions from the classical watershed transform and modern deep learning to produce an energy map of the image where object instances are unambiguously represented as energy basins. We then perform a cut at a single energy level to directly yield connected components corresponding to object instances. Our model achieves more than double the performance over the state-of-the-art on the challenging Cityscapes Instance Level Segmentation task.},
+  booktitle = {2017 {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
+  author = {Bai, M. and Urtasun, R.},
+  month = jul,
+  year = {2017},
+  keywords = {classical watershed transform,complex pipelines,conditional random fields,contemporary approaches,deep learning,deep watershed transform,end-to-end convolutional neural network,energy basins,energy map,Feature extraction,image segmentation,Image segmentation,instance segmentation,learning (artificial intelligence),Neural networks,object instances,Proposals,recurrent neural nets,recurrent neural networks,Semantics,single energy level,template matching schemes,transforms,Transforms},
+  pages = {2858-2866},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/MY5V73ZG/Bai et Urtasun - 2017 - Deep Watershed Transform for Instance Segmentation.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/36JI8M9Y/8099788.html}
+}
+
+@inproceedings{terrail_use_2017,
+  title = {On the Use of Deep Neural Networks for the Detection of Small Vehicles in Ortho-Images},
+  doi = {10.1109/ICIP.2017.8297076},
+  abstract = {This paper addresses the question of the detection of small targets (vehicles) in ortho-images. This question differs from the general task of detecting objects in images by several aspects. First, the vehicles to be detected are small, typically smaller than 20\texttimes{}20 pixels. Second, due to the multifarious-ness of the landscapes of the earth, several pixel structures similar to that of a vehicle might emerge (roof tops, shadow patterns, rocks, buildings), whereas within the vehicle class the inter-class variability is limited as they all look alike from afar. Finally, the imbalance between the vehicles and the rest of the picture is enormous in most cases. Specifically, this paper is focused on the detection tasks introduced by the VEDAI dataset [1]. This work supports an extensive study of the problems one might face when applying deep neural networks with low resolution and scarce data and proposes some solutions. One of the contributions of this paper is a network severely outperforming the state-of-the-art while being much simpler to implement and a lot faster than competitive approaches. We also list the limitations of this approach and provide several new ideas to further improve our results.},
+  booktitle = {2017 {{IEEE International Conference}} on {{Image Processing}} ({{ICIP}})},
+  author = {Terrail, J. O. D. and Jurie, F.},
+  month = sep,
+  year = {2017},
+  keywords = {aerial-imagery,Automobiles,Benchmark testing,deep neural networks,deep-learning,Heating systems,image resolution,Image resolution,inter-class variability,neural nets,object detection,ortho-images,pixel structures,Proposals,shadow patterns,small vehicle detection,target detection,Task analysis,Training},
+  pages = {4212-4216},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/D4VUG62E/Terrail et Jurie - 2017 - On the use of deep neural networks for the detecti.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/GIMFYR9G/8297076.html}
+}
+
+@inproceedings{huang_large-scale_2018,
+  title = {Large-Scale Semantic Classification: Outcome of the First Year of {{Inria}} Aerial Image Labeling Benchmark},
+  shorttitle = {Large-Scale Semantic Classification},
+  abstract = {Over the recent years, there has been an increasing interest in large-scale classification of remote sensing images. In this context, the Inria Aerial Image Labeling Benchmark has been released online in December 2016. In this paper, we discuss the outcomes of the first year of the benchmark contest, which consisted in dense labeling of aerial images into building / not building classes, covering areas of five cities not present in the training set. We present four methods with the highest numerical accuracies, all four being convolutional neural network approaches. It is remarkable that three of these methods use the U-net architecture, which has thus proven to become a new standard in image dense labeling.},
+  language = {en},
+  author = {Huang, Bohao and Lu, Kangkang and Audebert, Nicolas and Khalel, Andrew and Tarabalka, Yuliya and Malof, Jordan and Boulch, Alexandre and Saux, Bertrand Le and Collins, Leslie and Bradbury, Kyle and Lef{\`e}vre, S{\'e}bastien and {El-Saban}, Motaz},
+  month = jul,
+  year = {2018},
+  keywords = {deep learning,feature extraction,image classification,image segmentation,Machine learning,remote sensing,Segmentation algorithms,Semantics,Shape,superpixels,Training},
+  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/HNQ6FHU2/Huang et al. - 2018 - Large-scale semantic classification outcome of th.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/B49LBBR9/hal-01767807.html}
 }
 
 
