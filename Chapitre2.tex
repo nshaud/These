@@ -87,7 +87,7 @@ L'algorithme \gls{HSEG}~\cite{tilton_best_2012} quant à lui produit un segmenta
     \caption*{\picname}
 \end{subfigure}%
 }
-\caption{Segmentations d'une image aérienne du jeu de données ISPRS Potsdam. Selon l'algorithme appliqué, les voitures sont plus ou moins bien segmentées.}
+\caption{Segmentations d'une image aérienne du jeu de données \gls{ISPRS} Potsdam. Selon l'algorithme appliqué, les voitures sont plus ou moins bien segmentées.}
 \label{fig:potsdam_segmentation}
 \end{figure}
 
@@ -303,7 +303,7 @@ Dans un cadre multi-classe, on s'intéressera à l'exactitude globale et la moye
 
 Dans un premier temps, il s'agit d'évaluer les capacités théoriques des différents algorithmes de pré-segmentation. En effet, si la segmentation rassemble dans une même région des pixels appartenant à deux classes différentes, il apparaîtra nécessairement des erreurs dans la classification finale, car une région ne sera associée qu'à une unique classe.
 
-De fait, nous pouvons comparer les algorithmes de segmentation sur les images de la base ISPRS 2D Semantic Labeling selon trois critères\,:
+De fait, nous pouvons comparer les algorithmes de segmentation sur les images de la base \gls{ISPRS} 2D Semantic Labeling selon trois critères\,:
 \begin{itemize}
   \item L'erreur de sous-segmentation (ESS), définie comme le ratio de pixels appartenant à une région qui en recouvrent une autre. Formellement, si $S$, $P$ et $N$ sont respectivement les régions réelles, les régions issues de la segmentation et le nombre de pixels dans l'image\,:
   $$ESS = \frac{1}{N} \sum_{S \in GT} \sum_{P : P \cap S \neq \emptyset} min(|P \cap S|, |P \backslash P \cap S|)$$
@@ -331,7 +331,7 @@ Par ailleurs, nous choisissons de comparer les algorithmes de segmentation les p
   \gls{HSEG} & 21 000 & 11.39 & 94.83 & 78.66 & 85.25\\
   \bottomrule
   \end{tabularx}
-  \caption{Métriques de comparaison des algorithmes de segmentation sur le jeu de données ISPRS Vaihingen.}
+  \caption{Métriques de comparaison des algorithmes de segmentation sur le jeu de données \gls{ISPRS} Vaihingen.}
   \label{table:segmentation_metrics}
 \end{table}
 
@@ -349,11 +349,11 @@ Par ailleurs, nous choisissons de comparer les algorithmes de segmentation les p
   Fenêtre glissante & 23 800 & 81.22 & 0.53 & 0.74\\
   \bottomrule
   \end{tabularx}
-  \caption{Résultats de classification sur le jeu de données ISPRS Vaihingen.}
+  \caption{Résultats de classification sur le jeu de données \gls{ISPRS} Vaihingen.}
   \label{table:classification_metrics}
 \end{table}
 
-Nous appliquons ces algorithmes de segmentation sur l'ensemble des images du jeu de données ISPRS Vaihigen. Nous utilisons l'implémentation des auteurs pour \gls{LSC}~\cite{li_superpixel_2015}, l'implémentation de~\citet{guyet_extraction_2015} de l'algorithme \gls{MRS} (adapté depuis la bibliothèque TerraLib~\cite{camara_terralib_2008}) et les implémentations de la bibliothèque scikit-image~\cite{walt_scikit-image_2014} pour \gls{SLIC} et \emph{Quickshift}.
+Nous appliquons ces algorithmes de segmentation sur l'ensemble des images du jeu de données \gls{ISPRS} Vaihigen, dont les détails sont fournis dans l'~\cref{annexe:isprs}. Nous utilisons l'implémentation des auteurs pour \gls{LSC}~\cite{li_superpixel_2015}, l'implémentation de~\citet{guyet_extraction_2015} de l'algorithme \gls{MRS} (adapté depuis la bibliothèque TerraLib~\cite{camara_terralib_2008}) et les implémentations de la bibliothèque scikit-image~\cite{walt_scikit-image_2014} pour \gls{SLIC} et \emph{Quickshift}.
 Les résultats sont détaillés dans le tableau~\cref{table:segmentation_metrics}.
 
 Tout d'abord, on constate que l'algorithme \gls{MRS} présente un rappel sur les bordures très élevé, ce qui signifie que les frontières définie par cette segmentation sont proches des véritables bordures. Cela correspond à ce qu'il est visuellement possible d'observer\,: \gls{MRS} privilégie des régions très homogènes, quitte à les rendre très irrégulières. Cela bénéficie en outre au critère de pureté qui en est mécaniquement plus élevé. L'algorithme \gls{SLIC} semble également tirer son épingle du jeu, grâce à une faible erreur de sous-segmentation.
@@ -373,17 +373,17 @@ Enfin, il est important de constater que les petits objets sont sensibles au cho
 
 Comme nous l'avons vu, il apparaît clairement que la mise en \oe{}uvre d'une segmentation non-supervisée est le principal facteur limitant les performances des méthodes de classification par région. En effet, non seulement l'utilisation de la segmentation réduit les performances théoriques obtenues par un oracle, mais les exemples d'apprentissage eux-mêmes ne permettent pas d'exploiter de façon satisfaisante les caractéristiques profondes. Par conséquent, il apparaît pertinent d'étudier les performances de modèles \gls{FCN} capables d'apprendre de bout en bout la segmentation et la classification.
 
-Nous entraînons donc des modèles de réseaux profonds entièrement convolutifs SegNet et ResNet-34 sur les jeux de données ISPRS Vaihingen et ISPRS Potsdam.
+Nous entraînons donc des modèles de réseaux profonds entièrement convolutifs SegNet et ResNet-34 sur les jeux de données \gls{ISPRS} Vaihingen et \gls{ISPRS} Potsdam.
 Nous traitons chaque tuile du jeu de données par une fenêtre glissante de dimensions $128 \times 128$ et un pas variable. Les modèles sont entraînés pendant 50 000 itérations avec une taille de \emph{batch} de 10. Le taux d'apprentissage initial est fixé à 0,1 et est divisé par 10 après 35 000 et 45 000 itérations.
 Les réseaux sont implémentés à l'aide des bibliothèques Caffe~\cite{jia_caffe_2014} et PyTorch~\cite{paszke_automatic_2017}.
 
-Dans un premier temps, nous validons cette approche uniquement sur les données pour lesquelles une vérité terrain est disponible, que nous divisons en deux sous-ensembles : apprentissage et validation. Pour comparer notre méthode à l'état-de-l'art, nous entraînons ensuite notre modèle sur l'ensemble du jeu de données (apprentissage + validation) avec les mêmes hyperparamètres. Nous soumettons enfin nos résultats sur le jeu de données de test au serveur d'évaluation de l'ISPRS, dont la vérité terrain nous est inconnue.
+Dans un premier temps, nous validons cette approche uniquement sur les données pour lesquelles une vérité terrain est disponible, que nous divisons en deux sous-ensembles : apprentissage et validation. Pour comparer notre méthode à l'état-de-l'art, nous entraînons ensuite notre modèle sur l'ensemble du jeu de données (apprentissage + validation) avec les mêmes hyperparamètres. Nous soumettons enfin nos résultats sur le jeu de données de test au serveur d'évaluation de l'\gls{ISPRS}, dont la vérité terrain nous est inconnue.
 
 \subsubsection{Recouvrement de la fenêtre glissante}
 
 \begin{table}[t]
   \centering
-  \caption{Résultats sur le jeu de validation ISPRS Vaihingen en fonction du recouvrement de la fenêtre glissante.}
+  \caption{Résultats sur le jeu de validation \gls{ISPRS} Vaihingen en fonction du recouvrement de la fenêtre glissante.}
   \setlength{\tabcolsep}{4pt}
   \begin{tabularx}{0.8\textwidth}{ Y c c c }
   \toprule
@@ -402,7 +402,7 @@ L'utilisation d'une fenêtre glissante pour la segmentation de l'image pose la q
 
 \begin{table}[t]
   \centering
-  \caption{Résultats des différentes stratégies d'initialisation sur le jeu de validation ISPRS Vaihingen.}
+  \caption{Résultats des différentes stratégies d'initialisation sur le jeu de validation \gls{ISPRS} Vaihingen.}
   \begin{tabularx}{\textwidth}{ c | c | Y Y Y Y }
   \toprule
   Initialisation & Aléatoire & \multicolumn{4}{c}{VGG-16 (ImageNet)}\\
@@ -430,11 +430,11 @@ Comme détaillé dans le~\cref{tab:initialization}, le modèle réalise sa meill
 \subsubsection{Choix du modèle}
 
 \begin{table}
-	\caption{Résultats de validation sur le jeu de données ISPRS Vaihingen.}
+	\caption{Résultats de validation sur le jeu de données \gls{ISPRS} Vaihingen.}
 	\label{tab:validation_vaihingen}
 	\begin{tabularx}{\textwidth}{Y c c c c c c}
 	\toprule
-	Modèle & routes & bâtiments & vég. basse & arbres & véhicules & Globale\\
+	Modèle & routes & bâtiments & vég. basse & arbres & véhicules & Exactitude\\
 	\midrule
 	SegNet & \res{92,2}{2,1} & \res{95,6}{0,8} & \bres{82,6}{4,2} & \bres{88,1}{2,5} & \bres{88,2}{0,6} & \res{90,2}{1,4}\\
 	ResNet-34 & \bres{93,0}{1,7} & \bres{96,0}{0,6} & \res{82,3}{2,6} & \res{87,0}{3,7} & \res{87,0}{2,0} & \bres{90,3}{1,0}\\
@@ -472,13 +472,13 @@ La comparaison en validation croisée entre les modèles SegNet et ResNet-34 ne 
     \caption{SegNet multi-échelles (3 branches)}
     \end{subfigure}
     \hfill
-    \caption{Effet de la supervision multi-échelles sur un extrait du jeu de données ISPRS Vaihingen. Les petits objets et les surfaces au contexte spatial ambigu bénéficient de la combinaison des prédictions à plusieurs échelles.\\
-		\isprslegende}
+    \caption{Effet de la supervision multi-échelles sur un extrait du jeu de données \gls{ISPRS} Vaihingen. Les petits objets et les surfaces au contexte spatial ambigu bénéficient de la combinaison des prédictions à plusieurs échelles.\\
+		\\gls{ISPRS}legende}
     \label{fig:vaihingen_images}
 \end{figure}
 
 \begin{table}
-    \caption{Résultats de validation multi-échelles sur le jeu de données ISPRS Vaihingen.}
+    \caption{Résultats de validation multi-échelles sur le jeu de données \gls{ISPRS} Vaihingen.}
     \label{tab:dsn_vaihingen}
 	\begin{tabularx}{\textwidth}{Y c c c c c c}
     \toprule
@@ -535,8 +535,8 @@ En outre, cette étude a également mis en avant que les cartes d'activation int
 		\includegraphics[width=\textwidth]{300_gt}
 		\caption{Vérité terrain}
 	\end{subfigure}
-  \caption{Effets de la couche convolutive multi-kernel sur des extraits du jeu de données ISPRS Vaihingen.\\
-	\isprslegende}
+  \caption{Effets de la couche convolutive multi-kernel sur des extraits du jeu de données \gls{ISPRS} Vaihingen.\\
+	\\gls{ISPRS}legende}
   \label{fig:patches_context}
 \end{figure}
 
@@ -580,12 +580,12 @@ Comme indiqué dans le~\cref{tab:validation_vaihingen}, l'utilisation d'une dern
 	    \label{fig:geometric_dist}
 	\end{subfigure}
 	\caption{Cas limites de désaccord entre les prédictions faites par SegNet et la vérité terrain.\\
-	\isprslegende}
+	\\gls{ISPRS}legende}
 \end{figure}
 
 \begin{table}[t]
   \centering
-  \caption{Résultats du ISPRS 2D Semantic Labeling Challenge Vaihingen.}
+  \caption{Résultats du \gls{ISPRS} 2D Semantic Labeling Challenge Vaihingen.}
   \rowcolors{2}{gray!15}{white}
   \begin{tabularx}{\textwidth}{ Y c c c c c c }
   \toprule
@@ -609,7 +609,7 @@ Comme indiqué dans le~\cref{tab:validation_vaihingen}, l'utilisation d'une dern
 \end{table}
 
 \begin{table}
-    \caption{Résultats du ISPRS 2D Semantic Labeling Challenge Potsdam.}
+    \caption{Résultats du \gls{ISPRS} 2D Semantic Labeling Challenge Potsdam.}
     \label{table:final_potsdam}
     \setlength\tabcolsep{4pt}
 	\begin{tabularx}{\textwidth}{Y c c c c c c}
@@ -645,8 +645,8 @@ Comme indiqué dans le~\cref{tab:validation_vaihingen}, l'utilisation d'une dern
     \includegraphics[width=\textwidth]{segnet}
     \caption{\textbf{SegNet++}}
   \end{subfigure}
-  \caption{Comparaison des segmentations obtenues sur un extrait du jeu de test ISPRS Vaihingen.\\
-  \isprslegende}
+  \caption{Comparaison des segmentations obtenues sur un extrait du jeu de test \gls{ISPRS} Vaihingen.\\
+  \\gls{ISPRS}legende}
   \label{fig_segnet_qualitative}
 \end{figure}
 
@@ -657,17 +657,17 @@ Comme indiqué dans le~\cref{tab:validation_vaihingen}, l'utilisation d'une dern
 		\caption*{\picname}
 	\end{subfigure}%
 	}
-	\caption{Exemple de segmentation obtenue par SegNet sur le jeu de données ISPRS Potsdam (tuile 3\_11).}
+	\caption{Exemple de segmentation obtenue par SegNet sur le jeu de données \gls{ISPRS} Potsdam (tuile 3\_11).}
 	\label{fig:potsdam_images}
 \end{figure}
 
-Notre meilleur modèle améliore l'état-de-l'art sur le jeu de données ISPRS Vaihingen (cf. \cref{tab:final_vaihingen}) \footnote{Résultats détaillés : \url{http://www2.isprs.org/vaihingen-2d-semantic-labeling-contest.html}}. La \cref{fig_segnet_qualitative} illustre une comparaison qualitative entre différentes méthodes. Les métriques sont calculées en ignorant un rayon de $3$ pixels autour des bordures afin de tenir compte d'éventuelles imprécisions dans la vérité terrain.
+Notre meilleur modèle améliore l'état-de-l'art sur le jeu de données \gls{ISPRS} Vaihingen (cf. \cref{tab:final_vaihingen}) \footnote{Résultats détaillés : \url{http://www2.\gls{ISPRS}.org/vaihingen-2d-semantic-labeling-contest.html}}. La \cref{fig_segnet_qualitative} illustre une comparaison qualitative entre différentes méthodes. Les métriques sont calculées en ignorant un rayon de $3$ pixels autour des bordures afin de tenir compte d'éventuelles imprécisions dans la vérité terrain.
 
 Au moment de la soumission de ces résultats, la meilleure méthode de l'état de l'art utilisait une combinaison de \gls{FCN} et de caractéristiques expertes, tandis que la nôtre n'utilise que l'apprentissage statistique. La meilleure méthode précédente utilisant uniquement un \gls{FCN} (``DLR\_1'') atteint 88,4\%, ce que nous améliorons de 1\%. Les précédentes méthodes utilisant les \gls{CNN} atteignent 85,9\% (``ONE\_5''\cite{boulch_dag_2015}) et 86,1\% (``ADL\_1''\cite{paisitkriangkrai_effective_2015}). Notre méthode obtient des résultats supérieurs, sans recourir à des caractéristiques expertes ou à des post-traitement structurés comme les \gls{CRF}.
 
-Sur le jeu de données ISPRS Potsdam (cf. \cref{table:final_potsdam}), notre méthode est compétitive avec l'état de l'art au moment de la soumission. Notamment, nous améliorons l'état de l'art sur les méthodes n'utilisant que la donnée optique de 0,3\% par rapport au \gls{FCN} de \citet{sherrah_fully_2016} et de 4,2\% par rapport au \gls{FCN} de~\citet{volpi_dense_2017}.
+Sur le jeu de données \gls{ISPRS} Potsdam (cf. \cref{table:final_potsdam}), notre méthode est compétitive avec l'état de l'art au moment de la soumission. Notamment, nous améliorons l'état de l'art sur les méthodes n'utilisant que la donnée optique de 0,3\% par rapport au \gls{FCN} de \citet{sherrah_fully_2016} et de 4,2\% par rapport au \gls{FCN} de~\citet{volpi_dense_2017}.
 
-En conclusion, nous avons démontré que les \gls{FCN} se prêtent particulièrement bien à la segmentation sémantique d'images aériennes. En particulier, sur la base de données ISPRS, nous avons pu montrer d'une part la nette supériorité des réseaux entièrement convolutifs par rapport aux approches de l'état de l'art en classification par région. En outre, nous avons proposé plusieurs bonnes pratiques concernant l'initialisation de ces réseaux et le paramétrage des fenêtres glissantes pour le traitement des images aériennes. Enfin, nous avons proposé deux méthodes de segmentation permettant d'inclure différentes échelles et contextes spatiaux au sein du réseau. Ces approches nous ont permis d'établir de nouveaux états de l'art. Toutefois, ces succès restent encore limités au domaine de l'imagerie 3 canaux \gls{IRRV} et \gls{RVB} à très haute résolution. Le chapitre suivant s'intéresse ainsi à étendre ces résultats sur d'autres capteurs couramment utilisés en observation de la Terre.
+En conclusion, nous avons démontré que les \gls{FCN} se prêtent particulièrement bien à la segmentation sémantique d'images aériennes. En particulier, sur la base de données \gls{ISPRS}, nous avons pu montrer d'une part la nette supériorité des réseaux entièrement convolutifs par rapport aux approches de l'état de l'art en classification par région. En outre, nous avons proposé plusieurs bonnes pratiques concernant l'initialisation de ces réseaux et le paramétrage des fenêtres glissantes pour le traitement des images aériennes. Enfin, nous avons proposé deux méthodes de segmentation permettant d'inclure différentes échelles et contextes spatiaux au sein du réseau. Ces approches nous ont permis d'établir de nouveaux états de l'art. Toutefois, ces succès restent encore limités au domaine de l'imagerie 3 canaux \gls{IRRV} et \gls{RVB} à très haute résolution. Le chapitre suivant s'intéresse ainsi à étendre ces résultats sur d'autres capteurs couramment utilisés en observation de la Terre.
 
 \bibliographystyle{plainnat}
 \bibliography{Chapitre2/Biblio}
