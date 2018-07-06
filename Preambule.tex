@@ -27,12 +27,10 @@
 %% Réglage des fontes et typo
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}		% LaTeX, comprend les accents !
-
-\usepackage[numbers]{natbib}	% Doit être chargé avant babel
-\usepackage{chapterbib}
+%\usepackage{chapterbib}
 %\renewcommand{\bibsection}{\section{Références}}	% Met les références biblio dans un \section (au lieu de \section*)
 
-\usepackage[frenchb]{babel}
+\usepackage[french]{babel}
 \usepackage{lmodern}
 \usepackage{ae,aecompl}										% Utilisation des fontes vectorielles modernes
 %\usepackage[upright]{fourier}
@@ -40,6 +38,7 @@
 %\usepackage{mathpazo}
 \usepackage[defaultsans]{droidsans}    % Fonte sans serif pour la page de garde
 %\usepackage[sfdefault]{AlegreyaSans} % Autre fonte sans serif
+\usepackage{csquotes}
 \usepackage[babel,kerning,protrusion,expansion]{microtype} % Ajuste finement les espaces
 % En outre, les options babel et kerning permettent d'utiliser ':' avec babel en français et cleveref dans les \caption (en théorie ':' est un caractère actif avec babel)
 \usepackage{bbding}
@@ -56,6 +55,7 @@
 %\usepackage[notbib]{tocbibind}		% Ajoute les Tables des Matières/Figures/Tableaux à la table des matières
 \usepackage[Lenny]{fncychap}		% Jolis en-têtes de chapitre
 \usepackage{multicol}
+\usepackage[style=numeric,natbib=true,refsection=chapter,backend=biber,backref=true]{biblatex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Maths
@@ -120,9 +120,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Navigation dans le document
-\usepackage[pdftex,pdfborder={0 0 0},
-			pagebackref=true,
-			]{hyperref}	% Créera automatiquement les liens internes au PDF
+\usepackage[pdftex,pdfborder={0 0 0}]{hyperref}	% Créera automatiquement les liens internes au PDF
 					% Doit être chargé en dernier (Sauf exceptions ci-dessous)
 
 \hypersetup{colorlinks=true,
@@ -147,3 +145,11 @@
 	\loadglsentries{Glossaire}			% Utilisation d'un fichier externe pour la définition des entrées (Glossaire.tex)
 \makeglossaries
 \usepackage[capitalize,french]{cleveref}
+
+\addbibresource{Chapitre1/Historique.bib}
+\addbibresource{Chapitre2/Biblio.bib}
+\addbibresource{Chapitre3/Biblio.bib}
+\addbibresource{Chapitre4/Biblio.bib}
+\addbibresource{Chapitre5/Biblio.bib}
+\addbibresource{Chapitre6/Biblio.bib}
+\addbibresource{Annexes/Datasets.bib}

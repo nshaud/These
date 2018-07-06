@@ -944,5 +944,6 @@ L'intégration de la régression des cartes de distances dans un cadre d'optimis
 %The multi-task learning incorporating the distance transform regression in the semantic segmentation model helps the network to learn spatial structures. More precisely, it constrains the network not only to learn if a pixel is in or out a class mask, but also the Euclidean distance of this pixel w.r.t the mask. This information can be critical when the filter responses are ambiguous. For example, trees from birdviewX might reveal the ground underneath during the winter, as there are no leaves, although annotations still consider the tree to have a shape similar to a disk. Spatial proximity helps in taking these cases into account and removing some of the salt-and-pepper classification noise that it induces, as shown on the ISPRS Vaihingen and Potsdam and DFC2015 datasets.
 %Moreover, as the network has to assign spatial distances to each pixel w.r.t the different classes, it also learns helpful cues regarding the spatial structure underlying the semantic maps. As illustrated in~\cref{fig:inria_results}, the predictions become more coherent with the original structure, with sharper boundaries and less holes when shapes are supposed to be closed.
 
-\bibliographystyle{plainnat}
-\bibliography{Chapitre6/Biblio}
+%\bibliographystyle{plainnat}
+%\addbibresource{Chapitre6/Biblio.bib}
+\printbibliography
