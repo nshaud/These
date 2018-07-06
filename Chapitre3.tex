@@ -30,7 +30,7 @@ Nous réalisons une étude préliminaire sur le jeu de données \gls{ISPRS} Pots
   \label{tab:comparaison_bandes}
   \begin{tabularx}{\textwidth}{Y Y c c c c c c c}
     \toprule
-    Canaux & Pré-entraînement & Routes & Bâtiments & Arbres & Vég. basse & Véhicules & Autres & Exactitude\\
+    Canaux & Pré-entraînement & Routes & Bâtiments & Vég. basse & Arbres & Véhicules & Autres & Exactitude\\
     \midrule
     IR+B & n & 72.79 & 87.22 & 57.61 & 71.74 & 87.05 & 13.15 & 70.69\\
     R+G & n & 89.92 & 95.80 & 81.49 & 84.30 & 95.21 & 40.42 & 88.48\\
@@ -72,12 +72,11 @@ D2, période courte avec nuages & & & \\
 \end{tabular}
 \end{table}
 
-L'ensembles des 13 bandes de Sentinel-2 sont fournis au entrée au réseau. Nous coupons la fin du décodeur de SegNet, car il ne nous est pas utile d'obtenir des cartes à résolution $1:1$. Nous réalisons simplement des cartes à échelle $1:8$ (\SI{160}{\meter/\px}) ce qui diminue le nombre de paramètres à optimiser et le temps de calcul, puis nous interpolons les cartes de probabilités à résolution \SI{300}{\meter/\px} avant le calcul du \emph{softmax}.
+L'ensemble des 13 bandes de Sentinel-2 sont fournis au entrée au réseau. Nous coupons la fin du décodeur de SegNet, car il ne nous est pas utile d'obtenir des cartes à résolution $1:1$. Nous réalisons simplement des cartes à échelle $1:8$ (\SI{160}{\meter/\px}) ce qui diminue le nombre de paramètres à optimiser et le temps de calcul, puis nous interpolons les cartes de probabilités à résolution \SI{300}{\meter/\px} avant le calcul du \emph{softmax}.
 
 
 
 \todo[inline]{article avec A. Benoit}
-\todo[inline]{collab ESA}
 
 \section{Imagerie hyperspectrale}
 
@@ -398,6 +397,20 @@ On construit donc une image composite à trois canaux à partir du \gls{MNE}, du
   \label{tab:composite_vaihingen}
 \end{table}
 
+\begin{table}[t]
+  \begin{tabularx}{\textwidth}{c Y c c c c c c}
+    \toprule
+    Entrée & Pré-entraînement & Routes & Bâtiments & Vég. basse & Arbres & Véhicules & Exactitude\\
+    \midrule
+    Composite & n & 83.56 & 88.38 & 70.38 & 67.70 & 81.89 & 79.35\\
+    Composite & o & 88.64 & 94.46 & 78.75 & 81.75 & 91.44 & 86.83\\
+    \gls{RVB} & o & 92.35 & 97.62 & 85.18 & 87.19 & 96.11 & 91.22\\
+    \bottomrule
+  \end{tabularx}
+  \caption{Résultats de validation sur le jeu de données \gls{ISPRS} Potsdam pour un modèle SegNet entraîné sur les images composites, avec et sans pré-entraînement.}
+  \label{tab:composite_vaihingen}
+\end{table}
+
 Le~\cref{tab:composite_vaihingen} détaille les résultats obtenus par un SegNet entraîné sur les images composite \gls{MNE}/\gls{MNH}/\gls{NDVI} du jeu de données ISPRS Vaihingen. Les performances sont nettement supérieures à celles des modèles \gls{MNE}, \gls{MNH} et \gls{NDVI} pris séparément. En outre, la possibilité d'utiliser les poids pré-entraînés de VGG-16 permet de gagner en exactitude sur l'ensemble des classes. Toutefois, la performance globale du modèle n'atteint pas celle de SegNet entraîné directement sur les images \gls{IRRV}.
 
 \begin{figure}[t]
@@ -414,7 +427,7 @@ Le~\cref{tab:composite_vaihingen} détaille les résultats obtenus par un SegNet
   \label{fig:vaihingen_errors}
 \end{figure}
 
-La~\cref{fig:vaihingen_errors} illustre les prédictions obtenues via SegNet entraîné respectivement sur les données \gls{IRRV} et sur les données composites. Le premier ne contient que 12\% de pixels erronés tandis que le second est à environ 13\% d'erreur. Cependant, il est remarquable que ces erreurs sont complémentaires, c'est-à-dire qu'elles ne se produisent pas sur les mêmes pixels. En effet, chaque modalité renseigne le modèle de différente façon. Si nous étions capables de fusionner parfaitement les deux cartes, de telle sorte que seuls les pixels qui sont classifiés de façon erronée dans les deux modèles soit en échec, alors le taux d'erreur tomberait à 7\% sur cette image (masque jaune). Nous avons donc tout intérêt à étudier les possibilités d'apprentissage multi-modal offertes par les réseaux profonds. C'est l'objet du chapitre suivant.
+La~\cref{fig:vaihingen_errors} illustre les prédictions obtenues via SegNet entraîné respectivement sur les données \gls{IRRV} et sur les données composites. Le premier ne contient que 12\% de pixels erronés tandis que le second est à environ 13\% d'erreur. Cependant, il est remarquable que ces erreurs sont complémentaires, c'est-à-dire qu'elles ne se produisent pas sur les mêmes pixels. En effet, chaque modalité renseigne le modèle de différente façon. Si nous étions capables de fusionner parfaitement les deux cartes, de telle sorte que seuls les pixels qui sont classifiés de façon erronée dans les deux modèles soit en échec, alors le taux d'erreur tomberait à 7\% sur cette image (masque jaune). Nous avons donc tout intérêt à étudier les possibilités d'apprentissage multi-modales offertes par les réseaux profonds. C'est l'objet du chapitre suivant.
 
 \bibliographystyle{plainnat}
 \bibliography{Chapitre3/Biblio}
