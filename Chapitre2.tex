@@ -8,11 +8,11 @@
 \chapsummary{%
 	Ce chapitre présente deux méthodes pour la segmentation sémantique d'images aériennes très haute résolution : la classification par région et les réseaux entièrement convolutifs.
 
-	La classification par région consiste à partitionner l'image en régions homogènes via un algorithme de segmentation non-supervisé. Les régions ainsi obtenues sont ensuites classifiées une à une. Nous étudions plus particulièrement l'utilisation de caractéristiques profondes utilisant des \gls{CNN} pré-entraînés. Nous montrons notamment que les caractéristiques profondes de réseaux entraînés sur des images multimédia peuvent se transférer avec succès pour l'analyse d'images aériennes.
+	La classification par région consiste à découper l'image en régions homogènes via un algorithme de segmentation non-supervisé. Les régions ainsi obtenues sont ensuite classifiées une à une. Nous étudions plus particulièrement l'utilisation de caractéristiques profondes issues de \glsname{CNN} pré-entraînés. Nous montrons notamment que les caractéristiques profondes de réseaux entraînés sur des images multimédia peuvent se transférer avec succès pour l'analyse d'images aériennes.
 
-	Par ailleurs, nous mettons en avant le rôle limitant des segmentations non-supervisées dans le processus de classification par région. Par une analyse détaillée, nous montrons que ces segmentations sont nécessairement imparfaites et sous-résolues, et que diminuer leur influence revient à effectuer une classification pixel à pixel extrêmement coûteuse. Nous étudions ainsi des approches par réseaux de neurones entièrement convolutifs, capables de réaliser une extraction de caractéristiques et une classification dense sur tous les pixels d'une image en une seule inférence.
+	Par ailleurs, nous identifions les propriétés souhaitables des segmentations non-supervisées dans le processus de classification par région. Nous mettons en exergue leur rôle limitant, les imprécision et la sous-résolution des segmentations ne pouvant être compensé que par une diminution de la taille des régions, coûteuse en temps de calcul. Nous étudions ainsi des approches par réseaux de neurones entièrement convolutifs, capables de réaliser une extraction de caractéristiques et une classification dense sur tous les pixels d'une image en une seule inférence.
 
-	Nous adaptons plusieurs modèles de l'état de l'art pour la segmentation sémantique d'images naturelles au traitement de données de télédétection, sur lesquelles nous montrons la supériorité empirique des tels réseaux entièrement convolutifs par rapport aux méthodes de classification usuelles.
+	Nous adaptons plusieurs modèles de l'état de l'art pour la segmentation sémantique d'images naturelles au traitement de données de télédétection, sur lesquelles nous montrons la supériorité empirique des tels réseaux entièrement convolutifs par rapport aux méthodes de classification usuelles. Nous étudions en outre plusieurs variantes permettant de prendre en compte différents niveaux de contexte spatial pour une meilleure précision.
 }
 \newpage
 
@@ -26,16 +26,17 @@
 
 Ce chapitre s'intéresse à la cartographie d'images aériennes à trois canaux, \glsfirst{RVB} ou \glsfirst{IRRV}, en \gls{THR} ($<50cm$) ou \gls{EHR} ($<10cm$). L'objectif étant d'étudier la possibilité d'appliquer des méthodes d'apprentissage profond utilisées en vision par ordinateur classique aux images de télédétection, nous nous intéressons dans un premier temps à des images présentant des caractéristiques proches des images multimédia\,: résolution élevée et espace de couleur \gls{RVB} ou assimilé, acquises par des appareils photo du commerce.
 
-Nous souhaitons apprendre un modèle de cartographie sémantique à partir des images, c'est-à-dire capable d'associer une classe d'intérêt à chaque élément de l'image considérée (\cref{fig:semantic_mapping}). Formellement, il s'agit pour une image $I$ de dimensions $M \times N$ et d'un ensemble de classes d'intérêts numérotées de $1$ à $n$ d'associer à chaque pixel $I_{i,j}$ une classe $k_{i,j} \in \{1..n\}$. Nous allons donc chercher à approximer la fonction $f$ telle que\,:
+Nous souhaitons apprendre un modèle de cartographie sémantique à partir des images, c'est-à-dire capable d'associer une classe d'intérêt à chaque élément de l'image considérée (\cref{fig:semantic_mapping}). Formellement, il s'agit pour une image $I$ de dimensions $M \times N$ et d'un ensemble de classes d'intérêts numérotées de $1$ à $n$ d'associer à chaque pixel $I_{i,j}$ une classe $k_{i,j} \in \{1..n\}$. Nous allons donc chercher à approcher la fonction $f$ telle que\,:
 \begin{equation}
 	\forall (i,j) \in \{1\dots{}M\}\times\{1\dots{}N\}~~~f(I[i,j]) = k_{i,j}~.
 \end{equation}
 
 Contrairement au problème de la reconnaissance d'objet, qui associe une ou plusieurs étiquettes à une image dans son intégralité, il s'agit ici d'un problème de classification \emph{dense}. Compte-tenu du fait que l'on travaille sur des images et que les pixels $I[i,j]$ sont liés spatialement entre eux, on parle habituellement de segmentation sémantique. En effet, l'image ainsi classifiée pourra se représenter sous la forme d'une carte à partir de laquelle il est possible de regrouper les pixels voisins et sémantiquement liés pour former un ensemble de régions cohérentes.
 
-Nous allons apprendre un modèle statistique permettant d'approximer $f$ en procédant en deux étapes. La première, dite d'extraction de caractéristiques, consiste à projeter l'information brute dans espace de représentation abstrait. La seconde consiste à séparer l'espace ainsi formé en sous-ensemble disjoints, c'est-à-dire à réaliser la classification à proprement parler.
+Nous allons apprendre un modèle statistique permettant d'approcher $f$ en procédant en deux étapes. La première, dite d'extraction de caractéristiques, consiste à projeter l'information brute dans espace de représentation abstrait. La seconde consiste à séparer l'espace ainsi formé en sous-ensemble disjoints, c'est-à-dire à réaliser la classification à proprement parler.
 
-Par exemple, dans le cas d'une \glssymbol{SVM} linéaire, la classification s'effectue en déterminant les hyperplans permettant de séparer au mieux les données. L'espace de représentation idéal est donc linéairement séparable. Il s'agit alors de trouver un extracteur de caractéristiques, c'est-à-dire une projection, transformant la donnée initiale en une représentation adéquate.
+
+Par exemple, dans le cas d'une \glssymbol{SVM} linéaire, la classification s'effectue en déterminant les hyperplans permettant de séparer au mieux les données. L'espace de représentation idéal est donc linéairement séparable. Il s'agit alors de trouver un extracteur de caractéristiques, c'est-à-dire une projection, transformant la donnée initiale en une représentation adéquate. Nous commençons par formaliser le problème puis nous rappellerons l'état de l'art en segmentation non supervisée, avant d'étudier les propriétés désirables de ces algorithmes dans le cadre de la classification par région d'images de télédétection.
 
 \subsection{Classification par région}
 
@@ -45,20 +46,21 @@ La classification par région d'une image $I$ consiste à trouver une partition 
 $$\wbigcup_{i=1}^n P_i = I~~~\text{(segmentation)}$$
 et une fonction $f$ telle que\,:
 $$f(P_i) = k_i~~~\text{(classification)}$$
-avec $k_i$ la classe d'intérêt la plus représentée parmi les pixels de la $i$\ieme région.
+avec $k_i$ la classe d'intérêt associée à la $i$\ieme région\footnote{Par vote majoritaire, par exemple.}.
 \end{definition}
 
 Diverses approches ont été proposées dans la littérature en télédétection, utilisant par exemple des profils d'attributs sur des segmentations hiérarchiques arborescentes~\cite{bosilj_indexation_2016}, des segmentations de type superpixels combinées à une approche sac de mots visuels~\cite{li_superpixel-based_2018} ou encore des réseaux de neurones profonds~\cite{gong_superpixel-based_2017}. Dans un premier temps, nous passons en revue les méthodes de segmentation non-supervisée et nous étudions l'influence de celles-ci sur les performances des classifieurs utilisés dans le cadre de la classification par région.
 
 \subsection{Algorithmes de segmentation}
+\label{sec:segmentations}
 
-Il existe de nombreux algorithmes de segmentation d'image non-supervisés. Les approches les plus anciennes traitent des images monochromes en niveaux de gris tandis que les plus récentes peuvent travailler dans espaces couleurs comme \gls{RVB}, hue-saturation-intensité ou encore l'espace \gls{LAB}.
+Il existe de nombreux algorithmes de segmentation d'image non-supervisés. Les approches les plus anciennes traitent des images monochromes en niveaux de gris tandis que les plus récentes peuvent travailler dans espaces couleurs comme \gls{RVB}, teinte-saturation-intensité ou encore l'espace \gls{LAB}.
 
 Une première famille de segmentation traite l'image sous la forme d'un graphe. Formellement, les pixels sont représentés par les n\oe{}uds du graphe dont les arêtes représentent les relations de similarité entre pixels voisins. La construction des régions de l'image se fait alors en agglomérant les nœuds du graphe en fonction des arêtes qui les relient. C'est sur ce principe que fonctionne l'algorithme de segmentation \gls{FH}~\cite{felzenszwalb_efficient_2004}, qui segmente l'image en calculant un arbre couvrant de poids minimal, mais aussi l'algorithme \emph{Normalized Cuts}~\cite{shi_normalized_2000} qui aborde le problème sous l'angle du partitionnement de graphe. C'est également l'approche utilisée pour les algorithmes à base de marche aléatoire sur le graphe de l'image, soit pour la minimisation d'une fonction entropie pour l'algorithme \gls{ERS}~\cite{liu_entropy_2011}, soit pour la résolution d'équation de diffusion~\cite{grady_random_2006}.
 
-Une seconde approche, particulièrement populaire dans la littérature récente, utilise des algorithmes itératifs de \emph{clustering} (partitionnement de données) pour la segmentation. Ce procédé a engendré deux grandes familles de segmentations dites \og superpixels \fg. La première est dérivée de l'algorithme \gls{SLIC}~\cite{achanta_slic_2010}. Cet algorithme projette les pixels dans un espace de représentation couleur-$(x,y)$ de dimension 5 et utilise un algorithme de partitionnement itératif dérivé des $k$-moyennes. \gls{SLIC} initialise un nombre de centres déterminé par l'utilisateur sur une grille régulière, puis met à jour itérativement ceux-ci en absorbant les pixels voisins de la frontière des régions segmentées. Cette méthode vu naître plusieurs variantes, dont le \emph{Preemptive SLIC}~\cite{neubert_compact_2014}, plus rapide, l'algorithme \gls{LSC}~\cite{li_superpixel_2015} intégrant des contraintes globales en plus de la mise à jour itérative locale et l'algorithme \gls{SCALP}~\cite{giraud_robust_2018}. \gls{SCALP} interdit l'appartition de superpixels de forme non-régulière dans l'image en considérant l'ensemble des pixels sur le chemin entre le barycentre du superpixel et celui à ajouter. En outre, \gls{SCALP} prend en entrée le résultat d'un algorithme de détection de contours afin de renforcer l'adhérence des superpixels aux bordures des objets.
+Une seconde approche, particulièrement populaire dans la littérature récente, utilise des algorithmes itératifs de \emph{clustering} (partitionnement de données) pour la segmentation. Ce procédé a engendré deux grandes familles de segmentations dites \og superpixels \fg. La première est dérivée de l'algorithme \gls{SLIC}~\cite{achanta_slic_2010}. Cet algorithme projette les pixels dans un espace de représentation couleur-$(x,y)$ de dimension 5 et utilise un algorithme de partitionnement itératif dérivé des $k$-moyennes. \gls{SLIC} initialise un nombre de centres déterminé par l'utilisateur sur une grille régulière, puis met à jour itérativement ceux-ci en absorbant les pixels voisins de la frontière des régions segmentées. Cette méthode vu naître plusieurs variantes, dont le \emph{Preemptive SLIC}~\cite{neubert_compact_2014}, plus rapide, l'algorithme \gls{LSC}~\cite{li_superpixel_2015} intégrant des contraintes globales en plus de la mise à jour itérative locale et l'algorithme \gls{SCALP}~\cite{giraud_robust_2018}. \gls{SCALP} interdit l'apparition de superpixels de forme non-régulière dans l'image en considérant l'ensemble des pixels sur le chemin entre le barycentre du superpixel et celui à ajouter. En outre, \gls{SCALP} prend en entrée le résultat d'un algorithme de détection de contours afin de renforcer l'adhérence des superpixels aux bordures des objets.
 La deuxième grande famille d'algorithmes de segmentation superpixels se base sur le principe des $k$-médoïdes. En particulier, il s'agit de projeter les pixels dans un espace non-euclidien de dimension 5 (généralement \glssymbol{RVB}-$(x,y)$) puis de réaliser le partitionnement en cherchant le mode dominant local de chaque voisinage, c'est-à-dire la médoïde. Cette approche a notamment utilisée pour les algorithmes \emph{Mean Shift}~\cite{comaniciu_mean_2002} et \emph{Quickshift}~\cite{vedaldi_quick_2008}.
-Plusieurs autres algorithmes utilisent également des approches itératives de partitionnement. L'algorithme \gls{SEEDS}~\cite{bergh_seeds_2012} définit ainsi des blocs de pixels capables d'échanger des éléments le long de leur frontière afin de maximiser une fonction d'énergie dépendant des histogrammes de couleurs. \gls{SEEDS} utilise une optimisation par \emph{hill-climbing} afin de faire converger itérativement les blocs vers une segmentation stable. Enfin, il existe également des algorithmes itératifs convergeant vers une segmentation à partir de la méthode des surfaces de niveau, comme l'algorithme de Chan-Vese~\cite{chan_active_1999} dérivé des contours actifs ou l'algorithme \emph{TurboPixel}~\cite{levinshtein_turbopixels_2009} se basant à la fois sur la courbure et le gradient locaux de l'image.
+Plusieurs autres algorithmes utilisent également des approches itératives de partitionnement. L'algorithme \gls{SEEDS}~\cite{bergh_seeds_2012} définit ainsi des blocs de pixels capables d'échanger des éléments le long de leur frontière afin de maximiser une fonction d'énergie dépendant des histogrammes de couleurs. \gls{SEEDS} utilise une optimisation par \emph{hill-climbing} afin de faire converger itérativement les blocs vers une segmentation stable. Enfin, il existe également des algorithmes itératifs convergeant vers une segmentation à partir de la méthode des surfaces de niveau, comme l'algorithme de Chan-Vese~\cite{chan_active_1999} dérivé des contours actifs ou l'algorithme \emph{TurboPixel}~\cite{levinshtein_turbopixels_2009} considérant localement la courbure et le gradient de l'image.
 
 Pour la segmentation d'images en niveaux de gris, l'approche morphologique \emph{watershed} (ou segmentation par ligne de partage des eaux)~\cite{beucher_morphological_1993} est particulièrement populaire. \emph{Watershed} considère l'image comme une carte d'élévation dans laquelle est simulée l'élévation du niveau de l'eau. Initialement, l'eau s'écoule depuis un certain de nombre de sources positionnées sur des marqueurs, qui peuvent être insérés manuellement ou calculés automatiquement, par exemple aux extrema locaux du gradient de l'image. L'eau remplit alors le relief topographique et le niveau est artificiellement augmenté. Lorsque deux sources se rencontrent, un barrage virtuel est érigé à leur ligne de démarcation, établissant ainsi une des frontières de la segmentation. L'algorithme s'arrête lorsque toute l'image a été inondée. Le choix des marqueurs initiaux de \emph{watershed} est critique pour la qualité de la segmentation et notamment à la régularité des régions produites. Une version dite compacte a été proposée~\cite{neubert_compact_2014} afin de rendre \emph{watershed} robuste à l'initialisation, en la rendant plus proche de~\gls{SLIC}. L'approche morphologique peut également être utilisée dans le cadre des contours actifs, notamment dans une variante de l'algorithme Chan-Vese~\cite{chan_active_1999} utilisant les contours actifs morphologiques~\cite{marquez-neila_morphological_2014}.
 
@@ -94,7 +96,7 @@ L'algorithme \gls{HSEG}~\cite{tilton_best_2012} quant à lui produit un segmenta
 
 \subsection{Choix de la méthode de segmentation}
 
-Face à la profusion de méthodes de segmentation existantes vient la question du choix de celle le plus adapté pour l'apprentissage statistique de modèles de classification. Deux critères sont à prendre en compte\,: quels pré-traitements est-il nécessaire d'appliquer à l'image, et quelle segmentation semble respecter au mieux les propriétés spatiales de l'image ?
+Face à la profusion de méthodes de segmentation existantes vient la question du choix de celle le plus adapté pour l'apprentissage statistique de modèles de classification. Deux critères sont à prendre en compte\,: quels pré-traitements est-il nécessaire d'appliquer à l'image, et quelle segmentation semble respecter au mieux les propriétés spatiales de l'image?
 
 
 \subsubsection{Pré-traitement de l'image}
@@ -120,11 +122,11 @@ Compte-tenu de cette analyse, nous étudierons en priorité les algorithmes de s
 
 L'intérêt majeur de l'apprentissage profond réside dans l'apprentissage des représentations~\cite{bengio_representation_2013,goodfellow_deep_2016}. En effet, à partir des images d'entrées, nous avons vu que les réseaux convolutifs réalisent une extraction de caractéristique. Cette projection dans un espace de représentation est réalisée par les premières couches, qui sont elles-mêmes optimisables. Autrement dit, la représentation apprise est optimisée pour la tâche de classification sur les données d'entraînement.
 
-Il est donc possible de fournir une image à un \gls{CNN} et de stopper le calcul des activations avant la dernière couche. Les activations ainsi obtenues peuvent se représenter sous la forme d'un vecteur de caractéristiques.
+Il est donc possible de fournir une image à un \gls{CNN} et d'arrêter le calcul des activations avant la dernière couche. Les activations ainsi obtenues peuvent se représenter sous la forme d'un vecteur de caractéristiques.
 
 Les caractéristiques ainsi extraites peuvent ensuite être utilisées pour entraîner un classifieur de façon habituelle. Cette approche est similaire au principe de spécialisation d'un réseau par \emph{fine-tuning}. En particulier, il a été montré dans~\cite{razavian_cnn_2014} que l'utilisation des caractéristiques extraites par un réseau pré-entraîné sur le jeu de données ImageNet~\cite{deng_imagenet_2009} pour entraîner une \gls{SVM} linéaire donnait d'excellents résultats sur la plupart des tâches visuelles.~\cite{razavian_cnn_2014} défend ainsi l'idée qu'il s'agit d'une méthode simple à mettre en \oe{}uvre et qui permet d'obtenir immédiatement des résultats satisfaisants, généralement meilleurs que ceux obtenues avec les caractéristiques classiques (\gls{HOG}, \gls{SIFT}\dots). Il est intéressant de constater que les représentations apprises par les réseaux convolutifs sont généralement de meilleurs points de départ pour l'optimisation que des initialisations aléatoires, même dans le cas de tâches très différentes~\cite{yosinski_how_2014}.
 
-Ces résultats ont été repris et confirmés dans~\cite{penatti_deep_2015,marmanis_deep_2016,lagrange_benchmarking_2015} pour la classification d'images aériennes, établissant des nouveaux état de l'art sur des jeux de données comme UC Merced et \emph{Brazilian Coffe}. En particulier,~\cite{marmanis_deep_2016,penatti_deep_2015} ont montré  qu'il est possible d'utiliser les caractéristiques extraites par un réseau pré-entraîné sur ImageNet pour la classification d'images aériennes et satellitaires, ce qui a été étendu à la segmentation sémantique par région par la suite~\cite{lagrange_benchmarking_2015}. Ce résultat est contre-intuitif dans la mesure où les images de la base ImageNet sont des images multimédia classiques\,: animaux, objets du quotidien, personnes, paysages\dots Toutefois, les caractéristiques apprises sur ces images semblent être en mesure de se généraliser aux images de télédétection. Autrement dit, les filtres convolutifs appris lors d'un entraînement sur ImageNet sont suffisamment génériques pour pouvoir être appliqués dans un grand nombre de tâches visuelles.
+Ces résultats ont été repris et confirmés dans~\cite{penatti_deep_2015,marmanis_deep_2016,lagrange_benchmarking_2015} pour la classification d'images aériennes, établissant des nouveaux états de l'art sur des jeux de données comme UC Merced et \emph{Brazilian Coffe}. En particulier,~\cite{marmanis_deep_2016,penatti_deep_2015} ont montré  qu'il est possible d'utiliser les caractéristiques extraites par un réseau pré-entraîné sur ImageNet pour la classification d'images aériennes et satellitaires, ce qui a été étendu à la segmentation sémantique par région par la suite~\cite{lagrange_benchmarking_2015}. Ce résultat est contre-intuitif dans la mesure où les images de la base ImageNet sont des images multimédia classiques\,: animaux, objets du quotidien, personnes, paysages\dots La généricité des filtres les rend néanmoins adaptables à de nombreux contextes, y compris la télédétection.
 
 \subsubsection{Application à la cartographie sémantique}
 
@@ -139,7 +141,7 @@ Ces résultats ont été repris et confirmés dans~\cite{penatti_deep_2015,marma
 À partir des procédés de segmentation et des méthodes de classification décrites précédemment, nous pouvons donc construire un processus complet de segmentation sémantique d'une image aérienne, repris de la~\cref{fig:framework}\,:
 \begin{enumerate}
     \item Diviser l'image en sous-régions homogènes à l'aide d'un algorithme de segmentation.
-    \item Pour chaque région, extraire des imagettes de dimensions $32\times32$, $64\times64$ et $128\times128$ autour du centroïde de la région.
+    \item Pour chaque région, extraire une pyramide d'images de dimensions $32\times32$, $64\times64$ et $128\times128$ autour du centroïde de la région pour intégrer différents niveaux de contexte spatial.
     \item Extraire les caractéristiques de chaque imagette.
     \item Concaténer les vecteurs résultants dans un unique vecteur de caractéristique.
 \end{enumerate}
@@ -148,7 +150,7 @@ Les échantillons d'apprentissage ainsi obtenus peuvent être utilisés pour ent
 
 Dans le cas où l'extraction de caractéristiques est réalisée par un réseau convolutif, il est nécessaire de redimensionner l'imagette à la taille requise par le réseau (par exemple, $228\times228$ pour l'architecture AlexNet). Cette nécessité provient de la présence de couches entièrement connectées, qui contraignent la taille de la caractéristique obtenue en sortie de couches convolutives, et donc les dimensions initiales de l'image.
 
-En outre, dans certains cas, la taille du vecteur de caractéristique est particulièrement grande. Pour AlexNet, la caractéristique obtenue est un vecteur de taille $1 000$ pour chaque imagette. Une région donnée génère donc un vecteur de taille $3 000$. L'optimisation exacte d'une \gls{SVM} en dimension 3 000 sur un grand jeu de données étant extrêmement long, nous utilisons l'approche de~\citet{bottou_large-scale_2010} utilisant une approximation des vecteurs des support par descente de gradient stochastique.
+En outre, dans certains cas, la taille du vecteur de caractéristique est particulièrement grande. Pour AlexNet, la caractéristique obtenue est un vecteur de taille $1 000$ pour chaque imagette. Une région donnée génère donc un vecteur de taille $3 000$. L'optimisation exacte d'une \gls{SVM} en dimension 3 000 sur un grand jeu de données étant extrêmement long, nous utilisons l'approche de~\citet{bottou_large-scale_2010} utilisant une approximation des vecteurs des support par descente de gradient stochastique. Les résultats de cette approche seront détaillés dans la~\cref{sec:results_region}.
 
 \subsection{Réseaux de neurones entièrement convolutifs}
 
@@ -159,17 +161,18 @@ Une solution possible consiste à utiliser les réseaux de neurones entièrement
 Cette solution présente plusieurs avantages\,:
 \begin{itemize}
 	\item La prédiction concernant une pixel prend automatiquement en compte le contexte spatial qui l'entoure,
-	\item Les images d'entrée n'ont pas nécessairement une taille fixée,
+	\item Les images d'entrée n'ont pas nécessairement une taille fixée \emph{a priori},
 	\item La classification dense résultante est calée sur la grille des pixels, c'est-à-dire à la même résolution que l'image.
 \end{itemize}
 
-Les \gls{FCN} peuvent ainsi être utilisés pour traiter de grandes images en une passe unique, sans nécessiter de segmentation préalable. L'extraction de caractéristiques est automatiquement réalisée de façon dense et se fait conjointement à la classification. Les représentations apprises pour la segmentation sémantique tiennent ainsi compte à la fois des propriétés colorimétriques des pixels, mais également des relations spatiales existants dans la cellule réceptive du \gls{FCN}.
+Les \gls{FCN} peuvent ainsi être utilisés pour traiter de grandes images en une passe unique, sans nécessiter de segmentation préalable. L'extraction de caractéristiques est automatiquement réalisée de façon dense et se fait conjointement à la classification. Les représentations apprises pour la segmentation sémantique tiennent ainsi compte à la fois des propriétés colorimétriques des pixels, mais également des relations spatiales existantes dans la cellule réceptive du \gls{FCN}.
 
 \subsubsection{Application à la cartographie sémantique}
 
 %Nous choisissons ici deux modèles\,: SegNet et ResNet.
 
 De nombreuses architectures de \gls{FCN} sont disponibles pour la segmentation sémantique. Nous retenons le modèle SegNet~\cite{badrinarayanan_segnet_2017} (cf. \cref{fig:segnet}) qui présente un équilibre satisfaisant entre précision de la classification et temps de calcul. L'architecture de SegNet est symétrique et permet de replacer précisément les caractéristiques abstraites aux bonnes localisations spatiales. En outre, les résultats préliminaires avec les modèles \gls{FCN}~\cite{long_fully_2015} et DeepLab~\cite{l._c._chen_deeplab_2018} n'ont pas permis de constater d'améliorations significatives. Toutefois, nous soulignons que nos contributions ne sont pas spécifiques au modèle SegNet et peuvent être adaptées à n'importe quelle autre architecture. Nous comparons également SegNet au modèle ResNet-34~\cite{he_deep_2016}.
+\todo[inline]{expliquer ResNet-34}
 
 \begin{figure}
 	\resizebox{\textwidth}{!}{%
@@ -191,17 +194,17 @@ SegNet est une architecture encodeur-décodeur conçue sur la base des couches d
 
 Le décodeur est une symétrie de l'encodeur et possède le même nombre de convolutions et le même nombre de blocs. Les réductions de dimensions sont remplacées par des sur-échantillonnages. Ceux-ci replacent les valeurs des activations intermédiaires aux indices (``$argmax$'') calculés lors du sous-échantillonnage, comme illustré dans la~\cref{fig:unpooling}. Par exemple, la première couche de sous-échantillonnage calcule le masque des activations maximales et le transfère directement à la dernière couche de sur-échantillonnage. Les avant-dernières activations sont alors replacées aux positions ainsi transférées et le reste des cartes d'activation sont remplies par des zéros. Ces cartes d'activations éparses sont ensuite densifiées grâce aux convolutions successives.
 
-L'encodeur étant calqué sur VGG-16, ses poids sont initialisés à partir de ce même CNN pré-entraîné sur le jeu de données ImageNet~\cite{deng_imagenet_2009}. Les poids du décodeur sont eux initialisés aléatoirement en utilisant la stratégie décrite dans~\cite{he_delving_2015}. On cherche alors à minimiser l'erreur empirique de classification moyenne sur chaque image, c'est-à-dire la moyenne de l'entropie croisée pour chaque pixel $(i,j)$ entre son étiquette $y^{(i,j)}$ et les $z^{(i,j)}$ activations issues de SegNet, normalisées par un \emph{softmax}. Si $M$ et $N$ désignent les dimensions de l'image d'entrée et $k$ le nombre de classes, alors on cherche les poids du réseau minimisant~:
+L'encodeur étant calqué sur VGG-16, ses poids sont initialisés à partir de ce même CNN pré-entraîné sur le jeu de données ImageNet~\cite{deng_imagenet_2009}. Les poids du décodeur sont eux initialisés aléatoirement en utilisant la stratégie décrite dans~\cite{he_delving_2015}. On cherche alors à minimiser l'erreur empirique de classification moyenne sur chaque image, c'est-à-dire la moyenne de l'entropie croisée pour chaque pixel $(i,j)$ entre son étiquette $y^{(i,j)}$ et les activations $z^{(i,j)}$ issues de SegNet, normalisées par un \emph{softmax}. Si $M$ et $N$ désignent les dimensions de l'image d'entrée et $k$ le nombre de classes, alors on cherche les poids du réseau minimisant~:
 \begin{equation}
 \mathcal{L}(\mathit{softmax}(z),y) = - \frac{1}{M \times N} \sum_{i=1}^M \sum_{j=1}^N \sum_{p=1}^k y_p^{(i,j)} \log\left(\frac{\exp(z_p^{(i,j)}}{\sum\limits_{q=1}^k \exp(z_q^{(i,j)})}\right)~.
 \end{equation}
 
 
-Bien que les modèles entièrement convolutifs ne fixent pas les dimensions de l'image d'entrée, traiter les tuiles hautes résolutions d'imagerie aérienne n'est pas réalisable compte-tenu de la mémoire disponible sur les cartes graphiques actuelles. Par conséquent, nous adoptons une stratégie de contournement en traitant chaque tuile par sous-image.
+Bien que les modèles entièrement convolutifs ne fixent pas les dimensions de l'image d'entrée, traiter les tuiles \gls{HR} d'imagerie aérienne n'est pas réalisable compte-tenu de la mémoire disponible sur les cartes graphiques actuelles. Par conséquent, nous adoptons une stratégie de contournement en traitant chaque tuile par sous-image.
 
-Lors de l'apprentissage, des imagettes aléatoires sont extraites des tuiles disponibles. Optionnellement, celles-ci sont augmentées par symétrie horizontale ou verticale.
+Lors de l'apprentissage, des imagettes aléatoires sont extraites des tuiles disponibles. Dans une optique d'augmentation de données pour favoriser la capacité de généralisation du modèles, les images peuvent être aléatoirement transformées par symétrie horizontale ou verticale.
 
-Lors de l'évaluation, les tuiles haute résolution sont traitées par fenêtre glissante. Pour limiter les effets de bord pouvant apparaître sur la grille, la fenêtre glissante utilise un pas inférieur aux dimensions de la fenêtre. Cela génère ainsi un recouvrement, sur lequel nous pouvons moyenner les prédictions. Ce procédé permet de lisser les prédictions et d'améliorer les performances globales en réalisant plusieurs estimations pour le même pixel, aux dépens d'une légère augmentation du temps de calcul.
+Lors de l'évaluation, les tuiles haute résolution sont traitées par fenêtre glissante. Pour limiter les effets de bord pouvant apparaître sur la grille, le pas de progression de la fenêtre glissante est inférieur aux dimensions de celle-ci. Cela génère ainsi un recouvrement, sur lequel nous pouvons moyenner les prédictions. Ce procédé permet de lisser les prédictions et d'améliorer les performances globales en réalisant plusieurs estimations pour le même pixel, aux dépens d'une légère augmentation du temps de calcul.
 
 \subsection{Aspects multi-échelles}
 
@@ -240,13 +243,13 @@ Pour un pixel à l'indice $i$ d'activation $z_{k}^{s,i}$ pour la classe $k$ et l
 
 S'il est possible d'entraîner le modèle en un seul bloc, il est toutefois plus flexible d'ajouter \emph{a posteriori} des noyaux de convolution supplémentaires. Initialement, le réseau est entraîné sur une seule échelle. Après entraînement, il est possible de remplacer la dernière convolution par une autre avec un noyau plus petit ou plus grand, sur lequel on réalise un \emph{fine-tuning}. Le noyau ainsi appris peut alors être ajouté à la dernière couche afin d'obtenir deux branches parallèle, et ainsi de suite.
 
-Cette approche multi-kernel se rapproche des blocs Inception~\cite{szegedy_going_2015} et de la convolution compétitive multi-échelles de~\citet{liao_competitive_2015}. Cependant, ici seule la dernière couche comporte plusieurs noyaux convolutifs et le nombre de noyaux parallèles peut aisément être modifié après optimisation du modèle si la taille des objets d'intérêt vient à changer. Cette approche se retrouve dans le principe de l'agrégation de contextes de~\citet{yu_multi-scale_2015} utilisant des convolutions dilatées, permettant d'extraire des caractéristiques à plusieurs échelles. Toutefois, ici nous nous focalisons sur l'extraction de plusieurs tailles de contextes à une échelle locale et évite donc la convolution à trous, coûteuse en temps de calcul, ou l'utilisation d'une pyramide d'images multi-échelles~\cite{zhao_learning_2016}. Il s'agit une méthode simple et flexible pour agréger des prédictions sur plusieurs contextes spatiaux à partir d'un extracteur de caractéristique fixe.
+Cette approche multi-kernel se rapproche des blocs Inception~\cite{szegedy_going_2015} et de la convolution compétitive multi-échelles de~\citet{liao_competitive_2015}. Cependant, ici seule la dernière couche comporte plusieurs noyaux convolutifs et le nombre de noyaux parallèles peut aisément être modifié après optimisation du modèle si la taille des objets d'intérêt vient à changer. Cette approche se retrouve dans le principe de l'agrégation de contextes de~\citet{yu_multi-scale_2015} utilisant des convolutions dilatées, permettant d'extraire des caractéristiques à plusieurs échelles. Toutefois, ici nous nous focalisons sur l'extraction de plusieurs tailles de contextes à une échelle locale et écartons la convolution à trous, coûteuse en temps de calcul, ou l'utilisation d'une pyramide d'images multi-échelles~\cite{zhao_learning_2016}. Nous proposons donc s'agit une plus méthode simple et plus flexible pour agréger des prédictions sur plusieurs contextes spatiaux à partir d'un extracteur de caractéristiques fixe.
 
 \subsubsection{Supervision profonde}
 
-Le traitement multi-échelles des images de télédétection est généralement effectuée en utilisant une approche pyramidale : différents contextes à différentes résolutions sont fournies comme entrées à un ou plusieurs classifieurs. Nous proposons ici d'utiliser une approche alternative consistant à ne traiter qu'une seule mais à produire en sortie du \gls{FCN} une pyramide de prédictions, comme introduit dans le modèle DeepLab~\cite{l._c._chen_deeplab_2018}. Chaque sortie est une carte prédite à une résolution différente sur laquelle il est possible de calculer une erreur qui sera rétropropagée dans le réseau. Ceci permet de réaliser d'une part une inférence multi-échelles et d'autre part d'introduire une forme de supervision profonde dans le modèle~\cite{lee_deeply-supervised_2015}.
+Le traitement multi-échelles des images de télédétection est généralement effectuée en utilisant une approche pyramidale : différents contextes à différentes résolutions sont fournis comme entrées à un ou plusieurs classifieurs. Nous proposons ici d'utiliser une approche alternative consistant à n'en traiter qu'une seule mais à produire en sortie du \gls{FCN} une pyramide de prédictions, comme introduit dans le modèle DeepLab~\cite{l._c._chen_deeplab_2018}. Chaque sortie est une carte prédite à une résolution différente sur laquelle il est possible de calculer une erreur qui sera rétropropagée dans le réseau. Ceci permet de réaliser d'une part une inférence multi-échelles et d'autre part d'introduire une forme de supervision profonde dans le modèle~\cite{lee_deeply-supervised_2015}.
 
-Dans le modèle SegNet, la pyramide de cartes d'activations apparaît naturellement dans le décodeur. Après le $p$\ieme bloc du décodeur, nous ajoutons une couche convolutive réalisant une classification à la résolution $\frac{2^p W}{32} \times \frac{2^p H}{32}$, comme illustré dans la~\cref{fig:ms_deep_segnet}. Ces cartes sont ensuite interpolées à la résolution $W\times H$ et sommées pour obtenir la carte sémantique finale. En notant $P_{\mathit{complète}}$ la prédiction à pleine résolution, $P_{\mathit{réduite}_d}$ les cartes obtenues avec un facteur d'échelle $1:d$ et $\mathcal{I}_d$ l'interpolation bilinéaire d'un facteur $d$, la carte complète est obtenue par\,:
+Dans le modèle SegNet, la pyramide de cartes d'activations apparaît naturellement dans le décodeur. Après le $p$\ieme bloc du décodeur, nous ajoutons une couche convolutive réalisant une classification à la résolution $\frac{2^p W}{32} \times \frac{2^p H}{32}$, comme illustré dans la~\cref{fig:ms_deep_segnet}. Ces cartes sont ensuite interpolées à la résolution $W\times H$ et sommées pour obtenir la carte sémantique finale. En notant $P_{\mathit{compl\grave{e}te}}$ la prédiction à pleine résolution, $P_{\mathit{r\acute{e}duite}_d}$ les cartes obtenues avec un facteur d'échelle $1:d$ et $\mathcal{I}_d$ l'interpolation bilinéaire d'un facteur $d$, la carte complète est obtenue par\,:
 \begin{equation}
 P_{\mathit{compl\grave{e}te}} = \sum_{d \in \{0, 2, 4, 8\}} \mathcal{I}_d(P_{\mathit{r\acute{e}duite}_d}) = P_0 + \mathcal{I}_2(P_2) + \mathcal{I}_4(P_4) + \mathcal{I}_8(P_8).
 \end{equation}
@@ -260,7 +263,7 @@ Les couches les plus profondes peuvent ainsi simplement apprendre à raffiner le
 
 \section{Évaluation des modèles}
 
-\subsection{Métriques}
+\subsection{Métriques pour la classification}
 
 \def\tp{V^+}
 \def\tn{V^-}
@@ -283,27 +286,27 @@ On définit alors les métriques de performance suivantes pour le classifieur, r
   $$pr\acute{e}cision = \frac{\tp}{\tp + \fp}~.$$
 	\item Le rappel est défini comme le rapport entre le nombre de vrais positifs et le nombre total d'éléments appartenant réellement à la classe\,:
   $$rappel = \frac{\tp}{\tp + \fn}~.$$
-	\item Le score $F_1$ est défini comme la moyenne harmonique de la précision et du rappel\,:
+	\item Le score $F_1$, ou c\oe{}fficient de Sorensen-Dice, est défini comme la moyenne harmonique de la précision et du rappel\,:
   $$F_1 = 2~.~\frac{pr\acute{e}cision \times rappel}{pr\acute{e}cision + rappel}~,$$
   ce qui s'écrit également\,:
   $$F_1 = \frac{2 \tp}{2 \tp + \fp + \fn}~.$$
 	\item L'exactitude est définie comme le rapport de prédictions exactes sur le nombre total d'échantillons\,:
   $$Exactitude = \frac{\tp + \tn}{\tp + \fp + \tn + \fn}~.$$
-	\item L'\gls{IsU} est définie comme le rapport du nombre de prédictions exactes sur l'ensemble des prédictions de la classe et des échantillons réels\,:
-  $$\gls{IsU} = \frac{\tp}{\tp + \fp + \fn}~.$$
+	\item L'\gls{IsU}, ou indice de Jaccard, est définie comme le rapport du nombre de prédictions exactes sur l'ensemble des prédictions de la classe et des échantillons réels\,:
+  $$\glsname{IsU} = \frac{\tp}{\tp + \fp + \fn}~.$$
 \end{itemize}
 
 Le score $F_1$ et l'\gls{IsU} ont l'avantage de ne pas être biaisé en faveur d'une classe dominante. Par exemple, un jeu de données contenant 95\% de fond et 5\% d'objet sera classifié à 95\% d'exactitude par un classifieur prédisant systématiquement ``fond''. Cependant, le score $F_1$ de ce classifieur ne serait que serait $0$.
 
-L'\gls{IsU} est proche du score $F_1$, mais accorde une pondération plus importante aux vrais positifs. Toutefois, les deux métriques peuvent être utilisées pour ordonner des classifieurs. Étant donné que $\gls{IsU}/F = 1/2 + \gls{IsU}/2$, si un classifieur $A$ est meilleur qu'un classifieur $B$ pour l\gls{IsU}, il le sera aussi pour le score $F_1$ et réciproquement.
+L'\gls{IsU} est proche du score $F_1$, mais accorde une pondération plus importante aux vrais positifs. Toutefois, les deux métriques peuvent être utilisées pour ordonner des classifieurs. Étant donné que $\gls{IsU}/F = 1/2 + \gls{IsU}/2$, il existe un relation monotone entre les deux métriques. Un classifieur $A$ meilleur qu'un classifieur $B$ pour l\gls{IsU} le sera également pour le score $F_1$, et réciproquement.
 
-Dans un cadre multi-classe, on s'intéressera à l'exactitude globale et la moyenne de l'intersection sur union ou la moyenne du score $F_1$.
+Dans un cadre multi-classe, on s'intéressera à l'exactitude globale et la moyenne de l'intersection sur union ou la moyenne du score $F_1$ sur l'ensemble des classes.
 
-\subsection{Classification par région}
+\subsection{Métriques pour la segmentation}
 
 Dans un premier temps, il s'agit d'évaluer les capacités théoriques des différents algorithmes de pré-segmentation. En effet, si la segmentation rassemble dans une même région des pixels appartenant à deux classes différentes, il apparaîtra nécessairement des erreurs dans la classification finale, car une région ne sera associée qu'à une unique classe.
 
-De fait, nous pouvons comparer les algorithmes de segmentation sur les images de la base \gls{ISPRS} 2D Semantic Labeling selon trois critères\,:
+De fait, nous pouvons comparer les algorithmes de segmentation sur les images de la base selon trois critères\,:
 \begin{itemize}
   \item L'erreur de sous-segmentation (ESS), définie comme le ratio de pixels appartenant à une région qui en recouvrent une autre. Formellement, si $S$, $P$ et $N$ sont respectivement les régions réelles, les régions issues de la segmentation et le nombre de pixels dans l'image\,:
   $$ESS = \frac{1}{N} \sum_{S \in GT} \sum_{P : P \cap S \neq \emptyset} min(|P \cap S|, |P \backslash P \cap S|)$$
@@ -314,7 +317,12 @@ De fait, nous pouvons comparer les algorithmes de segmentation sur les images de
   \item L'oracle, défini comme le taux de bonne classification pixellique qui serait obtenu par un classifieur parfait, assignant la classe majoritaire à chaque segment. Il s'agit de la meilleure classification possible théoriquement obtensible avec la segmentation considérée.
 \end{itemize}
 
-Par ailleurs, nous choisissons de comparer les algorithmes de segmentation les plus couramment utilisés dans la communauté vision par ordinateur et dans la communauté télédétection\,: \gls{SLIC}, \gls{LSC}, Quickshift, \gls{MRS} (eCognition\copyright) et \gls{HSEG}. Les paramètres des segmentations sont réglés afin d'obtenir un nombre de régions similaire et les meilleures performances possibles. Ces algorithmes de segmentation sont représentatifs des grandes familles d'algorithmes qu'il est raisonnable d'utiliser pour une classification par région.
+\subsection{Classification par région}
+\label{sec:results_region}
+
+Nous choisissons d'évaluer différents algorithmes de segmentation non-supervisé dans un cadre de classification par région sur le jeu de données \gls{ISPRS} 2D \emph{Semantic Labeling} Vaihingen. Celui comporte une acquisition aérienne \gls{EHR} de la ville allemande de Vaihingen sur les canaux \gls{IRRV} et est annoté dans 6 classes d'intérêt. Le jeu de données précis est détaillé dans l'\cref{annexe:isprs}.
+
+Nous comparons les algorithmes de segmentation les plus couramment utilisés dans la communauté vision par ordinateur et dans la communauté télédétection, identifiés dans la~\cref{sec:segmentations}\,: \gls{SLIC}, \gls{LSC}, Quickshift, \gls{MRS} (eCognition\copyright) et \gls{HSEG}. Les paramètres des segmentations sont réglés afin d'obtenir un nombre de régions similaire et les meilleures performances possibles. Ces algorithmes de segmentation sont représentatifs des grandes familles d'algorithmes qu'il est raisonnable d'utiliser pour une classification par région.
 
 \begin{table}
   \centering
@@ -336,34 +344,35 @@ Par ailleurs, nous choisissons de comparer les algorithmes de segmentation les p
 \end{table}
 
 \begin{table}
-  \begin{tabularx}{\textwidth}{ Y c c c c }
+  \begin{tabularx}{\textwidth}{ Y c c c c c }
   \toprule
-  Algorithme & Nombre de régions & Exactitude (\%) & Score $F_1$ (véhicules) & $\kappa$\\  \midrule
-  \gls{SLIC} & \textbf{20 000} & 82.20 & 0.54 & 0.76\\
-  \gls{LSC} & 22 800 & \textbf{82.45} & \textbf{0.58} & 0.76\\
-  Quickshift & 21 000 & 82.05 & 0.52 & 0.75\\
+  Algorithme & Nombre de régions & Exactitude (\%) & Score $F_1$ (véhicules) & $\kappa$ & Oracle (\%)\\
+	\midrule
+  \gls{SLIC} & $\simeq$\textbf{20 000} & 82.20 & 0.54 & 0.76 & 89.91\\
+  \gls{LSC} & $\simeq$22 800 & \textbf{82.45} & \textbf{0.58} & 0.76 & 85.53\\
+  Quickshift & $\simeq$21 000 & 82.05 & 0.52 & 0.75 & 93.61\\
   \cmidrule(lr){1-5}
-  \gls{MRS} & 23 500 & 80.53 & 0.56 & 0.73\\
-  \gls{HSEG} & 21 000 & 79.56 & 0.54 & 0.72\\
+  \gls{MRS} & $\simeq$23 500 & 80.53 & 0.56 & 0.73 & \textbf{91.68}\\
+  \gls{HSEG} & $\simeq$21 000 & 79.56 & 0.54 & 0.72 & 85.25\\
   \cmidrule(lr){1-5}
-  Fenêtre glissante & 23 800 & 81.22 & 0.53 & 0.74\\
+  Fenêtre glissante & $\simeq$23 800 & 81.22 & 0.53 & 0.74 & 92.56\\
   \bottomrule
   \end{tabularx}
   \caption{Résultats de classification sur le jeu de données \gls{ISPRS} Vaihingen.}
   \label{table:classification_metrics}
 \end{table}
 
-Nous appliquons ces algorithmes de segmentation sur l'ensemble des images du jeu de données \gls{ISPRS} Vaihigen, dont les détails sont fournis dans l'~\cref{annexe:isprs}. Nous utilisons l'implémentation des auteurs pour \gls{LSC}~\cite{li_superpixel_2015}, l'implémentation de~\citet{guyet_extraction_2015} de l'algorithme \gls{MRS} (adapté depuis la bibliothèque TerraLib~\cite{camara_terralib_2008}) et les implémentations de la bibliothèque scikit-image~\cite{walt_scikit-image_2014} pour \gls{SLIC} et \emph{Quickshift}.
+Nous appliquons ces algorithmes de segmentation sur l'ensemble des images du jeu de données \gls{ISPRS} Vaihigen. Nous utilisons l'implémentation des auteurs pour \gls{LSC}~\cite{li_superpixel_2015}, l'implémentation de~\citet{guyet_extraction_2015} de l'algorithme \gls{MRS} (adapté depuis la bibliothèque TerraLib~\cite{camara_terralib_2008}) et les implémentations de la bibliothèque scikit-image~\cite{walt_scikit-image_2014} pour \gls{SLIC} et \emph{Quickshift}.
 Les résultats sont détaillés dans le tableau~\cref{table:segmentation_metrics}.
 
 Tout d'abord, on constate que l'algorithme \gls{MRS} présente un rappel sur les bordures très élevé, ce qui signifie que les frontières définie par cette segmentation sont proches des véritables bordures. Cela correspond à ce qu'il est visuellement possible d'observer\,: \gls{MRS} privilégie des régions très homogènes, quitte à les rendre très irrégulières. Cela bénéficie en outre au critère de pureté qui en est mécaniquement plus élevé. L'algorithme \gls{SLIC} semble également tirer son épingle du jeu, grâce à une faible erreur de sous-segmentation.
 
 Dans l'ensemble, les performances théoriques de classification atteignables (oracle) varient de 83\% à 91\%.
 
-Le~\cref{table:classification_metrics} détaille les résultats obtenus après une classification par le protocole décrit précédemment. Le AlexNet extracteur de caractéristique est implémenté en utilisant la bibliothèque d'apprentissage profond Caffe~\cite{jia_caffe_2014}. Le classifieur utilisé est une \gls{SVM} linéaire optimisée par descente de gradient telle qu'implémentée dans la bilbiothèque scikit-learn~\cite{pedregosa_scikit-learn_2011}.
+Le~\cref{table:classification_metrics} détaille les résultats obtenus après une classification par le protocole décrit précédemment. Le AlexNet extracteur de caractéristiques est implémenté en utilisant la bibliothèque d'apprentissage profond Caffe~\cite{jia_caffe_2014}. Le classifieur utilisé est une \gls{SVM} linéaire optimisée par descente de gradient telle qu'implémentée dans la bilbiothèque scikit-learn~\cite{pedregosa_scikit-learn_2011}.
 Il s'avère que le classement par taux de bonne classification ne correspond pas au classement utilisant l'oracle comme mesure. Cela signifie que les performances brutes de segmentation ne suffisent pas à déterminer la pertinence d'une segmentation dans un cadre d'extraction de caractéristiques.
 
-En effet, les résultats de classification ont privilégié des approches types superpixels. La régularité géométrique des segments bénéficie grandement au classifieur. Les segments présentent tous une compacité et une convexité forte. Au moment de l'extraction de l'imagette, la majorité des pixels au centre de l'image sont donc pertinents, et la caractéristique calculée par le réseau convolutif contiendra en grande partie de l'information issue de la région considrée. À l'inverse, les segmentations irrégulières s'imbriquent difficilement dans des imagettes rectangulaires, ce qui complexifie la tâche de classification car les échantillons d'apprentissage ne sont pas géométriquement normalisés. En pratique, ces segmentaions n'apportent aucun gain par rapport à une simple fenêtre glissante à coût calculatoire constant.
+En effet, les résultats de classification poussent à privilégier des approches de type superpixels. La régularité géométrique des segments bénéficie grandement au classifieur. Les segments présentent tous une compacité et une convexité forte. Au moment de l'extraction de l'imagette, la majorité des pixels au centre de l'image sont donc pertinents, et la caractéristique calculée par le réseau convolutif contiendra en grande partie de l'information issue de la région considérée. À l'inverse, les segmentations irrégulières s'imbriquent difficilement dans des imagettes rectangulaires, ce qui complexifie la tâche de classification car les échantillons d'apprentissage ne sont pas géométriquement normalisés, comme illustré par la~\cref{fig:potsdam_segmentation}. En pratique, ces segmentations n'apportent aucun gain par rapport à une simple fenêtre glissante à coût calculatoire constant.
 
 Il est possible d'augmenter le paramètre de compacité de la segmentation \gls{MRS} pour obtenir des régions plus homogènes, visuellement proches des superpixels. Dans ce cas, les résultats sont comparables à ceux obtenus avec \gls{SLIC}, mais au prix d'une sursegmentation considérable : \gls{MRS} nécessite deux fois plus de segments que \gls{SLIC} pour le même résultat. Ceci impacte directement le temps de calcul, qui est proportionnel au nombre de régions à traiter.
 
@@ -396,7 +405,7 @@ Dans un premier temps, nous validons cette approche uniquement sur les données 
   \label{tab:vaihingen_stride}
 \end{table}
 
-L'utilisation d'une fenêtre glissante pour la segmentation de l'image pose la question du traitement des bordures. En effet, si le pas de la fenêtre glissante est identique aux dimensions de celle-ci, il risque alors d'apparaître des discontinuités aux bordures dégradant la qualité visuelles de la segmentation. En diminuant le pas, nous pouvons autoriser un recouvrement plus ou moins important entre deux fenêtres successives, c'est-à-dire que certains pixels pourront être observés à plusieurs reprises. Ceci augmente le temps d'inférence mais accroît également la précision du modèle, comme détaillé dans le~\cref{tab:vaihingen_stride}. En effet, en divisant le pas par $2$, le nombre d'imagettes à traiter est multiplié par $4$. Cependant, moyenner plusieurs prédictions sur une même région permet de corriger des artefacts de classification, notamment le long des bords où le contexte spatial est manquant, et de lisser les discontinuités. L'expérience semble indiquer qu'un pas de $32$px (75\% de recouvrement) est suffisamment rapide pour la majorité des tâches et augmente significativement la précision (+1\%). Une tuile complète est ainsi traitée en 4 minutes sur une NVIDIA Tesla K20c avec un pas de $32$px et moins de 20 secondes avec un pas de $128$px. Nous utiliserons donc ces paramètres pour la suite de nos travaux. Dans l'ensemble, le modèle SegNet parvient à correctement classifier plus de 87\% des pixels du jeu de validation. En comparaison, aucune des méthodes de classification par région comparées précédemment ne dépassait 83\%. Notamment, SegNet parvient à dépasser les oracles sur les segmentations \gls{HSEG}, \gls{LSC} et \emph{Quickshift}. Ceci montre la pertinence des réseaux entièrement convolutifs pour la segmentation sémantique\,: en apprenant à réaliser une classification pixellique dense, SegNet apprenant conjointement des caractéristiques prenant en compte les aspects spatiaux tout en respectant au mieux la résolution de l'image.
+L'utilisation d'une fenêtre glissante pour la segmentation de l'image pose la question du traitement des bordures. En effet, si le pas de la fenêtre glissante est identique aux dimensions de celle-ci, il risque alors d'apparaître des discontinuités aux bordures dégradant la qualité visuelles de la segmentation. En diminuant le pas, nous pouvons autoriser un recouvrement plus ou moins important entre deux fenêtres successives, c'est-à-dire que certains pixels pourront être observés à plusieurs reprises. Ceci augmente le temps d'inférence mais accroît également la précision du modèle, comme détaillé dans le~\cref{tab:vaihingen_stride}. En effet, en divisant le pas par $2$, le nombre d'imagettes à traiter est multiplié par $4$. Cependant, moyenner plusieurs prédictions sur une même région permet de corriger des artefacts de classification, notamment le long des bords où le contexte spatial est manquant, et de lisser les discontinuités. L'expérience semble indiquer qu'un pas de $32$px (75\% de recouvrement) est suffisamment rapide pour la majorité des tâches et augmente significativement la précision (+1\%). Une tuile complète est ainsi traitée en 4 minutes sur une NVIDIA Tesla K20c avec un pas de $32$px et moins de 20 secondes avec un pas de $128$px. Nous utiliserons donc ces paramètres pour la suite de nos travaux. Dans l'ensemble, le modèle SegNet parvient à correctement classifier plus de 87\% des pixels du jeu de validation. En comparaison, aucune des méthodes de classification par région comparées précédemment ne dépassait 83\%. Notamment, SegNet parvient à dépasser les oracles sur les segmentations \gls{HSEG}, \gls{LSC} et \emph{Quickshift}. Ceci montre la pertinence des réseaux entièrement convolutifs pour la segmentation sémantique\,: inférer une classification pixellique dense contraint SegNet à apprendre conjointement des caractéristiques prenant en compte les aspects spatiaux tout en respectant au mieux la résolution de l'image.
 
 \subsubsection{Transfert de connaissances}
 
@@ -415,7 +424,7 @@ L'utilisation d'une fenêtre glissante pour la segmentation de l'image pose la q
   \label{tab:initialization}
 \end{table}
 
-Le pré-entraînement d'un réseau profond sur un jeu de données générique est une pratique courante pour en augmenter les capacités de généralisation. ImageNet est ainsi souvent utilisé comme base de pré-entraînement pour la plupart des tâches visuelles. La télédétection ne fait pas exception, les filtres convolutifs appris sur des images naturelles pouvant être transférés pour la classification d'images aériennes~\cite{penatti_deep_2015}. Cependant, compte-tenu des différences importantes entre les images multimédias et les images de télédétection, il peut exister un intérêt à laisser ces filtres pré-calculés être modifiés librement lors de l'optimisation du réseau. Pour évaluer l'impact du pré-entraînement sur la classification d'images de télédétection, nous comparons différents taux d'apprentissage pour l'encodeur ($lr_{e}$) et le décodeur ($lr_{d}$) de SegNet. Nous testons notamment quatre stratégies~:
+Le pré-entraînement d'un réseau profond sur un jeu de données générique est une pratique courante pour en augmenter les capacités de généralisation. ImageNet est ainsi souvent utilisé comme base de pré-entraînement pour la plupart des tâches visuelles. La télédétection ne fait pas exception, les filtres convolutifs appris sur des images multimédia pouvant être transférés pour la classification d'images aériennes~\cite{penatti_deep_2015}. Cependant, compte-tenu des différences importantes entre ces images et celles de télédétection, il peut exister un intérêt à laisser ces filtres pré-calculés être modifiés librement lors de l'optimisation du réseau. Pour évaluer l'impact du pré-entraînement sur la classification d'images de télédétection, nous comparons différents taux d'apprentissage pour l'encodeur ($lr_{e}$) et le décodeur ($lr_{d}$) de SegNet. Nous testons notamment quatre stratégies~:
 \begin{itemize}
   \item même variabilité~: $lr_{d} = lr_{e}$, ${lr_{e} / lr_{d}} = 1$,
   \item faible variabilité de l'encodeur: $lr_{d} = 2 \times lr_{e}$, ${lr_{e} / lr_{d}} = 0,5$,
@@ -429,7 +438,7 @@ Comme détaillé dans le~\cref{tab:initialization}, le modèle réalise sa meill
 
 \subsubsection{Choix du modèle}
 
-\begin{table}
+\begin{table}[h]
 	\caption{Résultats de validation sur le jeu de données \gls{ISPRS} Vaihingen.}
 	\label{tab:validation_vaihingen}
 	\begin{tabularx}{\textwidth}{Y c c c c c c}
@@ -450,30 +459,30 @@ La comparaison en validation croisée entre les modèles SegNet et ResNet-34 ne 
 
 \begin{figure}[!htb]
 	\hfill
-	\begin{subfigure}{0.45\textwidth}
+	\begin{subfigure}{0.48\textwidth}
     \includegraphics[width=\linewidth]{vaihingen_irrg_37}
     \caption{Image \gls{IRRV}}
     \end{subfigure}
     \hfill
-    \begin{subfigure}{0.45\textwidth}
+    \begin{subfigure}{0.48\textwidth}
     \includegraphics[width=\linewidth]{vaihingen_gt_37}
     \caption{Vérité terrain}
     \end{subfigure}
     \hfill
 
     \hfill
-    \begin{subfigure}{0.45\textwidth}
+    \begin{subfigure}{0.48\textwidth}
     \includegraphics[width=\linewidth]{segnet_irrg_37}
     \caption{SegNet}
     \end{subfigure}
     \hfill
-    \begin{subfigure}{0.45\textwidth}
+    \begin{subfigure}{0.48\textwidth}
     \includegraphics[width=\linewidth]{segnet_irrg_msc_37}
     \caption{SegNet multi-échelles (3 branches)}
     \end{subfigure}
     \hfill
     \caption{Effet de la supervision multi-échelles sur un extrait du jeu de données \gls{ISPRS} Vaihingen. Les petits objets et les surfaces au contexte spatial ambigu bénéficient de la combinaison des prédictions à plusieurs échelles.\\
-		\\gls{ISPRS}legende}
+		\isprslegende}
     \label{fig:vaihingen_images}
 \end{figure}
 
@@ -494,12 +503,12 @@ La comparaison en validation croisée entre les modèles SegNet et ResNet-34 ne 
 
 Comme détaillé dans le~\cref{tab:dsn_vaihingen}, la supervision profonde multi-échelles sur SegNet apporte un gain léger, toutefois avec un surcoût calculatoire quasiment nul. Comme attendu, les grandes structures bénéficient le plus des prédictions à faible échelle tandis que les voitures, les plus petits objets d'intérêt du jeu de données, sont plus difficiles à détecter à basse résolution. En outre, il semble que l'absence de structure dans la végétation induit également une confusion entre les arbres et la végétation basse aux échelles inférieures. Augmenter le nombre de branches n'augmente que marginalement les performances du SegNet ce qui indique que la supervision profonde ne joue qu'un rôle limité par rapport à la fusion multi-échelles.
 
-Bien que le gain quantitatif soit faible, une analyse visuelle des cartes obtenues après inférence montre que les améliorations qualitatives ne sont pas négligeables. Comme illustré dans la~\cref{fig:vaihingen_images}, la prédiction multi-échelle permet de régulariser les prédictions et de réduire le bruit qui s'y trouve. Cela simplifie le traitement des cartes \emph{a posteriori}, qu'il s'agisse de leur interprétation par un humain ou d'une vectorisation automatique. Ces résultats sont adéquations avec les travaux postérieurs de~\citet{jiang_rednet_2018} pour la segmentation sémantique d'images \gls{RGB-D}.
+Bien que le gain quantitatif soit faible, une analyse visuelle des cartes obtenues après inférence montre que les améliorations qualitatives ne sont pas négligeables. Comme illustré dans la~\cref{fig:vaihingen_images}, la prédiction multi-échelle permet de régulariser les prédictions et de réduire le bruit qui s'y trouve. Cela simplifie le traitement des cartes \emph{a posteriori}, qu'il s'agisse de leur interprétation par un humain ou d'une vectorisation automatique. Ces résultats sont adéquation avec les travaux postérieurs de~\citet{jiang_rednet_2018} pour la segmentation sémantique d'images \gls{RGB-D}.
 
-En outre, cette étude a également mis en avant que les cartes d'activation intermédiaires du décodeur sont quasiment aussi précises que les cartes à pleine résolution. Par exemple, la carte issue du deuxième bloc convolutif, c'est-à-dire à résolution $1:8$ par rapport à l'image initiale, est seulement 0,5\% moins exacte que celle à résolution $1:1$, l'essentiel des différences provenant de la classe ``véhicule''. Ceci était prévisible dans la mesure où les véhicules ne couvrent qu'environ \SI{30}{\px} en longueur à \SI{9}{\centi\meter/\px}, soit 3-\SI{4}{\px} à résolution $1:8$. Toutefois, les bonnes performances obtenues en utilisant uniquement les prédictions réduites indique qu'il serait possible de se limiter à un décodeur extrêmement simple comprenant uniquement un ou deux blocs convolutifs en décodeur en perdant peu de précision, soit une réduction du nombre de paramètres et du temps de calcul de SegNet d'environ 30\%. Cette méthode pourrait permettre de réduire le temps d'inférence lorsque la détection des petits objets n'est pas pertinente.
+En outre, cette étude a également mis en avant que les cartes d'activation intermédiaires du décodeur sont quasiment aussi précises que les cartes à pleine résolution. Par exemple, la carte issue du deuxième bloc convolutif, c'est-à-dire à résolution $1:8$ par rapport à l'image initiale, est seulement 0,5\% moins exacte que celle à résolution $1:1$, l'essentiel des différences provenant de la classe ``véhicule''. Ceci était prévisible dans la mesure où les véhicules ne couvrent qu'environ \SI{30}{\px} en longueur à \SI{9}{\centi\meter/\px}, soit 3-\SI{4}{\px} à résolution $1:8$. Toutefois, les bonnes performances obtenues en utilisant uniquement les prédictions réduites indique qu'il serait possible de se limiter à un décodeur extrêmement simple comprenant uniquement un ou deux blocs convolutifs en décodeur en perdant peu de précision, soit une réduction du nombre de paramètres et du temps de calcul de SegNet d'environ 30\%. Cette méthode pourrait permettre de réduire le temps d'inférence lorsque la détection des petits objets n'est pas au c\oe{}ur du problème.
 
 \paragraph{Convolution multi-kernel}
-\begin{figure}[t]
+\begin{figure}[h]
   %\centering
   \captionsetup[subfigure]{singlelinecheck=off,justification=centering}
   \captionsetup[subfigure]{labelformat=empty}
@@ -536,16 +545,101 @@ En outre, cette étude a également mis en avant que les cartes d'activation int
 		\caption{Vérité terrain}
 	\end{subfigure}
   \caption{Effets de la couche convolutive multi-kernel sur des extraits du jeu de données \gls{ISPRS} Vaihingen.\\
-	\\gls{ISPRS}legende}
+	\isprslegende}
   \label{fig:patches_context}
 \end{figure}
 
-Comme indiqué dans le~\cref{tab:validation_vaihingen}, l'utilisation d'une dernière couche convolutive multi-kernel permet de gagner 0,4\% d'exactitude supplémentaire. Ce gain accompagne un lissage des cartes prédites permettant de faire disparaître certains artefacts de classification sous forme de bruit poivre et sel, comme illustré dans la~\cref{fig:patches_context}.
+Comme indiqué dans le~\cref{tab:vaihingen_stride}, l'utilisation d'une dernière couche convolutive multi-kernel permet de gagner 0,4\% d'exactitude supplémentaire. Ce gain accompagne un lissage des cartes prédites permettant de faire disparaître certains artefacts de classification sous forme de bruit poivre et sel, comme illustré dans la~\cref{fig:patches_context}.
 \citet{brahimi_multiscale_2018} ont par la suite rapporté des résultats similaires en utilisant avec succès la convolution multi-kernel sur des modèles DenseNet appliqués à la segmentation sémantique d'images de conduite autonome.
 
 \subsubsection{Résultats finaux}
 
-\begin{figure}[t]
+\begin{table}[t]
+  \centering
+  \caption{Résultats du \gls{ISPRS} 2D Semantic Labeling Challenge Vaihingen.}
+  \rowcolors{2}{gray!15}{white}
+  \begin{tabularx}{\textwidth}{ Y c c c c c c }
+  \toprule
+  Méthode & Routes & Bâtiments & Vég. basse & Arbres & Véhicules & Exactitude\\
+  \midrule
+  Stair Vision Library {\scriptsize (``SVL\_3'')}\cite{gerke_use_2015} & 86,6\% &	91,0\% &	77,0\% &	85,0\%	& 55,6\% &	84,8\% \\
+  RF + CRF {\scriptsize (``HUST'')}\cite{quang_efficient_2015} & 86,9\% & 92,0\% &	78,3\% &	86,9\% &	29,0\% &	85,9\% \\
+  Ensemble de CNN {\scriptsize (``ONE\_5'')}\cite{boulch_dag_2015} & 87,8\% &	92,0\% &	77,8\% &	86,2\% &	50,7\% &	85,9\% \\
+  FCN {\scriptsize (``UZ\_1'')}\cite{volpi_dense_2017} & 89,2\% &	92,5\% &	81,6\% &	86,9\% &	57,3\% &	87,3\% \\
+  FCN {\scriptsize (``UOA'')}\cite{lin_efficient_2015} & 89,8\% &	92,1\% &	80,4\% &	88,2\% &	82,0\% &	87,6\% \\
+  CNN + RF + CRF {\scriptsize (``ADL\_3'')}\cite{paisitkriangkrai_effective_2015} & 89,5\% &	93,2\% &	82,3\% &	88,2\% &	63,3\% &	88,0\% \\
+  FCN {\scriptsize (``DLR\_2'')}\cite{marmanis_semantic_2016} & 90,3\% &	92,3\% &	82,5\% &	89,5\% &	76,3\% &	88,5\% \\
+  FCN + RF + CRF {\scriptsize (``DST\_2'')}\cite{sherrah_fully_2016} & 90,5\% &	93,7\% &	83,4\% &	89,2\% &	72,6\% &	89,1\% \\
+  %FCN + CRF + frontières {\scriptsize (``DLR\_10'')}\cite{marmanis_classification_2017} & 92.3\% & 95.2\% & 84.1\% & 90.0\% & 79.3\% & 90.3\%\\
+  \midrule
+  \textbf{SegNet++} (multi-kernel)\cite{audebert_semantic_2016} & \textbf{91,5}\% &	94,3\% &	82,7\% &	89,3\% &	\textbf{85,7}\% &	89,4\% \\
+  %\textbf{SegNet++} (multi-kernel + fusion) & 91,0\% &	\textbf{94,5}\% &	\textbf{84,4}\% &	\textbf{89,9}\% &	77,8\% &	\textbf{89,8}\% \\
+  \bottomrule
+  \end{tabularx}
+  \label{tab:final_vaihingen}
+\end{table}
+
+\begin{table}[t]
+    \caption{Résultats du \gls{ISPRS} 2D Semantic Labeling Challenge Potsdam.}
+    \label{table:final_potsdam}
+    \setlength\tabcolsep{4pt}
+	\begin{tabularx}{\textwidth}{Y c c c c c c}
+    \toprule
+	Method & Routes & Bâtiments & Vég. basse & Arbres & Véhicules & Exactitude\\
+    \midrule
+    FCN + CRF + caractéristiques expertes~\cite{liu_dense_2017} & 91.2 & 94.6 & 85.1 & 85.1 & 92.8 & 88.4\\
+    FCN~\cite{sherrah_fully_2016} & 92.5 & \textbf{96.4} & 86.7 & 88.0 & 94.7 & 90.3\\
+    \midrule
+    SegNet (IRRG) & 92.4 & 95.8 & 86.7 & 87.4 & 95.1 & 90.0\\
+    \bottomrule
+    \end{tabularx}
+\end{table}
+
+\begin{figure}[h]
+  \begin{subfigure}[t]{0.25\textwidth}
+    \includegraphics[width=\textwidth]{top}
+    \caption{Image \gls{IRRV}}
+  \end{subfigure}%
+  % \begin{subfigure}[t]{0.19\textwidth}
+  %     \includegraphics[width=\textwidth]{svl}
+  %     \caption{``SVL''\cite{gerke_use_2015}}
+  %   \end{subfigure}
+  \begin{subfigure}[t]{0.25\textwidth}
+    \includegraphics[width=\textwidth]{rf}
+    \caption{RF + \glsname{CRF}~\cite{quang_efficient_2015}}
+  \end{subfigure}%
+  \begin{subfigure}[t]{0.25\textwidth}
+    \includegraphics[width=\textwidth]{fcn}
+    \caption{``DLR'' (\gls{FCN})~\cite{marmanis_semantic_2016}}
+  \end{subfigure}%
+    \begin{subfigure}[t]{0.25\textwidth}
+    \includegraphics[width=\textwidth]{segnet}
+    \caption{\textbf{SegNet++}}
+  \end{subfigure}
+  \caption{Comparaison des segmentations obtenues sur un extrait du jeu de test \gls{ISPRS} Vaihingen.\\
+  \isprslegende}
+  \label{fig_segnet_qualitative}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\foreach\picname\picpath\w in {Image \gls{RVB}/potsdam_rgb_3_11/0.48,Vérité terrain/potsdam_gt_3_11/0.48,Prédiction (SegNet)/segnet_irrg_potsdam_3_11/0.9}{%
+	\begin{subfigure}{\w\textwidth}
+		\includegraphics[width=\textwidth]{\picpath}
+		\caption*{\picname}
+	\end{subfigure}
+	}
+	\caption{Exemple de segmentation obtenue par SegNet sur le jeu de données \gls{ISPRS} Potsdam (tuile 3\_11).\\\isprslegende}
+	\label{fig:potsdam_images}
+\end{figure}
+
+Notre meilleur modèle améliore l'état-de-l'art sur le jeu de données \gls{ISPRS} Vaihingen (cf. \cref{tab:final_vaihingen}) \footnote{Résultats détaillés : \url{http://www2.\gls{ISPRS}.org/vaihingen-2d-semantic-labeling-contest.html}}. La \cref{fig_segnet_qualitative} illustre une comparaison qualitative entre différentes méthodes. Les métriques sont calculées en ignorant un rayon de $3$ pixels autour des bordures afin de tenir compte d'éventuelles imprécisions dans la vérité terrain.
+
+Au moment de la soumission de ces résultats, la meilleure méthode de l'état de l'art utilisait une combinaison de \gls{FCN} et de caractéristiques expertes, tandis que la nôtre n'utilise que l'apprentissage statistique. La meilleure méthode précédente utilisant uniquement un \gls{FCN} (``DLR\_1'') atteint 88,4\%, ce que nous améliorons de 1\%. Les précédentes méthodes utilisant les \gls{CNN} atteignent 85,9\% (``ONE\_5''\cite{boulch_dag_2015}) et 86,1\% (``ADL\_1''\cite{paisitkriangkrai_effective_2015}). Notre méthode obtient des résultats supérieurs, sans recourir à des caractéristiques expertes ou à des post-traitement structurés comme les \gls{CRF}.
+
+Sur le jeu de données \gls{ISPRS} Potsdam (cf. \cref{table:final_potsdam}), notre méthode est compétitive avec l'état de l'art au moment de la soumission. Notamment, nous améliorons l'état de l'art sur les méthodes n'utilisant que la donnée optique de 0,3\% par rapport au \gls{FCN} de \citet{sherrah_fully_2016} et de 4,2\% par rapport au \gls{FCN} de~\citet{volpi_dense_2017}. Un exemple d'image complète segmentée est donné dans la~\cref{fig:potsdam_images}.
+
+\begin{figure}[h]
 	\captionsetup[subfigure]{singlelinecheck=off,justification=centering}
 	\begin{subfigure}{0.5\textwidth}
 		\begin{subfigure}[t]{0.3\textwidth}
@@ -580,94 +674,12 @@ Comme indiqué dans le~\cref{tab:validation_vaihingen}, l'utilisation d'une dern
 	    \label{fig:geometric_dist}
 	\end{subfigure}
 	\caption{Cas limites de désaccord entre les prédictions faites par SegNet et la vérité terrain.\\
-	\\gls{ISPRS}legende}
+	\isprslegende}
 \end{figure}
 
-\begin{table}[t]
-  \centering
-  \caption{Résultats du \gls{ISPRS} 2D Semantic Labeling Challenge Vaihingen.}
-  \rowcolors{2}{gray!15}{white}
-  \begin{tabularx}{\textwidth}{ Y c c c c c c }
-  \toprule
-  Méthode & Routes & Bâtiments & Vég. basse & Arbres & Véhicules & Exactitude\\
-  \midrule
-  Stair Vision Library {\scriptsize (``SVL\_3'')}\cite{gerke_use_2015} & 86,6\% &	91,0\% &	77,0\% &	85,0\%	& 55,6\% &	84,8\% \\
-  RF + CRF {\scriptsize (``HUST'')}\cite{quang_efficient_2015} & 86,9\% & 92,0\% &	78,3\% &	86,9\% &	29,0\% &	85,9\% \\
-  Ensemble de CNN {\scriptsize (``ONE\_5'')}\cite{boulch_dag_2015} & 87,8\% &	92,0\% &	77,8\% &	86,2\% &	50,7\% &	85,9\% \\
-  FCN {\scriptsize (``UZ\_1'')}\cite{volpi_dense_2017} & 89,2\% &	92,5\% &	81,6\% &	86,9\% &	57,3\% &	87,3\% \\
-  FCN {\scriptsize (``UOA'')}\cite{lin_efficient_2015} & 89,8\% &	92,1\% &	80,4\% &	88,2\% &	82,0\% &	87,6\% \\
-  CNN + RF + CRF {\scriptsize (``ADL\_3'')}\cite{paisitkriangkrai_effective_2015} & 89,5\% &	93,2\% &	82,3\% &	88,2\% &	63,3\% &	88,0\% \\
-  FCN {\scriptsize (``DLR\_2'')}\cite{marmanis_semantic_2016} & 90,3\% &	92,3\% &	82,5\% &	89,5\% &	76,3\% &	88,5\% \\
-  FCN + RF + CRF {\scriptsize (``DST\_2'')}\cite{sherrah_fully_2016} & 90,5\% &	93,7\% &	83,4\% &	89,2\% &	72,6\% &	89,1\% \\
-  %FCN + CRF + frontières {\scriptsize (``DLR\_10'')}\cite{marmanis_classification_2017} & 92.3\% & 95.2\% & 84.1\% & 90.0\% & 79.3\% & 90.3\%\\
-  \midrule
-  \textbf{SegNet++} (multi-kernel)\cite{audebert_semantic_2016} & \textbf{91,5}\% &	94,3\% &	82,7\% &	89,3\% &	\textbf{85,7}\% &	89,4\% \\
-  %\textbf{SegNet++} (multi-kernel + fusion) & 91,0\% &	\textbf{94,5}\% &	\textbf{84,4}\% &	\textbf{89,9}\% &	77,8\% &	\textbf{89,8}\% \\
-  \bottomrule
-  \end{tabularx}
-  \label{tab:final_vaihingen}
-\end{table}
+Il est intéressant de constater que les performances des modèles sont telles que certaines erreurs deviennent attribuables aux ambiguïtés des annotations. La~\cref{fig:unprecise_transition} illustre ainsi un cas où la vérité terrain ne suit pas parfaitement les contours de l'arbre, tandis que le modèle s'avère très fidèle. En outre, le processus d'ortho-rectification de la mosaïque d'images a introduit des distorsions géométriques qui ne sont pas prises en compte dans la vérité terrain, créant un désaccord entre la l'apparence visuelle des pixels et la sémantique qui leur est attribuée, comme le montre la~\cref{fig:geometric_dist}. Ces erreurs montrent par ailleurs qu'il devient difficile de faire progresser significativement les performances des modèles, tant les résultats obtenus par les \gls{FCN} sont proches de ce qui est raisonablement attendu par les organisateurs du \gls{ISPRS} 2D \emph{Semantic Labeling Benchmark}.
 
-\begin{table}
-    \caption{Résultats du \gls{ISPRS} 2D Semantic Labeling Challenge Potsdam.}
-    \label{table:final_potsdam}
-    \setlength\tabcolsep{4pt}
-	\begin{tabularx}{\textwidth}{Y c c c c c c}
-    \toprule
-	Method & Routes & Bâtiments & Vég. basse & Arbres & Véhicules & Exactitude\\
-    \midrule
-    FCN + CRF + caractéristiques expertes~\cite{liu_dense_2017} & 91.2 & 94.6 & 85.1 & 85.1 & 92.8 & 88.4\\
-    FCN~\cite{sherrah_fully_2016} & 92.5 & \textbf{96.4} & 86.7 & 88.0 & 94.7 & 90.3\\
-    \midrule
-    SegNet (IRRG) & 92.4 & 95.8 & 86.7 & 87.4 & 95.1 & 90.0\\
-    \bottomrule
-    \end{tabularx}
-\end{table}
-
-\begin{figure}[t]
-  \begin{subfigure}[t]{0.25\textwidth}
-    \includegraphics[width=\textwidth]{top}
-    \caption{Image \gls{IRRV}}
-  \end{subfigure}%
-  % \begin{subfigure}[t]{0.19\textwidth}
-  %     \includegraphics[width=\textwidth]{svl}
-  %     \caption{``SVL''\cite{gerke_use_2015}}
-  %   \end{subfigure}
-  \begin{subfigure}[t]{0.25\textwidth}
-    \includegraphics[width=\textwidth]{rf}
-    \caption{RF + \gls{CRF}~\cite{quang_efficient_2015}}
-  \end{subfigure}%
-  \begin{subfigure}[t]{0.25\textwidth}
-    \includegraphics[width=\textwidth]{fcn}
-    \caption{``DLR'' (\gls{FCN})~\cite{marmanis_semantic_2016}}
-  \end{subfigure}%
-    \begin{subfigure}[t]{0.25\textwidth}
-    \includegraphics[width=\textwidth]{segnet}
-    \caption{\textbf{SegNet++}}
-  \end{subfigure}
-  \caption{Comparaison des segmentations obtenues sur un extrait du jeu de test \gls{ISPRS} Vaihingen.\\
-  \\gls{ISPRS}legende}
-  \label{fig_segnet_qualitative}
-\end{figure}
-
-\begin{figure}[t]
-	\foreach\picname\picpath in {Image \gls{RVB}/potsdam_rgb_3_11,Vérité terrain/potsdam_gt_3_11,Prédiction (SegNet)/segnet_irrg_potsdam_3_11}{%
-	\begin{subfigure}{0.33\textwidth}
-		\includegraphics[width=\textwidth]{\picpath}
-		\caption*{\picname}
-	\end{subfigure}%
-	}
-	\caption{Exemple de segmentation obtenue par SegNet sur le jeu de données \gls{ISPRS} Potsdam (tuile 3\_11).}
-	\label{fig:potsdam_images}
-\end{figure}
-
-Notre meilleur modèle améliore l'état-de-l'art sur le jeu de données \gls{ISPRS} Vaihingen (cf. \cref{tab:final_vaihingen}) \footnote{Résultats détaillés : \url{http://www2.\gls{ISPRS}.org/vaihingen-2d-semantic-labeling-contest.html}}. La \cref{fig_segnet_qualitative} illustre une comparaison qualitative entre différentes méthodes. Les métriques sont calculées en ignorant un rayon de $3$ pixels autour des bordures afin de tenir compte d'éventuelles imprécisions dans la vérité terrain.
-
-Au moment de la soumission de ces résultats, la meilleure méthode de l'état de l'art utilisait une combinaison de \gls{FCN} et de caractéristiques expertes, tandis que la nôtre n'utilise que l'apprentissage statistique. La meilleure méthode précédente utilisant uniquement un \gls{FCN} (``DLR\_1'') atteint 88,4\%, ce que nous améliorons de 1\%. Les précédentes méthodes utilisant les \gls{CNN} atteignent 85,9\% (``ONE\_5''\cite{boulch_dag_2015}) et 86,1\% (``ADL\_1''\cite{paisitkriangkrai_effective_2015}). Notre méthode obtient des résultats supérieurs, sans recourir à des caractéristiques expertes ou à des post-traitement structurés comme les \gls{CRF}.
-
-Sur le jeu de données \gls{ISPRS} Potsdam (cf. \cref{table:final_potsdam}), notre méthode est compétitive avec l'état de l'art au moment de la soumission. Notamment, nous améliorons l'état de l'art sur les méthodes n'utilisant que la donnée optique de 0,3\% par rapport au \gls{FCN} de \citet{sherrah_fully_2016} et de 4,2\% par rapport au \gls{FCN} de~\citet{volpi_dense_2017}.
-
-En conclusion, nous avons démontré que les \gls{FCN} se prêtent particulièrement bien à la segmentation sémantique d'images aériennes. En particulier, sur la base de données \gls{ISPRS}, nous avons pu montrer d'une part la nette supériorité des réseaux entièrement convolutifs par rapport aux approches de l'état de l'art en classification par région. En outre, nous avons proposé plusieurs bonnes pratiques concernant l'initialisation de ces réseaux et le paramétrage des fenêtres glissantes pour le traitement des images aériennes. Enfin, nous avons proposé deux méthodes de segmentation permettant d'inclure différentes échelles et contextes spatiaux au sein du réseau. Ces approches nous ont permis d'établir de nouveaux états de l'art. Toutefois, ces succès restent encore limités au domaine de l'imagerie 3 canaux \gls{IRRV} et \gls{RVB} à très haute résolution. Le chapitre suivant s'intéresse ainsi à étendre ces résultats sur d'autres capteurs couramment utilisés en observation de la Terre.
+En conclusion, nous avons démontré que les \gls{FCN} se prêtent particulièrement bien à la segmentation sémantique d'images aériennes. En particulier, sur la base de données \gls{ISPRS}, nous avons pu montrer d'une part la nette supériorité des réseaux entièrement convolutifs par rapport aux approches de l'état de l'art en classification par région. En outre, nous avons proposé plusieurs bonnes pratiques concernant l'initialisation de ces réseaux et le paramétrage des fenêtres glissantes pour le traitement des images aériennes. Enfin, nous avons proposé deux méthodes de segmentation permettant d'inclure différentes échelles et contextes spatiaux au sein du réseau. Ces approches nous ont permis de faire progresser l'état de l'art. Toutefois, ces succès restent encore limités au domaine de l'imagerie 3 canaux \gls{IRRV} et \gls{RVB} à très haute résolution. Le chapitre suivant s'intéresse à étendre ces résultats sur d'autres capteurs couramment utilisés en observation de la Terre.
 
 %\bibliographystyle{plainnat}
 %\bibliography{Chapitre2/Biblio}
