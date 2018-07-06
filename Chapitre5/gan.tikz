@@ -1,0 +1,49 @@
+\begin{tikzpicture}
+\usetikzlibrary{shapes.geometric}
+
+\def \xgen {0}
+\def \wblock {2}
+\def \xdis {8}
+\def \h {4}
+\def \ydis {2}
+
+\definecolor{blue}{RGB}{105, 150, 156}
+\definecolor{red}{RGB}{170, 65, 57}
+\definecolor{green}{RGB}{43, 130, 58}
+\definecolor{orange}{RGB}{170, 111, 57}
+
+% Générateur
+\node [draw,trapezium, trapezium angle=75, shape border rotate=90,fill=blue!90!white, minimum width=3cm] (generator) at (1, 0) {\Large G};
+
+% Discriminateur
+\node [draw,trapezium, trapezium angle=75, shape border rotate=270,fill=green!50!white, minimum width=3cm] (discriminator) at (9, 2) {\Large D};
+\node at (11.5, 2) (loss) {\small Réel/synthétique};
+\draw[->,thick] (discriminator.east) -- (loss.west);
+
+\node [draw,trapezium, trapezium angle=75, shape border rotate=270,fill=green!50!white, minimum width=3cm] (classifier) at (9, -2) {\Large C};
+\node at (11.5, -2) (classes) {\small Classes};
+\draw[->,thick,dashed] (classifier.east) -- (classes.west);
+% Classifieur
+
+% Bruit z
+\node[rectangle, draw, rounded corners=6,fill=purple!50!white,minimum height=2.6cm] at (-1,1) (noise) {z};
+\draw[->,thick,blue] (noise.east) to [bend right, out=0,in=-150] (generator.west);
+% Condition
+\node[rectangle, draw, rounded corners=6,fill=brown!50!white,minimum height=1cm] at (-1,-1) (condition) {c};
+\draw[->,thick,blue] (condition.east) to [bend left, out=0,in=150] (generator.west);
+
+% Spectres générés
+\node[label={south:\footnotesize Spectres synthétiques}] at (\xgen+\wblock+2,0) (fake) {\includegraphics[width=2.5cm]{spectrum.png}};
+\draw[->,thick,blue] (generator.east) -- (fake.west);
+\draw[->,thick,blue] (fake.east) to [bend left=45,out=-25,in=-200] (discriminator.south west);
+\draw [->, thick,blue,dashed] (fake.east) to [bend right=45,out=25,in=200] (classifier.north west) ;
+% Jeu de données
+\node [rectangle,draw,rounded corners=10, minimum width=3cm, minimum height=1cm,fill=gray!30!white] (unsupervised) at (4, 2) {\scriptsize Spectres non-étiquettés};
+\node [rectangle,draw,rounded corners=10, minimum width=3cm, minimum height=1cm,fill=gray!30!white] (supervised) at (4, -2) {\scriptsize Spectres étiquettés};
+
+
+\draw [->, thick,red] (unsupervised.east) -- node[above] {\footnotesize Spectres réels} (discriminator.west);
+\draw [->, thick,red, dashed] (supervised.east) -- node[below] {\footnotesize Spectres réels} (classifier.west);
+\draw [->, thick,red,dashed] (supervised.south) to [bend right=45, in=235] node[above] {\footnotesize Annotations} (classes.south west);
+\draw [->, thick, blue,dashed] (condition.east) to [bend right=30, in=228] (classes.south);
+\end{tikzpicture}
