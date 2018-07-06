@@ -16,24 +16,62 @@ Nous étendons ensuite ces travaux à des sources de données non physiques. En 
 
 \section{Apprentissage multi-modal}
 
-\subsection{Approches en vision par ordinateur}
+\subsection{Réseaux de neurones et apprentissage multi-modal}
 
-Principalement autour du RGB+profondeur
+\begin{figure}[h]
+  \hfill
+  \begin{subfigure}[b]{0.43\textwidth}
+    \resizebox{\textwidth}{!}{
+      \input{Chapitre4/ngiam.tikz}
+    }
+    \caption{Auto-encodeur multimodal~\cite{ngiam_multimodal_2011}}
+    \label{fig:ae_multimodal}
+  \end{subfigure}%
+  \hfill
+  \begin{subfigure}[b]{0.53\textwidth}
+    \resizebox{\textwidth}{!}{
+      \input{Chapitre4/eitel.tikz}
+    }
+    \caption{\gls{CNN} multimodal~\cite{eitel_multimodal_2015}}
+    \label{fig:cnn_multimodal}
+  \end{subfigure}
+  \hfill
+\end{figure}
 
-Empilement ne donne rien
+Jusqu'à présent nous n'avons présenté que des réseaux de neurones n'opérant que sur un seul type de données. Toutefois, la perception sensorielle humaine mobilise plusieurs modalités, notamment le son et l'image, présentant des interactions entre elles. Une question naturelle est donc de chercher à savoir dans quelle mesure une machine est en mesure d'exploiter ce type d'information contenues sous plusieurs formes, partiellement redondantes.
 
-Approches de fusion a posterio, par exemple auto-encodeurs audio/vidéo
+L'apprentissage multi-modal via des réseaux de neurones correspond donc à un problème d'apprentissage de représentation à partir de signaux dans plusieurs domaines. \citet{baltrusaitis_multimodal_2017} propose la taxonomie suivante, dans laquelle les représentations peuvent être conjointes (une même représentation pour plusieurs modalités) ou coordonnées (chaque modalité à une représentation)\,:
+\begin{itemize}
+    \item Représentation\,: générer des caractéristiques exploitant la complémentarité et la redondance de modalités multiples.
+    \item Traduction\,: convertir d'une modalité à une autre.
+    \item Alignement\,: trouver des correspondances entre une représentation d'une modalité et une autre.
+    \item Fusion\,: prendre en compte plusieurs modalités pour la prise de décision.
+\end{itemize}
 
-Approches d'apprentissage conjoint, par exemple FuseNet
+Un modèle capable de synthétiser l'information visuelle et sonore d'une vidéo pour y assigner des étiquettes peut ainsi fonctionner de plusieurs façons. Une première possibilité est d'extraire des caractéristiques séparément pour le son et l'image puis d'utiliser un classifieur qui travaillera sur les caractéristiques concaténées (fusion). Mais il est également possible de contraindre par des mesures de similarité les représentations audio et vidéo à respecter des critères de proximité sémantique (alignement) ou d'utiliser des algorithmes d'adaptation de domaine pour projeter une caractéristique audio vers une caractéristique image et inversement (traduction). Plutôt que de manipuler les représentations séparément, il est possible de construire un modèle travaillant sur des données hétérogènes pour construire une représentation multi-modale unique (représentation).
 
-L'apprentissage profond a été étudié à plusieurs reprises pour le traitement de données multi-modales. \citet{ngiam_multimodal_2011} ont proposé une architecture d'auto-encodeur à double entrée apprenant une représentation conjointe des sources audio et vidéo. Dans la communauté vision, la popularisation des capteurs \gls{RGB-D} comme la Kinect a entraîné de nombreux travaux en interprétation de scènes utilisant à la fois les images et les cartes de profondeur. Ainsi, \citet{eitel_multimodal_2015} introduit une architecture de réseau profond dérivée d'AlexNet utilisant deux réseaux convolutifs parallèles convergeant une représentation mixant image \gls{RVB} et carte de profondeur encodée sur trois canaux pour la classification d'images. Cette approche de réseaux parallèles convergeant vers une représentation mixte a également été appliquée à la détection d'extremités des doigts par~\citet{guo_two-stream_2016}.
-Plus récemment, \citet{hazirbas_fusenet_2016} ont étendu cette idée aux réseaux entièrement convolutifs pour la segmentation sémantique d'images \gls{RGB-D} en utilisant un SegNet avec deux encodeurs parallèles dont les représentations intermédiaires régulièrement combinées. Finalement, \cite{lee_rdfnet_2017} élabore ce modèle en y intégrant de l'apprentissage par résidu et une approche de segmentation par raffinement des cartes sous-résolues. Ces différents modèles permettent de fait d'extraire de l'information à partir de sources de données hétérogènes, mais toutefois se focalisent sur des images traditionnelles.
+De nombreuses tâches sont liées à l'apprentissage multi-modal, comme le sous-titrage automatique d'images~\cite{karpathy_deep_2015}, la classification de vidéos~\cite{kim_deep_2013} ou la reconnaissance d'activités à partir de signaux issus de bracelets connectés~\cite{ordonez_deep_2016}. De nombreux jeux de données multi-modaux ont été proposés pour une grande variété de tâches\,: description automatique d'images~\cite{hodosh_framing_2013}, diagnostic médical à partir de scanners variés~\cite{menze_multimodal_2015}, reconnaissance d'action à partir de données 3D et d'images~\cite{ofli_berkeley_2013}, analyse d'émotions ressenties à partir de vidéos~\cite{schuller_avec_2011}, éventuellement enrichie par des mesures cardiaques et neurales~\cite{ringeval_introducing_2013}.
+
+Une des premières méthodes développées pour l'apprentissage multi-modal s'intéresse à la fusion dite tardive, s'appliquant au moment de la prise de décision finale. Dans le cas le plus simple, il s'agit d'utiliser un modèle pour chaque modalité et d'appliquer des méthodes d'apprentissage par ensemble, ou plus directement une combinaison linéaire, pour prendre la décision en tenant compte des entrées hétérogènes. C'est par exemple l'approche retenue par~\citet{yuhas_integration_1989} et~\citet{meier_adaptive_1996} pour la reconnaissance automatique de syllabes à partir de vidéos. On retrouve régulièrement ce type d'approche dans la littérature récente pour le traitement de vidéos, par exemple dans~\cite{noda_audio-visual_2015} qui utilise une chaîne de Markov cachée pour la reconnaissance automatique de la parole.
+
+Toutefois, l'apprentissage profond puise sa force dans l'expressivité des représentations que les modèles peuvent apprendre. Ainsi, l'apprentissage multi-modal profond s'est intéressé à l'étude de caractéristiques conjointes sur des sources de données hétérogènes. \citet{ngiam_multimodal_2011} se sont par exemple intéressés à la construction d'un \gls{DBN} auto-encodeur bi-modal audio-image. Deux encodeurs traitent chaque canal séparément et convergent vers une représentation partagée. Deux décodeurs doivent reconstruire chacun une des modalités à partir de la même représentation, comme illustré dans la~\cref{fig:ae_multimodal}. Un point particulièrement intéressant est que cette représentation partagée se montre capable de compenser la perte d'une modalité. Leur modèle peut ainsi être utilisé pour prédire un phonème à partir de la vidéo seulement ou de l'audio seulement.
+\cite{srivastava_multimodal_2014} proposent une architecture similaire conçue à partir de machines de Boltzmann profondes pouvant s'appliquer aux vidéos, mais aussi à des données très hétérogènes comme l'image (signal brut) et des étiquettes descriptives (langage symbolique). Leur modèle permet en outre de générer l'une des modalités à partir de l'autre lorsqu'elle est manquante. Plus récemment, \citet{simonyan_two-stream_2014} introduisent des réseaux à double flux pour la reconnaissance d'action dans des vidéos à partir des modalités son et image.
+
+Récemment, la communauté vision s'est intéressée à la fusion entre images \gls{RVB} et cartes de profondeur pour traiter des données 2,5D, notamment avec l'émergence de capteurs à bas coût permettant l'acquisition de celles-ci, comme le Kinect. S'il est possible de concaténer des caractéristiques issues de modèles pré-entraînés pour générer des représentations multi-modales artificielles~\cite{schwarz_rgb-d_2015,lagrange_benchmarking_2015}, il semble ainsi intéressant de chercher à automatiquement apprendre des représentations conjointes exploitant la complémentarité des sources de données. \citet{eitel_multimodal_2015,guo_two-stream_2016,song_combining_2017} s'inspirent de fait du modèle de~\citet{ngiam_multimodal_2011} en utilisant deux \gls{CNN} en parallèle extrayant des caractéristiques qui sont fusionnées dans une représentation conjointe par les dernières couches, leur permettant ainsi de réaliser directement des classifications d'images \gls{RGB-D}. Cette architecture est illustrée dans la~\cref{fig:cnn_multimodal}.Concrètement, deux réseaux AlexNet en parallèle sont utilisés pour extraire des caractéristiques sur l'image \gls{RVB} et sur une carte de profondeur encodée sur 3 canaux. Les caractéristiques extraites par les couches convolutives d'AlexNet convergent de la même façon que chez~\cite{ngiam_multimodal_2011} et sont utilisées comme entrée du classifieur entièrement connecté commun aux deux réseaux. Ces approches permettent d'améliorer les performances de classifieurs convolutifs par rapport au travail sur l'image \gls{RVB} seule, l'information de profondeur permettant de discriminer certains objets en incluant l'\emph{a priori} géométrique et en permettant diminuer l'influence des occlusions. Ces résultats viennent renforcer ceux obtenus par \citet{simonyan_two-stream_2014} dans lequel un réseau à deux flux pour la classification de vidéos était entraîné en simultané sur chaque image instantanée et sur le flot optique entre deux images successives.
+
+L'architecture FuseNet introduite par~\citet{hazirbas_fusenet_2016} est une extension naturelle de cette approche à la segmentation sémantique. Toujours appliqué sur des images \gls{RGB-D}, FuseNet dérive du modèle SegNet~\cite{badrinarayanan_segnet_2017} présenté dans le~\cref{chap:cartographie}. Deux encodeurs réalisent une extraction de caractéristiques dense sur l'image \gls{RVB} et la carte de profondeur encodée sur 3 canaux. Un décodeur unique réalise le surréchantillonnage et la classification en simultané. Cette méthode permet à \citet{hazirbas_fusenet_2016} d'établir un nouvel état de l'art sur le jeu de données SUN RGB-D, dédié à la segmentation sémantique d'images \gls{RGB-D} en intérieur. \citet{guerry_look_2017} obtiennent également d'excellents résultats en détection de personnes dans des images \gls{RGB-D} en utilisant ces méchanismes d'apprentissage bi-modaux au sein desquels les encodeurs parallèles s'échangent de l'information issue de capteurs complémentaires. Finalement, \citet{lee_rdfnet_2017} proposent une amélioration de cette architecture en l'adaptant au paradigme de l'apprentissage résiduel et établissent à leur tour un nouvel état de l'art sur le jeu de données SUN RGB-D.
+
+Il est intéressant de constater que ces méthodes d'interprétation d'images \gls{RGB-D} traitent toutes séparément les aspects de couleur et de profondeur. En effet, comme pour le multispectral, il est intéressant de pouvoir bénéficier des modèles pré-entraînés forts sur les images \gls{RVB}. Concaténer la carte de profondeur à l'image couleur pour former un tenseur à 4 canaux résulte ainsi en des performances plus faibles qu'en traitant les données séparément.
 
 \subsection{Transposition à la télédétection}
 
-\todo[inline]{Marmanis, etc., état de l'art fusion en télédétection}
+En télédétection, l'utilisation des modèles numériques de terrain pour améliorer les performances des classifieurs image a également été fortement étudiée. Le problème est en effet très similaire à celui de l'interprétation d'images 2,5D \gls{RGB-D}, le \gls{MNT} jouant un rôle très similaire à celui des carte de profondeur.
 
-\begin{figure}
+Toutefois, la plupart des travaux antérieurs à cette thèse ont utilisé des stratégies \emph{ad hoc} pour réaliser cette fusion. \citet{lagrange_benchmarking_2015} concatènent simplement les caractéristiques extraites par des réseaux pré-entraînés pour optimiser un nouveau classifieur \gls{SVM} et \citet{paisitkriangkrai_effective_2015} font de même avec des forêts aléatoires en y intégrant en sus des caractéristiques expertes. Plus récemment, \cite{liu_dense_2017} utilise ces mêmes caractéristiques mais les injectent dans un modèle graphique de type \gls{CRF} pour combiner segmentation sémantique issue d'un \gls{FCN}, modèle de terrain et \gls{NDVI}.
+
+Dans cette thèse, nous étudions des approches profondes de bout en bout n'utilisant ni modèle graphique, ni caractéristiques \emph{ad hoc}. Dans un premier temps, nous nous intéresserons à la fusion optique/\gls{Lidar}, puis nous chercherons comment utiliser ces méthodes pour l'intégration de connaissances \emph{a priori}.
+
+\begin{figure}[t]
   \begin{subfigure}{0.5\textwidth}
     \includegraphics[width=\textwidth]{fusenet}
     \caption{Architecture FuseNet~\cite{hazirbas_fusenet_2016}}
@@ -46,27 +84,19 @@ Plus récemment, \citet{hazirbas_fusenet_2016} ont étendu cette idée aux rése
   \end{subfigure}
 \end{figure}
 
-Ces images \gls{RGB-D} correspondent à une représentation 2,5D du monde. L'approche FuseNet~\cite{hazirbas_fusenet_2016} est dérivée de l'architecture SegNet. Comme illustré dans la~\cref{fig:fusenet}, FuseNet encode conjointement l'image \gls{RVB} et la carte de profondeur en utilisant deux encodeurs dont les contributions respectives sont additionnées après chaque bloc convolutif. Un décodeur unique réalise alors la reconstruction de la résolution et la classification. Cette approche peut être adaptée à n'importe quel autre \gls{CNN} de base, comme les ResNet (cf.~\cref{fig:fusresnet}).
-
-Dans notre cas, nous pouvons altérer FuseNet de la même façon que nous avons altéré SegNet dans les chapitres précédents, afin de traiter des images de télédétection. En effet, une carte d'élévation comme le \gls{MNE} peut être considérée comme une carte de profondeur associée à une image \gls{RVB}. De fait, nous proposons ainsi d'adapter FuseNet au traitemement d'images de télédétection multi-modales, exploitant à la fois l'image optique, mais aussi l'image composite conçue au chapitre précédent.
-
-%However, in this architecture the depth data is treated as second-hand. Indeed, the two branches are not exactly symmetrical: the depth branch works only with depth-related information where as the optical branch actually deals with a mix of depth and optical data. Moreover, in the upsampling process, only the indices from the main branch will be used. Therefore, one needs to choose which data source will be the primary one and which one will be the auxiliary data~(cf.~\cref{fig:fusenet_sum}). There is a conceptual unbalance in the way the two sources are dealt with. We suggest an alternative architecture with a third ``virtual'' branch that does not have this unbalance, which might improve performance.
-
-%Instead of computing the sum of the two sets of feature maps, we suggest an alternative fusion process to obtain the multi-modal joint-features. We introduce a third encoder that does not correspond to any real modality, but instead to a virtual fused data source. At stage $n$, the virtual encoder takes as input its previous activations concatenated with both activations from the other encoders. These feature maps are passed through a convolutional block to learn a residual that is summed with the average feature maps from the other encoders. This is illustrated in~\cref{fig:fusenet_mix}. This strategy makes FuseNet symetrical and therefore relieves us of the choice of the main source, which would be an additional hyperparameter to tune. This architecture will be named \textbf{V-FuseNet} in the rest of the paper for Virtual-FuseNet.
-
 \section{Fusion de modèles}
-
-\subsection{Mélanges de modèles}
-
-Approches a posteriori : moyenne ou combinaison apprise
-
-Similaire à de l'apprentissage par ensemble
 
 \subsection{Fusion par apprentissage}
 
+L'approche FuseNet~\cite{hazirbas_fusenet_2016} est dérivée de l'architecture SegNet. Comme illustré dans la~\cref{fig:fusenet}, FuseNet encode conjointement l'image \gls{RVB} et la carte de profondeur en utilisant deux encodeurs dont les contributions respectives sont additionnées après chaque bloc convolutif. Un décodeur unique réalise alors la reconstruction de la résolution et la classification. Cette approche peut être adaptée à n'importe quel autre \gls{CNN} de base, comme les ResNet (cf.~\cref{fig:fusresnet}).
+
+Dans notre cas, nous pouvons altérer FuseNet de la même façon que nous avons altéré SegNet dans les chapitres précédents, afin de traiter des images de télédétection. En effet, une carte d'élévation comme le \gls{MNE} peut être considérée comme une carte de profondeur associée à une image \gls{RVB}. De fait, nous proposons ainsi d'adapter FuseNet au traitemement d'images de télédétection multi-modales, exploitant à la fois l'image optique, mais aussi l'image composite conçue au chapitre précédent.
+
 Un des inconvénients de FuseNet est que cette approche nécessite d'avoir des modèles de base topologiquement compatible afin de pouvoir sommer les activations et fusionner les encodeurs. Cependant, cela ne se vérifie pas systématiquement. Par exemple, certaines données peuvent posséder des natures différentes, comme une image 2D et un nuage de point 3D. En outre, il n'est pas nécessairement utile de consacrer autant de paramètres sur les deux sources de données, notamment si l'une est moins informative que l'autre. Nous proposons donc une méthode de fusion de données alternative pour extraire de l'information à partir de sources hétérogènes. En l'occurrence, nous suggérons d'étudier la posibilité d'effectuer une fusion tardive au moment de la prise de décision, plutôt que d'apprendre des représentations conjointes.
 
-\begin{figure}
+\subsection{Mélanges de modèles}
+
+\begin{figure}[h]
    \begin{subfigure}{0.5\textwidth}
      \includegraphics[width=\textwidth]{residual_fusion_segnet}
      \caption{Correction résiduelle appliquée à SegNet}
@@ -115,30 +145,27 @@ ce qui impose la contrainte suivante sur $c$ et $\epsilon_i$\,:
 \end{equation}
 
 \begin{figure}[t]
-  \includegraphics[height=\textwidth,angle=90]{correct_network}
+  \centering
+  \includegraphics[height=0.9\textwidth,angle=90]{correct_network}
   \caption{Module de correction résiduelle.}
   \label{fig:correction_network}
 \end{figure}
 
 De fait, cela peut se traduire par l'approximation de l'erreur moyenne en fonction des cartes d'activation finales. En effet, lors de la phase d'entraînement, la vérité terrain $P_0$ est connue et le module de correction résiduel est modifié afin de se rapprocher de $\sum_{i=1}^R \epsilon_i$. L'apprentissage par résidu se prête tout particulièrement à cette approche, car celle-ci s'exprime naturellement sur la forme d'une correction d'erreur, le résidu étant alors de faible amplitude par rapport au signal identité (ou \emph{bypass}). Le module est détaillé dans la~\cref{fig:correction_network}.
 
-Laisser le modèle trouver la combinaison intéressante : ~moyenne avec pondération adaptative
-
-Approche résiduelle : correction d'erreur
-
 \begin{table}
-    \caption{Final results on the Vaihingen dataset.}
+    \caption{Résultats sur le jeu de test ISPRS Vaihingen.}
     \label{table:final_vaihingen}
     \setlength\tabcolsep{5pt}
 	\begin{tabularx}{\textwidth}{Y c c c c c c}
     \toprule
-	Method & imp. surf. & buildings & low veg. & trees & cars & Overall\\
+	  Modèle & routes & bâtiments & vég. basse & arbres & véhicules & Exactitude\\
     \midrule
     FCN~\cite{sherrah_fully_2016} & 90.5 & 93.7 & 83.4 & 89.2 & 72.6 & 89.1\\
-    FCN + fusion + boundaries~\cite{marmanis_classification_2016} & \textbf{92.3} & \textbf{95.2} & 84.1 & \textbf{90.0} & 79.3 & \textbf{90.3}\\
+    FCN + fusion + frontières~\cite{marmanis_classification_2017} & \textbf{92.3} & \textbf{95.2} & 84.1 & \textbf{90.0} & 79.3 & \textbf{90.3}\\
     \midrule
-    SegNet (IRRG) & 91.5 & 94.3 & 82.7 & 89.3 & 85.7 & 89.4\\
-	SegNet-RC & 91.0 & 94.5 & 84.4 & 89.9 & 77.8 & 89.8\\
+    SegNet (\glssymbol{IRRV}) & 91.5 & 94.3 & 82.7 & 89.3 & 85.7 & 89.4\\
+	  SegNet-RC & 91.0 & 94.5 & 84.4 & 89.9 & 77.8 & 89.8\\
     FuseNet & 91.3 & 94.3 & \textbf{84.8} & 89.9 & 85.9 & 90.1\\
     V-FuseNet & 91.0 & 94.4 & 84.5 & 89.9 & \textbf{86.3} & 90.0\\
     \bottomrule
@@ -146,18 +173,18 @@ Approche résiduelle : correction d'erreur
 \end{table}
 
 \begin{table}
-    \caption{Final results on the Potsdam dataset.}
+    \caption{Résultats sur le jeu de test ISPRS Potsdam.}
     \label{table:final_potsdam}
     \setlength\tabcolsep{4pt}
 	\begin{tabularx}{\textwidth}{Y c c c c c c}
     \toprule
-	Method & imp. surf. & buildings & low veg. & trees & cars & Overall\\
+  	Modèle & routes & bâtiments & vég. basse & arbres & véhicules & Exactitude\\\\
     \midrule
-    FCN + CRF + expert features~\cite{Liu_2017_CVPR_Workshops} & 91.2 & 94.6 & 85.1 & 85.1 & 92.8 & 88.4\\
+    FCN + CRF + caractéristiques expertes~\cite{liu_dense_2017} & 91.2 & 94.6 & 85.1 & 85.1 & 92.8 & 88.4\\
     FCN~\cite{sherrah_fully_2016} & 92.5 & \textbf{96.4} & 86.7 & 88.0 & 94.7 & 90.3\\
     \midrule
-    SegNet (IRRG) & 92.4 & 95.8 & 86.7 & 87.4 & 95.1 & 90.0\\
-	SegNet-RC & 91.3 & 95.9 & 86.2 & 85.6 & 94.8 & 89.0\\
+    SegNet (\glssymbol{IRRV}) & 92.4 & 95.8 & 86.7 & 87.4 & 95.1 & 90.0\\
+	  SegNet-RC & 91.3 & 95.9 & 86.2 & 85.6 & 94.8 & 89.0\\
     V-FuseNet & \textbf{92.7} & 96.3 & \textbf{87.3} & \textbf{88.5} & \textbf{95.4} & \textbf{90.6}\\
     \bottomrule
     \end{tabularx}
@@ -170,11 +197,11 @@ Approche résiduelle : correction d'erreur
   		\captionsetup[subfigure]{labelformat=empty}
     	\begin{subfigure}{0.19\textwidth}
         	\includegraphics[width=\textwidth]{tile5_irrg_top}
-      		\caption*{IRRG image}
+      		\caption*{Image \glssymbol{IRRV}}
         \end{subfigure}
         \begin{subfigure}{0.19\textwidth}
         	\includegraphics[width=\textwidth]{tile5_gt}
-        	\caption*{Ground truth}
+        	\caption*{Vérité terrain}
         \end{subfigure}
         \begin{subfigure}{0.19\textwidth}
         	\includegraphics[width=\textwidth]{tile5_segnet_pred}
@@ -186,9 +213,9 @@ Approche résiduelle : correction d'erreur
         \end{subfigure}
         \begin{subfigure}{0.19\textwidth}
         	\includegraphics[width=\textwidth]{tile5_rc_pred}
-        	\caption*{SegNet-RC}
+        	\caption*{SegNet-CR}
         \end{subfigure}
-        \caption{Predictions from various models on a patch of the Vaihingen dataset.}
+        \caption{Prédictions de différentes modèles sur un extrait du jeu de données ISPRS Vaihingen.}
         \label{fig:fusion_exemple1}
     \end{subfigure}
     	\begin{subfigure}{\textwidth}
@@ -196,25 +223,25 @@ Approche résiduelle : correction d'erreur
   		\captionsetup[subfigure]{labelformat=empty}
     	\begin{subfigure}{0.19\textwidth}
         	\includegraphics[width=\textwidth]{tile5_irrg_confidence_buildings}
-      		\caption*{SegNet IRRG confidence (buildings)}
+      		\caption*{SegNet \glssymbol{IRRV} (confiance, bâtiments)}
         \end{subfigure}
         \begin{subfigure}{0.19\textwidth}
         	\includegraphics[width=\textwidth]{tile5_irrg_confidence_roads}
-        	\caption*{SegNet IRRG confidence (roads)}
+        	\caption*{SegNet \glssymbol{IRRV} (confiance, routes))}
         \end{subfigure}
         \begin{subfigure}{0.19\textwidth}
         	\includegraphics[width=\textwidth]{tile5_irrg_confidence_cars}
-        	\caption*{SegNet IRRG confidence (cars)}
+        	\caption*{SegNet \glssymbol{IRRV} (confiance, voitures))}
         \end{subfigure}
         \begin{subfigure}{0.19\textwidth}
         	\includegraphics[width=\textwidth]{tile5_comp_confidence_buildings}
-        	\caption*{SegNet comp. confidence (buildings)}
+        	\caption*{SegNet composite (confiance, bâtiments)}
         \end{subfigure}
         \begin{subfigure}{0.19\textwidth}
         	\includegraphics[width=\textwidth]{tile5_comp_confidence_cars}
-        	\caption*{SegNet comp. confidence (cars)}
+        	\caption*{SegNet composite (confiance, voitures)}
         \end{subfigure}
-        \caption{SegNet confidence heat maps for various classes using several inputs.}
+        \caption{Cartes de confiance de SegNet pour diverses classes selon le type d'entrée.}
         \label{fig:confidence_vaihingen_fusion}
     \end{subfigure}
     \begin{subfigure}{\textwidth}
@@ -222,11 +249,11 @@ Approche résiduelle : correction d'erreur
   		\captionsetup[subfigure]{labelformat=empty}
     	\begin{subfigure}{0.19\textwidth}
         	\includegraphics[width=\textwidth]{tile21_irrg_top}
-      		\caption*{IRRG image}
+      		\caption*{Image \glssymbol{IRRV}}
         \end{subfigure}
         \begin{subfigure}{0.19\textwidth}
         	\includegraphics[width=\textwidth]{tile21_gt}
-        	\caption*{Ground truth}
+        	\caption*{Vérité terrain}
         \end{subfigure}
         \begin{subfigure}{0.19\textwidth}
         	\includegraphics[width=\textwidth]{tile21_segnet_pred}
@@ -238,15 +265,40 @@ Approche résiduelle : correction d'erreur
         \end{subfigure}
         \begin{subfigure}{0.19\textwidth}
         	\includegraphics[width=\textwidth]{tile21_rc_pred}
-        	\caption*{SegNet-RC}
+        	\caption*{SegNet-CR}
         \end{subfigure}
-        \caption{Predictions from various models on a patch of the Vaihingen dataset.}
+        \caption{Prédictions de différentes modèles sur un extrait du jeu de données ISPRS Vaihingen.}
         \label{fig:fusion_exemple2}
     \end{subfigure}
 
-	\caption{Successful predictions using the fusion strategies.\\
+	\caption{Prédiction réussies à l'aide des stratégies de fusion.\\
   \isprslegende}
    	\label{fig:fusion_success}
+\end{figure}
+
+\begin{figure}[h]
+	\begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\linewidth]{potsdam_rgb_3_11}
+    \caption{Image \glssymbol{RVB}}
+    \end{subfigure}
+    \begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\linewidth]{potsdam_comp_3_11}
+    \caption{Image composite}
+    \end{subfigure}
+    \begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\linewidth]{potsdam_gt_3_11}
+    \caption{Vérité terrain}
+    \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+    \includegraphics[width=\linewidth]{segnet_irrg_potsdam_3_11}
+    \caption{SegNet}
+    \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+    \includegraphics[width=\linewidth]{fusenet_irrg_comp_potsdam_3_11}
+    \caption{V-FuseNet}
+    \end{subfigure}
+    \caption{Effet des stratégies de fusion sur un extrait du jeu de données ISPRS Potsdam. La confusion entre les classes de route et de bâtiments est nettement réduite grâce à la contribution des modèles de terrain.\\\isprslegende}
+    \label{fig:potsdam_images}
 \end{figure}
 
 Comme attendu, les deux méthodes de fusion permettent d'améliorer les performances du classifieur sur les deux jeux de données, comme illustré par la~\cref{fig:potsdam_images}. En particulier, la~\cref{fig:fusion_success} montre plusieurs exemples d'objets erronnément classifiés à partir de l'image optique seule qui sont corrigés en intégrant l'image composite dans le modèle. Dans la~\cref{fig:fusion_exemple1,fig:confidence_vaihingen_fusion}, le réseau SegNet ne parvient pas à discriminer entre les classes de route et de bâtiment, compte-tenu du fait qu'il s'agit d'un parking aérien à l'apparence proche de ceux pouvant se trouver au sol, confusion renforcée par la présence des voitures. FuseNet utilise le \gls{MNH} pour trancher en faveur de la classe bâtiment et ignore de fait les véhicules. L'approche par correction résiduelle parvient en plus à conserver une partie de l'information spatiale liée aux voitures. Dans la~\cref{fig:fusion_exemple2}, SegNet confond également route et bâtiment et végétation haute et basse tandis que les deux architectures de fusion parviennent à correctement prédire les différentes objets grâce au \gls{MNH}.
@@ -255,21 +307,21 @@ La fusion dans l'encodeur par FuseNet est qu'elle permet d'exploiter conjointeme
 %One advantage of using the early fusion is that complementarity between the multiple modalities is leveraged more efficiently as it requires less parameters, yet achieves a better classification accuracy for all classes. At the opposite, late fusion with residual correction improves the overall accuracy at the price of less balanced predictions. Indeed, the increase mostly affects the ``building'' and ``impervious surface'' classes, while all the other F1 scores decrease slightly.
 
 \begin{table}
-    \caption{Validation results on Vaihingen.}
+    \caption{Résultats de validation sur le jeu de données ISPRS Vaihingen.}
     \label{table:val_vaihingen}
 	\begin{tabularx}{\textwidth}{Y c c}
     \toprule
-    Model & Overall accuracy & Average F1\\
+    Modèle & Exactitude & Score $F_1$\\
     \midrule
-    SegNet (IRRG) & 90.2 {\small $\pm$ 1.4} & 89.3 {\small $\pm$ 1.2}\\
+    SegNet (\glssymbol{IRRV}) & 90.2 {\small $\pm$ 1.4} & 89.3 {\small $\pm$ 1.2}\\
     SegNet (composite) & 88.3 {\small $\pm$ 0.9} & 81.6 {\small $\pm$ 0.8}\\
-    SegNet-RC & 90.6 {\small $\pm$ 1.4} & 89.2 {\small $\pm$ 1.2}\\
+    SegNet-CR & 90.6 {\small $\pm$ 1.4} & 89.2 {\small $\pm$ 1.2}\\
     FuseNet & 90.8 {\small $\pm$ 1.4} & 90.1 {\small $\pm$ 1.2}\\
     V-FuseNet & \textbf{91.1} {\small $\pm$ 1.5} & \textbf{90.3} {\small $\pm$ 1.2}\\
     \midrule
-    ResNet-34 (IRRG) & 90.3 {\small $\pm$ 1.0} & 89.1 {\small $\pm$ 0.7}\\
+    ResNet-34 (\glssymbol{IRRV}) & 90.3 {\small $\pm$ 1.0} & 89.1 {\small $\pm$ 0.7}\\
     ResNet-34 (composite) & 88.8 {\small $\pm$ 1.1} & 83.4 {\small $\pm$ 1.3}\\
-    ResNet-34-RC & 90.8 {\small $\pm$ 1.0} & 89.1 {\small $\pm$ 1.1}\\
+    ResNet-34-CR & 90.8 {\small $\pm$ 1.0} & 89.1 {\small $\pm$ 1.1}\\
     FusResNet & 90.6 {\small $\pm$ 1.1} & 89.3 {\small $\pm$ 0.7}\\
     \bottomrule
     \end{tabularx}
@@ -277,13 +329,13 @@ La fusion dans l'encodeur par FuseNet est qu'elle permet d'exploiter conjointeme
 
 
 En outre, la correction résiduelle est moins utile lorsque la confiance accordée par les modèles dans leurs prédictions est faible. Sur le jeu de données ISPRS Potsdam, le SegNet composite n'atteint que 79\% de taux de bonne classification, car l'image composite est moins informative pour discriminer des objets à résolution de \SI{5}{\centi\meter/\px}. Par conséquent, la correction résiduelle dégrade légèrement les performances. En revanche, sur le jeu de données ISPRS Vaihingen, l'image composite est nettement plus informative (85\% de taux de bonne classification) et l'ensemble parvient à combiner efficacement les deux sources de données car les deux sont informatives avec un bon taux de confiance, comme illustré dans la~\cref{fig:confidence_vaihingen_fusion}. On observe par ailleurs qu'améliorer les performances sur l'image composite en utilisant un ResNet-34 permet également d'améliorer la performance de la correction résiduelle.
-\todo{mesurer le gain théorique union entre les deux sources de données}
+%\todo{mesurer le gain théorique union entre les deux sources de données}
 %However, on the Potsdam dataset, the residual correction strategy slightly decreases the model accuracy. Indeed, the late fusion is mostly useful to combine strong predictions that are complementary. For example, as illustrated in~\cref{fig:confidence_vaihingen_fusion}, the composite SegNet has a strong confidence in its building prediction while the IRRG SegNet has a strong confidence in its cars predictions. Therefore, the residual correction is able to leverage those predictions and to fuse them to alleviate the uncertainty around the cars in the rooftop parking lot. This works well on Vaihingen as both the IRRG and composite sources achieve a global accuracy higher than 85\%. However, on Potsdam, the composite SegNet is less informative and achieves only 79\% accuracy, as the annotations are more precise and the dataset overall more challenging for a data source that relies only on Lidar and NDVI. Therefore, the residual correction fails to make the most of the two data sources. This analysis is comforted by the fact that, on the Vaihingen validation set, the residual correction achieves a better global accuracy with ResNets than with SegNets, thanks to the stronger ResNet-34 trained on the composite source.
 
 L'architecture FuseNet apprend une représentation conjointe des deux sources de données, mais fait face aux même problématiques que le modèle SegNet standard\,: les cas rares comme les voitures sur un toit sont incorrectement prédits. Les caractéristiques conjointes apprises par les deux encodeurs sont plus performantes, mais FuseNet reste susceptible au sur-apprentissage et aux biais intrinsèques du jeu de données, là où la correction résiduelle parvient à corriger des erreurs même sur des cas rares.
 
 %Meanwhile, the FuseNet architecture learns a joint representation of the two data sources, but faces the same pitfall as the standard SegNet model : edge cases such as cars on rooftop parking lots disappear. However, the joint-features are significantly stronger and the decoder can perform a better classification using this multi-modal representation, therefore improving the global accuracy of the model.
-\todo[inline]{En fait, la fusion tardive est forte pour combiner des prédictions complémentaires quand les deux modèles sont sûrs d'eux (par exemple, le parking sur le toit : le composite est sûr que c'est un bâtiment grâce au Lidar, l'optique est sûr que ce sont des voitures. FuseNet va plutôt être fort pour apprendre des représentations conjointes, mais tombe dans le même travers initial que SegNet : les voitures sur le toit disparaissent car c'est un cas hyper rare qui n'arrive que dans quelques occurrences (et normalement, une voiture c'est sur la route...).}
+La fusion tardive est ainsi pertinente lorsqu'il s'agit de combiner des prédictions fortement complémentaires et agit comme une moyenne pondérée adaptative des prédictions. Pour les cas du parking aérien, la prédiction du SegNet composite prédit un bâtiment avec une confiance haute car le \gls{MNH} est fiable, tandis que le SegNet \gls{RVB} produit des prédictions à fort niveau de confiance sur les voitures. À l'inverse, FuseNet apprend représentations conjointes qui n'échappent pas au surapprentissage. Ainsi, les voitures sur le parking aérien disparaissent à l'inférence car c'est un cas unique au sein du jeu de données\,: les voitures sont normalement sur la route.
 %Sur Vaihingen, ça marche bien car le composite et l'IRRG donnent à peu près la même quantité d'info (les deux modèles sont à au moins 85\%). Par contre sur Potsdam, la fusion tardive ne marche pas terrible, car le composite est à 79\% et a tendance à être moins informatif (surtout que les annotations sur Potsdam sont bien plus précises). Donc la fusion tardive va plutôt galérer. Il me semble qu'on retrouve quand même le même phénomène de véhicules sur le toit, il faut que je retrouve la tuile concernée.}
 
 En conclusion, ces deux stratégies de fusion sont applicables à différentes cas d'utilisation. La fusion tardive par correction résiduelle est utile pour combiner des classifieurs forts très complémentaires, tandis que la stratégie FuseNet est plus adaptée pour exploiter de l'information annexe ancillaire dans le processus d'apprentissage.
@@ -292,9 +344,32 @@ En conclusion, ces deux stratégies de fusion sont applicables à différentes c
 %\todo{Explanation for V-FuseNet (visual if possible)}
 %On the held-out testing set, the V-FuseNet strategy does not perform as well as expected. Its global accuracy is marginally under the original FuseNet model, although F1 scores on smaller and harder classes are improved, especially ``clutter'' which is improved from 49.3\% to 51.0\%. As the ``clutter'' class is ignored in the dataset metrics, this is not reflected in the final accuracy.
 
-\subsection{Robustness to uncertainties and missing data}
+\subsection{Robustesse aux données manquantes}
 
-Bien que les données \gls{Lidar} du jeu de données ISPRS soient très denses, la normalisation du modèle de terrain est imparfaite et quelques artefacts ont été générés. Comme signalé par~\citet{marmanis_classification_2017}, plusieurs bâtiments sont absents du \gls{MNH}, une hauteur de \SI{0}{\meter} ayant été attribuée aux pixels correspondants. Cela cause des problèmes significatifs de classification pour les deux méthodes de fusion, comme illustré par la~\cref{fig:ndsm_fail}. La solution proposée par~\cite{marmanis_classification_2017} consiste à manuellement corriger le \gls{MNH}, mais cette méthode ne passe pas à l'échelle. Des stratégies robustes à la perte d'une modalité ou aux données bruitées pourraient permettre de résoudre ce problème, en utilisant par exemple les \emph{hallucination networks} de~\citet{hoffman_learning_2016} pour inférer les données manquantes~\cite{kampffmeyer_semantic_2016}. Les travaux récents sur les modèles génératifs pourraient également permettre de diminuer le sur-apprentissage et améliorer la robustesse des modèles en entraînant ceux-ci sur des données synthétiques bruitées~\cite{Xie_2017_ICCV}.
+\begin{figure}[h]
+	\captionsetup[subfigure]{singlelinecheck=off,justification=centering}
+    \captionsetup[subfigure]{labelformat=empty}
+    \begin{subfigure}{0.24\textwidth}
+    	\includegraphics[width=\textwidth]{ndsm_fail_top}
+        \caption{\glssymbol{IRRV}}
+    \end{subfigure}
+    \begin{subfigure}{0.24\textwidth}
+    	\includegraphics[width=\textwidth]{ndsm_fail_ndsm}
+        \caption{\glssymbol{MNH}}
+    \end{subfigure}
+    \begin{subfigure}{0.24\textwidth}
+    	\includegraphics[width=\textwidth]{ndsm_fail_residual}
+        \caption{SegNet-CR}
+    \end{subfigure}
+    \begin{subfigure}{0.24\textwidth}
+    	\includegraphics[width=\textwidth]{ndsm_fail_fusenet}
+        \caption{V-FuseNet}
+    \end{subfigure}
+	\caption{Les erreurs dans le \glssymbol{MNH} du jeu de données ISPRS Vaihingen sont mal gérées par les deux méthodes de fusion. Ici, un bâtiment entier disparaît.}
+    \label{fig:ndsm_fail}
+\end{figure}
+
+Bien que les données \gls{Lidar} du jeu de données ISPRS soient très denses, la normalisation du modèle de terrain est imparfaite et quelques artefacts ont été générés. Comme signalé par~\citet{marmanis_classification_2017}, plusieurs bâtiments sont absents du \gls{MNH}, une hauteur de \SI{0}{\meter} ayant été attribuée aux pixels correspondants. Cela cause des problèmes significatifs de classification pour les deux méthodes de fusion, comme illustré par la~\cref{fig:ndsm_fail}. La solution proposée par~\cite{marmanis_classification_2017} consiste à manuellement corriger le \gls{MNH}, mais cette méthode ne passe pas à l'échelle. Des stratégies robustes à la perte d'une modalité ou aux données bruitées pourraient permettre de résoudre ce problème, en utilisant par exemple les \emph{hallucination networks} de~\citet{hoffman_learning_2016} pour inférer les données manquantes~\cite{kampffmeyer_semantic_2016}. Les travaux récents sur les modèles génératifs pourraient également permettre de diminuer le sur-apprentissage et améliorer la robustesse des modèles en entraînant ceux-ci sur des données synthétiques bruitées~\cite{xie_adversarial_2017}.
 
 %Due to limitations and noise in the Lidar point cloud, such as missing or aberrant points, the DSM and subsequently the nDSM present some artifacts. As reported in~\cite{marmanis_classification_2016}, some buildings vanish in the nDSM and the relevant pixels are falsely attributed a height of 0. This causes significant misclassification in the composite image that are poorly handled by both fusion methods, as illustrated in~\cref{fig:ndsm_fail}. \cite{marmanis_classification_2016} worked around this problem by manually correcting the nDSM, though this method does not scale to bigger datasets. Therefore, improving the method to be robust to impure data and artifacts could be helpful, e.g. by using hallucination networks~\cite{hoffman_learning_2016} to infer the missing modality as proposed in~\cite{kampffmeyer_semantic_2016}. We think that the V-FuseNet architecture could be adapted for such a purpose by using the virtual branch to encode missing data. Moreover, recent work on generative models might help alleviate overfitting and improve robustness by training on synthetic data, as proposed in~\cite{Xie_2017_ICCV}.
 
@@ -310,6 +385,19 @@ Peu de travaux se sont penchés sur l'intégration des données \gls{OSM} pour l
 Ici, nous suggérons d'utiliser les couches sémantiques d'\gls{OSM} comme entrée à un réseau de neurones profond pour la cartographie automatisée. L'idée est d'exploiter la donnée sémantique, possiblement bruitée et incomplète d'\gls{OSM} afin d'extraire de l'information plus riche à une résolution supérieure.
 
 Pour ce faire, nous considérons le jeu de données ISPRS Potsdam sur lequel nous récupérons les données \gls{OSM} de 2017. Nous sélectionnons les couches correspondant aux routes, aux empreintes de bâtiments, aux zones d'eau et aux espaces verts. Les routes sont définies dans \gls{OSM} comme un réseau filaire. Par conséquent, en fonction du type de route indiqué dans \gls{OSM}, nous assignons une largeur arbitraire à celles-ci. En outre, les bâtiments, espaces verts et zones d'eau ne correspondent pas nécessairement entièrement aux images aériennes du jeu de données, soit à cause de constructions nouvelles (les images ont été acquises en 2014) , soit car les annotations \gls{OSM} sont incomplètes par endroits. Nous générons ainsi un raster à la même résolution que les images \gls{RVB} contenant 4 canaux binaires : un pour le masque des routes, un pour les bâtiments, un pour l'eau et un pour les espaces verts.
+
+\begin{figure}[h]
+  \foreach\picname\picpath in {Image \gls{RVB}/potsdam_rgb_4_12,Tuile \gls{OSM}/potsdam_osmtile_4_12,Raster \gls{OSM}/potsdam_osm_4_12,Vérité terrain/potsdam_gt_4_12}{%
+  \begin{subfigure}{0.25\textwidth}
+    \includegraphics[width=\textwidth]{\picpath}
+    \caption*{\picname}
+  \end{subfigure}%
+  }%
+  \caption{Tuile 4\_12 du jeu de données ISPRS Potsdam et données \gls{OSM} correspondantes.\\
+  \isprslegende
+  }
+  \label{fig:dataset_potsdam}
+\end{figure}
 
 \subsection{Information \textit{a priori} comme capteur virtuel}
 
@@ -342,7 +430,8 @@ où $Z_{opt}$ et $Z_{osm}$ sont les cartes d'activation finales de SegNet et OSM
 %where $Z_{opt}$ and $Z_{osm}$ are the last feature maps from SegNet and OSMNet, respectively.
 
 \begin{figure}[t]
-  \includegraphics[width=\textwidth]{fusenet_osm}
+  \centering
+  \includegraphics[width=0.9\textwidth]{fusenet_osm}
   \caption{Correction résiduelle appliqué à un OSMNet et un SegNet.}
   \label{fig:refinet}
 \end{figure}
@@ -360,19 +449,6 @@ et
 \begin{equation}
 E_{i+1}^{opt}(I,O) = B_i^{opt}(E_i^{opt}(I, O)) + B_i^{osm}(E_i^{osm}(O))~.
 \end{equation}
-
-\begin{figure}[t]
-  \foreach\picname\picpath in {Image \gls{RVB}/potsdam_rgb_4_12,Tuile \gls{OSM}/potsdam_osmtile_4_12,Raster \gls{OSM}/potsdam_osm_4_12,Vérité terrain/potsdam_gt_4_12}{%
-  \begin{subfigure}{0.25\textwidth}
-    \includegraphics[width=\textwidth]{\picpath}
-    \caption*{\picname}
-  \end{subfigure}%
-  }%
-  \caption{Tuile 4\_12 du jeu de données ISPRS Potsdam et données \gls{OSM} correspondantes.\\
-  \isprslegende
-  }
-  \label{fig:dataset_potsdam}
-\end{figure}
 
 Nous utilisons le jeu de données ISPRS Potsdam sur lequel nous récupérons les données \gls{OSM} correspondantes (cf.~\cref{fig:dataset_potsdam}). Les tuiles étant géo-référencées, nous générons les images OSM associées contenant les empreintes de routes, bâtiments, des zones de végétation et de l'eau en utilisant Maperitive\footnote{\url{http://maperitive.net/}}. Les résultats sont obtenus par validation croisée sur 3 partitions du jeu de données.
 
@@ -409,7 +485,7 @@ L'évaluation s'effectue via une fenêtre glissante de taille $128\times128$ ave
 
 \subsection{Résultats}
 
-\begin{table*}[t]
+\begin{table}[t]
 	\caption{Résultats sur le jeu de données ISPRS Potsdam (score F1 par classe et pourcentage global de pixels bien classés).}
     \label{table_potsdam_results}
 	\begin{tabularx}{\textwidth}{Y c c c c c c c}
@@ -424,12 +500,12 @@ L'évaluation s'effectue via une fenêtre glissante de taille $128\times128$ ave
     FuseNet                 &	\textbf{95,3}\%	&	\textbf{95,9}\%	&	\textbf{86,3}\%	   &	85,1\%	&	\textbf{96,8}\%	&	\textbf{92,3}\%\\
     \bottomrule
     \end{tabularx}
-\end{table*}
+\end{table}
 
 %\paragraph{OSM data representation}
 %As can be seen in~\cref{table_potsdam_results}, the signed distance transform (SDT) representation for the OpenStreetMap layers performs slightly worse than its binary counterpart. This might seem counter-intuitive, as the distance transform contains a denser information. However, we suggest that this information might be too diffuse and that the model loses the sharp boundaries and clear transitions of the binary raster on some parts of the dataset. Yet, the difference between the two representations does not impact strongly the final accuracy.
 
-\begin{figure*}
+\begin{figure}[h]
 \begin{subfigure}{0.33\linewidth}
 	\includegraphics[width=\textwidth]{potsdam_rgb_4_12}
     \caption{RGB input}
@@ -455,7 +531,7 @@ L'évaluation s'effectue via une fenêtre glissante de taille $128\times128$ ave
 \end{subfigure}
 \caption{Excerpt from the classification results on Potsdam}
 \label{fig:potsdam_qualitative}
-\end{figure*}
+\end{figure}
 
 
 Les résultats obtenus sur les données de validation de l'ISPRS Potsdam sont détaillés dans le~\cref{table_potsdam_results}. Nous indiquons le pourcentage global de pixels correctement classés et les scores F1 pour chaque classe, calculés sur une version alternative de la vérité terrain dans laquelle les bordures ont été érodées de 3 pixels.
@@ -498,8 +574,6 @@ itération & 10 000 & 20 000 & 50 000 & 80 000 & 120 000\\
 \end{figure}
 
 Par ailleurs, l'intégration des données OSM dans l'apprentissage permet d'accélérer la convergence du modèle. Sur le même jeu de données, le modèle SegNet appris par raffinement depuis OSM nécessite 25\% d'itérations en moins que le SegNet RVB classique et converge vers un meilleur optimal local, avec une fonction de coût à 0,39 contre 0,45, pour un même taux de réussite. Enfin, l'inclusion des données OSM rend la sortie du réseau visuellement plus cohérente et mieux structurée spatialement, comme illustré dans la~\cref{fig:training_evolution}.
-
-Apport sur des classes connues *et* inconnues !
 
 \bibliographystyle{plainnat}
 \bibliography{Chapitre4/Biblio}
