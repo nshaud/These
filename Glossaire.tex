@@ -4,7 +4,7 @@
 
 \newacronym{ISPRS}{ISPRS}{\emph{International Society for Photogrammetry and Remote Sensing}}
 
-\newacronym{DFC}{DFC}{\emph{Data Fusion Contest}}
+\newacronym[symbol={DFC}]{DFC}{DFC}{\emph{Data Fusion Contest}}
 
 \newacronym{IEEE}{IEEE}{\emph{Institute of Electrical and Electronics Engineers}}
 
@@ -40,8 +40,10 @@
 \newglossaryentry{SVM}{
   type=\acronymtype,
   name={SVM},
-  first={Séparateur à Vaste Marge, ou \emph{Support Vector Machine} (SVM), aussi appelées machines à vecteur de support,},
-  description={\emph{Support Vector Machine}, en français Séparateur à Vaste Marge ou machines à vecteur de support. Outil de classification ou de régression.}
+	plural={SVM},
+  first={machine à vecteurs de support, ou \emph{Support Vector Machine} (SVM),},
+	firstplural={machines à vecteurs de support, ou \emph{Support Vector Machines} (SVM),},
+  description={\emph{Support Vector Machine}, en français machine à vecteurs de support, parfois sous la dénomination Séparateur à Vaste Marge. Outil de classification ou de régression.}
   }
 
 \newglossaryentry{MNH}{
@@ -79,9 +81,18 @@
   description={\emph{Compute Unified Device Architecture}, technologie permettant de programmer sur \gls{GPU} depuis le langage C}
 }
 
+\newglossaryentry{CPU}{
+	type=\acronymtype,
+	name={CPU},
+	symbol={CPU},
+	first={\emph{Central Processing Unit} (CPU)},
+	description={\emph{Central Processing Unit}, processeur de calcul générique d'un ordinateur}
+}
+
 \newglossaryentry{GPU}{
 	type=\acronymtype,
 	name={GPU},
+	symbol={GPU},
 	first={\emph{Graphics Processing Unit} (GPU)},
 	description={\emph{Graphics Processing Unit}, processeur de calcul hautement parallèle originellement conçu pour le rendu graphique, puis réutilisé pour le calcul scientifique matriciel, notamment dans le cas des réseaux convolutifs profonds}
 }
@@ -195,6 +206,7 @@
 \newglossaryentry{IsU}{
   type=\acronymtype,
   name={IsU},
+	symbol={IsU},
   first={intersection sur union (IsU)},
   description={Intersection sur union. Mesure de performance d'un classifieur utilisée notamment dans le cadre de la segmentation sémantique. Elle correspond au rapport du nombre d'échantillons étant positifs à la fois pour la classifieur et en réalité et du nombre d'échantillons étant positifs dans le classifieur ou dans la réalité}
 }
@@ -219,6 +231,7 @@
 \newglossaryentry{IRRV}{
   type=\acronymtype,
   name={IRRV},
+	symbol={IRRV},
   first={infra-rouge-rouge-vert (IRRV)},
   description={Image trois canaux dans le proche infrarouge, le rouge et le vert}
 }
@@ -226,6 +239,7 @@
 \newglossaryentry{RVB}{
   type=\acronymtype,
   name={RVB},
+	symbol={RVB},
   first={rouge-vert-bleu (RVB)},
   description={Espace de représentation des images naturelles sous forme de trois canaux rouge, vert et bleu}
 }
@@ -286,6 +300,8 @@
 \newacronym{NDVI}{NDVI}{\emph{Normalized Difference Vegetation Index}}
 
 \newacronym{NDWI}{NDWI}{\emph{Normalized Difference Water Index}}
+
+\newacronym[symbol={CDS},shortplural={CDS},longplural={cartes de distances signées}]{CDS}{CDS}{carte de distance signée}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%	Définitions (glossaires standard)	   %%
