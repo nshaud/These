@@ -53,10 +53,10 @@
 \node[ibox] at (+0.5,+0.75) {\footnotesize (3,3)};
 \draw[step=1,color=gray,shift={(0,0.25)}] (-1,0) grid (1,2);
 
-\node[mbox] at (-0.5,-1.75) {\textbf{2.1}};
-\node[mbox] at (-0.5,-0.75) {\textbf{2.3}};
-\node[mbox] at (+0.5,-1.75) {\textbf{1.8}};
-\node[mbox] at (+0.5,-0.75) {\textbf{1.7}};
+\node[mbox] at (-0.5,-1.75) {\textbf{2.3}};
+\node[mbox] at (-0.5,-0.75) {\textbf{2.1}};
+\node[mbox] at (+0.5,-1.75) {\textbf{1.7}};
+\node[mbox] at (+0.5,-0.75) {\textbf{1.8}};
 \draw[step=1,color=gray,shift={(0,-0.25)}] (-1,0) grid (1,-2);
 \node at (0, -2.5) {activations};
 
