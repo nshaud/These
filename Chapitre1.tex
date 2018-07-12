@@ -9,7 +9,7 @@
 % Début du chapitre
 \section{Problématique}
 
-\begin{figure}[t]
+\begin{figure}[h]
 	\includegraphics[width=\textwidth]{atrain}
 	\caption{Satellites de la constellation A-Train pour l'observation de la Terre en 2018.}
 	{\small Crédits image\,: \href{https://commons.wikimedia.org/w/index.php?curid=33645603}{NASA JPL (domaine public)}}
@@ -18,67 +18,98 @@
 
 L'observation est à la base de la méthode scientifique. Tout objet d'étude est susceptible d'être examiné sous toutes ses coutures pour en comprendre les propriétés. La Terre ne fait pas exception à cette logique. Ce n'est donc pas une surprise si, lors de l'avènement des premiers programmes spatiaux, les premiers satellites mis en orbite étaient résolument tournés vers notre planète. En effet, l'altitude a permis à la communauté scientifique d'acquérir une toute nouvelle perspective.
 
-L'imagerie aérienne et satellitaire est donc devenu un outil particulièrement présent dans les sciences modernes. Comprendre la Terre est un enjeu scientifique majeur, et l'observation est le premier pas nécessaire à toute tentative de modélisation. Qu'il s'agisse de météorologie, d'océanographie, d'écologie ou de géographie, les images aéroportées et satellitaires fournissent une information formidablement riche.
+L'imagerie aérienne et satellitaire est un outil désormais omniprésent dans les sciences modernes. Comprendre la Terre est un enjeu scientifique majeur, et l'observation est le premier pas nécessaire à toute tentative de modélisation. Qu'il s'agisse de météorologie, d'océanographie, d'écologie ou de géographie, les images de télédétection fournissent une information formidablement riche.
 
-L'intensification des efforts pour imager la Terre dans son intégralité à haute fréquence n'a donc rien d'étonnant. Des initiatives telles que \gls{Landsat}, \gls{Sentinel} ou \gls{SPOT} permettent d'imager le globe tout entier chaque semaine. Pour autant, exploiter cette masse de données n'est pas chose aisée. Interpréter et comprendre une image satellite nécessite une expertise forte, aussi bien liée au capteur utilisé pour acquérir l'image qu'aux connaissances relevant du champ d'application visé.
+L'intensification des efforts pour imager la Terre dans son intégralité aux plus hautes fréquences possibles n'a donc rien d'étonnant. Des constellations de satellites telles que \gls{Landsat}, \gls{SPOT} ou \gls{Sentinel} survolent le globe tout entier chaque semaine. Les satellites Sentinel-2A et 2B acquièrent à eux seuls plus de 6 To de données chaque jour. Pour autant, exploiter cette masse de données n'est pas chose aisée. Interpréter et comprendre une image satellite nécessite une expertise spécifique, mêlant connaissance de la physique du capteur et maîtrise du champ applicatif considéré.
 
-Extraire de l'information de ces images a un intérêt important dans de nombreux domaines applicatifs :
+De nombreux domaines peuvent cependant bénéficier de la fouille systématique des données d'observation de la Terre\,:
 \begin{itemize}
-	\item \textbf{Législation} : étude du respect des législations en vigueur concernant les cycles agricoles, surveillance de l'apparition de bâti non autorisé, détection de navires de contrebande\dots
-	\item \textbf{Écologie} : suivi de la santé des espaces forêstiers (déforestation, pollution), détection de dégazage pétroliers, suivi des icebergs et évaluation de la fonte des glaces\dots
-	\item \textbf{Urbanisme} : étude de la densification du tissu urbain, suivi du maillage routier et ferré\dots
-	\item \textbf{Météorologie} : suivi des phénomènes météorologiques intenses (tempêtes, cyclones), étude du réchauffement climatique\dots
+	\item \textbf{Législation}\,: contrôle des lois concernant les cycles agricoles, surveillance de l'apparition de bâti non autorisé, détection de navires de contrebande or en situation de pêche illégale\dots
+	\item \textbf{Écologie}\,: études de santé des espaces forestiers (déforestation, pollution), suivi des icebergs et évaluation de la fonte des glaces, détection précoce des dégazages pétroliers et phénomènes de marée noire\dots
+	\item \textbf{Urbanisme}\,: évaluation de l'expansion urbaine et du maillage routier, planification de l'intervention des secours après un séisme, identification des îlots de chaleur\dots
+	\item \textbf{Météorologie}\,: anticipation et suivi des phénomènes météorologiques intenses (tempêtes, cyclones), évaluation des effets liés au réchauffement climatique\dots
 \end{itemize}
 
-Ainsi, malgré leur nombre, les photo-interprètes ne peuvent assumer seuls cette responsabilité. L'automatisation présente alors une alternative intéressante. Conférer aux machines la capacité d'interpréter les images de la Terre permettrait de multiplier les observations, pour en tirer à la fois informations et modèles.
+Malgré leur nombre, les photo-interprètes ne peuvent assumer seuls cette responsabilité. L'automatisation présente alors une alternative intéressante. Conférer aux machines la capacité d'interpréter les images de la Terre permettrait de multiplier les observations, pour en tirer à la fois informations et modèles. Pour ce faire, il convient de s'appuyer sur des outils de perception artificielle adaptés à la compréhension d'image. À l'heure actuelle, l'état de l'art en vision par ordinateur repose majoritairement sur les réseaux de neurones profonds, dont les performances en classification d'images, détection d'objets et reconnaissance de formes ont permis des avancées significatives en intelligence artificielle. Un processus idéal de cartographie itératif pour l'observation de la Terre est détaillé dans la~\cref{fig:workflow}.
 
-C'est le sujet de cette thèse.
+Cette thèse s'articule ainsi de la façon suivante. Nous cherchons à concevoir, implémenter et valider des modèles de réseaux de neurones artificiels profonds pour l'interprétation automatisée d'images aériennes et satellites. Ces données peuvent être issues de capteurs multiples, sur une large variété de scènes et pour différents champs d'application.
 
-Nous cherchons à concevoir, implémenter et de valider des modèles de réseaux de neurones artificiels profonds pour l'interprétation automatisée d'images aériennes et satellites, issues de capteurs multiples, sur une large variété de scènes et pour différents champs d'application.
-
-\begin{figure}[t]
+\begin{figure}[h]
     \centering
     \def\svgwidth{\columnwidth}
     \input{Chapitre1/dessin.pdf_tex}
+		\caption{Processus d'interprétation automatique des images d'observation de la Terre pour la cartographie.}
+		\label{fig:workflow}
 \end{figure}
 
 \section{Domaine}
 
-Cette thèse se place à l'intersection de trois domaines scientifiques\,: la télédétection, la vision artificielle et l'apprentissage statistique. La litérature en vision par ordinateur est abondante concernant l'interprétation de scènes visuelles et les données de télédétection n'y font pas exception. Récemment, les méthodes dites d'apprentissage profond ont permis de réaliser des avancées considérables en interprétation automatique d'images. Toutefois, l'essentiel de la communauté s'intéresse aux tâches perceptuelles liées à des scènes de la vie quotidienne. En particulier, les applications s'inscrivent souvent dans le cadre d'extraction d'information dans des images ou vdéos multimédias ou à finalité de perception pour un agent robotique autonome. Dans notre cas, les images de télédétection possèdent des propriétés particulières, aussi bien par la physique des capteurs mis en jeu que par les propriétés géométriques des objets étudiés.
+Cette thèse se place à l'intersection de trois domaines scientifiques\,: la télédétection, la vision artificielle et l'apprentissage statistique. La littérature en vision par ordinateur est abondante concernant l'interprétation de scènes visuelles et les données de télédétection n'y font pas exception. Récemment, les méthodes dites d'apprentissage profond ont permis de réaliser des avancées considérables en interprétation automatique d'images. Toutefois, l'essentiel de la communauté s'intéresse aux tâches perceptuelles liées à des scènes de la vie quotidienne. En particulier, les applications s'inscrivent souvent dans le cadre d'extraction d'information dans des images ou vidéos en intérieur ou en extérieur, par exemple pour la perception d'un agent robotique autonome. Pourtant, les images de télédétection ont des propriétés particulières en termes de point de vue et de capteurs qu'il est important de prendre en compte.
 
 \subsection{Images de télédétection}
 
 Les images de télédétection regroupent une grande variété de données acquises par des moyens spatiaux ou aéroportés. Dans une majorité des cas, l'observation se fait au nadir, c'est-à-dire à la verticale du sol. Les capteurs utilisés peuvent aussi bien être actifs que passifs.
 
-Dans tous les cas, les capteurs vont mesurer l'énergie radiative émise par la scène observée. Dans le cas des capteurs actifs, comme le radar ou le lidar, une onde électromagnétique est envoyée et la mesure porte sur celle renvoyée en retour par la scène. Dans le cas des capteurs passifs, l'énergie mesurée pourra soit être l'énergie radiative émise par la scène (capteurs thermiques dans l'infrarouge), soit l'énergie solaire réfléchie (capteurs multispectraux).
+Dans tous les cas, les capteurs vont mesurer l'énergie radiative émise par la scène observée. Dans le cas des capteurs actifs, comme le radar ou le lidar, une onde électromagnétique est envoyée et la mesure porte sur celle renvoyée en retour par la scène. Dans le cas des capteurs passifs, l'énergie mesurée pourra être soit l'énergie radiative émise par la scène (capteurs thermiques dans l'infrarouge), soit l'énergie solaire réfléchie (capteurs multispectraux).
 
-En dépit des spécificités des capteurs, plus nombreux et plus variés que les appareils photos et caméras grand publics, le traitement des images de télédétection est proche de celui des images multimédia classiques. En effet, dans les deux cas, il s'agit d'extraire de l'information d'images, une tâche de perception artificielle communément appelée vision par ordinateur. Une communauté existe ainsi à la lisière entre télédétection et vision artificielle, concevant ou adaptant des algorithmes de traitement d'images pour l'observation de la Terre.
+En dépit des spécificités des capteurs, plus nombreux et plus variés que les appareils photos et caméras grand public, le traitement des images de télédétection est proche de celui des images de la vie quotidienne. En effet, dans les deux cas, il s'agit d'extraire de l'information d'images, une tâche de perception artificielle communément appelée vision par ordinateur. Une communauté existe ainsi à la lisière entre télédétection et vision artificielle, concevant ou adaptant des algorithmes de traitement d'images pour l'observation de la Terre.
 
 \subsection{Apprentissage statistique}
 
-La sémantisation des images d'observation de la Terre passe nécessairement par une étape automatisée. En effet, le volume de données acquises chaque année par les capteurs aéroportés et spatiaux est simplement trop conséquent pour que des photointerprètes humains soient en mesure de les traiter en temps réel.
+La sémantisation des images d'observation de la Terre passe nécessairement par une étape automatisée. En effet, le volume de données acquises chaque année par les capteurs aéroportés et spatiaux est simplement trop conséquent pour que des photo-interprètes humains soient en mesure de les traiter en temps réel.
 
 L'apprentissage statistique permet de déporter l'extraction de connaissances à une machine afin de l'automatiser. Dans la majorité des cas, il s'agit d'estimer la valeur d'un paramètre ou de prendre une décision parmi un éventail de choix. On parle dans le premier cas de régression et dans le second de classification.
 
-Dans le cas de la photointerprétation, l'expert humain réalise une étude des images de télédétection à sa disposition pour en réaliser une cartographie. Il s'agit d'un processus de décision, durant lequel le photointerprète cherche des indices permettant de déclarer qu'un objet ou une région observée appartient à une catégorie précise. L'apprentissage statistique consiste donc à modéliser numériquement ce processus de classification afin de l'automatiser.
+Dans le cas de la photo-interprétation, l'expert humain réalise une étude des images de télédétection à sa disposition pour en réaliser une cartographie. Il s'agit d'un processus de décision, durant lequel le photo-interprète cherche des indices permettant de déclarer qu'un objet ou une région observée appartient à une catégorie précise. L'apprentissage statistique consiste donc à modéliser numériquement ce processus de classification afin de l'automatiser.
 
-Cette modélisation passe par une phase d'apprentissage ou d'entraînement, durant laquelle le modèle est exposé à des exemples, qui viennent alimenter sa base de connaissances. Une fois l'apprentissage terminé, le modèle statistique est alors en mesure de généraliser les décisions prises sur ces exemples à de nouvelles données inédites. La qualité de cette généralisation est le point critique de cette démarche. Une généralisation faible traduit soit un surapprentissage, soit une mauvaise estimation. Dans le premier cas le modèle a pris en compte des biais spécifiques au jeu de données d'entraînement. Dans le second, le modèle est sous-paramétré et n'a pas les données ou les paramètres ne sont pas suffisamment nombreux pour correctement approximer le processus de décision.
+Cette modélisation passe par une phase d'apprentissage ou d'entraînement, durant laquelle le modèle est exposé à des exemples, qui viennent alimenter sa base de connaissances. Une fois l'apprentissage terminé, le modèle statistique est alors en mesure de généraliser les décisions prises sur ces exemples à de nouvelles données inédites. La qualité de cette généralisation est le point critique de cette démarche. La généralisation du modèle peut rencontrer deux obstacles. Si le modèle contient de nombreux paramètres et est exposé à peu d'exemples, alors la base de connaissances risque d'être simplement mémorisée\,: on parle alors de surapprentissage. Inversement, si le modèle apprend sur de nombreux exemples mais avec trop peu de paramètres, il ne sera pas en mesure d'approcher efficacement la fonction de décision. Il s'agit ainsi de trouver des modèles capables d'exploiter au mieux l'ensemble de leurs paramètres pour tirer profit de l'ensemble des exemples d'apprentissage disponibles.
 
-L'émergence de l'apprentissage profond dans les années 2000 a fortement contribué à renouveler la littérature en apprentissage statistique. En particulier, les réseaux de neurones profonds, bien que théorisés et mis en application dès les années 1960, ont trouvé une résonance particulière avec l'ère de la donnée massive. Les grandes bases de données d'apprentissage, combinées avec des modèles de réseaux de neurones artificiels profonds et des implémentations parallèle permettant de rendre les calcul traitables en temps raisonnable, ont permis d'importantes avancées en perception artificielle. Le traitement d'images a notamment largement bénéficié de cette conjonction. Dès 2012, les réseaux de neurones convolutifs profonds se sont imposés comme le nouvel état de l'art pour la classification d'images et ont petit à petit conquis une grande partie des tâches de perception visuelle.
-
-Cette thèse se pose ainsi à l'interface entre la télédétection, la vision par ordinateur et l'apprentissage automatique. En particulier, nous nous proposons de mettre en \oe{}uvre des méthodes d'apprentissage profond pour l'interprétation automatique d'images d'observation de la Terre.
+L'émergence de l'apprentissage profond dans les années 2000 a fortement contribué à renouveler la littérature en apprentissage statistique. En particulier, les réseaux de neurones profonds, bien que théorisés et mis en application dès les années 1960, ont trouvé une résonance particulière avec l'ère des données massives. Les grandes bases de données d'apprentissage, combinées avec des modèles de réseaux de neurones artificiels profonds et des implémentations parallèles permettant de rendre les calculs traitables en temps raisonnable, ont permis d'importantes avancées en perception artificielle. Le traitement d'images a notamment largement bénéficié de cette conjonction. Dès 2012, les réseaux de neurones convolutifs profonds se sont imposés comme le nouvel état de l'art pour la classification d'images et ont petit à petit conquis une grande partie des tâches de perception visuelle.
 
 \subsection{Vision par ordinateur}
 
+La vision par ordinateur regroupe l'ensemble des techniques conçues pour l'interprétation automatisée des images. Dès les années 60, les experts en intelligence artificielle se sont penchés sur la possibilité de simuler les capacités sensorielles humaines. La vision étant le sens humain le plus mis à contribution, il est naturel que les travaux en ce sens aient été nombreux. La démocratisation des appareils photos et caméras numériques a d'autant plus accéléré les possibilités offertes en traitement d'images, non seulement grâce aux traitements correcteurs embarqués au sein-même des capteurs, mais de part la facilité nouvelle du post-traitement sur ordinateur.
+
+Le Graal de la vision par ordinateur consiste à émuler la capacité du cerveau humain à interpréter une scène dynamique à partir des signaux visuels, en particulier à identifier rapidement les objets et à anticiper leurs mouvements. Ces fonctions cognitives sont indispensables pour la navigation autonome en robotique, mais bénéficient également aux applications en fouille de données. La numérisation automatique de documents anciens, la recherche en ligne d'images similaires ou l'audio-description automatique sont autant d'exemples de tâches pouvant s'appuyer sur une brique d'interprétation d'images.
+
+En particulier, les efforts de la communauté de la vision par ordinateur se sont concentrés sur la reconnaissance d'objets dans des images, incluant à la fois leur identification et leur localisation. De nombreux descripteurs \emph{ad hoc} ont été introduits pour des applications aussi variées que la détection de visages, la classification automatique de photographies d'espèces animales ou la reconnaissance optique de caractères. Le dénominateur commun de ces travaux est de chercher à donner du sens aux images. Extraire la sémantique d'une information visuelle non structurée est également l'objectif de l'observation de la Terre.
+
+Cette thèse se trouve ainsi au croisement entre la télédétection, la vision par ordinateur et l'apprentissage automatique. En particulier, nous nous proposons de mettre en \oe{}uvre des méthodes d'apprentissage profond pour l'interprétation automatique d'images d'observation de la Terre.
+
 \section{Contributions}
 
-Cette thèse a 4 contributions majeures.
+Cette thèse apporte 4 contributions majeures.
 \begin{enumerate}
   \item Elle participe à établir les réseaux de neurones convolutifs comme nouvel état de l'art pour la cartographie automatisée d'images de télédétection.
   \item Elle démontre la possibilité d'étendre les domaines d'application desdits réseaux à l'ensemble des capteurs optiques usuels.
-  \item Elle montre qu'il est possible et pertinent d'utiliser les informatoins présentes dans plusieurs capteurs lorsque c'est possible.
+  \item Elle montre qu'il est possible et pertinent d'utiliser les informations présentes dans plusieurs capteurs lorsque c'est possible.
   \item Elle montre que ces approches ne se confinent pas à des cas spécifiques, mais peuvent s'étendre à l'ensemble du globe.
 \end{enumerate}
 
+Ces travaux ont fait l'objet de plusieurs publications\,:
+
+\subsubsection*{Publications en revues internationales à comité de lecture}
+
+\fullcite{audebert_segment-before-detect_2017}
+
+\fullcite{audebert_beyond_2017}
+
+\subsubsection*{Publications en conférences internationales à comité de lecture}
+
+\fullcite{audebert_how_2016}
+
+\fullcite{audebert_semantic_2016}
+
+\fullcite{audebert_fusion_2017}
+
+\fullcite{audebert_joint_2017}
+
+\fullcite{audebert_generative_2018}
+
+\medskip
+
+Ce manuscrit est organisé de la façon suivante. Le~\cref{chap:etat} rappelle les fondamentaux théoriques de l'apprentissage profond, et plus particulièrement des réseaux de neurones convolutifs ainsi que leurs applications en perception artificielle. Le~\cref{chap:cartographie} montre les limites du paradigme de classification par région dans le cadre de la cartographie automatisées d'images aériennes et met en avant la pertinence des réseaux entièrement convolutifs sur cette tâche. Le~\cref{chap:extension} étend les résultats obtenus sur des images \gls{RVB} aux capteurs multispectraux et hyperspectraux et investigue l'applicabilité des réseaux entièrement convolutifs aux les modèles numériques de terrain. Le~\cref{chap:multimodal} introduit différents stratégies de fusion de données pour les réseaux profonds afin d'exploiter conjointement des modalités d'acquisitions hétérogènes sur une même scène. Le~\cref{chap:generalisation} étudie les capacités de généralisation des modèles précédemment introduits sur des grands jeux de données à plusieurs scènes d'une part, et sur des jeux de données peu annotés d'autre part. Le~\cref{chap:structure} explore différentes possibilités pour structurer spatialement les cartographies inférées par les modèles de classification dense pixel à pixel. Enfin, le~\cref{chap:conclusion} conclut ce manuscrit et discute des pistes de recherche futures envisageables à la suite de ces travaux.
+
 %\bibliographystyle{francaissc}
-%\bibliography{Chapitre1/Biblio}
+%\bibliography{Chapitre1/Self}
+\printbibliography
