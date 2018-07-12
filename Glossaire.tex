@@ -12,7 +12,7 @@
 
 \newacronym{DBN}{DBN}{\emph{Deep Belief Networks}}
 
-\newacronym{RBM}{RBM}{\emph{Restricted Boltzmann Machines} (RBM), ou machines de Boltzmann restreintes}
+\newacronym{RBM}{RBM}{\emph{Restricted Boltzmann Machines}}
 
 \newacronym{LRN}{LRN}{\emph{Local Response Normalization}}
 
@@ -36,6 +36,8 @@
 	type=\acronymtype,
 	name={FCN},
 	first={réseau de neurones entièrement convolutif, ou \emph{Fully Convolutional Network} (FCN)},
+	firstplural={réseaux de neurones entièrement convolutifs, ou \emph{Fully Convolutional Networks} (FCN)},
+	plural={FCN},
 	description={\emph{Fully Convolutional Network}, réseau de neurones entièrement convolutif conservant la structure spatiale grâce à l'absence de couches entièrement connectées}
 	}
 
@@ -151,7 +153,7 @@
 
 \newacronym{VEDAI}{VEDAI}{\emph{Vehicle Detection in Aerial Imagery}}
 
-\newacronym{SIG}{SIG}{systèmes d'information géographiques}
+\newacronym[plural=SIG,longplural=systèmes d'information géographiques]{SIG}{SIG}{système d'information géographique}
 
 \newacronym{OSM}{OSM}{\emph{OpenStreetMap}}
 
@@ -284,8 +286,8 @@
 \newglossaryentry{HOG}{
   type=\acronymtype,
   name={HOG},
-  first={histogrammes de gradient orientés},
-  description={\emph{Histograms of Oriented Gradients} ou histogrammes de gradients orientés. Approximation discrète de la distribution locale du gradient dans une image selon une direction pré-définie. Il s'agit d'une caractéristique image introduite dans~\cite{dalal_histograms_2005}}
+  first={histogrammes de gradient orientés (HOG)},
+  description={\emph{Histograms of Oriented Gradients} (HOG) ou histogrammes de gradients orientés. Approximation discrète de la distribution locale du gradient dans une image selon une direction pré-définie. Il s'agit d'une caractéristique image introduite dans~\cite{dalal_histograms_2005}}
 }
 
 \newglossaryentry{SIFT}{
@@ -297,7 +299,7 @@
 
 \newacronym{JPEG}{JPEG}{\emph{Joint Photographic Experts Group}}
 
-\newacronym{CRF}{CRF}{\emph{Conditional Random Field} ou champ conditionel aléatoire}
+\newacronym{CRF}{CRF}{\emph{Conditional Random Field}}
 
 \newacronym{NDVI}{NDVI}{\emph{Normalized Difference Vegetation Index}}
 
@@ -321,11 +323,15 @@
 
 \newglossaryentry{multispectral}{
         name={multispectral},
+				first={caméra multispectrale},
+				plural={multispectrales},
         description={Imagerie utilisant des récepteurs sur plusieurs longueurs d'onde},
 }
 
 \newglossaryentry{hyperspectral}{
         name={hyperspectral},
+				first={imagerie hyperspectrale},
+				plural={hyperspectrales},
         description={Imagerie utilisant des récepteurs sur plusieurs dizaines de longueurs d'onde, y compris hors du domaine visible}
 }
 
