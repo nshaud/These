@@ -22,6 +22,26 @@ Les images multispectrales les plus simples sont des images à trois ou quatre c
 
 Dans le chapitre précédent, nous avons montré qu'il était possible et de traiter les images \gls{IRRV} de la même façon que les images \gls{RVB} traditionnelles. En particulier, cela nous a permis de transférer les poids de réseaux de pré-entraînés sur ImageNet à des images de télédétection \gls{IRRV}. Toutefois, dans le cas des images multispectrales \gls{IRRVB}, il est impossible de réaliser ce transfert en conservant les quatre canaux. Notre approche précédente a consisté à utiliser seulement les trois canaux \gls{RVB}, en omettant le canal infrarouge.
 
+\begin{figure}[h]
+  \includegraphics[width=\textwidth]{histogrammes_potsdam}
+  \caption{Distributions des intensités pour les canaux rouge, vert, bleu et infrarouge du jeu de données \gls{ISPRS} Potsdam.}
+  \label{fig:potsdam_histograms}
+\end{figure}
+
+Dans un premier temps, nous pouvons examiner les distributions des intensités pour chaque canal au sein du jeu de données. Les histogrammes sont présentés dans la~\cref{fig:potsdam_histograms}. Les distributions correspondent à une loi gamma dont les paramètres sont très similaires pour les canaux \gls{RVB}. Les statistiques du canal infrarouge diffèrent cependant de celles des canaux visibles. Ceci est d'autant plus visible dans les cartes de corrélation inter-canaux de la~\cref{fig:potsdam_correlations}. Les canaux visibles sont fortement corrélés (c\oe{}fficient de Pearson supérieur à 0,87). À l'inverse, le canal infrarouge n'est que modérément corrélé avec les autres canaux, notamment lorsque l'écart en longueur d'onde s'accroît. Ainsi, le c\oe{}ifficient de Pearson entre les distributions rouge et infrarouge est de 0,80, mais tombe à 0,69 entre vert et infrarouge et 0,57 entre bleu et infrarouge.
+
+\begin{figure}[h]
+  \includegraphics[width=0.33\textwidth]{hexbin_potsdam_rg}
+  \includegraphics[width=0.33\textwidth]{hexbin_potsdam_rb}
+  \includegraphics[width=0.33\textwidth]{hexbin_potsdam_gb}\\
+  \includegraphics[width=0.33\textwidth]{hexbin_potsdam_rir}
+  \includegraphics[width=0.33\textwidth]{hexbin_potsdam_gir}
+  \includegraphics[width=0.33\textwidth]{hexbin_potsdam_bir}
+  \caption{Cartes de corrélation entre canaux du jeu de données \gls{ISPRS} Potsdam.}
+  \label{fig:potsdam_correlations}
+\end{figure}
+
+
 Nous réalisons une étude préliminaire sur le jeu de données \gls{ISPRS} Potsdam en reprenant les modèles et hyperparamètres obtenus dans le~\cref{chap:cartographie}. En particulier, nous étudions différentes variantes de SegNet, avec et sans initialisation de l'encodeur à partir des poids de VGG-16 pré-entraîné sur ImageNet, sur différentes combinaisons de canaux. Les résultats sont détaillés dans le~\cref{tab:comparaison_bandes}. Les tuiles 2\_11, 7\_10, 4\_10, 7\_9, 7\_12, 6\_8, 6\_7, 6\_9, 5\_11, 2\_10, 2\_12, 3\_10, 6\_10, 6\_11, 3\_12, 3\_11, 5\_12 et 4\_12 sont utilisées pour l'entraînement tandis que la validation s'effectue sur les tuiles 4\_11, 6\_12, 7\_11, 5\_10, 7\_8 et 7\_7.
 
 \begin{table}
@@ -44,14 +64,12 @@ Nous réalisons une étude préliminaire sur le jeu de données \gls{ISPRS} Pots
   \end{tabularx}
 \end{table}
 
-Ces expériences préliminaires montrent que les résultats obtenus à l'aide des trois canaux \gls{RVB} et \gls{IRRV} sont très similaires sur Potsdam. Cependant, les modèles n'utilisant que trois canaux sont légèrement plus exacts que les modèles à quatre canaux \gls{IRRVB}, même lorsqu'ils sont initialisés aléatoirement, c'est-à-dire sans pré-entraînement. En particulier, les résultats à partir des combinaisons de 2 canaux semblent indiquer que l'interaction entre les canaux infrarouge et bleu entraîne une baisse conséquente des performances du modèle à cause d'une confusion considérable entre la classe "autres" et les autres classes. Cette chute des performances apparaît y compris lorsque le réseau n'apprend pas sur les pixels appartenant à la classe "autres", c'est-à-dire que l'interaction des canaux infrarouge et bleu introduit bien une confusion que SegNet ne parvient pas à contourner.
-
-\todo[inline]{Corrélations entre bandes, résultats avec ResNet}
+Ces expériences préliminaires montrent que les résultats obtenus à l'aide des trois canaux \gls{RVB} et \gls{IRRV} sont très similaires sur Potsdam. Cependant, les modèles n'utilisant que trois canaux sont légèrement plus exacts que les modèles à quatre canaux \gls{IRRVB}, même lorsqu'ils sont initialisés aléatoirement, c'est-à-dire sans pré-entraînement. En particulier, les résultats à partir des combinaisons de 2 canaux semblent indiquer que l'interaction entre les canaux infrarouge et bleu entraîne une baisse conséquente des performances du modèle à cause d'une confusion considérable entre la classe "autres" et les autres classes. Cette chute des performances apparaît y compris lorsque le réseau n'apprend pas sur les pixels appartenant à la classe "autres", c'est-à-dire que l'interaction des canaux infrarouge et bleu introduit bien une confusion que SegNet ne parvient pas à contourner. Il semble y avoir un lien entre la cohérence radiométrique des canaux utilisés en entrée du réseau et les performances finales de classification. Ce lien est toutefois encore hypothétique et n'est pas trivial à mettre en évidence.
 
 \subsection{Images multispectrales}
 
 La plupart des capteurs optiques embarqués dans des satellites d'observation de la Terre réalisent des acquisitions multispectrales. Dans ce cas, les bandes ne sont pas nécessairement toutes de même largeur, ni restreintes aux longueurs d'ondes du domaine visible. Nous nous intéressons donc à l'utilisation des modèles de type SegNet pour la segmentation sémantique d'images satellites multispectrales.
-En particulier, nous bénéficions d'un jeu de données d'images Sentinel-2 accompagnées de la carte d'occupation du sol GlobeCover 2009. Les images Sentinel-2 considérées couvrent une région se situant à la frontière de la France, de la Suisse et de l'Italie. Les images ont été acquises entre mai et octobre 2016.
+En particulier, nous bénéficions d'un jeu de données d'images Sentinel-2 accompagnées de la carte d'occupation du sol GlobeCover 2009. Les images Sentinel-2 considérées couvrent une région se situant à la frontière de la France, de la Suisse et de l'Italie. Les images ont été acquises entre mai et octobre 2016. Nous faisons l'hypothèse que les changements d'occupation des sols durant les 7 années séparant la création de la carte et l'acquisition des données sont relativement peu nombreux.
 
 Un premier jeu de données est composé des images ne contenant aucune couverture nuageuse (nuages opaques ou cirrus). Un second jeu de données est constitué uniquement sur la période d'été mais inclut également les tuiles comprenant une couverture nuageuse, dont la détection est désormais prise en compte dans la tâche de classification. Les deux jeux de données sont ainsi constituées d'acquisitions sur les mêmes zones à plusieurs dates. Les images Sentinel-2 sont interpolées à une résolution de \SI{20}{\meter/\px} pour toutes les bandes tandis que les annotations issues de GlobeCover sont à une résolution de \SI{300}{\meter/\px}. Les détails des jeux de données sont indiqués dans le~\cref{tab:datasets}.
 
@@ -72,11 +90,13 @@ D2, période courte avec nuages & & & \\
 \end{tabular}
 \end{table}
 
-L'ensemble des 13 bandes de Sentinel-2 sont fournis au entrée au réseau. Nous coupons la fin du décodeur de SegNet, car il ne nous est pas utile d'obtenir des cartes à résolution $1:1$. Nous réalisons simplement des cartes à échelle $1:8$ (\SI{160}{\meter/\px}) ce qui diminue le nombre de paramètres à optimiser et le temps de calcul, puis nous interpolons les cartes de probabilités à résolution \SI{300}{\meter/\px} avant le calcul du \emph{softmax}.
+L'ensemble des 13 bandes de Sentinel-2 sont fournis au entrée au réseau. Nous coupons la fin du décodeur de SegNet, car il ne nous est pas utile d'obtenir des cartes à résolution $1:1$. Nous utilisons l'approche multi-échelle de la~\cref{sec:deep_multiscale} pour générer des cartes à échelle $1:8$ (\SI{160}{\meter/\px}), $1:16$ et $1:32$ ce qui diminue le nombre de paramètres à optimiser et le temps de calcul. Ces cartes sont interpolées puis à résolution \SI{300}{\meter/\px} puis moyennées avant le calcul du \emph{softmax}.
 
+Dans l'ensemble, le modèle entraîné sur les 13 bandes atteint 66,9\% d'exactitude sur le jeu de données D1 (sans nuages) et 83,9\% sur D2 (avec nuages). L'écart entre les jeux de données est majoritairement du fait de la présence des nuages, qui sont simples à détecter ($>99\%$ de score $F_1$) et font donc monter les performances du réseau. En outre, l'inclusion des 13 bandes plutôt que seulement les 3 bandes visibles \gls{RVB} permet de gagner 2\% d'exactitude sur D1 et 2,5\% sur D2.
 
+Ces résultats permettent d'aboutir à deux conclusions. D'une part, ils montrent la pertinence des modèles entièrement convolutif pour le traitement des images multispectrales. En effet, l'architecture SegNet s'étend avec succès des données aériennes aux données Sentinel-2. S'il est nécessaire d'arbitrer certains choix techniques, notamment une résolution de référence pour les bandes et pour la vérité terrain, il ne semble pas y avoir de verrou majeur à l'utilisation des \gls{FCN} pour le multispectral. D'autre part, la prise en compte des bandes hors du domaine visible permet d'augmenter l'expressivité du modèle, qui bénéficie de la présence d'une information radiométrique plus riche. Cela permet notamment d'améliorer le pouvoir discriminant du SegNet sur des classes pouvant être ambiguës en \gls{RVB} seul.
 
-\todo[inline]{article avec A. Benoit}
+\todo[inline]{tableau de résultats + détaillé}
 
 \section{Imagerie hyperspectrale}
 
