@@ -36,7 +36,7 @@
   }%
   \providecommand\rotatebox[2]{#2}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{2519.17729492bp}%
+    \setlength{\unitlength}{2519.17732299bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -48,14 +48,16 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.58485156)%
+  \begin{picture}(1,0.58485157)%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{dessin.pdf}}%
-    \put(0.10446956,0.54591176){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.15243072\unitlength}\raggedright acquisitions\end{minipage}}}%
-    \put(0.77135394,0.55861432){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.25405119\unitlength}\raggedright \end{minipage}}}%
-    \put(0.79675906,0.55861432){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.27945631\unitlength}\raggedright interprétation\end{minipage}}}%
+    \put(0.10446957,0.54591175){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.15243071\unitlength}\raggedright acquisitions\end{minipage}}}%
+    \put(0.77135394,0.55861431){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.25405119\unitlength}\raggedright \end{minipage}}}%
+    \put(0.79675906,0.55861431){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.27945631\unitlength}\raggedright interprétation\end{minipage}}}%
     \put(0.87297442,0.12672729){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.21742946\unitlength}\raggedright \end{minipage}}}%
-    \put(0.87297442,0.12672729){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.20324096\unitlength}\raggedright \end{minipage}}}%
-    \put(0.10133718,0.08566512){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.33026655\unitlength}\raggedright mise à jour\end{minipage}}}%
+    \put(0.87297442,0.12672729){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.20324095\unitlength}\raggedright \end{minipage}}}%
+    \put(0.44085926,0.28596518){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.33026655\unitlength}\raggedright mise à jour\end{minipage}}}%
     \put(0.80291431,0.09105437){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.40648191\unitlength}\raggedright cartographie\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{dessin.pdf}}%
+    \put(0.10985881,0.09052102){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.15243071\unitlength}\raggedright oriente\end{minipage}}}%
   \end{picture}%
 \endgroup%

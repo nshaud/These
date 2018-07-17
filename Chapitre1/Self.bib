@@ -3,31 +3,28 @@
   title = {Semantic {{Segmentation}} of {{Earth Observation Data Using Multimodal}} and {{Multi}}-Scale {{Deep Networks}}},
   doi = {10.1007/978-3-319-54181-5_12},
   abstract = {This work investigates the use of deep fully convolutional neural networks (DFCNN) for pixel-wise scene labeling of Earth Observation images. Especially, we train a variant of the SegNet architecture on remote sensing data over an urban area and study different strategies for performing accurate semantic segmentation. Our contributions are the following: (1) we transfer efficiently a DFCNN from generic everyday images to remote sensing images; (2) we introduce a multi-kernel convolutional layer for fast aggregation of predictions at multiple scales; (3) we perform data fusion from heterogeneous sensors (optical and laser) using residual correction. Our framework improves state-of-the-art accuracy on the ISPRS Vaihingen 2D Semantic Labeling dataset.},
-  language = {en},
-  booktitle = {Computer {{Vision}} \textendash{} {{ACCV}} 2016},
+  eventtitle = {Asian {{Conference}} on {{Computer Vision}}},
+  booktitle = {Computer {{Vision}} – {{ACCV}} 2016},
   publisher = {{Springer, Cham}},
-  author = {Audebert, Nicolas and Le Saux, Bertrand and Lef{\`e}vre, S{\'e}bastien},
-  month = nov,
-  year = {2016},
+  date = {2016-11-20},
   pages = {180-196},
+  author = {Audebert, Nicolas and Le Saux, Bertrand and Lefèvre, Sébastien},
   file = {/home/naudeber/Bibliographie//Springer, Cham/2016/Audebert et al 2016 - Semantic Segmentation of Earth Observation Data Using Multimodal and.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/394SFXNP/Audebert et al_2016_Semantic Segmentation of Earth Observation Data Using Multimodal and.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/PC7RWZAX/978-3-319-54181-5_12.html;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/TJHU6H38/978-3-319-54181-5_12.html}
 }
 
 @article{audebert_segment-before-detect_2017,
+  langid = {english},
   title = {Segment-before-{{Detect}}: {{Vehicle Detection}} and {{Classification}} through {{Semantic Segmentation}} of {{Aerial Images}}},
   volume = {9},
-  copyright = {http://creativecommons.org/licenses/by/3.0/},
-  shorttitle = {Segment-before-{{Detect}}},
   doi = {10.3390/rs9040368},
+  shorttitle = {Segment-before-{{Detect}}},
   abstract = {Like computer vision before, remote sensing has been radically changed by the introduction of deep learning and, more notably, Convolution Neural Networks. Land cover classification, object detection and scene understanding in aerial images rely more and more on deep networks to achieve new state-of-the-art results. Recent architectures such as Fully Convolutional Networks can even produce pixel level annotations for semantic mapping. In this work, we present a deep-learning based segment-before-detect method for segmentation and subsequent detection and classification of several varieties of wheeled vehicles in high resolution remote sensing images. This allows us to investigate object detection and classification on a complex dataset made up of visually similar classes, and to demonstrate the relevance of such a subclass modeling approach. Especially, we want to show that deep learning is also suitable for object-oriented analysis of Earth Observation data as effective object detection can be obtained as a byproduct of accurate semantic segmentation. First, we train a deep fully convolutional network on the ISPRS Potsdam and the NZAM/ONERA Christchurch datasets and show how the learnt semantic maps can be used to extract precise segmentation of vehicles. Then, we show that those maps are accurate enough to perform vehicle detection by simple connected component extraction. This allows us to study the repartition of vehicles in the city. Finally, we train a Convolutional Neural Network to perform vehicle classification on the VEDAI dataset, and transfer its knowledge to classify the individual vehicle instances that we detected.},
-  language = {en},
   number = {4},
-  journal = {Remote Sensing},
-  author = {Audebert, Nicolas and Le Saux, Bertrand and Lef{\`e}vre, S{\'e}bastien},
-  month = apr,
-  year = {2017},
-  keywords = {deep learning,object classification,semantic segmentation,vehicle detection},
+  journaltitle = {Remote Sensing},
+  date = {2017-04-13},
   pages = {368},
+  keywords = {deep learning,object classification,semantic segmentation,vehicle detection},
+  author = {Audebert, Nicolas and Le Saux, Bertrand and Lefèvre, Sébastien},
   file = {/home/naudeber/Bibliographie//Remote Sensing/2017/Audebert et al 2017 - Segment-before-Detect.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/DDKN2ZJK/368.html}
 }
 
@@ -35,12 +32,12 @@
   title = {How Useful Is Region-Based Classification of Remote Sensing Images in a Deep Learning Framework?},
   doi = {10.1109/IGARSS.2016.7730327},
   abstract = {In this paper, we investigate the impact of segmentation algorithms as a preprocessing step for classification of remote sensing images in a deep learning framework. Especially, we address the issue of segmenting the image into regions to be classified using pre-trained deep neural networks as feature extractors for an SVM-based classifier. An efficient segmentation as a preprocessing step helps learning by adding a spatially-coherent structure to the data. Therefore, we compare algorithms producing superpixels with more traditional remote sensing segmentation algorithms and measure the variation in terms of classification accuracy. We establish that superpixel algorithms allow for a better classification accuracy as a homogenous and compact segmentation favors better generalization of the training samples.},
+  eventtitle = {2016 {{IEEE International Geoscience}} and {{Remote Sensing Symposium}} ({{IGARSS}})},
   booktitle = {2016 {{IEEE International Geoscience}} and {{Remote Sensing Symposium}} ({{IGARSS}})},
-  author = {Audebert, N. and Le Saux, B. and Lef{\`e}vre, S.},
-  month = jul,
-  year = {2016},
-  keywords = {Machine learning,Segmentation algorithms,Semantics,Shape,Training,deep learning,feature extraction,image classification,image segmentation,remote sensing,superpixels},
+  date = {2016-07},
   pages = {5091-5094},
+  keywords = {deep learning,feature extraction,image classification,image segmentation,Machine learning,remote sensing,Segmentation algorithms,Semantics,Shape,superpixels,Training},
+  author = {Audebert, N. and Le Saux, B. and Lefèvre, S.},
   file = {/home/naudeber/Bibliographie//undefined/2016/Audebert et al 2016 - How useful is region-based classification of remote sensing images in a deep.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/4GRPANQ3/7730327.html}
 }
 
@@ -48,69 +45,71 @@
   title = {Fusion of Heterogeneous Data in Convolutional Networks for Urban Semantic Labeling},
   doi = {10.1109/JURSE.2017.7924566},
   abstract = {In this work, we present a novel module to perform fusion of heterogeneous data using fully convolutional networks for semantic labeling. We introduce residual correction as a way to learn how to fuse predictions coming out of a dual stream architecture. Especially, we perform fusion of DSM and IRRG optical data on the ISPRS Vaihingen dataset over a urban area and obtain new state-of-the-art results.},
+  eventtitle = {2017 {{Joint Urban Remote Sensing Event}} ({{JURSE}})},
   booktitle = {2017 {{Joint Urban Remote Sensing Event}} ({{JURSE}})},
-  author = {Audebert, N. and Le Saux, B. and Lef{\`e}vre, S.},
-  month = mar,
-  year = {2017},
-  keywords = {Labeling,neural nets,image colour analysis,Buildings,convolutional neural networks,Data integration,DSM,Semantics,automobiles,IRRG optical data,Streaming media,ISPRS Vaihingen dataset,dual stream architecture,heterogeneous data,urban semantic labeling,vegetation mapping},
+  date = {2017-03},
   pages = {1-4},
+  keywords = {automobiles,Buildings,convolutional neural networks,Data integration,DSM,dual stream architecture,heterogeneous data,image colour analysis,IRRG optical data,ISPRS Vaihingen dataset,Labeling,neural nets,Semantics,Streaming media,urban semantic labeling,vegetation mapping},
+  author = {Audebert, N. and Le Saux, B. and Lefèvre, S.},
   file = {/home/naudeber/Bibliographie//undefined/2017/Audebert et al 2017 - Fusion of heterogeneous data in convolutional networks for urban semantic.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/JBISXGC3/7924566.html}
 }
 
 @article{audebert_beyond_2017,
   title = {Beyond {{RGB}}: {{Very}} High Resolution Urban Remote Sensing with Multimodal Deep Networks},
   issn = {0924-2716},
-  shorttitle = {Beyond {{RGB}}},
   doi = {10.1016/j.isprsjprs.2017.11.011},
+  shorttitle = {Beyond {{RGB}}},
   abstract = {In this work, we investigate various methods to deal with semantic labeling of very high resolution multi-modal remote sensing data. Especially, we study how deep fully convolutional networks can be adapted to deal with multi-modal and multi-scale remote sensing data for semantic labeling. Our contributions are threefold: (a) we present an efficient multi-scale approach to leverage both a large spatial context and the high resolution data, (b) we investigate early and late fusion of Lidar and multispectral data, (c) we validate our methods on two public datasets with state-of-the-art results. Our results indicate that late fusion make it possible to recover errors steaming from ambiguous data, while early fusion allows for better joint-feature learning but at the cost of higher sensitivity to missing data.},
-  journal = {ISPRS Journal of Photogrammetry and Remote Sensing},
-  author = {Audebert, Nicolas and Le Saux, Bertrand and Lef{\`e}vre, S{\'e}bastien},
-  month = nov,
-  year = {2017},
-  keywords = {Remote sensing,Data fusion,Deep learning,Semantic mapping},
+  journaltitle = {ISPRS Journal of Photogrammetry and Remote Sensing},
+  shortjournal = {ISPRS Journal of Photogrammetry and Remote Sensing},
+  date = {2017-11-23},
+  keywords = {Data fusion,Deep learning,Remote sensing,Semantic mapping},
+  author = {Audebert, Nicolas and Le Saux, Bertrand and Lefèvre, Sébastien},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/64AUI2JD/Audebert et al. - 2017 - Beyond RGB Very high resolution urban remote sens.html}
 }
 
 @inproceedings{audebert_joint_2017,
-  address = {Honolulu, United States},
+  location = {{Honolulu, United States}},
   title = {Joint {{Learning}} from {{Earth Observation}} and {{OpenStreetMap Data}} to {{Get Faster Better Semantic Maps}}},
   abstract = {In this work, we investigate the use of OpenStreetMap data for semantic labeling of Earth Observation images. Deep neural networks have been used in the past for remote sensing data classification from various sensors, including multispectral, hyperspectral, SAR and LiDAR data. While OpenStreetMap has already been used as ground truth data for training such networks, this abundant data source remains rarely exploited as an input information layer. In this paper, we study different use cases and deep network architectures to leverage OpenStreetMap data for semantic labeling of aerial and satellite images. Especially , we look into fusion based architectures and coarse-to-fine segmentation to include the OpenStreetMap layer into multispectral-based deep fully convolutional networks. We illustrate how these methods can be successfully used on two public datasets: ISPRS Potsdam and DFC2017. We show that OpenStreetMap data can efficiently be integrated into the vision-based deep learning models and that it significantly improves both the accuracy performance and the convergence speed of the networks.},
-  author = {Audebert, Nicolas and Le Saux, Bertrand and Lef{\`e}vre, S{\'e}bastien},
-  month = jul,
-  year = {2017},
-  keywords = {computer vision,deep learning,remote sensing,semantic segmentation,data fusion,openstreetmap}
+  eventtitle = {{{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition Workshops}}},
+  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition Workshops}}},
+  date = {2017-07},
+  keywords = {computer vision,data fusion,deep learning,openstreetmap,remote sensing,semantic segmentation},
+  author = {Audebert, Nicolas and Le Saux, Bertrand and Lefèvre, Sébastien}
 }
 
 @article{boulch_snapnet_2017,
   title = {{{SnapNet}}: {{3D}} Point Cloud Semantic Labeling with {{2D}} Deep Segmentation Networks},
-  shorttitle = {{{SnapNet}}},
   doi = {10.1016/j.cag.2017.11.010},
+  shorttitle = {{{SnapNet}}},
   abstract = {In this work, we describe a new, general, and efficient method for unstructured point cloud labeling. As the question of efficiently using deep Convolutional Neural Networks (CNNs) on 3D data is still a pending issue, we propose a framework which applies CNNs on multiple 2D image views (or snapshots) of the point cloud. The approach consists in three core ideas. (i) We pick many suitable snapshots of the point cloud. We generate two types of images: a Red-Green-Blue (RGB) view and a depth composite view containing geometric features. (ii) We then perform a pixel-wise labeling of each pair of 2D snapshots using fully convolutional networks. Different architectures are tested to achieve a profitable fusion of our heterogeneous inputs. (iii) Finally, we perform fast back-projection of the label predictions in the 3D space using efficient buffering to label every 3D point. Experiments show that our method is suitable for various types of point clouds such as Lidar or photogrammetric data.},
-  journal = {Computers \& Graphics},
-  author = {Boulch, Alexandre and Guerry, Joris and Le Saux, Bertrand and Audebert, Nicolas},
-  month = dec,
-  year = {2017}
+  journaltitle = {Computers \& Graphics},
+  date = {2017-12-01},
+  author = {Boulch, Alexandre and Guerry, Joris and Le Saux, Bertrand and Audebert, Nicolas}
 }
 
 @inproceedings{audebert_generative_2018,
   title = {Generative Adversarial Networks for Realistic Synthesis of Hyperspectral Samples},
+  eventtitle = {2018 {{IEEE International Geoscience}} and {{Remote Sensing Symposium}} ({{IGARSS}})},
   booktitle = {2018 {{IEEE International Geoscience}} and {{Remote Sensing Symposium}} ({{IGARSS}})},
-  author = {Audebert, N. and Le Saux, B. and Lef{\`e}vre, S.},
-  month = jul,
-  year = {2018},
+  date = {2018-07},
+  pages = {5091-5094},
   keywords = {Machine learning,Segmentation algorithms,Semantics,Shape,Training,deep learning,feature extraction,image classification,image segmentation,remote sensing,superpixels},
-  pages = {5091-5094}
+  author = {Audebert, N. and Le Saux, B. and Lefèvre, S.}
 }
 
 @inproceedings{huang_large-scale_2018,
+  langid = {english},
   title = {Large-Scale Semantic Classification: Outcome of the First Year of {{Inria}} Aerial Image Labeling Benchmark},
+  url = {https://hal.inria.fr/hal-01767807/document},
   shorttitle = {Large-Scale Semantic Classification},
   abstract = {Over the recent years, there has been an increasing interest in large-scale classification of remote sensing images. In this context, the Inria Aerial Image Labeling Benchmark has been released online in December 2016. In this paper, we discuss the outcomes of the first year of the benchmark contest, which consisted in dense labeling of aerial images into building / not building classes, covering areas of five cities not present in the training set. We present four methods with the highest numerical accuracies, all four being convolutional neural network approaches. It is remarkable that three of these methods use the U-net architecture, which has thus proven to become a new standard in image dense labeling.},
-  language = {en},
-  author = {Huang, Bohao and Lu, Kangkang and Audebert, Nicolas and Khalel, Andrew and Tarabalka, Yuliya and Malof, Jordan and Boulch, Alexandre and Saux, Bertrand Le and Collins, Leslie and Bradbury, Kyle and Lef{\`e}vre, S{\'e}bastien and {El-Saban}, Motaz},
-  month = jul,
-  year = {2018},
+  eventtitle = {{{IEEE International Geoscience}} and {{Remote Sensing Symposium}} – {{IGARSS}} 2018},
+  urldate = {2018-07-06},
+  date = {2018-07-22},
   keywords = {deep learning,feature extraction,image classification,image segmentation,Machine learning,remote sensing,Segmentation algorithms,Semantics,Shape,superpixels,Training},
+  author = {Huang, Bohao and Lu, Kangkang and Audebert, Nicolas and Khalel, Andrew and Tarabalka, Yuliya and Malof, Jordan and Boulch, Alexandre and Saux, Bertrand Le and Collins, Leslie and Bradbury, Kyle and Lefèvre, Sébastien and El-Saban, Motaz},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/HNQ6FHU2/Huang et al. - 2018 - Large-scale semantic classification outcome of th.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/B49LBBR9/hal-01767807.html}
 }
 
