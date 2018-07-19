@@ -115,6 +115,12 @@
 %% Mise en forme du texte
 \usepackage{xspace}
 \usepackage{siunitx}
+\sisetup{
+range-phrase=--,     % Utilise le tiret court pour dire "de... à"
+range-units=single,  % Cache l'unité sur la première borne
+locale = FR,
+inter-unit-product=\ensuremath{\cdot},
+detect-all}
 \DeclareSIUnit\px{px}
 
 \usepackage{textcomp}
