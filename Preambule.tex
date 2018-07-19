@@ -54,6 +54,13 @@
 	\setcounter{minitocdepth}{2}	% Mini-toc détaillées (sections/sous-sections)
 %\usepackage[notbib]{tocbibind}		% Ajoute les Tables des Matières/Figures/Tableaux à la table des matières
 \usepackage[Lenny]{fncychap}		% Jolis en-têtes de chapitre
+%% Couleurs
+\usepackage[table,dvipsnames]{xcolor}
+\ChNameVar{\fontsize{14}{16}\sffamily\bfseries\color{black}}
+\ChNumVar{\fontsize{60}{62}\sffamily\color{black}}
+\definecolor{mygreen}{HTML}{1C9607}
+\ChTitleVar{\Huge\sffamily\color{mygreen}}
+\ChTitleAsIs
 \usepackage{multicol}
 \usepackage[style=numeric,natbib=true,refsection=chapter,backend=biber,backref=true]{biblatex}
 
@@ -79,8 +86,6 @@
 \usepackage{etoolbox}
 	\appto\TPTnoteSettings{\footnotesize}
 \addto\captionsfrench{\def\tablename{{\textsc{Tableau}}}}	% Renome 'table' en 'tableau'
-%% Couleurs
-\usepackage[table,dvipsnames]{xcolor}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Eléments graphiques
@@ -131,13 +136,75 @@
 %% Packages qui doivent être chargés APRES hyperref
 \usepackage[top=2.5cm, bottom=2cm, left=3cm, right=2.5cm,
 			headheight=15pt]{geometry}
+\usepackage{FiraSans}
+
+\usepackage[nonumberofruns]{xassoccnt}
+
+\newcounter{realpage}
+\DeclareAssociatedCounters{page}{realpage}
+\AtBeginDocument{%
+  \stepcounter{realpage}
+}
+
+\DeclareTextFontCommand{\textsfsc}{\sffamily}
 
 \usepackage{fancyhdr}			% Entête et pieds de page. Doit être placé APRES geometry
 	\pagestyle{fancy}		% Indique que le style de la page sera justement fancy
 	\lfoot[\thepage]{} 		% gauche du pied de page
 	\cfoot{} 			% milieu du pied de page
 	\rfoot[]{\thepage} 		% droite du pied de page
-	\fancyhead[RO, LE] {}
+	\fancyhead[RE, LO] {}
+	\newcommand\footmarkleft{
+		\begin{picture}(0,0)
+				\put(5,-27){\color{mygreen}{\vspace{-1cm}\rule{0.06cm}{1.4cm}}}
+		\end{picture}
+	}
+	\newcommand\footmarkright{
+		\begin{picture}(0,0)
+				\put(-5,-27){\color{mygreen}{\vspace{-1cm}\rule{0.06cm}{1.4cm}}}
+				\makeatletter
+				\pgfmathparse{\therealpage/2}
+				\pgfmathtruncatemacro{\mypage}{\pgfmathresult}
+				\pgfmathparse{mod(\mypage,28)}
+				\pgfmathtruncatemacro{\mypage}{\pgfmathresult}
+				\put(20, -12){\includegraphics[width=1cm]{/home/naudeber/test/earth-\mypage.png}}
+				\makeatother
+		\end{picture}
+	}
+	\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+	\fancyfoot[LE,RO]{}
+	\fancyhead[LO,RE,LE,RO]{}
+	\fancyfoot[LO]{\textsfsc{{\large \textbf{\thepage}}\footmarkleft}}
+	\fancyfoot[RE]{\textsfsc{{\footmarkright \large \textbf{\thepage}}}}
+	\fancyhead[LO]{{\normalfont\sffamily\bfseries\nouppercase{{\chaptername~\thechapter} \hspace{0.25cm} \color{mygreen}{\leftmark}}}}
+	\fancyhead[RE]{{\normalfont\sffamily\bfseries\nouppercase{{\rightmark}}}}
+
+\fancypagestyle{plain}{
+\fancyfoot[LE,RO]{}
+\fancyhead[LO,RE,LE,RO]{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancyfoot[LO]{\textsfsc{{\large \textbf{\thepage}}\footmarkleft}}
+\fancyfoot[RE]{\textsfsc{{\footmarkright \large \textbf{\thepage}}}}}
+
+\usepackage{titlesec}
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\ttlh@hang}{\parindent\z@}{\parindent\z@\leavevmode}{}{}
+\patchcmd{\ttlh@hang}{\noindent}{}{}{}
+\makeatother
+	% \titleformat{\chapter}[frame]
+	%   {\normalfont\huge}
+	%   {\chaptertitlename\ \thechapter}{20pt}{\Huge}
+	\titleformat{\section}[hang]
+	  {\normalfont\sffamily\Large\bfseries\color{mygreen}}
+	  {\Large\thesection}{0.3em}{}
+	\titleformat{\subsection}[hang]
+	  {\normalfont\sffamily\large\bfseries}
+	  {\large\thesubsection}{0.3em}{}
+	\titleformat{\subsubsection}[hang]
+		{\normalfont\sffamily}
+		{\thesection}{0.3em}{}
 
 \usepackage[acronym,toc,numberedsection,ucmark]{glossaries}
 	\newglossary[nlg]{notation}{not}{ntn}{Notation} % Création d'un type de glossaire 'notation'
