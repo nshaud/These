@@ -17,6 +17,7 @@
 \newpage
 
 \section{Classification par région d'images aériennes}
+\label{sec:classif_region}
 
 \begin{figure}[t]
 	\resizebox{\textwidth}{!}{\input{Chapitre2/interpretation.tikz}}
@@ -178,7 +179,7 @@ De nombreuses architectures de \gls{FCN} sont disponibles pour la segmentation s
 	\resizebox{\textwidth}{!}{%
 	\input{Chapitre2/segnet.tikz}
 	}
-	\caption{Réseau de neurones entièrement convolutif -- architecture SegNet~\cite{badrinarayanan_segnet_2017}.}
+	\caption[Réseau de neurones entièrement convolutif -- architecture SegNet.]{Réseau de neurones entièrement convolutif -- architecture SegNet~\cite{badrinarayanan_segnet_2017}.}
 	\label{fig:segnet}
 \end{figure}
 
@@ -385,7 +386,7 @@ Comme nous l'avons vu, il apparaît clairement que la mise en \oe{}uvre d'une se
 
 Nous entraînons donc des modèles de réseaux profonds entièrement convolutifs SegNet et ResNet-34 sur les jeux de données \gls{ISPRS} Vaihingen et \gls{ISPRS} Potsdam.
 Nous traitons chaque tuile du jeu de données par une fenêtre glissante de dimensions $128 \times 128$ et un pas variable. Les modèles sont entraînés pendant 50 000 itérations avec une taille de \emph{batch} de 10. Le taux d'apprentissage initial est fixé à 0,1 et est divisé par 10 après 35 000 et 45 000 itérations.
-Les réseaux sont implémentés à l'aide des bibliothèques Caffe~\cite{jia_caffe_2014} et PyTorch~\cite{paszke_automatic_2017}.
+Les réseaux sont implémentés à l'aide des bibliothèques \gls{Caffe}~\cite{jia_caffe_2014} et \gls{PyTorch}~\cite{noauthor_pytorch_2016}.
 
 Dans un premier temps, nous validons cette approche uniquement sur les données pour lesquelles une vérité terrain est disponible, que nous divisons en deux sous-ensembles : apprentissage et validation. Pour comparer notre méthode à l'état-de-l'art, nous entraînons ensuite notre modèle sur l'ensemble du jeu de données (apprentissage + validation) avec les mêmes hyperparamètres. Nous soumettons enfin nos résultats sur le jeu de données de test au serveur d'évaluation de l'\gls{ISPRS}, dont la vérité terrain nous est inconnue.
 
