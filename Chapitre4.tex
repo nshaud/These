@@ -5,11 +5,11 @@
 \minitoc
 
 \chapsummary{%
-Nous avons vu dans les chapitres précédents que les réseaux de neurones entièrement convolutifs permettaient d'établir de nouveaux états de l'art en segmentation sémantique d'images de télédétection et ce y compris pour des capteurs non-conventionnels. Toutefois, nous avons souligné la difficulté d'obtenir des résultats satisfaisants avec des sources de données n'offrant qu'une information partielle, comme le \gls{Lidar}.
+Les chapitres précédent nous ont permis d'établir de nouveaux états de l'art en segmentation sémantique d'images de télédétection sur l'ensemble des capteurs optiques couramment mise en \oe{}uvre pour l'observation de la Terre. Cependant, nous avons également souligné la difficulté d'exploiter directement les modèles numériques de terrain dérivés du \gls{Lidar}.
 
-Dans ce chapitre, nous investiguons des méthodes de fusion de données permettant d'exploiter en simultanée plusieurs capteurs. Nous proposons ainsi plusieurs architectures de réseaux de neurones multi-modales capables de traiter en parallèle des données hétérogènes, comme les modèles numériques de terrain et les images optiques. Nous validons ces modèles avec succès sur plusieurs jeux de données et montrons qu'il est possible de tirer ainsi profit de la complémentarité des différents capteurs.
+Dans ce chapitre, nous étudions les techniques de fusion de données permettant de combiner l'information issue de capteurs hétérogènes. Notamment, nous proposons plusieurs architectures multi-modales pour l'apprentissage profond capables d'apprendre conjointement à partir des images optiques et des modèles numériques de terrain. Nous validons ces modèles avec succès sur plusieurs jeux de données et montrons ainsi qu'il est possible de tirer profit de la complémentarité des différents capteurs.
 
-Nous étendons ensuite ces travaux à des sources de données non physiques. En particulier, nous étudions la possibilité d'intégrer de l'information sémantique \emph{a priori} venant de bases de données géographiques en ligne pour consolider les cartes sémantiques prédites par le réseau. En traitant ces données comme un nouveau capteur virtuel, nous pouvons ainsi utiliser nos architectures multi-modales profondes pour injecter de l'information connue dans le processus d'apprentissage et d'inférence de nos réseaux de neurones.
+Nous étendons ensuite ces travaux à des sources de données non physiques. En particulier, nous appliquons ces architectures de fusion de donnée à des connaissances géographiques a priori provenant de bases de données en ligne, afin de consolider les cartes sémantiques prédites par le réseau. En considérant cette source d'information comme un capteur virtuel, les architectures multi-modales précédemment développées nous permettent d'injecter des connaissances préalables dans les processus d'apprentissage et d'inférence de nos réseaux de neurones.
 }
 
 \newpage
@@ -40,7 +40,7 @@ Nous étendons ensuite ces travaux à des sources de données non physiques. En 
 
 Jusqu'à présent nous n'avons présenté que des réseaux de neurones n'opérant que sur un seul type de données. Toutefois, la perception sensorielle humaine mobilise plusieurs modalités, notamment le son et l'image, présentant des interactions entre elles. Une question naturelle est donc de chercher à savoir dans quelle mesure une machine est en mesure d'exploiter ce type d'information contenues sous plusieurs formes, partiellement redondantes.
 
-L'apprentissage multi-modal via des réseaux de neurones correspond donc à un problème d'apprentissage de représentation à partir de signaux dans plusieurs domaines. \citet{baltrusaitis_multimodal_2017} propose la taxonomie suivante, dans laquelle les représentations peuvent être conjointes (une même représentation pour plusieurs modalités) ou coordonnées (chaque modalité à une représentation)\,:
+L'apprentissage multi-modal via des réseaux de neurones correspond donc à un problème d'apprentissage de représentation à partir de signaux dans plusieurs domaines. \citet{baltrusaitis_multimodal_2017} proposent la taxonomie suivante, dans laquelle les représentations peuvent être conjointes (une même représentation pour plusieurs modalités) ou coordonnées (chaque modalité à une représentation)\,:
 \begin{itemize}
     \item Représentation\,: générer des caractéristiques exploitant la complémentarité et la redondance de modalités multiples.
     \item Traduction\,: convertir d'une modalité à une autre.
@@ -142,25 +142,25 @@ Ce module réalise une fusion au niveau décisionnel en utilisant le principe de
 % P(M_1, \dots, M_n) = \frac{1}{R}\sum_{r=1}^R P_r(M_r)~.
 % \end{equation}
 
-En notant $P_0$ le tenseur représentant la vérité terrain, $P_i$ les prédictions pour la $i$\ieme sortie\,:
+Notons $P_\mathit{terrain}$ le tenseur représentant la vérité terrain et $\hat{P}_i$ les prédictions réalisées par la $i$\ieme sortie. On définit alors le terme d'erreur $\epsilon_i$ tel que\,:
 \begin{equation}
-P_i = P_0 + \epsilon_i \text{ avec } \lvert \epsilon_i \lvert  \ll \rvert P_i \rvert
+\hat{P}_i = P_\mathit{terrain} + \epsilon_i \text{~~~avec~~~} \lvert \epsilon_i \lvert ~\ll~ \rvert \hat{P}_i \rvert~~.
 \end{equation}
 
-$\epsilon_i$ est un terme d'erreur, petit tant que la prédiction $P_i$ est suffisamment exacte. Le module de correction résiduelle doit donc apprendre à estimer l'erreur et à inférer les cas où elle apparaît ainsi que comment la corriger.
+Si la prédiction $P_i$ est relativement, alors $\epsilon_i$ reste faible. L'objectif du module de correction résiduelle est d'apprendre à estimer l'erreur afin de pouvoir la corriger lors de l'inférence.
 
-Si $R$ est le nombre de prédictions sur lesquelles réaliser la correction résiduelle, alors le module prédit $P'$, la somme des prédictions moyenne et de la correction $c$ :
+En notant $n$ le nombre de prédictions à fusionner par correction résiduelle, alors la sortie du module notée $\hat{P}^*$ correspond à la somme de la prédiction moyenne des $\hat{P}_i$ et d'un terme correcteur $c$\,:
 \begin{equation}
-P' = P_{avg} + c = \frac{1}{R} \sum_{i=1}^R P_i + c = P_0 + \frac{1}{R} \sum_{i=1}^R \epsilon_i + c
+\hat{P}^* = \hat{P}_\mathit{moyenne} + c = \frac{1}{n} \sum_{i=1}^n P_i + c = P_\mathit{terrain} + \frac{1}{n} \sum_{i=1}^n \epsilon_i + c~~.
 \end{equation}
 
-Le module de correction résiduel étant optimisé pour minimiser la fonction de coût, cette contrainte impose\,:
+Le module de correction résiduel étant optimisé pour la minimiser la fonction de coût, cette contrainte se traduit par\,:
 \begin{equation}
-\lVert P' - P_0 \rVert \rightarrow 0
+\lVert \hat{P}^* - P_\mathit{terrain} \rVert \rightarrow 0
 \end{equation}
 ce qui impose la contrainte suivante sur $c$ et $\epsilon_i$\,:
 \begin{equation}
-\lVert \frac{1}{R} \sum_{i=1}^R \epsilon_i - c \rVert \rightarrow 0
+\lVert \frac{1}{n} \sum_{i=1}^n \epsilon_i - c \rVert \rightarrow 0~~.
 \end{equation}
 
 \begin{figure}[t]
@@ -170,10 +170,14 @@ ce qui impose la contrainte suivante sur $c$ et $\epsilon_i$\,:
   \label{fig:correction_network}
 \end{figure}
 
-De fait, cela peut se traduire par l'approximation de l'erreur moyenne en fonction des cartes d'activation finales. En effet, lors de la phase d'entraînement, la vérité terrain $P_0$ est connue et le module de correction résiduel est modifié afin de se rapprocher de $\sum_{i=1}^R \epsilon_i$. L'apprentissage par résidu se prête tout particulièrement à cette approche, car celle-ci s'exprime naturellement sur la forme d'une correction d'erreur, le résidu étant alors de faible amplitude par rapport au signal identité (ou \emph{bypass}). Le module est détaillé dans la~\cref{fig:correction_network}.
+Autrement dit, le module de correction résiduel est optimisé afin de compenser l'erreur moyenne commise par les différents modèles de l'ensemble. Lors de la phase d'entraînement, la vérité terrain $P_\mathit{terrain}$ est connue. Les poids du module sont alors altérés par rétro-propagation de sorte que le terme correctif $c$ se rapproche de $\sum_{i=1}^n \epsilon_i$. L'erreur moyenne étant supposée faible, la correction d'erreur correspond ainsi au paradigme d'apprentissage par résidu~\cite{he_deep_2016}. En effet, $c$ est un terme additif de faible amplitude sommé au signal initial (ou \emph{bypass}). Cette approche est schématisée dans la~\cref{fig:correction_network}.
+
+\subsection{Résultats expérimentaux}
+
+\todo[inline]{Hyperparamètres}
 
 \begin{table}
-    \caption{Résultats sur le jeu de test ISPRS Vaihingen.}
+    \caption{Résultats sur le jeu de test \gls{ISPRS} Vaihingen.}
     \label{table:final_vaihingen}
     \setlength\tabcolsep{5pt}
 	\begin{tabularx}{\textwidth}{Y c c c c c c}
@@ -192,7 +196,7 @@ De fait, cela peut se traduire par l'approximation de l'erreur moyenne en foncti
 \end{table}
 
 \begin{table}
-    \caption{Résultats sur le jeu de test ISPRS Potsdam.}
+    \caption{Résultats sur le jeu de test \gls{ISPRS} Potsdam.}
     \label{table:final_potsdam}
     \setlength\tabcolsep{4pt}
 	\begin{tabularx}{\textwidth}{Y c c c c c c}
@@ -234,7 +238,7 @@ De fait, cela peut se traduire par l'approximation de l'erreur moyenne en foncti
         	\includegraphics[width=\textwidth]{tile5_rc_pred}
         	\caption*{SegNet-CR}
         \end{subfigure}
-        \caption{Prédictions de différentes modèles sur un extrait du jeu de données ISPRS Vaihingen.}
+        \caption{Prédictions de différentes modèles sur un extrait du jeu de données \gls{ISPRS} Vaihingen.}
         \label{fig:fusion_exemple1}
     \end{subfigure}
     	\begin{subfigure}{\textwidth}
@@ -286,7 +290,7 @@ De fait, cela peut se traduire par l'approximation de l'erreur moyenne en foncti
         	\includegraphics[width=\textwidth]{tile21_rc_pred}
         	\caption*{SegNet-CR}
         \end{subfigure}
-        \caption{Prédictions de différentes modèles sur un extrait du jeu de données ISPRS Vaihingen.}
+        \caption{Prédictions de différentes modèles sur un extrait du jeu de données \gls{ISPRS} Vaihingen.}
         \label{fig:fusion_exemple2}
     \end{subfigure}
 
@@ -316,7 +320,7 @@ De fait, cela peut se traduire par l'approximation de l'erreur moyenne en foncti
     \includegraphics[width=\linewidth]{fusenet_irrg_comp_potsdam_3_11}
     \caption{V-FuseNet}
     \end{subfigure}
-    \caption{Effet des stratégies de fusion sur un extrait du jeu de données ISPRS Potsdam. La confusion entre les classes de route et de bâtiments est nettement réduite grâce à la contribution des modèles de terrain.\\\isprslegende}
+    \caption{Effet des stratégies de fusion sur un extrait du jeu de données \gls{ISPRS} Potsdam. La confusion entre les classes de route et de bâtiments est nettement réduite grâce à la contribution des modèles de terrain.\\\isprslegende}
     \label{fig:potsdam_images}
 \end{figure}
 
@@ -326,7 +330,7 @@ La fusion dans l'encodeur par FuseNet est qu'elle permet d'exploiter conjointeme
 %One advantage of using the early fusion is that complementarity between the multiple modalities is leveraged more efficiently as it requires less parameters, yet achieves a better classification accuracy for all classes. At the opposite, late fusion with residual correction improves the overall accuracy at the price of less balanced predictions. Indeed, the increase mostly affects the ``building'' and ``impervious surface'' classes, while all the other F1 scores decrease slightly.
 
 \begin{table}
-    \caption{Résultats de validation sur le jeu de données ISPRS Vaihingen.}
+    \caption{Résultats de validation sur le jeu de données \gls{ISPRS} Vaihingen.}
     \label{table:val_vaihingen}
 	\begin{tabularx}{\textwidth}{Y c c}
     \toprule
@@ -347,7 +351,7 @@ La fusion dans l'encodeur par FuseNet est qu'elle permet d'exploiter conjointeme
 \end{table}
 
 
-En outre, la correction résiduelle est moins utile lorsque la confiance accordée par les modèles dans leurs prédictions est faible. Sur le jeu de données ISPRS Potsdam, le SegNet composite n'atteint que 79\% de taux de bonne classification, car l'image composite est moins informative pour discriminer des objets à résolution de \SI{5}{\centi\meter/\px}. Par conséquent, la correction résiduelle dégrade légèrement les performances. En revanche, sur le jeu de données ISPRS Vaihingen, l'image composite est nettement plus informative (85\% de taux de bonne classification) et l'ensemble parvient à combiner efficacement les deux sources de données car les deux sont informatives avec un bon taux de confiance, comme illustré dans la~\cref{fig:confidence_vaihingen_fusion}. On observe par ailleurs qu'améliorer les performances sur l'image composite en utilisant un ResNet-34 permet également d'améliorer la performance de la correction résiduelle.
+En outre, la correction résiduelle est moins utile lorsque la confiance accordée par les modèles dans leurs prédictions est faible. Sur le jeu de données \gls{ISPRS} Potsdam, le SegNet composite n'atteint que 79\% de taux de bonne classification, car l'image composite est moins informative pour discriminer des objets à résolution de \SI{5}{\centi\meter/\px}. Par conséquent, la correction résiduelle dégrade légèrement les performances. En revanche, sur le jeu de données \gls{ISPRS} Vaihingen, l'image composite est nettement plus informative (85\% de taux de bonne classification) et l'ensemble parvient à combiner efficacement les deux sources de données car les deux sont informatives avec un bon taux de confiance, comme illustré dans la~\cref{fig:confidence_vaihingen_fusion}. On observe par ailleurs qu'améliorer les performances sur l'image composite en utilisant un ResNet-34 permet également d'améliorer la performance de la correction résiduelle.
 %\todo{mesurer le gain théorique union entre les deux sources de données}
 %However, on the Potsdam dataset, the residual correction strategy slightly decreases the model accuracy. Indeed, the late fusion is mostly useful to combine strong predictions that are complementary. For example, as illustrated in~\cref{fig:confidence_vaihingen_fusion}, the composite SegNet has a strong confidence in its building prediction while the IRRG SegNet has a strong confidence in its cars predictions. Therefore, the residual correction is able to leverage those predictions and to fuse them to alleviate the uncertainty around the cars in the rooftop parking lot. This works well on Vaihingen as both the IRRG and composite sources achieve a global accuracy higher than 85\%. However, on Potsdam, the composite SegNet is less informative and achieves only 79\% accuracy, as the annotations are more precise and the dataset overall more challenging for a data source that relies only on Lidar and NDVI. Therefore, the residual correction fails to make the most of the two data sources. This analysis is comforted by the fact that, on the Vaihingen validation set, the residual correction achieves a better global accuracy with ResNets than with SegNets, thanks to the stronger ResNet-34 trained on the composite source.
 
@@ -363,7 +367,7 @@ En conclusion, ces deux stratégies de fusion sont applicables à différentes c
 %\todo{Explanation for V-FuseNet (visual if possible)}
 Sur le jeu de test final, la stratégie V-FuseNet a des performances marginalement inférieures au modèle original, bien que les $F_1$ scores soient supérieurs sur certaines classes, y compris la classe de rejet ($+1,7\%$) qui n'est pas prise en compte dans les métriques finales.
 
-\subsection{Robustesse aux données manquantes}
+\subsubsection{Robustesse aux données manquantes}
 
 \begin{figure}[h]
 	\captionsetup[subfigure]{singlelinecheck=off,justification=centering}
@@ -384,11 +388,11 @@ Sur le jeu de test final, la stratégie V-FuseNet a des performances marginaleme
     	\includegraphics[width=\textwidth]{ndsm_fail_fusenet}
         \caption{V-FuseNet}
     \end{subfigure}
-	\caption{Les erreurs dans le \glssymbol{MNH} du jeu de données ISPRS Vaihingen sont mal gérées par les deux méthodes de fusion. Ici, un bâtiment entier disparaît.}
+	\caption{Les erreurs dans le \glssymbol{MNH} du jeu de données \gls{ISPRS} Vaihingen sont mal gérées par les deux méthodes de fusion. Ici, un bâtiment entier disparaît.}
     \label{fig:ndsm_fail}
 \end{figure}
 
-Bien que les données \gls{Lidar} du jeu de données ISPRS soient très denses, la normalisation du modèle de terrain est imparfaite et quelques artefacts ont été générés. Comme signalé par~\citet{marmanis_classification_2017}, plusieurs bâtiments sont absents du \gls{MNH}, une hauteur de \SI{0}{\meter} ayant été attribuée aux pixels correspondants. Cela cause des problèmes significatifs de classification pour les deux méthodes de fusion, comme illustré par la~\cref{fig:ndsm_fail}. La solution proposée par~\cite{marmanis_classification_2017} consiste à manuellement corriger le \gls{MNH}, mais cette méthode ne passe pas à l'échelle. Des stratégies robustes à la perte d'une modalité ou aux données bruitées pourraient permettre de résoudre ce problème, en utilisant par exemple les \emph{hallucination networks} de~\citet{hoffman_learning_2016} pour inférer les données manquantes~\cite{kampffmeyer_semantic_2016}. Les travaux récents sur les modèles génératifs pourraient également permettre de diminuer le sur-apprentissage et améliorer la robustesse des modèles en entraînant ceux-ci sur des données synthétiques bruitées~\cite{xie_adversarial_2017}.
+Bien que les données \gls{Lidar} du jeu de données \gls{ISPRS} soient très denses, la normalisation du modèle de terrain est imparfaite et quelques artefacts ont été générés. Comme signalé par~\citet{marmanis_classification_2017}, plusieurs bâtiments sont absents du \gls{MNH}, une hauteur de \SI{0}{\meter} ayant été attribuée aux pixels correspondants. Cela cause des problèmes significatifs de classification pour les deux méthodes de fusion, comme illustré par la~\cref{fig:ndsm_fail}. La solution proposée par~\cite{marmanis_classification_2017} consiste à manuellement corriger le \gls{MNH}, mais cette méthode ne passe pas à l'échelle. Des stratégies robustes à la perte d'une modalité ou aux données bruitées pourraient permettre de résoudre ce problème, en utilisant par exemple les \emph{hallucination networks} de~\citet{hoffman_learning_2016} pour inférer les données manquantes~\cite{kampffmeyer_semantic_2016}. Les travaux récents sur les modèles génératifs pourraient également permettre de diminuer le sur-apprentissage et améliorer la robustesse des modèles en entraînant ceux-ci sur des données synthétiques bruitées~\cite{xie_adversarial_2017}.
 
 %Due to limitations and noise in the Lidar point cloud, such as missing or aberrant points, the DSM and subsequently the nDSM present some artifacts. As reported in~\cite{marmanis_classification_2016}, some buildings vanish in the nDSM and the relevant pixels are falsely attributed a height of 0. This causes significant misclassification in the composite image that are poorly handled by both fusion methods, as illustrated in~\cref{fig:ndsm_fail}. \cite{marmanis_classification_2016} worked around this problem by manually correcting the nDSM, though this method does not scale to bigger datasets. Therefore, improving the method to be robust to impure data and artifacts could be helpful, e.g. by using hallucination networks~\cite{hoffman_learning_2016} to infer the missing modality as proposed in~\cite{kampffmeyer_semantic_2016}. We think that the V-FuseNet architecture could be adapted for such a purpose by using the virtual branch to encode missing data. Moreover, recent work on generative models might help alleviate overfitting and improve robustness by training on synthetic data, as proposed in~\cite{Xie_2017_ICCV}.
 
@@ -404,7 +408,7 @@ Peu de travaux se sont penchés sur l'intégration des données \gls{OSM} pour l
 
 Ici, nous suggérons d'utiliser les couches sémantiques d'\gls{OSM} comme entrée à un réseau de neurones profond pour la cartographie automatisée. L'idée est d'exploiter la donnée sémantique, possiblement bruitée et incomplète d'\gls{OSM} afin d'extraire de l'information plus riche à une résolution supérieure.
 
-Pour ce faire, nous considérons le jeu de données ISPRS Potsdam sur lequel nous récupérons les données \gls{OSM} de 2017. Nous sélectionnons les couches correspondant aux routes, aux empreintes de bâtiments, aux zones d'eau et aux espaces verts. Les routes sont définies dans \gls{OSM} comme un réseau filaire. Par conséquent, en fonction du type de route indiqué dans \gls{OSM}, nous assignons une largeur arbitraire à celles-ci. En outre, les bâtiments, espaces verts et zones d'eau ne correspondent pas nécessairement entièrement aux images aériennes du jeu de données, soit à cause de constructions nouvelles (les images ont été acquises en 2014) , soit car les annotations \gls{OSM} sont incomplètes par endroits. Nous générons ainsi un raster à la même résolution que les images \gls{RVB} contenant 4 canaux binaires\,: un pour le masque des routes, un pour les bâtiments, un pour l'eau et un pour les espaces verts.
+Pour ce faire, nous considérons le jeu de données \gls{ISPRS} Potsdam sur lequel nous récupérons les données \gls{OSM} de 2017. Nous sélectionnons les couches correspondant aux routes, aux empreintes de bâtiments, aux zones d'eau et aux espaces verts. Les routes sont définies dans \gls{OSM} comme un réseau filaire. Par conséquent, en fonction du type de route indiqué dans \gls{OSM}, nous assignons une largeur arbitraire à celles-ci. En outre, les bâtiments, espaces verts et zones d'eau ne correspondent pas nécessairement entièrement aux images aériennes du jeu de données, soit à cause de constructions nouvelles (les images ont été acquises en 2014) , soit car les annotations \gls{OSM} sont incomplètes par endroits. Nous générons ainsi un raster à la même résolution que les images \gls{RVB} contenant 4 canaux binaires\,: un pour le masque des routes, un pour les bâtiments, un pour l'eau et un pour les espaces verts.
 
 \begin{figure}[h]
   \foreach\picname\picpath in {Image \gls{RVB}/potsdam_rgb_4_12,Tuile \gls{OSM}/potsdam_osmtile_4_12,Raster \gls{OSM}/potsdam_osm_4_12,Vérité terrain/potsdam_gt_4_12}{%
@@ -413,7 +417,7 @@ Pour ce faire, nous considérons le jeu de données ISPRS Potsdam sur lequel nou
     \caption*{\picname}
   \end{subfigure}%
   }%
-  \caption{Tuile 4\_12 du jeu de données ISPRS Potsdam et données \gls{OSM} correspondantes.\\
+  \caption{Tuile 4\_12 du jeu de données \gls{ISPRS} Potsdam et données \gls{OSM} correspondantes.\\
   \isprslegende
   }
   \label{fig:dataset_potsdam}
@@ -456,6 +460,7 @@ où $Z_{opt}$ et $Z_{osm}$ sont les cartes d'activation finales de SegNet et OSM
   \label{fig:refinet}
 \end{figure}
 
+\todo[inline]{Pas du tout, c'est un FuseNet}
 Dans ce cadre, l'apprentissage par résidu peut être conçu comme la modélisation d'un terme de correction d'erreur, illustré dans la~\cref{fig:refinet}. De cette façon, le raffinement de la carte OSM de départ est elle-même raffinée par la correction résiduelle selon un processus itératif à deux étapes.
 
 \subsection{FCN à double entrée}
@@ -470,13 +475,13 @@ et
 E_{i+1}^{opt}(I,O) = B_i^{opt}(E_i^{opt}(I, O)) + B_i^{osm}(E_i^{osm}(O))~.
 \end{equation}
 
-Nous utilisons le jeu de données ISPRS Potsdam sur lequel nous récupérons les données \gls{OSM} correspondantes (cf.~\cref{fig:dataset_potsdam}). Les tuiles étant géo-référencées, nous générons les images OSM associées contenant les empreintes de routes, bâtiments, des zones de végétation et de l'eau en utilisant Maperitive\footnote{\url{http://maperitive.net/}}. Les résultats sont obtenus par validation croisée sur 3 partitions du jeu de données.
+Nous utilisons le jeu de données \gls{ISPRS} Potsdam sur lequel nous récupérons les données \gls{OSM} correspondantes (cf.~\cref{fig:dataset_potsdam}). Les tuiles étant géo-référencées, nous générons les images OSM associées contenant les empreintes de routes, bâtiments, des zones de végétation et de l'eau en utilisant Maperitive\footnote{\url{http://maperitive.net/}}. Les résultats sont obtenus par validation croisée sur 3 partitions du jeu de données.
 
 \subsection{Cadre expérimental}
 Lors de l'apprentissage, nous extrayons aléatoirement des images de $128\times128$ dans le jeu d'apprentissage, en appliquant des symétries afin d'augmenter le nombre d'exemples. Le réseau est entraîné par descente de gradient en traitant 10 images en parallèle, comme suggéré dans~\cite{audebert_semantic_2016}. Les taux d'apprentissage sont initialisés à 0,005 pour l'encodeur et 0,01 pour le décodeur, puis sont divisés par 2 tous les 30~000 itérations. L'encodeur pour les données RVB est initialisé à partir des poids de VGG-16 pré-entraînés sur ImageNet, les autres poids étant initialisés aléatoirement.
 %~\cite{he_delving_2015}.
 L'évaluation s'effectue via une fenêtre glissante de taille $128\times128$ avec un pas de 64, les prédictions recouvrantes étant moyennées. L'apprentissage prend environ 20 heures sur une carte graphique NVIDIA K20c et l'évaluation moins de 30 minutes. Nous comparons les résultats obtenus avec ceux obtenus par forêt aléatoire (RF) sur l'image pré-segmentée par superpixels. Les caractéristiques utilisées sont les histogrammes de gradients orientés et de couleurs comme descripteur optique, ainsi que l'histogramme des classes OSM.
-%During training on the ISPRS Potsdam dataset, we randomly extract $128\times128$ patches from the training tiles on which we apply random flipping or mirroring as data augmentation. We train a network on a end-to-end fashion, following the guidelines from~\cite{audebert_semantic_2016}, \textit{i.e.} we train a SegNet with a batch size of 10 on the RVB tiles using a Stochastic Gradient Descent (SGD) with a learning rate of 0.01 divided by 10 every 2 epochs ($\simeq$ 30 000 iterations). SegNet's encoder for the RVB data is initialized using VGG-16~\cite{simonyan_very_2014} weights trained on ImageNet, while the decoder is randomly initialized using the MSRA~\cite{he_delving_2015} scheme. The learning rate for the encoder is set to half the learning rate for the decoder. During testing, each tile is processed by sliding a $128\times128$ window with a stride of 64 (\textit{i.e.} 50\% overlap). Multiple predictions for overlapping regions are averaged to smooth the map and reduce visible stitching on the patch borders. Training until convergence ($\simeq$ 150,000 iterations) takes around 20 hours on a NVIDIA K20c, while evaluating on the validation set takes less than 30 minutes.
+%During training on the \gls{ISPRS} Potsdam dataset, we randomly extract $128\times128$ patches from the training tiles on which we apply random flipping or mirroring as data augmentation. We train a network on a end-to-end fashion, following the guidelines from~\cite{audebert_semantic_2016}, \textit{i.e.} we train a SegNet with a batch size of 10 on the RVB tiles using a Stochastic Gradient Descent (SGD) with a learning rate of 0.01 divided by 10 every 2 epochs ($\simeq$ 30 000 iterations). SegNet's encoder for the RVB data is initialized using VGG-16~\cite{simonyan_very_2014} weights trained on ImageNet, while the decoder is randomly initialized using the MSRA~\cite{he_delving_2015} scheme. The learning rate for the encoder is set to half the learning rate for the decoder. During testing, each tile is processed by sliding a $128\times128$ window with a stride of 64 (\textit{i.e.} 50\% overlap). Multiple predictions for overlapping regions are averaged to smooth the map and reduce visible stitching on the patch borders. Training until convergence ($\simeq$ 150,000 iterations) takes around 20 hours on a NVIDIA K20c, while evaluating on the validation set takes less than 30 minutes.
 
 %On the DFC2017, we re-train SegNet from scratch and the weights are initialized using the MSRA scheme. As the input data has a resolution of 20m/pixel and the output LCZ are expected to be at 100m/pixel resolution, we use a smaller decoder by removing the last three convolutional blocks and the associated pooling layers. The resulting predictions have a resolution of 1:4 the input data and are interpolated to the 100m/pixel resolution. We train the network on randomly flipped $160\times160$ patches with a 50\% overlap. The patches are randomly selected but have to contain at least 5\% of annotated pixels. To avoid learning on non-labeled pixels from the sparse LCZ annotations, we ignore the undefined pixels in the ground truth during loss computation. The network is trained using the Adam~\cite{kingma_adam:_2014} optimizer with a learning rate of 0.01 with a batch size of 10. Training until convergence ($\simeq$ 60,000 iterations) takes around 6 hours on a NVIDIA Titan Pascal, while evaluating on the test set takes less than 5 minutes.
 
@@ -506,7 +511,7 @@ L'évaluation s'effectue via une fenêtre glissante de taille $128\times128$ ave
 \subsection{Résultats}
 
 \begin{table}[t]
-	\caption{Résultats sur le jeu de données ISPRS Potsdam (score F1 par classe et pourcentage global de pixels bien classés).}
+	\caption{Résultats sur le jeu de données \gls{ISPRS} Potsdam (score F1 par classe et pourcentage global de pixels bien classés).}
     \label{table_potsdam_results}
 	\begin{tabularx}{\textwidth}{Y c c c c c c c}
     \toprule
@@ -554,8 +559,8 @@ L'évaluation s'effectue via une fenêtre glissante de taille $128\times128$ ave
 \end{figure}
 
 
-Les résultats obtenus sur les données de validation de l'ISPRS Potsdam sont détaillés dans le~\cref{table_potsdam_results}. Nous indiquons le pourcentage global de pixels correctement classés et les scores F1 pour chaque classe, calculés sur une version alternative de la vérité terrain dans laquelle les bordures ont été érodées de 3 pixels.
-%We report in~\cref{table_potsdam_results} the results of our methods on our validation set of the ISPRS Potsdam dataset. In accordance with the dataset guidelines, we compare our predictions with the ground-truth where the borders have been eroded by a disk of radius 3 pixels. We report the overall pixel-wise accuracy and the F1 score for each class, computed as follows:
+Les résultats obtenus sur les données de validation de l'\gls{ISPRS} Potsdam sont détaillés dans le~\cref{table_potsdam_results}. Nous indiquons le pourcentage global de pixels correctement classés et les scores F1 pour chaque classe, calculés sur une version alternative de la vérité terrain dans laquelle les bordures ont été érodées de 3 pixels.
+%We report in~\cref{table_potsdam_results} the results of our methods on our validation set of the \gls{ISPRS} Potsdam dataset. In accordance with the dataset guidelines, we compare our predictions with the ground-truth where the borders have been eroded by a disk of radius 3 pixels. We report the overall pixel-wise accuracy and the F1 score for each class, computed as follows:
 \begin{equation}
 F1_{i} = 2~\frac{pr\acute{e}cision_{i} \times rappel_{i}}{pr\acute{e}cision_{i} + rappel_{i}}~,
 \end{equation}
