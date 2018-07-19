@@ -159,7 +159,7 @@ Légende\,: \textcolor{Black}{blanc}\,: routes, \textcolor{Blue}{bleu}\,: bâtim
 
 \newcommand{\res}[2]{#1 {\footnotesize $\pm$ #2}}
 \newcommand{\bres}[2]{\textbf{#1} {\footnotesize $\pm$ #2}}
-
+\newcommand{\bbres}[2]{\res{\textit{#1}}{#2}}
 
 \newcommand{\drawkernel}[9]{
 \begin{tikzpicture}
@@ -187,7 +187,9 @@ Légende\,: \textcolor{Black}{blanc}\,: routes, \textcolor{Blue}{bleu}\,: bâtim
 
 \newcommand{\chapsummary}[1]{
 \section*{Résumé du chapitre :}
-\begin{quote}
-#1
-\end{quote}
+\parbox{0.9\linewidth}{
+\setlength{\parindent}{4ex}
+#1}
 }
+
+\newcommand{\eqname}[1]{\tag*{\small (#1)}}

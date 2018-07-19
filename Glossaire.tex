@@ -2,7 +2,7 @@
 %%                   Acronymes			   %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newacronym{ISPRS}{ISPRS}{\emph{International Society for Photogrammetry and Remote Sensing}}
+\newacronym[symbol={ISPRS}]{ISPRS}{ISPRS}{\emph{International Society for Photogrammetry and Remote Sensing}}
 
 \newacronym[symbol={DFC}]{DFC}{DFC}{\emph{Data Fusion Contest}}
 
@@ -16,10 +16,18 @@
 
 \newacronym{LRN}{LRN}{\emph{Local Response Normalization}}
 
+\newacronym{AVIRIS}{AVIRIS}{\emph{Airborne Visible/Infrared Imaging Spectrometer}}
+
+\newacronym[symbol={NN}]{NN}{NN}{\emph{Neural Network}}
+
+\newacronym[symbol={RNN}]{RNN}{RNN}{\emph{Recurrent Neural Network}}
+
 \newglossaryentry{CNN}{
 	type=\acronymtype,
 	name={CNN},
+	symbol={CNN},
 	first={réseau de neurones convolutif, ou \emph{Convolutional Neural Network} (CNN)},
+	firstplural={réseaux de neurones convolutifs, ou \emph{Convolutional Neural Networks} (CNN)},
 	description={\emph{Convolutional Neural Network}, réseau de neurones dont certaines couches effectuent des convolutions à poids partagés}
 	}
 
@@ -45,6 +53,7 @@
   type=\acronymtype,
   name={SVM},
 	plural={SVM},
+	symbol={SVM},
   first={machine à vecteurs de support, ou \emph{Support Vector Machine} (SVM),},
 	firstplural={machines à vecteurs de support, ou \emph{Support Vector Machines} (SVM),},
   description={\emph{Support Vector Machine}, en français machine à vecteurs de support, parfois sous la dénomination Séparateur à Vaste Marge. Outil de classification ou de régression.}
@@ -139,6 +148,24 @@
   name={Pléiades},
 	first={la constellation de satellites Pléiades},
 	description={Duo de satellites optiques très haute résolution français}
+}
+
+\newglossaryentry{PyTorch}{
+	name={PyTorch},
+	first={PyTorch},
+	description={Bibliothèque logicielle C++/Python de calcul tensoriel sur \gls{CPU} et \gls{GPU}, spécialisée pour l'apprentissage profond~\cite{noauthor_pytorch_2016}.}
+}
+
+\newglossaryentry{Caffe}{
+	name={Caffe},
+	first={Caffe},
+	description={Bibliothèque logicielle C++ dotée d'interfaces Python et Matlab pour l'apprentissage profond.}
+}
+
+\newglossaryentry{scikit-learn}{
+  name={scikit-learn},
+	first={scikit-learn},
+	description={Bibliothèque logicielle Python d'apprentissage automatique.}
 }
 
 \newacronym{SAR}{SAR}{radar à synthèse d'ouverture (en anglais \emph{synthetic aperture radar})}
@@ -325,6 +352,7 @@
         name={multispectral},
 				first={caméra multispectrale},
 				plural={multispectrales},
+				symbol={MSI},
         description={Imagerie utilisant des récepteurs sur plusieurs longueurs d'onde},
 }
 
