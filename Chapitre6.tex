@@ -16,15 +16,13 @@ Dans un second temps, nous nous intéressons à des représentations alternative
 
 \newpage
 
-\section{Modèles objet \emph{a posteriori}}
+\section{\emph{Segment-before-detect}}
 
 \subsection{Régions et objets}
 
 La détection et la reconnaissance de véhicules sont deux problèmes classiques en télédétection. Outre la finalité purement applicative d'identifier les véhicules d'une scène, la reconnaissance des véhicules permet également d'isoler les parties non mobiles d'une image pour mieux en comprendre la géométrie~\cite{leberl_recognizing_2007}. De nombreux travaux ont étudié la détection automatique de véhicules dans des images \gls{THR} avec une large variété de méthodes, allant des descripteurs \gls{HOG} couplés à des \glspl{SVM}~\cite{michel_local_2011,gleason_vehicle_2011,kamenetsky_aerial_2015} aux modèles 3D d'estimation de pose~\cite{janney_pose-invariant_2015} en passant par les modèles à parties déformables~\cite{randrianarivo_urban_2013} ou les mélanges de modèles invariants par rotation~\cite{randrianarivo_contextual_2016}. L'apprentissage profond et notamment les \gls{CNN} ont également été appliqués à cette tâche~\cite{chen_vehicle_2014}. Récemment, la majorité des méthodes utilisent des réseaux spécifiquement conçus pour la détection d'objet, comme Faster-RCNN~\cite{ren_faster_2017} dans les travaux de~\citet{sommer_fast_2017} ou YOLO~\cite{redmon_you_2016} dans ceux de~\citet{van_etten_you_2018}. Cependant, peu de travaux s'intéressent à réaliser simultanément détection et reconnaissance, en dépit de l'introduction de la base de données \gls{VEDAI} par~\citet{razakarivony_vehicle_2016} et d'une première approche utilisant des caractéristiques expertes pour classifier divers véhicules à partir d'images \gls{IRRVB}. Certains travaux plus anciens s'étaient intéressés à cette problématique sous la forme d'une segmentation multi-échelle et de l'utilisation de règles de logique floue~\cite{holt_object-based_2009}, puis d'analyse discriminante linéaire~\cite{eikvil_classification-based_2009}. En particulier, \citet{eikvil_classification-based_2009} montrent que segmenter l'image avant de réaliser la détection des véhicules permet d'éliminer de nombreux faux positifs.
 
 Dans cette perspective, nous proposons donc d'étudier comment, à partir des approches de segmentation sémantique par apprentissage profond étudiées au~\cref{chap:cartographie}, aboutir à des méthodes de détection et de classification de véhicules par raffinement successifs. Nous présentons dans cette partie une méthode complète de segmentation pour la détection intitulée \emph{segment-before-detect}. Au-delà des boîtes englobantes habituellement utilisées en détection, nous allons montrer comment prédire la forme et le type des instances individuelles des véhicules présents dans une image aérienne.
-
-\subsubsection{\emph{Segment-before-detect}}
 
 Notre méthode \emph{segment-before-detect} permet d'extraire et de classifier des véhicules à partir d'images \gls{THR} et consiste en trois étapes, illustrées dans la \cref{fig:pipeline}:
 \begin{enumerate}
@@ -51,7 +49,7 @@ Cependant, les prédictions issues de SegNet sont susceptibles d'être bruitées
 
 En admettant que nous sommes en mesure de localiser les véhicules, nous cherchons dès lors à en identifier le type. Ainsi, nous cherchons à déterminer si le véhicule est une voiture, un camion, une camionette, etc. Il s'agit d'un problème classique de reconnaissance d'objet que les \gls{CNN} peuvent aisément résoudre. Nous appliquons donc l'approche classique consistant à spécialiser~\cite{nogueira_towards_2016,zhou_deep_2016} un modèle de \gls{CNN} pré-entraîné sur la base de données ImageNet~\cite{russakovsky_imagenet_2015} pour la reconnaissance de véhicules.
 
-Nous comparons en particulier les modèles les plus utilisés dans la littérature pour la classification de petites images ($\simeq$30 $\times$ 30): LeNet~\cite{lecun_gradient-based_1998}, AlexNet~\cite{krizhevsky_imagenet_2012} et VGG-16~\cite{simonyan_very_2014}.
+Nous comparons en particulier les modèles les plus utilisés dans la littérature pour la classification de petites images ($\simeq$\SI{30x30}{\px}): LeNet~\cite{lecun_gradient-based_1998}, AlexNet~\cite{krizhevsky_imagenet_2012} et VGG-16~\cite{simonyan_very_2014}.
 
 Notre objectif est d'entraîner ce classifieur sur une grande base de données de véhicules et de l'appliquer sur des données issues d'une scène spécifique. Nous risquons donc d'être confrontés au problème de surapprentissage. En effet, nous cherchons à transférer des connaissances d'un jeu à de données à un autre. Pour améliorer la généralisabilité du modèle, deux techniques peuvent être employées: l'adaptation de domaine et l'augmentation de données. L'adaptation de domaine cherche à minimiser les différence entre le jeu de donnée d'apprentissage et celui d'inférence. L'augmentation de données cherche quant à elle à générer de nouvelles images d'entraînement synthétiques pour améliorer la robustesse du classifieur.
 
@@ -62,7 +60,7 @@ Enfin, nous augmentons le jeu de données d'apprentissage en appliquant diverses
 \begin{figure}[t]
 	\begin{subfigure}{0.142\textwidth}
     	\includegraphics[width=\textwidth]{images/1}
-        \caption*{originale}
+        \caption*{identité}
     \end{subfigure}%
     \begin{subfigure}{0.142\textwidth}
     	\includegraphics[width=\textwidth]{images/2}
@@ -102,7 +100,7 @@ Nous entraînons un SegNet pour la segmentation sémantique sur ce jeu de donné
 
 Dans un second temps, nous utilisons le jeu de données NZAM/ONERA Christchurch, noté Christchurch par la suite (cf.~\cref{annexe:christchurch}). Pour rappel, la vérité terrain de ce jeu de données est moins précise que celle de Potsdam, mais se rapproche plus des annotations par boîte englobante habituellement disponibles en détection. Nous étendons également cette vérité terrain en déclinant les véhicules en quatre types: voitures, camions, vans et pick-ups. À nouveau, le jeu de données est dominé par la classe voiture~\cref{tab:vehicle_counts}.
 
-Le jeu de données NZAM/ONERA Christchurch contenant seulement des polygones englobants, susceptibles de s'intersecter, pour les arbres, les bâtiments et les véhicules, nous transformons ces annotations en cartes sémantiques. Pour ce faire, nous définissons quatre classes d'intérêt: arrière-plan, bâtiments, végétation et véhicules. Nous construisons la vérité terrain dense en étiquetant d'abord les pixels appartenant à une boîte englobante de bâtiment, puis ceux appartenant à des véhicules et finalement à la végétation. Les pixels restants sont étiquetés comme arrière-plan. Cet ordre permet de prendre en compte la présence de certains véhicules sur des parkings en toit de bâtiment et la présence de végétation arborescente pouvant masquer certaines voitures. Pour prendre en compte l'incertitude sur les boîtes englobantes, les pixels appartenant à un disque de rayon 5px autour des frontières sont ignorés.
+Le jeu de données NZAM/ONERA Christchurch contenant seulement des polygones englobants, susceptibles de s'intersecter, pour les arbres, les bâtiments et les véhicules, nous transformons ces annotations en cartes sémantiques. Pour ce faire, nous définissons quatre classes d'intérêt: arrière-plan, bâtiments, végétation et véhicules. Nous construisons la vérité terrain dense en étiquetant d'abord les pixels appartenant à une boîte englobante de bâtiment, puis ceux appartenant à des véhicules et finalement à la végétation. Les pixels restants sont étiquetés comme arrière-plan. Cet ordre permet de prendre en compte la présence de certains véhicules sur des parkings en toit de bâtiment et la présence de végétation arborescente pouvant masquer certaines voitures. Pour prendre en compte l'incertitude sur les boîtes englobantes, les pixels appartenant à un disque de rayon \SI{5}{\px} autour des frontières sont ignorés.
 
 Nous entraînons un SegNet pour la segmentation sémantique sur ce jeu de données et nous appliquons le \gls{CNN} entraîné sur \gls{VEDAI} pour la reconnaissance de véhicules. Les résultats sont obtenus par validation croisée utilisant 3 tuiles pour l'entraînement et 1 tuile pour la validation. La résolution spatiale est interpolée à \SI{12,5}{\centi\meter/\px} pour correspondre avec celle de \gls{VEDAI} au lieu des \SI{10}{\centi\meter/\px} initiaux.
 
@@ -177,17 +175,16 @@ Nous détaillons dans le~\cref{table:potsdam_seg} les scores $F_1$ et l'exactitu
     %\setlength{\tabcolsep}{2pt}
     \scalebox{0.8}[0.8]{
 	\begin{tabularx}{1.25\textwidth}{Yccccccc}
- 	\toprule
+ 	  \toprule
     \textbf{Jeu de données }&\textbf{ Méthode} & \textbf{Routes} & \textbf{Bâtiments} & \textbf{Vég. basse} & \textbf{Arbres} & \textbf{Véhicules} & \textbf{Exactitude}\\
     \midrule
-    Validation 12.5cm/px & SegNet RGB & \res{92.4}{0.6} & \res{95.8}{1.9} & \res{85.8}{1.3} & \res{83.0}{2.1} & \res{95.7}{0.3} & \res{90.6}{0.6}\\
-	%\midrule
+    Validation \SI{12,5}{\centi\meter/\px} & SegNet \glssymbol{RVB} & \res{92.4}{0.6} & \res{95.8}{1.9} & \res{85.8}{1.3} & \res{83.0}{2.1} & \res{95.7}{0.3} & \res{90.6}{0.6}\\
     \midrule
-    \multirow{3}{*}{Test 5cm/px} & SegNet IRRG & 92.4\% & 95.8\% & \textbf{86.7\%} & 87.4\% & \textbf{95.1\%} & \textbf{90.0\%}\\
-    & \glsname{FCN} + \glsname{CRF}~\cite{sherrah_fully_2016} & 91.8\% & 95.9\% & 86.3\% & 87.7\% & 89.2\% & 89.7\%\\
-    & ResNet-101~\cite{liu_context-aware_2017} & \textbf{92.8\%} & \textbf{96.9\%} & 86.0\% & \textbf{88.2\%} & 94.2\% & 89.6\%\\
-    \bottomrule
-    \end{tabularx}}
+    \multirow{3}{*}{Test \SI{5}{\centi\meter/\px}} & SegNet \glssymbol{IRRV} & 92.4\% & 95.8\% & \textbf{86.7\%} & 87.4\% & \textbf{95.1\%} & \textbf{90.0\%}\\
+     & \glsname{FCN} + \glsname{CRF}~\cite{sherrah_fully_2016} & 91.8\% & 95.9\% & 86.3\% & 87.7\% & 89.2\% & 89.7\%\\
+     & ResNet-101~\cite{liu_context-aware_2017} & \textbf{92.8\%} & \textbf{96.9\%} & 86.0\% & \textbf{88.2\%} & 94.2\% & 89.6\%\\
+     \bottomrule
+  \end{tabularx}}
 \end{table}
 
 Comme illustré dans la~\cref{table:christchurch_seg}, un SegNet entraîné sur NZAM/ONERA Christchurch atteint 61.9\% d'exactitude pixel à pixel sur les véhicules, ce qui est acceptable compte-tenu de la grossiereté des annotations en comparaison de celles de Potsdam. Ce constat est intéressant dans la mesure où il prouve qu'il est possible d'apprendre des modèles de segmentation sémantique, même en présence de simples boîtes englobantes originellement prévues pour entraîner des détecteurs. L'inférence sur une tuile de Christchurch nécessite environ 120 secondes sur un \gls{GPU} NVIDIA Tesla K20c. Un exemple de segmentation est illustré dans la~\cref{fig:segmentations}.
@@ -223,7 +220,7 @@ Comme illustré dans la~\cref{table:christchurch_seg}, un SegNet entraîné sur 
     \label{fig:detection_samples}
 \end{figure}
 
-Nous appliquons sur les deux jeux de données une ouverture morphologique d'un rayon de 3px ($\simeq$ \SI{35}{\centi\meter} d'incertitude sur les formes de véhicules prédites) pour isoler des véhicules ayant pu être prédits dans la même composante connexe. Nous supprimons également les composantes connexes couvrant moins de \SI{1,5}{\meter\squared} (\SI{100}{\px}). Une voiture citadine couvre environ \SI{4}{\meter\squared}, et nous considérons que donc les occlusions peuvent recouvrir jusqu'à 60\% du véhicule. Nous extrayons ensuite les composantes connexes dans le masque des véhicules et nous calculons la boîte englobante de chaque composante. Pour le jeu de données \gls{ISPRS} Potsdam, comme la vérité terrain initiale est constituée d'annotations pixelliques denses, nous avons régressé une boîte englobante pour chaque composante connectée en corrigeant manuellement les rares erreurs.
+Nous appliquons sur les deux jeux de données une ouverture morphologique d'un rayon de \SI{3}{\px} ($\simeq$ \SI{35}{\centi\meter} d'incertitude sur les formes de véhicules prédites) pour isoler des véhicules ayant pu être prédits dans la même composante connexe. Nous supprimons également les composantes connexes couvrant moins de \SI{1,5}{\meter\squared} (\SI{100}{\px}). Une voiture citadine couvre environ \SI{4}{\meter\squared}, et nous considérons que donc les occlusions peuvent recouvrir jusqu'à 60\% du véhicule. Nous extrayons ensuite les composantes connexes dans le masque des véhicules et nous calculons la boîte englobante de chaque composante. Pour le jeu de données \gls{ISPRS} Potsdam, comme la vérité terrain initiale est constituée d'annotations pixelliques denses, nous avons régressé une boîte englobante pour chaque composante connectée en corrigeant manuellement les rares erreurs.
 
 Nous suivons les pratiques habituelles en détection d'objet~\cite{everingham_pascal_2014} et nous définissons un vrai positif comme une boîte englobante prédite dont l'intersection sur union avec une boîte englobante de la vérité terrain dépasse 0,5. Si plusieurs prédictions existent pour le même véhicule, nous conservons celle avec la plus haute valeur d'\gls{IsU}. Les autres prédictions sont considérées comme des fausses alarmes. Sur le jeu de données NZAM/ONERA Christchurch, nous comparons nos résultats sur la même tuile que celle choisie par~\citet{randrianarivo_contextual_2016}, qui ont appliqué un \emph{Discriminatively trained Model Mixture} (DtMM) contenant cinq modèles, un pour chaque orientation principale.
 
@@ -310,7 +307,7 @@ Les résultats sont moyennés et arrondis à l'entier le plus proche pour chaque
   \end{subfigure}
   \hspace{0.1\textwidth}
   \begin{subfigure}{0.34\textwidth}
-    \includegraphics[width=\textwidth]{images/potsdam_vehicle_3_pred_vehicles_dense}
+    \includegraphics[width=\textwidth]{images/potsdam_vehicle_3_osm_dense}
     \caption{Densité de véhicules (Potsdam)}
   \end{subfigure}
   \begin{subfigure}{0.34\textwidth}
@@ -334,7 +331,7 @@ Les résultats sont moyennés et arrondis à l'entier le plus proche pour chaque
   \end{subfigure}
   \hspace{0.1\textwidth}
   \begin{subfigure}{0.35\textwidth}
-    \includegraphics[width=\textwidth]{images/christchurch_vehicle_0_pred_vehicles_dense}
+    \includegraphics[width=\textwidth]{images/christchurch_vehicle_0_osm_vehicles_dense}
     \caption{Densité de véhicules (Christchurch)}
   \end{subfigure}\\
   \begin{subfigure}{0.35\textwidth}
