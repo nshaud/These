@@ -36,18 +36,19 @@
 % Infos de la page de garde
 \author{Nicolas \scshape{Audebert}}
 \title{Classification de données massives de télédétection}
+\titleen{Classification of big remote sensing data}
 \specialite{Informatique}
-\directeur{Sébastien \scshape{Lefèvre} & Professeur, IRISA, Université de Bretagne-Sud}
-\encadrant{Bertrand \scshape{Le Saux} & Chercheur, DTIS, ONERA}
-\date{à déterminer}
-\rapporteura{Jocelyn \scshape{Chanussot}}{GIPSA-Lab}
-\rapporteurb{Vincent \scshape{Lepetit}}{LaBRI}
-\jurya{Jocelyn \scshape{Chanussot}}{Professeur, GIPSA-Lab, Université Grenoble-Alpes}{Rapporteur}
-\juryb{Vincent \scshape{Lepetit}}{Professeur, LaBRI, Université de Bordeaux}{Rapporteur}
-\juryc{Élisa \scshape{Fromont}}{Professeure, IRISA, Université de Rennes 1}{Examinatrice}
-\juryd{Patrick \scshape{Pérez}}{Directeur, Valeo.ai}{Examinateur}
-\jurye{Yuliya \scshape{Tarabalka}}{Chargée de recherche, INRIA}{Examinatrice}
-\juryf{Devis \scshape{Tuia}}{Professeur, Wageningen University}{Examinateur}
+\directeur{Sébastien \scshape{Lefèvre} & Professeur, Université Bretagne-Sud -- IRISA}
+\encadrant{Bertrand \scshape{Le Saux} & Chercheur, ONERA Palaiseau -- DTIS}
+\date{17 octobre 2018}
+\rapporteura{Jocelyn \scshape{Chanussot}}{Professeur, Institut polytechnique de Grenoble -- GIPSA-Lab}
+\rapporteurb{Vincent \scshape{Lepetit}}{Professeur, Université de Bordeaux -- LaBRI}
+\jurya{Jocelyn \scshape{Chanussot}}{Professeur, Institut polytechnique de Grenoble -- GIPSA-Lab}{Rapporteur}
+\juryb{Vincent \scshape{Lepetit}}{Professeur, Université de Bordeaux -- LaBRI}{Rapporteur}
+\juryc{Élisa \scshape{Fromont}}{Professeure, Université de Rennes 1 -- IRISA}{Examinatrice}
+\juryd{Patrick \scshape{Pérez}}{Directeur scientifique, Valeo.ai -- Paris}{Examinateur}
+\jurye{Yuliya \scshape{Tarabalka}}{Chargée de recherche, Inria Sophia Antipolis, HDR}{Examinatrice}
+%\juryf{Devis \scshape{Tuia}}{Professeur, Wageningen University}{Examinateur}
 \ecole{l'Université de Bretagne-Sud}
 
 % Méta-données du PDF
@@ -68,13 +69,18 @@
 	\cleardoublepage
 		% Table des matières
 			\setcounter{tocdepth}{1}	% Pas besoin de trop détailler le sommaire ici (chapitres/sections)
+      \begingroup
+      \let\cleardoublepage\clearpage
+      \pagestyle{plain}
 			\dominitoc						% Génération des mini-toc	\pagenumbering{arabic}
-			\tableofcontents
-		% Liste des figures
+			\tableofcontents{}
+		  % Liste des figures
 			\renewcommand*\listfigurename{Liste des figures}
 			\listoffigures
-		% Liste des tableaux
-		\listoftables
+  		% Liste des tableaux
+  		\listoftables
+      \endgroup
+      \pagestyle{fancy}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %        Contenu du document        %
