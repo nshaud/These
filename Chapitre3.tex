@@ -77,7 +77,7 @@ Cette section s'intéresse donc à l'utilisation des \glspl{FCN} pour la segment
 
 Un premier jeu de données est composé des images ne contenant aucune couverture nuageuse (nuages opaques ou cirrus). Un second jeu de données est constitué uniquement sur la période d'été mais inclut également les tuiles comprenant une couverture nuageuse, dont la détection est désormais prise en compte dans la tâche de classification. Les deux jeux de données sont ainsi constituées d'acquisitions sur les mêmes zones à plusieurs dates. Les images Sentinel-2 sont interpolées à une résolution de \SI{20}{\meter/\px} pour toutes les bandes tandis que les annotations issues de\emph{GlobeCover} sont à une résolution de \SI{300}{\meter/\px}. Les détails des jeux de données sont indiqués dans le~\cref{tab:datasets} et les classes considérées sont listées dans le~\cref{tab:globecover_legende}.
 
-\begin{table}
+\begin{table}[h]
 \caption{Deux jeux de données d'images Sentinel-2 sont considérés. Le premier s'étend sur une longue période mais exclut les images contenant une couverture nuageuse. Le second est restreint à une période temporelle plus courte mais inclut les images en présence de nuages. Les deux jeux de données contiennent environ 150 millions de pixels chacun.}
 \label{tab:datasets}
 \begin{tabular}{lccc}
@@ -92,30 +92,6 @@ D2, période courte avec nuages & & & \\
 (juin--août 2016) & 158 & 39 & 17 \\
 \bottomrule
 \end{tabular}
-\end{table}
-
-L'ensemble des 12 bandes de Sentinel-2 sont fournies en entrée du réseau. Nous coupons la fin du décodeur de SegNet, car il ne nous est pas utile d'obtenir des cartes à résolution $1:1$. Nous utilisons l'approche multi-échelle de la~\cref{sec:deep_multiscale} pour générer des cartes à échelle $1:8$ (\SI{160}{\meter/\px}), $1:16$ et $1:32$ ce qui diminue le nombre de paramètres à optimiser et le temps de calcul. Ces cartes sont interpolées à résolution \SI{300}{\meter/\px} puis moyennées avant le calcul du \emph{softmax}.
-
-Dans l'ensemble, le modèle entraîné sur les 12 bandes atteint 66,9\% d'exactitude sur le jeu de données D1 (sans nuages) et 83,9\% sur D2 (avec nuages). L'écart entre les jeux de données est majoritairement du fait de la présence des nuages, qui sont simples à détecter ($>99\%$ de score $F_1$) et font donc monter les performances du réseau. En outre, l'inclusion des 13 bandes plutôt que seulement les 3 bandes visibles \gls{RVB} permet de gagner 2\% d'exactitude sur D1 et 2,5\% sur D2. Les résultats par classe sont détaillés dans le~\cref{tab:s2_results}.
-
-Ces résultats permettent d'aboutir à deux conclusions. D'une part, ils montrent la pertinence des modèles entièrement convolutif pour le traitement des images multispectrales. En effet, l'architecture SegNet s'étend avec succès des données aériennes aux données Sentinel-2. S'il est nécessaire d'arbitrer certains choix techniques, notamment une résolution de référence pour les bandes et pour la vérité terrain, il ne semble pas y avoir de verrou majeur à l'utilisation des \glspl{FCN} pour le multispectral. D'autre part, la prise en compte des bandes hors du domaine visible permet d'augmenter l'expressivité du modèle, qui bénéficie de la présence d'une information radiométrique plus riche. Cela permet notamment d'améliorer le pouvoir discriminant du SegNet sur des classes pouvant être ambiguës en \gls{RVB} seul.
-
-\begin{table}[h]
-  \caption[Résultats de classification de SegNet sur les jeux de données D1 et D2 Sentinel-2.]{Résultats de classification de SegNet sur les jeux de données D1 et D2 Sentinel-2 (cf.~\cref{tab:globecover_legende} pour le détail des classes).}
-  \label{tab:s2_results}
-  \setlength\tabcolsep{2pt}
-  \scalebox{0.75}[0.75]{
-  \begin{tabularx}{1.33\textwidth}{Yccccccccccccccccccc}
-    \toprule
-    Jeu de données      & Modèle                      & Exactitude & 1    & 2    & 3    & 4    & 5    & 6    & 7    & 8    & 9    & 10   & 11   & 12   & 13   & 14   & 15   & 16   & 17  \\
-    \midrule
-    \multirow{2}{*}{D2} &  SegNet \glsname{RVB}             & 84,3 & 73,2 & 60,8 & 33,1 & 90,3 & 65,0 & 46,8 & 42,9 & 15,8 & 34,0 & 60,9 & 44,6 & 49,3 & 47,8 & 77,2 & 66,6 & 98,8 & 97,3\\
-                        &  SegNet \glssymbol{multispectral} & 86,4 & 76,0 & 66,8 & 43,4 & 92,4 & 72,3 & 51,0 & 59,5 & 22,9 & 50,0 & 67,4 & 48,0 & 53,5 & 41,0 & 77,0 & 66,7 & 98,8 & 97,7\\
-    \midrule
-    \multirow{2}{*}{D1} &  SegNet \glsname{RVB}             & 84,3 & 73,2 & 60,8 & 33,1 & 90,3 & 65,0 & 46,8 & 42,9 & 15,8 & 34,0 & 60,9 & 44,6 & 49,3 & 47,8 & 77,2 & 66,6 & 98,8 & --\\
-                        &  SegNet \glssymbol{multispectral} & 86,4 & 76,0 & 66,8 & 43,4 & 92,4 & 72,3 & 51,0 & 59,5 & 22,9 & 50,0 & 67,4 & 48,0 & 53,5 & 41,0 & 77,0 & 66,7 & 98,8 & --\\
-    \bottomrule
-  \end{tabularx}}
 \end{table}
 
 \begin{table}[h]
@@ -146,7 +122,57 @@ Ces résultats permettent d'aboutir à deux conclusions. D'une part, ils montren
   \end{tabularx}
 \end{table}
 
-\todo[inline]{tableau de résultats + détaillé}
+Nous considérons une architecture SegNet réduite, dont le décodeur est coupé après le deuxième bloc. En effet, il ne nous est pas utile d'obtenir des cartes à résolution $1:1$. Nous utilisons l'approche multi-échelle de la~\cref{sec:deep_multiscale} pour générer des cartes à échelle $1:8$ (\SI{160}{\meter/\px}), $1:16$ et $1:32$ ce qui diminue le nombre de paramètres à optimiser et le temps de calcul. Ces cartes sont interpolées à résolution \SI{300}{\meter/\px} puis moyennées avant le calcul du \emph{softmax}. Nous considérons une variante SegNet \gls{RVB} entraîné sur les bandes Sentinel-2 (2,3,4) correspondant aux vraies couleurs et une variante SegNet \glslink{multispectral}{MSI} entraîné sur l'ensemble des 12 bandes. Suivant les hyperparamètres identifiés au~\cref{chap:cartographie}, nous implémentons les modèles à l'aide de la bibliothèque \gls{PyTorch}~\cite{noauthor_pytorch_2016}. Les réseaux sont optimisés par descente de gradient stochastique avec moment, avec un taux d'apprentissage fixe de \num{0,001} et un moment de \num{0,9} pendant \num{150000} itérations. Les variantes \gls{RVB} et \glslink{multispectral}{MSI} utilisent respectivement une de taille de \emph{batch} de 20 et 10, pour chacun occuper environ 6 Go de mémoire \gls{GPU}. L'entraînement prend environ 18 heures sur un \gls{GPU} NVIDIA Titan X (génération Pascal).
+
+Dans l'ensemble, le modèle entraîné sur les 12 bandes atteint 66,5\% d'exactitude sur le jeu de données D1 (sans nuages) et 86,4\% sur D2 (avec nuages). L'écart important entre les jeux de données est une combinaison de deux facteurs. Tout d'abord, la présence des nuages nombreux et faciles à détecter (score $F_1 > 97\%$) augmente statistiquement le nombre de pixels bien classifiés. Néanmoins, comme détaillé dans le~\cref{tab:s2_results}, les performances sur l'ensemble des classes de D1 sont inférieures à celles des mêmes classes sur D2. Ceci s'explique par la faible variabilité des images de D1. Ce jeu de données ayant été constitué sous contrainte d'une couverture nuageuse faible, son étendue spatiale est plus faible et les modèles appris sur D1 généralisent moins bien sur les acquisitions utilisées pour la validation. À l'inverse, D2 couvre une période temporelle plus faible mais inclut une plus grande variabilité d'images. En particulier, D2 comporte plusieurs zones imagées sous divers conditions climatiques, avec une couverture nuageuse plus ou moins importante. Cela permet au modèle d'apprendre les invariants radiométriques nécessaires à une bonne généralisation.
+Enfin, la prise en compte de l'ensemble des 12 bandes multispectrales plutôt que seulement les 3 bandes visibles \gls{RVB} permet de gagner 2\% d'exactitude sur D1 et 2,5\% sur D2. Ce résultat se vérifie sur la majorité des classes indiquées dans le~\cref{tab:s2_results}. Ceci conforte notre intuition initiale\,: l'information multispectrale semble plus riche que l'image couleur.
+
+Cette étude nous permet d'aboutir à deux conclusions. D'une part, elle montre la pertinence des modèles entièrement convolutif pour le traitement des images multispectrales. En effet, l'architecture SegNet s'étend avec succès des données aériennes aux données Sentinel-2. S'il est nécessaire d'arbitrer certains choix techniques, notamment concernant l'interpolation des bandes et le choix d'une résolution de référence pour la vérité terrain, il ne semble pas y avoir de verrou majeur à l'utilisation des \glspl{FCN} pour le multispectral. D'autre part, l'inclusion des bandes hors du domaine visible permet d'augmenter l'expressivité du modèle, qui bénéficie de la richesse de l'information multispectrale. Cela permet notamment d'améliorer le pouvoir discriminant du SegNet sur des classes pouvant être ambiguës en \gls{RVB}.
+
+\begin{table}[h]
+  \caption[Résultats de classification de SegNet sur les jeux de données D1 et D2 Sentinel-2.]{Résultats de classification de SegNet sur les jeux de données D1 et D2 Sentinel-2 (cf.~\cref{tab:globecover_legende} pour le détail des classes).}
+  \label{tab:s2_results}
+  \setlength\tabcolsep{2pt}
+  \scalebox{0.75}[0.75]{
+  \begin{tabularx}{1.33\textwidth}{Yccccccccccccccccccc}
+    \toprule
+    Jeu de données      & Modèle                      & Exactitude & 1    & 2    & 3    & 4    & 5    & 6    & 7    & 8    & 9    & 10   & 11   & 12   & 13   & 14   & 15   & 16   & 17  \\
+    \midrule
+    \multirow{2}{*}{D1} &  SegNet \glsname{RVB}             & 55,0 & 39.0 & 35.5 & 1.8 & 71.0 & 0.9 & 0.0 & 0.0 & 0.0 & 0.0 & 2.1 & 0.0 & 5.3 & 0.0 & 36.0 & 0.0 & 74.6 & --\\
+                        &  SegNet \glssymbol{multispectral} & 66,5 & 36.2 & 38.1 & 1.4 & 85.1 & 6.3 & 0.0 & 1.4 & 0.0 & 0.0 & 2.2 & 0.0 & 3.4 & 0.0 & 34.3 & 0.0 & 97.8 & --\\
+    \midrule
+    \multirow{2}{*}{D2} &  SegNet \glsname{RVB}             & 84,9 & 74,7 & 64,1 & 38,0 & 89,9 & 68,4 & 58,4 & 51,4 & 36,7 & 39,8 & 61,0 & 45,7 & 55,2 & 47,9 & 76,9 & 66,9 & 98,7 & 96,7\\
+                        &  SegNet \glssymbol{multispectral} & 86,4 & 76,0 & 66,8 & 43,4 & 92,4 & 72,3 & 51,0 & 59,5 & 22,9 & 50,0 & 67,4 & 48,0 & 53,5 & 41,0 & 77,0 & 66,7 & 98,8 & 97,7\\
+    \bottomrule
+  \end{tabularx}}
+\end{table}
+
+\begin{figure}[h]
+  \foreach\idx in {3,2}{
+  \begin{subfigure}{\textwidth}
+    \foreach\picname\picpath in {Couleur naturelle/sentinel_rgbclouds_\idx_tci,
+                                 Prédiction/sentinel_rgbclouds_\idx_pred,
+                                 Vérité terrain/sentinel_rgbclouds_\idx_gt}{
+    \begin{subfigure}{0.33\textwidth}
+      \includegraphics[width=\textwidth]{\picpath}
+      \caption*{\picname}
+    \end{subfigure}}%
+  \end{subfigure}}
+  \caption{Exemples de prédictions du modèle SegNet \glslink{multispectral}{MSI} entraîné sur D2 (avec nuages).}
+  \label{fig:segnet_msi_d2}
+\end{figure}
+
+\begin{figure}[h]
+  \foreach\picname\picpath in {Couleur naturelle/sentinel_rgbnoclouds_tci,
+                               Prédiction/sentinel_rgbnoclouds_pred,
+                               Vérité terrain/sentinel_rgbnoclouds_gt}{
+  \begin{subfigure}{0.33\textwidth}
+    \includegraphics[width=\textwidth]{\picpath}
+    \caption*{\picname}
+  \end{subfigure}}%
+  \caption{Exemples de prédictions du modèle SegNet \glslink{multispectral}{MSI} entraîné sur D1 (sans nuages).}
+  \label{fig:segnet_msi_d1}
+\end{figure}
 
 \section{Imagerie hyperspectrale}
 
@@ -201,34 +227,34 @@ Plusieurs acquisitions hyperspectrales annotées ont été rendues publiques afi
 
 Comme nous allons le voir, une des difficultés majeures en apprentissage statistique pour le traitement d'images hyperspectrales est le faible nombre d'échantillons disponibles. Compte-tenuu des différentes de capteurs, de conditions d'exposition et d'étalonnage, il est difficile d'exploiter conjointement plusieurs jeux de données. Or, individuellement, les images hyperspectrales annotées mises à disposition de la communauté scientifique sont de taille très faible en comparaison des banques d'images \gls{RVB} habituelles. Cela complique l'évaluation des méthodes d'apprentissage supervisées. Il existe bien une base de données à grande échelle d'acquisitions hyperspectrales\footnote{\url{https://\gls{AVIRIS}.jpl.nasa.gov/alt_locator/}}, réalisées avec le capteur \gls{AVIRIS} sur le territoire américain, mais ces images ne sont toutefois pas annotées.
 
-\subsubsection{Pavia}
+\paragraph{Pavia}
 
 Pavia est un jeu de données acquis via le capteur ROSIS avec une résolution au sol de \SI{1,3}{\meter} sur la ville de Pavie, en Italie. Il est divisé en deux scènes\,: Pavia University (103 bandes, \SI{610x340}{\px}) et Pavia Centre (102 bandes, \SI{1096x715}{\px}). 9 classes d'intérêt sont annotées, couvrant différents matériaux urbains (brique, asphalte, métaux), l'eau et la végétation sur 50\% de l'image.
 
 Il s'agit d'un des principaux jeux de données de référence dans la communauté, notamment car les deux scènes se trouvent parmi les plus grandes images hyperspectrales annotées disponibles. En outre, l'utilisation du même capteur sur les deux images permet de tester des méthodes de transfert de connaissances en hyperspectral.
 
-\subsubsection{Indian Pines}
+\paragraph{Indian Pines}
 
 Indian Pines est un jeu de données acquis en utilisant le capteur américain \gls{AVIRIS}. La scène couvre une surface agricole sur 224 bandes spectrales pour $145\times145$px, avec une résolution au sol de \SI{3,7}{\meter/\px}. La majorité de l'image consiste en des champs d'une dizaine de cultures différentes, le reste étant occupé par de la végétation dense. 16 classes sont annotées, dont certaines très rares (moins de 100 échantillons). Les bandes d'absorption de l'eau (108$\rightarrow$112, 154$\rightarrow$167 et 224) sont généralement enlevées.
 
 En dépit de sa faible taille, il s'agit d'un des principaux jeux de données de référence dans la communauté. Les classes les plus rares ne sont parfois pas prises en compte pour évaluer les algorithmes de classification.
 
-\subsubsection{Salinas}
+\paragraph{Salinas}
 Salinas est un jeu de données utilisant également le capteur \gls{AVIRIS}. La scène comporte $512\times217$ échantillons à \SI{3,7}{\meter/\px}. Les bandes d'absorption de l'eau (108$\rightarrow$112, 154$\rightarrow$167 et 224) sont généralement enlevées. 16 classes sont annotées, majoritairement concernant les différentes cultures observées, la végétation et le type de sol.
 
-\subsubsection{Kennedy Space Center (KSC)}
+\paragraph{Kennedy Space Center (KSC)}
 Le jeu de données KSC utilise le capteur \gls{AVIRIS} avec une résolution au sol de \SI{18}{\meter/\px}. Les bandes d'absorption de l'eau et celles avec un rapport signal/bruit faibles sont retirées pour ne conserver que les 176 bandes les plus informatives. 13 classes concernant divers types d'occupation du terrain sont annotées.
 
-\subsubsection{Botswana}
+\paragraph{Botswana}
 Botswana est un jeu de données acquis sur le delta du Okavango à l'aide du senseur Hyperion embarqué par le satellite EO-1 de la NASA, à une résolution de \SI{30}{\meter/\px} sur 242 bandes. Seules les 145 bandes 10$\rightarrow$55, 82$\rightarrow$97, 102$\rightarrow$119, 134$\rightarrow$164 et 187$\rightarrow$220 sont conservées, les autres correspondant aux bandes d'absorption de l'eau et à des bandes mal calibrées. 14 classes d'intérêt sont annotées concernant différents types de végétation et de marécages.
 
 % \subsubsection{NAOMI Mandji}
 % Le jeu de données NAOMI Mandji est une acquisition réalisée par le DOTA (ONERA Toulouse) en collaboration avec Total dans le cadre du projet de recherche NAOMI. Cette acquisition couvre les environs de Port-Gentil, sur l'île de Mandji au Gabon. La zone 2, correspondant à une image de $1944\times1196$px a été annotée sur 9 classes d'intérêt à une résolution spatiale de 1,3m/px. Au total, 416 bandes ont été acquises, 158 dans le VNIR (\textit{Visible and Near InfraRed}) et 258 dans le SWIR (\textit{Short-Wave InfraRed}). La couverture du SWIR est incluse que celle du VNIR, certains pixels n'ayant que les bandes correspondant au second.
 
-\subsubsection{DFC 2018}
+\paragraph{DFC 2018}
 Le jeu de données \glssymbol{DFC} 2018 correspond à une acquisition sur le centre-ville de Houston, Texas (États-Unis) à l'aide d'une caméra hyperspectrale aérienne. L'acquisition couvre le domaine \SIrange{380}{1050}{\nano\meter} à l'aide de 48 bandes à une résolution de \SI{1}{\meter/\px}. 20 classes d'intérêt sont définies, incluant des objets urbains (bâtiments, routes de différents types, rails, voitures, trains\dots) mais aussi la végétation (saine, stressée, décidue, sempervirent). Ce jeu de données est issu de la compétition \glsdesc{DFC} 2018, détaillée dans l'\cref{annexe:dfc2018}.
 
-\subsubsection{Récapitulatif}
+\paragraph{Récapitulatif}
 
 Les caractéristiques des différents jeux de données publics identifiés sont listées dans le~\cref{tab:hyperx_datasets}. Le principal élément qui en ressort est le faible nombre d'échantillons annotés disponibles sur chacun des datasets. Le capteur \gls{AVIRIS} est utilisé sur plusieurs scènes, mais les classes identifiées ne sont pas cohérentes d'une acquisition à l'autre, limitant le potentiel de réutilisation des modèles.
 
@@ -270,13 +296,13 @@ $$\mathcal{I}^* := \frac{\mathcal{I} - m_\mathcal{I}}{\sigma_\mathcal{I}} \text{
 $$\mathcal{I}^* := \frac{\mathcal{I} - \min(\mathcal{I})}{\max(\mathcal{I}) - \min(\mathcal{I})}~~.$$
 \end{itemize}
 
-Les valeurs aberrantes, par exemple supérieure au 98\ieme percentile ou au-delà de $m_\mathcal{I} + 5\sqrt{\sigma_\mathcal{I}}$, peuvent être tronquées ou supprimées pour limiter leur influence. Cela permet de prendre en compte des anomalies dues aux erreurs de correction, à des matériaux particulièrement réfléchissants (comme les métaux) ou aux réflexions multiples.
+Les valeurs aberrantes, par exemple supérieures au 98\ieme percentile ou au-delà de $m_\mathcal{I} + 5\sqrt{\sigma_\mathcal{I}}$, peuvent être tronquées ou supprimées pour limiter leur influence. Cela permet de prendre en compte des anomalies dues aux erreurs de correction, à des matériaux particulièrement réfléchissants (comme les métaux) ou aux réflexions multiples.
 
-Soulignons que, dans un cadre parfait, un pixel d'une image hyperspectrale correspond à la réflectance du matériau observé sur une unité de surface. Toutefois, la résolution spatiale des images fait qu'un pixel correspond à une surface couvrant plusieurs matériaux, produisant ainsi des spectres de mélange. Concrètement, si $S_1, \dots, S_n$ désignent les spectres purs de l'ensemble des matériaux de la scène, alors en un pixel $(i,j)$, le spectre local observé sera une fonction $f$ des $S_i$ :
+Soulignons que, dans un cadre parfait, un pixel d'une image hyperspectrale correspond à la réflectance du matériau observé sur une unité de surface. Toutefois, la résolution spatiale des images fait qu'un pixel correspond à une surface couvrant plusieurs matériaux, produisant ainsi des spectres de mélange. Concrètement, si $\varphi_1, \dots, \varphi_n$ désignent les spectres purs de l'ensemble des matériaux de la scène, alors en un pixel $(i,j)$, le spectre local observé sera une fonction $f$ des $\varphi_i$:
 \begin{equation}
-  \phi_{i,j}~~~=~~~F_{i,j}(S_1, \dots, S_n)~~~\simeq~~~\sum_{k = 1}^n \lambda_k S_k~~.
+  \phi_{i,j}~~~=~~~f_{i,j}(\varphi_1, \dots, \varphi_n)~~~\simeq~~~\sum_{k = 1}^n \lambda_k \varphi_k~~.
 \end{equation}
-Dans le cas où la surface est plane, on peut faire l'hypothèse que $F$ est une simple combinaison linéaire, où le coefficient de pondération $\lambda_k$ correspond à la proportion du matériau $k$ dans la surface observée.
+Dans le cas où la surface est plane, on peut faire l'hypothèse que $f$ est une simple combinaison linéaire, où le coefficient de pondération $\lambda_k$ correspond à la proportion du matériau $k$ dans la surface observée\footnote{Certains mélanges de matériaux présentent également des propriétés non-linéaires, mais on traite alors ces cas à part.}.
 
 Un certain nombre de travaux s'intéressent à l'inversion de ce problème sous la forme d'une tâche de démélange~\cite{parra_unmixing_1999}. La classification la plus simple consiste ainsi à déterminer les matériaux purs qui composent la scène et de chercher à calculer des cartes d'abondance. Les spectres de référence des matériaux purs sont appelés les \emph{endmembers}\footnote{En minéralogie, un \emph{endmember} est un minéral en bout de chaîne de pureté. La plupart des minéraux sont des solutions solides, c'est-à-dire des mélanges de ces \emph{endmembers}).} et constituent une base de décomposition des spectres mélangés. Les cartes d'abondance correspondent alors aux proportions des différents matériaux en chaque point. Généralement, en connaissant les spectres purs $S_k$ et l'image $\mathcal{I}$, il est possible d'inverser le système linéaire pour obtenir les coefficients $\lambda_k$ du mélange en chaque point. Ces méthodes reposent principalement sur des mécaniques d'algèbre linéaire et des méthodes numériques d'inversion de problème. Des méthodes d'apprentissage, par exemple par \emph{clustering} permettant d'obtenir les \emph{endmembers} quand ils sont inconnus. L'identification des \emph{endmembers} et le démélange est hors du cadre de travail considéré pour nos travaux.
 
@@ -292,13 +318,18 @@ Cependant, l'approche purement spectrale n'est pas satisfaisante dans la mesure 
 
 L'approche la plus simple consiste à effectuer une classification spectre par spectre en utilisant un modèle unidimensionnel, pusi à régulariser a posterio les prédictions. Les modèles graphiques comme les \gls{CRF} se prêtent particulièrement bien à cette tâche~\cite{wu_semi-supervised_2016}. La régularisation spatiale intervient ainsi durant une seconde étape de traitement, indépendante de la première.
 À l'inverse, il est possible de faire intervenir l'aspect spatial en amont en utilisant le principe de classification par région, déjà présenté dans la~\cref{sec:classif_region}. \citet{tarabalka_segmentation_2010,fauvel_advances_2013} décrivent plusieurs méthodes en deux étapes\,: premièrement une segmentation de l'image hyperspectrale, puis des prédictions pixelliques agrégées par région afin d'introduire une cohérence spatiale locale.
-Enfin, il existe également des approches s'appuyant sur des caractéristiques spatiales-spectrales. C'est l'approche originellement poursuivie afin d'exploiter la corrélation entre pixels spatialement proches pour le calcul des \textit{endmembers}~\cite{plaza_spatial/spectral_2002,dellacqua_exploiting_2004} en utilisant un mélange de classifieurs spatial et spectral. Les approches plus récentes utilisent des modèles statistiques à noyaux spécifiquement conçus pour travailler sur des voisinages locaux de spectres, de taille statique ou adaptative, pour en extraire une combinaison de caractéristiques spatiales et spectrales. Notamment, \citet{camps-valls_composite_2006} a introduit la possibilité de travailler sur des \gls{SVM} à noyau spatial-spectral pour les données hyperspectrales, technique qui sera ensuite largement réutilisée dans la littérature \cite{tarabalka_spectralspatial_2009,fauvel_spatial-spectral_2012}. Plus récemment, \citet{cui_scalable_2017} introduit des \gls{SVM} à noyaux adaptés aux profils d'attributs morphologiques, tandis que~\citet{tuia_multiclass_2015} propose une méthode adaptative de sélection de noyaux de convolutions à partir de filtres aléatoires.
+Enfin, il existe également des approches s'appuyant sur des caractéristiques spatiales-spectrales. C'est l'approche originellement poursuivie afin d'exploiter la corrélation entre pixels spatialement proches pour le calcul des \textit{endmembers}~\cite{plaza_spatial/spectral_2002,dellacqua_exploiting_2004} en utilisant un mélange de classifieurs spatial et spectral. Les approches plus récentes utilisent des modèles statistiques à noyaux spécifiquement conçus pour travailler sur des voisinages locaux de spectres, de taille statique ou adaptative, pour en extraire une combinaison de caractéristiques spatiales et spectrales. Notamment, \citet{camps-valls_composite_2006} a introduit la possibilité de travailler sur des \glspl{SVM} à noyau spatial-spectral pour les données hyperspectrales, technique qui sera ensuite largement réutilisée dans la littérature \cite{tarabalka_spectralspatial_2009,fauvel_spatial-spectral_2012}. Plus récemment, \citet{cui_scalable_2017} introduit des \gls{SVM} à noyaux adaptés aux profils d'attributs morphologiques, tandis que~\citet{tuia_multiclass_2015} propose une méthode adaptative de sélection de noyaux de convolutions à partir de filtres aléatoires.
 
 \subsection{Apprentissage profond et imagerie hyperspectrale}
 
 Les approches présentées jusqu'ici utilisent des modèles statistiques peu profond. Néanmoins, à partir de 2013, la littérature en classification d'images hyperspectrales a commencé à mettre en \oe{}uvre des réseaux de neurones profonds pour ce type de données.
 
-L'évolution la plus simple consiste à remplacer les classifieurs standard (\gls{SVM} ou forêts aléatoires) par un perceptron multi-couche. Conceptuellement, le processus est identique mais si le réseau est assez profond, il peut s'avérer plus expressif et doté d'une meilleure capacité de discrimination. Cette approche existe en réalité depuis les années 2000~\cite{goel_classification_2003,ratle_semisupervised_2010} en utilisant des réseaux à une ou deux couches cachées. Elle a été réactualisée par~\citet{hu_deep_2015} en 2015 en utilisant des \glspl{CNN} unidimensionnels appliqués sur les spectres individuels.
+\begin{figure}[h]
+  \resizebox{\textwidth}{!}{\input{Chapitre3/cnn1d.tikz}}
+  \caption[\glssymbol{CNN} unidimensionnel pour la classification de spectres.]{\glssymbol{CNN} unidimensionnel pour la classification de spectres de~\citet{hu_deep_2015}.}
+\end{figure}
+
+L'évolution la plus simple consiste à remplacer les classifieurs standard (\gls{SVM} ou forêts aléatoires) par un perceptron multi-couche. Conceptuellement, le processus est identique mais si le réseau est assez profond, il peut s'avérer plus expressif et doté d'une meilleure capacité de discrimination. Cette approche existe en réalité depuis les années 2000~\cite{goel_classification_2003,ratle_semisupervised_2010} en utilisant des réseaux à une ou deux couches cachées. Elle a été réactualisée par~\citet{hu_deep_2015} en 2015 en utilisant des \glspl{CNN} unidimensionnels appliqués sur les spectres individuels (cf.~\cref{fig:cnn1d_hsi}).
 
 Il est intéressant de constater que peu d'articles en apprentissage profond pour l'imagerie hyperspectrale s'embarassent des problématiques de sélections de bandes, de rejet des valeurs saturées ou d'analyse fine des phénomènes physiques mis en jeu. La plupart des études considèrent les données brutes normalisées, incluant les bandes spectrales bruitées ou saturées. En pratique, la robustesse des réseaux profonds permet de ne pas avoir à se préoccuper de ces considérations, le modèle éliminant naturellement les données non informatives.
 
@@ -306,12 +337,23 @@ En outre, les autoencodeurs ont permis de significativement faire progresser la 
 
 Comme précédemment, il existe des approches spatiales-spectrales basées sur des descripteurs combinant une caractéristique spectrale, dérivée de la réponse radiométrique, et une caractéristique spatiale, dépendant des pixels voisins. Un descripteur classique consiste à concaténer le spectre du pixel considéré avec un le résultat d'une \gls{ACP} appliquée sur un voisinage local de dimensions $w\times h$ dont on conserve les $K$ premières composantes (généralement, $w = h \simeq 8$ et $K = 3$). Ce vecteur est ensuite utilisé pour entraîner un classifieur profond, supervisé ou non\,: \gls{DBN}~\cite{li_classification_2014,chen_spectral-spatial_2015}, \gls{RBM}~\cite{lin_spectral-spatial_2013,midhun_deep_2014} ou cascade d'autoencodeurs~\cite{chen_deep_2014,ma_spectral-spatial_2016,tao_unsupervised_2015,wang_spectralspatial_2017}.
 
-Toutefois, le retour sur le devant de la scène des \glspl{CNN} au début des années 2010 a également influencé la communauté de l'imagerie hyperspectrale. Ces réseaux sont initialement prévus pour traiter des images \gls{RVB} ou en niveaux de gris et manipulent donc des filtres convolutifs 2D. \citet{makantasis_deep_2015,slavkovikj_hyperspectral_2015} utilisent une architecture hybride alternant convolutions spatiales et réductions de dimension (par \gls{ACP} chez~\citet{slavkovikj_hyperspectral_2015} et sous-échantillonnage chez~\citet{makantasis_deep_2015}). Les caractéristiques résultantes sont ensuite vectorisées et transmises à un perceptron multi-couches réalisant la classification. L'intérêt de cette approche est bien sûr de pouvoir apprendre automatiquement la représentation des données adaptée à la classification. \citet{zhao_combining_2015} étend cette technique au cadre semi-supervisé en utilisant des autoencodeurs convolutifs multi-échelle. Dans le cadre non-supervisé, \citet{romero_unsupervised_2015} proposent un \gls{CNN} pour l'extraction de caractéristique effectuant une réduction de dimension en prenant en compte le spectre, mais aussi ses voisins, l'objectif étant d'apprendre une représentation parcimonieuse des données. Enfin, \citet{zhao_spectral-spatial_2016,yue_spectral-spatial_2015} proposent une approche mixte utilisant un \gls{CNN} comme extracteur de caractéristiques spatiales, qu'ils combinent à un \gls{CNN} 1D pour générer un descripteur spatial-spectral.
+\begin{figure}[h]
+  \resizebox{\textwidth}{!}{\input{Chapitre3/pcacnn.tikz}}
+  \caption[Architecture hybride \glsname{ACP}+\glssymbol{CNN} pour la classification d'hypercubes.]{Architecture hybride \glsname{ACP}+\glssymbol{CNN} de~\citet{makantasis_deep_2015} pour la classification d'hypercubes.}
+\end{figure}
+
+Toutefois, le retour sur le devant de la scène des \glspl{CNN} au début des années 2010 a également influencé la communauté de l'imagerie hyperspectrale. Ces réseaux sont initialement prévus pour traiter des images \gls{RVB} ou en niveaux de gris et manipulent donc des filtres convolutifs 2D. \citet{makantasis_deep_2015,slavkovikj_hyperspectral_2015} utilisent une architecture hybride alternant convolutions spatiales et réductions de dimension (par \gls{ACP} chez~\citet{makantasis_deep_2015} et sous-échantillonnage chez~\citet{slavkovikj_hyperspectral_2015}). Les caractéristiques résultantes sont ensuite vectorisées et transmises à un perceptron multi-couches réalisant la classification, comme schématisé par la~\cref{fig:pcacnn}. L'intérêt de cette approche est bien sûr de pouvoir apprendre automatiquement la représentation des données adaptée à la classification. \citet{zhao_combining_2015} étend cette technique au cadre semi-supervisé en utilisant des autoencodeurs convolutifs multi-échelle. Dans le cadre non-supervisé, \citet{romero_unsupervised_2015} proposent un \gls{CNN} pour l'extraction de caractéristique effectuant une réduction de dimension en prenant en compte le spectre, mais aussi ses voisins, l'objectif étant d'apprendre une représentation parcimonieuse des données. Enfin, \citet{zhao_spectral-spatial_2016,yue_spectral-spatial_2015} proposent une approche mixte utilisant un \gls{CNN} comme extracteur de caractéristiques spatiales, qu'ils combinent à un \gls{CNN} 1D pour générer un descripteur spatial-spectral.
 
 
 Bien que performantes, ces architectures différencient dans leur traitement les aspects spatiaux et spectraux de l'hypercube. Cependant, les approches traditionnelles ont montré la pertinence des noyaux spatiaux-spectraux et de l'apprentissage conjoint qu'ils permettent. Plusieurs travaux ont donc introduit des convolutions tridimensionnels permettant d'apprendre des noyaux opérant directement sur le cube de données. En particulier~\citet{ben_hamida_deep_2016,chen_deep_2016} proposent des \gls{CNN} alternant convolutions 3D et convolutions 1D pour la réduction de dimension. \citet{luo_hsi-cnn_2018} suggère une approche alternative en remplaçant l'\gls{ACP} de~\citet{slavkovikj_hyperspectral_2015} par une couche convolutive 3D réalisant la réduction de dimension, suivie d'un \gls{CNN} 2D traditionnel. Comme d'habitude, la classification s'opère pixel à pixel par deux couches entièrement connectées en fin de réseau. En comparaison, \citet{lee_contextual_2016} étend cette structure en un \glspl{FCN} dont la première couche extrait une caractéristique spatiale-spectrale en utilisant deux convolutions parallèles, une en 1D et une en 3D, en s'inspirant du module \emph{Inception}. Le reste de l'architecture présente une structure résiduelle enchaînant les convolutions 1D.
 
-Enfin, des réseaux convolutifs entièrement 3D ont finalement été introduits, adaptant l'architecture canonique des \gls{CNN} pour l'imagerie \gls{RVB} aux hypercubes. Divers architectures ont été proposées~\cite{li_spectralspatial_2017}, incluant des variantes bien connues de la communauté vision par ordinateur, comme l'extraction de caractéristiques multi-échelle~\cite{he_multi-scale_2017} et l'entraînement semi-supervisé~\cite{liu_semi-supervised_2017}.
+\begin{figure}[h]
+  \resizebox{\textwidth}{!}{\input{Chapitre3/cnn3d.tikz}}
+  \caption[\glssymbol{CNN} 3D pour la classification d'hypercubes.]{\glssymbol{CNN} 3D de~\citet{chen_deep_2016} pour la classification d'hypercubes.}
+  \label{fig:cnn3d_hsi}
+\end{figure}
+
+Enfin, des réseaux convolutifs entièrement 3D ont finalement été introduits, adaptant l'architecture canonique des \gls{CNN} pour l'imagerie \gls{RVB} aux hypercubes. Divers architectures ont été proposées~\cite{li_spectralspatial_2017}, incluant des variantes bien connues de la communauté vision par ordinateur, comme l'extraction de caractéristiques multi-échelle~\cite{he_multi-scale_2017} et l'entraînement semi-supervisé~\cite{liu_semi-supervised_2017}. Dans l'ensemble, il s'agit d'une extension du modèle canonique des \glspl{CNN} de~\citet{lecun_gradient-based_1998} aux données tridimensionnelles, comme schématisé dans la~\cref{fig:cnn3d_hsi}.
 
 %\sebastien{Faire un tableau de synthese avec +/- ?}
 Malgré la profusion de littérature concernant la classification d'images hyperspectrales, il n'existe pas de cadre standardisé d'évaluation des modèles. En particulier, chaque auteur considère un ou plusieurs des jeux de données présentés en~\cref{sec:hyperspectral_datasets} avec des partitions entraînement/validation/test différent. En outre, les implémentations mises à disposition de la communauté scientifique sont particulièrement rares en comparaison des pratiques habituelles en vision par ordinateur. Par conséquent, nous développons une \emph{DeepHyperX}\footnote{\url{https://gitlab.inria.fr/naudeber/DeepHyperX}}, une boîte à outils d'apprentissage profond pour la cartographie automatisée à partir d'images hyperspectrales. Ce logiciel utilise la bibliothèque logicielle \gls{PyTorch}~\cite{noauthor_pytorch_2016} et permet de comparer divers modèles de l'état de l'art sur un ensemble standardisé de jeux de données. La boîte à outils est modulaire et comprend nativement plusieurs approches supervisées, allant de la \gls{SVM} linéaire aux \gls{CNN} 3D de l'état de l'art en passant par les \gls{CNN} 1D. Ces modèles peuvent être entraînés et validés sur divers jeux de données de la littérature comme Pavia Center et Pavia University, Indian Pines, Kennedy Space Center ou \gls{DFC} 2018. Les hyperparamètres les plus courants peuvent être ajustés afin d'évaluer l'influence des dimensions du voisinage local considéré, du nombre d'échantillons d'apprentissage ou de la stratégie d'optimisation. Cette boîte à outils nous permet de comparer les performances des modèles de l'état de l'art dans un cadre unifié.

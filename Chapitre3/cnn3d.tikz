@@ -1,0 +1,111 @@
+\documentclass{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usepackage{ifthen}
+\input{../CommandesPerso.tex}
+
+\begin{document}
+  \begin{tikzpicture}
+  \usetikzlibrary{calc}
+  \usetikzlibrary{3d}
+
+  \def\scale{3.2}
+  \def\alexx{0}
+  \def\alexy{0}
+  \def\alexz{0}
+
+  \def\coblue{blue!50!gray}
+  \def\coorange{orange!80!gray}
+  \def\cogreen{green!50!gray}
+  \def\copurple{purple!50!white}
+
+
+  \convlayer{0.8*\scale}{0.8*\scale}{0.8*\scale}{Hypercube}{\copurple}{\alexx-0.6*\scale}{\alexy}{\alexz}{{5}{5}{C}}
+  \convlayer{0.4*\scale}{0.4*\scale}{0.4*\scale}{}{\coblue}{\alexx+1*\scale}{\alexy+0.5*\scale}{\alexz+1.5*\scale}{{}{}{}}
+  \node[rotate=45] at (\alexx+1*\scale,\alexy+0.3*\scale,\alexz+0.5*\scale) {\dots};
+  \convlayer{0.4*\scale}{0.4*\scale}{0.4*\scale}{}{\coblue}{\alexx+1*\scale}{\alexy+0.5*\scale}{\alexz-0.75*\scale}{{}{}{}}
+  \convlayer{0.4*\scale}{0.4*\scale}{0.4*\scale}{Conv1}{\coblue}{\alexx+1*\scale}{\alexy+0.5*\scale}{\alexz+0*\scale}{{}{}{}}
+
+  \node[rotate=90] at (\alexx+1*\scale,\alexy+0.05*\scale,\alexz+1.5*\scale) {\dots};
+  \node[rotate=90] at (\alexx+0.95*\scale,\alexy-0.05*\scale,\alexz-1*\scale) {\dots};
+
+  \convlayer{0.4*\scale}{0.4*\scale}{0.4*\scale}{}{\coblue}{\alexx+1*\scale}{\alexy-0.4*\scale}{\alexz+1.5*\scale}{{}{}{$C_1$}}
+  \node[rotate=45] at (\alexx+1*\scale,\alexy-0.6*\scale,\alexz+0.5*\scale) {\dots};
+  \convlayer{0.4*\scale}{0.4*\scale}{0.4*\scale}{}{\coblue}{\alexx+1*\scale}{\alexy-0.4*\scale}{\alexz-0.75*\scale}{{}{}{}}
+  \convlayer{0.4*\scale}{0.4*\scale}{0.4*\scale}{}{\coblue}{\alexx+1*\scale}{\alexy-0.4*\scale}{\alexz+0*\scale}{{}{}{}}
+
+  \draw[fill=black,<->, thin] (\alexx+1.1*\scale, \alexy-0.8*\scale,\alexz-1*\scale) -- node[rotate=45,below] {$n_1$ filtres} (\alexx+1.1*\scale, \alexy-0.8*\scale,\alexz+1.2*\scale);
+
+  \convlayer{0.2*\scale}{0.2*\scale}{0.2*\scale}{}{\coorange}{\alexx+2.2*\scale}{\alexy+0.4*\scale}{\alexz+1*\scale}{{}{}{}}
+  \node[rotate=45] at (\alexx+2.2*\scale,\alexy+0.3*\scale,\alexz+0.35*\scale) {\dots};
+  \convlayer{0.2*\scale}{0.2*\scale}{0.2*\scale}{}{\coorange}{\alexx+2.2*\scale}{\alexy+0.4*\scale}{\alexz-0.5*\scale}{{}{}{}}
+  \convlayer{0.2*\scale}{0.2*\scale}{0.2*\scale}{Pooling}{\coorange}{\alexx+2.2*\scale}{\alexy+0.4*\scale}{\alexz+0*\scale}{{}{}{}}
+
+  \node[rotate=90] at (\alexx+2.4*\scale,\alexy+0.2*\scale,\alexz+1.5*\scale) {\dots};
+  \node[rotate=90] at (\alexx+2.4*\scale,\alexy+0.2*\scale,\alexz-0.*\scale) {\dots};
+
+  \convlayer{0.2*\scale}{0.2*\scale}{0.2*\scale}{}{\coorange}{\alexx+2.2*\scale}{\alexy-0.3*\scale}{\alexz+1*\scale}{{}{}{$C_1$}}
+  \node[rotate=45] at (\alexx+2.2*\scale,\alexy-0.4*\scale,\alexz+0.35*\scale) {\dots};
+  \convlayer{0.2*\scale}{0.2*\scale}{0.2*\scale}{}{\coorange}{\alexx+2.2*\scale}{\alexy-0.3*\scale}{\alexz-0.5*\scale}{{}{}{}}
+  \convlayer{0.2*\scale}{0.2*\scale}{0.2*\scale}{}{\coorange}{\alexx+2.2*\scale}{\alexy-0.3*\scale}{\alexz+0*\scale}{{}{}{}}
+
+  \convlayer{0.2*\scale}{0.2*\scale}{0.2*\scale}{}{\coblue}{\alexx+3.5*\scale}{\alexy+0.4*\scale}{\alexz+0.7*\scale}{{}{}{}}
+  \convlayer{0.2*\scale}{0.2*\scale}{0.2*\scale}{}{\coblue}{\alexx+3.5*\scale}{\alexy+0.4*\scale}{\alexz+1.2*\scale}{{}{}{}}
+  \node[rotate=45] at (\alexx+3.5*\scale,\alexy+0.3*\scale,\alexz+0.15*\scale) {\dots};
+  \node[rotate=45] at (\alexx+3.3*\scale,\alexy+0.5*\scale,\alexz+0.15*\scale) {Conv2};
+  \convlayer{0.2*\scale}{0.2*\scale}{0.2*\scale}{}{\coblue}{\alexx+3.5*\scale}{\alexy+0.4*\scale}{\alexz-0.7*\scale}{{}{}{}}
+  \convlayer{0.2*\scale}{0.2*\scale}{0.2*\scale}{}{\coblue}{\alexx+3.5*\scale}{\alexy+0.4*\scale}{\alexz-0.2*\scale}{{}{}{}}
+
+
+  \convlayer{0.2*\scale}{0.2*\scale}{0.2*\scale}{}{\coblue}{\alexx+3.5*\scale}{\alexy-0.5*\scale}{\alexz+0.7*\scale}{{}{}{}}
+  \convlayer{0.2*\scale}{0.2*\scale}{0.2*\scale}{}{\coblue}{\alexx+3.5*\scale}{\alexy-0.5*\scale}{\alexz+1.2*\scale}{{}{}{}}
+  \node[rotate=45] at (\alexx+3.5*\scale,\alexy-0.6*\scale,\alexz+0.15*\scale) {\dots};
+  \convlayer{0.2*\scale}{0.2*\scale}{0.2*\scale}{}{\coblue}{\alexx+3.5*\scale}{\alexy-0.5*\scale}{\alexz-0.7*\scale}{{}{}{}}
+  \convlayer{0.2*\scale}{0.2*\scale}{0.2*\scale}{}{\coblue}{\alexx+3.5*\scale}{\alexy-0.5*\scale}{\alexz-0.2*\scale}{{}{}{}}
+
+
+  \convlayer{0.2*\scale}{0.2*\scale}{0.2*\scale}{}{\coblue}{\alexx+3.5*\scale}{\alexy-0.2*\scale}{\alexz+0.7*\scale}{{}{}{}}
+  \convlayer{0.2*\scale}{0.2*\scale}{0.2*\scale}{}{\coblue}{\alexx+3.5*\scale}{\alexy-0.2*\scale}{\alexz+1.2*\scale}{{}{}{}}
+  \node[rotate=45] at (\alexx+3.5*\scale,\alexy-0.6*\scale,\alexz+0.15*\scale) {\dots};
+  \convlayer{0.2*\scale}{0.2*\scale}{0.2*\scale}{}{\coblue}{\alexx+3.5*\scale}{\alexy-0.2*\scale}{\alexz-0.7*\scale}{{}{}{}}
+  \convlayer{0.2*\scale}{0.2*\scale}{0.2*\scale}{}{\coblue}{\alexx+3.5*\scale}{\alexy-0.2*\scale}{\alexz-0.2*\scale}{{}{}{}}
+
+  \draw[fill=black,<->, thin] (\alexx+3.6*\scale, \alexy-0.8*\scale,\alexz-0.8*\scale) -- node[rotate=45,below] {$n_2$ filtres} (\alexx+3.6*\scale, \alexy-0.8*\scale,\alexz+1.0*\scale);
+
+  \node[rotate=90] at (\alexx+3.5*\scale,\alexy+0.1*\scale,\alexz-0.65*\scale) {\dots};
+  \node[rotate=90] at (\alexx+3.5*\scale,\alexy+0.1*\scale,\alexz+0.65*\scale) {\dots};
+  \node[rotate=90] at (\alexx+3.5*\scale,\alexy+0.1*\scale,\alexz+1.25*\scale) {\dots};
+
+  \convlayer{0.1*\scale}{0.1*\scale}{0.1*\scale}{}{\coorange}{\alexx+4.5*\scale}{\alexy+0.4*\scale}{\alexz+0.4*\scale}{{}{}{}}
+  \convlayer{0.1*\scale}{0.1*\scale}{0.1*\scale}{}{\coorange}{\alexx+4.5*\scale}{\alexy+0.4*\scale}{\alexz+0.8*\scale}{{}{}{}}
+  \node[rotate=45] at (\alexx+4.5*\scale,\alexy+0.35*\scale,\alexz+0.0*\scale) {\dots};
+  \node[rotate=45] at (\alexx+4.3*\scale,\alexy+0.5*\scale,\alexz+0.15*\scale) {Pool2};
+  \convlayer{0.1*\scale}{0.1*\scale}{0.1*\scale}{}{\coorange}{\alexx+4.5*\scale}{\alexy+0.4*\scale}{\alexz-0.8*\scale}{{}{}{}}
+  \convlayer{0.1*\scale}{0.1*\scale}{0.1*\scale}{}{\coorange}{\alexx+4.5*\scale}{\alexy+0.4*\scale}{\alexz-0.4*\scale}{{}{}{}}
+
+
+  \convlayer{0.1*\scale}{0.1*\scale}{0.1*\scale}{}{\coorange}{\alexx+4.5*\scale}{\alexy+0*\scale}{\alexz+0.4*\scale}{{}{}{}}
+  \convlayer{0.1*\scale}{0.1*\scale}{0.1*\scale}{}{\coorange}{\alexx+4.5*\scale}{\alexy+0*\scale}{\alexz+0.8*\scale}{{}{}{}}
+  \node[rotate=45] at (\alexx+4.5*\scale,\alexy+0.*\scale,\alexz+0.0*\scale) {\dots};
+  \convlayer{0.1*\scale}{0.1*\scale}{0.1*\scale}{}{\coorange}{\alexx+4.5*\scale}{\alexy+0*\scale}{\alexz-0.8*\scale}{{}{}{}}
+  \convlayer{0.1*\scale}{0.1*\scale}{0.1*\scale}{}{\coorange}{\alexx+4.5*\scale}{\alexy+0*\scale}{\alexz-0.4*\scale}{{}{}{}}
+
+
+  \convlayer{0.1*\scale}{0.1*\scale}{0.1*\scale}{}{\coorange}{\alexx+4.5*\scale}{\alexy-0.2*\scale}{\alexz+0.4*\scale}{{}{}{}}
+  \convlayer{0.1*\scale}{0.1*\scale}{0.1*\scale}{}{\coorange}{\alexx+4.5*\scale}{\alexy-0.2*\scale}{\alexz+0.8*\scale}{{}{}{}}
+  \node[rotate=45] at (\alexx+4.5*\scale,\alexy-0.2*\scale,\alexz+0.0*\scale) {\dots};
+  \convlayer{0.1*\scale}{0.1*\scale}{0.1*\scale}{}{\coorange}{\alexx+4.5*\scale}{\alexy-0.2*\scale}{\alexz-0.8*\scale}{{}{}{}}
+  \convlayer{0.1*\scale}{0.1*\scale}{0.1*\scale}{}{\coorange}{\alexx+4.5*\scale}{\alexy-0.2*\scale}{\alexz-0.4*\scale}{{}{}{}}
+
+  \node[rotate=90] at (\alexx+4.5*\scale,\alexy+0.2*\scale,\alexz-0.8*\scale) {\dots};
+  \node[rotate=90] at (\alexx+4.5*\scale,\alexy+0.2*\scale,\alexz+0.35*\scale) {\dots};
+  \node[rotate=90] at (\alexx+4.5*\scale,\alexy+0.2*\scale,\alexz+0.8*\scale) {\dots};
+
+  \fclayer{\scale}{0.1*\scale}{FC}{\copurple}{\alexx+5.2*\scale}{\alexy}{\alexz}{}
+  \fclayer{0.8*\scale}{0.1*\scale}{Sortie}{\copurple!50!gray}{\alexx+5.5*\scale}{\alexy}{\alexz}{$k$}
+  \node (out) at (\alexx+6*\scale,\alexy) {\Large ``Arbre''};
+  \draw[->] (\alexx+5.55*\scale,\alexy) -- (out.west);
+
+  \end{tikzpicture}
+\end{document}

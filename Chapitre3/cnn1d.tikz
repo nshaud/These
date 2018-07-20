@@ -1,0 +1,46 @@
+\documentclass{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usepackage{ifthen}
+\input{../CommandesPerso.tex}
+
+\begin{document}
+  \begin{tikzpicture}
+  \usetikzlibrary{calc}
+  \usetikzlibrary{3d}
+
+  \def\scale{3.2}
+  \def\alexx{0}
+  \def\alexy{0}
+  \def\alexz{0}
+
+  \def\coblue{blue!50!gray}
+  \def\coorange{orange!80!gray}
+  \def\cogreen{green!50!gray}
+  \def\copurple{purple!50!white}
+
+
+  \convlayer{1.4*\scale}{0.1*\scale}{0.1*\scale}{Spectre}{\copurple}{\alexx+0.2*\scale}{\alexy}{\alexz}{{}{C}{}}
+  \convlayer{1*\scale}{0.1*\scale}{0.1*\scale}{}{\coblue}{\alexx+1*\scale}{\alexy}{\alexz+1*\scale}{{}{$C_1$}{}}
+  \node[rotate=45] at (\alexx+1*\scale,\alexy,\alexz+0.5*\scale) {\dots};
+  \convlayer{1*\scale}{0.1*\scale}{0.1*\scale}{Conv1}{\coblue}{\alexx+1*\scale}{\alexy}{\alexz+0*\scale}{{}{}{}}
+  \convlayer{1*\scale}{0.1*\scale}{0.1*\scale}{}{\coblue}{\alexx+1*\scale}{\alexy}{\alexz-0.5*\scale}{{}{}{}}
+  \draw[fill=black,<->, thin] (\alexx+1.1*\scale, \alexy-0.5*\scale,\alexz-0.5*\scale) -- node[rotate=45,below] {$n_1$ filtres} (\alexx+1.1*\scale, \alexy-0.5*\scale,\alexz+1*\scale);
+
+  \convlayer{0.5*\scale}{0.1*\scale}{0.1*\scale}{}{\coblue}{\alexx+2*\scale}{\alexy}{\alexz+1*\scale}{{}{$C_1$}{}}
+  \node[rotate=45] at (\alexx+2*\scale,\alexy,\alexz+0.5*\scale) {\dots};
+  \convlayer{0.5*\scale}{0.1*\scale}{0.1*\scale}{Conv2}{\coblue}{\alexx+2*\scale}{\alexy}{\alexz+0*\scale}{{}{}{}}
+  \convlayer{0.5*\scale}{0.1*\scale}{0.1*\scale}{}{\coblue}{\alexx+2*\scale}{\alexy}{\alexz-0.5*\scale}{{}{}{}}
+   \draw[fill=black,<->, thin] (\alexx+2.1*\scale, \alexy-0.3*\scale,\alexz-0.45*\scale) -- node[rotate=45,below] {$n_2$ filtres} (\alexx+2.1*\scale, \alexy-0.3*\scale,\alexz+0.75*\scale);
+
+
+
+  \fclayer{\scale}{0.1*\scale}{FC1}{\copurple}{\alexx+2.55*\scale}{\alexy}{\alexz}{}
+  \fclayer{\scale}{0.1*\scale}{FC2}{\copurple}{\alexx+2.9*\scale}{\alexy}{\alexz}{}
+  \fclayer{0.8*\scale}{0.1*\scale}{FC3}{\copurple!50!gray}{\alexx+3.25*\scale}{\alexy}{\alexz}{$k$}
+  \node (out) at (\alexx+3.85*\scale,\alexy) {\Large ``Arbre''};
+  \draw[->] (\alexx+3.3*\scale,\alexy) -- (out.west);
+
+  \end{tikzpicture}
+\end{document}
