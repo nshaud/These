@@ -13,18 +13,18 @@ Il existe plusieurs jeux de données pour la classification d'images optiques de
 		\foreach\picid in {7,28}{%
 		\begin{subfigure}{0.33\textwidth}
 			\includegraphics[angle=90,width=\textwidth]{vaihingen_top_\picid}
-			\caption*{Image RVB}
+			\caption*{Image \glssymbol{RVB}}
 		\end{subfigure}%
 		\begin{subfigure}{0.33\textwidth}
 			\includegraphics[angle=90,width=\textwidth]{vaihingen_ndsm_\picid}
-			\caption*{\gls{MNH}}
+			\caption*{\glssymbol{MNH}}
 		\end{subfigure}%
 		\begin{subfigure}{0.33\textwidth}
 			\includegraphics[angle=90,width=\textwidth]{vaihingen_gt_\picid}
 			\caption*{Vérité terrain}
 		\end{subfigure}
 		}
-    \caption{Images ortho-rectifiées et \gls{MNH} pour le jeu de données \gls{ISPRS} Vaihingen .}
+    \caption{Images ortho-rectifiées et \glsname{MNH} pour le jeu de données \glsname{ISPRS} Vaihingen .}
     \label{fig:isprs_vaihingen}
 \end{figure}
 
@@ -32,18 +32,18 @@ Il existe plusieurs jeux de données pour la classification d'images optiques de
 		\foreach\picid in {3_10,6_11}{%7_12}{%
 		\begin{subfigure}{0.33\textwidth}
 			\includegraphics[width=\textwidth]{potsdam_top_\picid}
-			\caption*{Image RVB}
+			\caption*{Image \glssymbol{RVB}}
 		\end{subfigure}%
 		\begin{subfigure}{0.33\textwidth}
 			\includegraphics[width=\textwidth]{potsdam_ndsm_\picid}
-			\caption*{\gls{MNH}}
+			\caption*{\glsname{MNH}}
 		\end{subfigure}%
 		\begin{subfigure}{0.33\textwidth}
 			\includegraphics[width=\textwidth]{potsdam_gt_\picid}
 			\caption*{Vérité terrain}
 		\end{subfigure}
 		}
-	\caption{Images ortho-rectifiées et \gls{MNH} pour le jeu de données \gls{ISPRS} Potsdam.}
+	\caption{Images ortho-rectifiées et \glsname{MNH} pour le jeu de données \glsname{ISPRS} Potsdam.}
 	\label{fig:isprs_potsdam}
 \end{figure}
 
@@ -64,18 +64,18 @@ Les images dont les annotations ne sont pas rendues publiques servent à évalue
 		\foreach\picid in {1,2}{%
 		\begin{subfigure}{0.33\textwidth}
 			\includegraphics[width=\textwidth]{dfc2015_top\picid}
-			\caption*{Image RVB}
+			\caption*{Image \glssymbol{RVB}}
 		\end{subfigure}%
 		\begin{subfigure}{0.33\textwidth}
 			\includegraphics[width=\textwidth]{dfc2015_dsm\picid}
-			\caption*{\gls{MNH}}
+			\caption*{\glsname{MNH}}
 		\end{subfigure}%
 		\begin{subfigure}{0.33\textwidth}
 			\includegraphics[width=\textwidth]{dfc2015_gt\picid}
 			\caption*{Vérité terrain}
 		\end{subfigure}
 		}
-	\caption{Images ortho-rectifiées et \gls{MNH} pour le jeu de données \glssymbol{DFC} 2015.}
+	\caption{Images ortho-rectifiées et \glsname{MNH} pour le jeu de données \glssymbol{DFC} 2015.}
 	\label{fig:dfc2015}
 \end{figure}
 
@@ -91,21 +91,21 @@ Un tableau de résultats public est maintenu par l'\gls{IEEE} \gls{GRSS}\footnot
 \begin{figure}[h]
   \begin{subfigure}{\textwidth}
     \includegraphics[width=\textwidth]{dfc2018_top}
-    \caption{Image \gls{RVB}}
+    \caption{Image \glssymbol{RVB}}
   \end{subfigure}
   \begin{subfigure}{\textwidth}
     \includegraphics[width=\textwidth]{dfc2018_dsm}
-    \caption{\gls{MNH}}
+    \caption{\glsname{MNH}}
   \end{subfigure}
   \begin{subfigure}{\textwidth}
     \includegraphics[width=\textwidth]{dfc2018_hsi}
-    \caption{Image hyperspectrale (fausses couleurs)}
+    \caption{Image \glslink{hyperspectral}{hyperspectrale} (fausses couleurs)}
   \end{subfigure}
   \begin{subfigure}{\textwidth}
     \includegraphics[width=\textwidth]{dfc2018_gt}
     \caption{Vérité terrain}
   \end{subfigure}
-  \caption{Données d'entraînement du concours \gls{DFC} 2018.}
+  \caption{Données d'entraînement du concours \glsname{DFC} 2018.}
   \label{fig:dfc2018}
 \end{figure}
 
@@ -160,11 +160,11 @@ Le jeu de données NZAM/ONERA Christchurch comporte 4 images \gls{RVB} ortho-rec
 			\includegraphics[width=\textwidth]{vedai_000000\picnum}
 		\end{subfigure}
 	}
-	\caption{Extraits d'images annotées du jeu de données VEDAI.}
+	\caption{Extraits d'images annotées du jeu de données \glsname{VEDAI}.}
 	\label{fig:vedai}
 \end{figure}
 
-La base de données VEDAI (\emph{Vehicle Detection in Aerial Imagery})~\cite{razakarivony_vehicle_2016} est une collection d'images aériennes ortho-rectifiées mises à disposition par l'\emph{Automated Geographic Reference Center} de l'Utah. Les images, acquises au printemps 2012, ont une résolution au sol de \SI{12,5}{\centi\meter/\px} et comportent 4 canaux, \gls{RVB} et infrarouge, encodés sur 8 bits. Les images originales ont été découpées en 1 210 tuiles de dimensions $1 024\times 1 024$. Une version sous-échantillonnée à \SI{25}{\centi\meter/\px} utilisant des tuiles de dimensions $512\times512$ est également disponible.
+La base de données \glsfirst{VEDAI}~\cite{razakarivony_vehicle_2016} est une collection d'images aériennes ortho-rectifiées mises à disposition par l'\emph{Automated Geographic Reference Center} de l'Utah. Les images, acquises au printemps 2012, ont une résolution au sol de \SI{12,5}{\centi\meter/\px} et comportent 4 canaux, \gls{RVB} et infrarouge, encodés sur 8 bits. Les images originales ont été découpées en 1 210 tuiles de dimensions $1 024\times 1 024$. Une version sous-échantillonnée à \SI{25}{\centi\meter/\px} utilisant des tuiles de dimensions $512\times512$ est également disponible.
 
 Les véhicules présents dans les images sont annotés à fin de détection par des boîtes englobantes ainsi qu'une étiquette correspondant au type de véhicule. Neuf classes d'intérêt sont ainsi identifiées\,: avion, bateau, camping-car, voiture, pick-up, tracteur, camion, van et une classe ``autres''. Les coordonnées du centre du véhicule et l'angle correspondant à son orientation principale sont également annotés.
 
@@ -180,7 +180,7 @@ Ce jeu de données couvre des zones principalement rurales avec une faible densi
 	\foreach \picnum in {1,2,3}{%
 		\includegraphics[width=0.32\textwidth]{camvid_gt_\picnum}
 	}\\
-	\caption{Images \gls{RVB} (première ligne) et annotations pixelliques (deuxième ligne) extraites du jeu de données CamVid.}
+	\caption{Images \glssymbol{RVB} (première ligne) et annotations pixelliques (deuxième ligne) extraites du jeu de données CamVid.}
 	\label{fig:camvid}
 \end{figure}
 
@@ -197,7 +197,7 @@ La~\cref{fig:camvid} montre quelques exemples d'images annotées du jeu d'entra�
 	\includegraphics[width=0.32\textwidth]{\picnum_depth}
 	\includegraphics[width=0.32\textwidth]{\picnum_labels}\\
 	}%
-	\caption{Images \gls{RVB}, carte de profondeur et annotations extraites du jeu de donneés SUN RGB-D.}
+	\caption{Images \glssymbol{RVB}, carte de profondeur et annotations extraites du jeu de donneés SUN RGB-D.}
 	\label{fig:sunrgbd}
 \end{figure}
 
@@ -212,7 +212,7 @@ Des exemples d'images \glssymbol{RGB-D} et d'annotations sont données dans la~\
 	\begin{subfigure}{0.5\textwidth}
 		\includegraphics[width=\textwidth]{potsdam_barplot}
 	\end{subfigure}
-	\caption{Répartition des pixels des jeux de données \gls{ISPRS} dans différentes classes d'intérêt.}
+	\caption{Répartition des pixels des jeux de données \glsname{ISPRS} dans différentes classes d'intérêt.}
 	\label{fig:isprs_barplots}
 \end{figure}
 
