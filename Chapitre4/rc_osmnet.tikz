@@ -10,14 +10,14 @@
 
 \def\scale{5}
 \def\segx{0}
-\def\segy{0}
+\def\segy{+0.8*\scale}
 \def\segz{0}
 \def\depth{0.03*\scale}
 \def\size{\scale}
 
     \begin{scope}[canvas is yz plane at x=-\segx-0.4*\scale]
-     \node[transform shape] (source) at (0, 0) {\includegraphics[width=6.3cm]{potsdam_sample.jpg}};
-     \node [transform shape, rotate=-90, below] at (source.west) {\huge{Source}};
+     \node[transform shape] (source) at (\segy, 0) {\includegraphics[width=6.3cm]{../Chapitre2/potsdam_sample.jpg}};
+     \node [transform shape, rotate=-90, below] at (source.west) {\huge{Optique}};
     \end{scope}
 
 \convlayer{\size}{\size}{\depth}{}{blue}{\segx}{\segy}{\segz}{}
@@ -110,25 +110,17 @@
 \pgfmathsetmacro\size{1.33*\size}
 
 \node (unpool1) at (\segx+0.5*\depth, \segy+0.5*\size) {};
+\node (o_unpool1) at (\segx+0.5*\depth, \segy-0.56*\size) {};
 \convlayer{\size}{\size}{\depth}{}{red}{\segx}{\segy}{\segz}{}
 \convlayer{\size}{\size}{\depth}{}{blue}{\segx+\depth}{\segy}{\segz}{}
 \convlayer{\size}{\size}{\depth}{}{blue}{\segx+2*\depth}{\segy}{\segz}{}
 
 \pgfmathsetmacro\segx{\segx+0.3*\scale}
 \convlayer{\size}{\size}{0.15\scale}{Prédictions}{brown}{\segx}{\segy}{\segz}{}
-
-\pgfmathsetmacro\segx{\segx+0.3*\scale}
-\convlayer{\size}{\size}{0.15\scale}{Softmax}{green}{\segx}{\segy}{\segz}{}
-
-\pgfmathsetmacro\segx{\segx+0.35*\scale}
-    \begin{scope}[canvas is yz plane at x=\segx]
-     \node[transform shape] (output) at (0, 0) {\includegraphics[width=5.5cm]{potsdam_sample_gt}};
-    \node [transform shape, rotate=-90, below] at (output.west) {\huge{Segmentation}};
-    \end{scope}
-
+\node (pred_opt) at (\segx,\segy,\segz) {};
 
 \newcommand\skipconnection[3][]{%{node1}{node2}
-    \draw[->, thick] (#2) -- ++(0.085*\size, 0.1*\scale) -- node[above] {#1} ($(#3)+(-0.085*\size, 0.1*\scale)$) -- (#3);
+    \draw[->, dotted, very thick] (#2) -- ++(0.085*\size, 0.1*\scale) -- node[above] {#1} ($(#3)+(-0.085*\size, 0.1*\scale)$) -- (#3);
 }
 \skipconnection{pool5}{unpool5}
 \skipconnection{pool4}{unpool4}
@@ -136,13 +128,77 @@
 \skipconnection{pool2}{unpool2}
 \skipconnection[indices]{pool1}{unpool1}
 
+
+\def\segx{0}
+\def\segy{-0.8*\scale}
+\def\segz{0}
+\def\depth{0.10*\scale}
+\def\size{\scale}
+
+    \begin{scope}[canvas is yz plane at x=-\segx-0.4*\scale]
+     \node[transform shape] (source) at (\segy, 0) {\includegraphics[width=6.3cm]{../Chapitre2/potsdam_sample_osm.png}};
+     \node [transform shape, rotate=-90, below] at (source.west) {\huge{OSM}};
+    \end{scope}
+
+\convlayer{\size}{\size}{\depth}{}{blue}{\segx}{\segy}{\segz}{}
+\convlayer{\size}{\size}{\depth}{}{blue}{\segx+1.5*\depth}{\segy}{\segz}{}
+\convlayer{\size}{\size}{\depth}{}{blue}{\segx+3*\depth}{\segy}{\segz}{}
+\node (pool1) at (\segx+3.5*\depth, \segy+0.5*\size) {};
+\node (c_unpool1) at (\segx+3.5*\depth, \segy+0.5*\size) {};
+
+\pgfmathsetmacro\segx{\segx+0.6*\scale}
+\convlayer{\size}{\size}{0.15\scale}{Prédictions}{brown}{\segx}{\segy}{\segz}{}
+\node (pred_comp) at (\segx,\segy,\segz) {};
+
+\pgfmathsetmacro\segx{\segx+4.6*\scale}
+\def\segy{0}
+\def\segz{0}
+\def\depth{0.06*\scale}
+\def\size{\scale}
+
+\convlayer{\size}{\size}{\depth}{\large concaténation}{cyan}{\segx}{\segy}{\segz}{}
+\node (concat) at (\segx-0.01*\size,\segy+0.2*\size,\segz+0.5*\size) {};
+\convlayer{\size}{\size}{\depth}{}{blue}{\segx+\depth}{\segy}{\segz}{}
+\convlayer{\size}{\size}{\depth}{}{blue}{\segx+2*\depth}{\segy}{\segz}{}
+\convlayer{\size}{\size}{\depth}{}{blue}{\segx+3*\depth}{\segy}{\segz}{}
+
+\pgfmathsetmacro\segx{\segx+0.3*\scale}
+\convlayer{\size}{\size}{0.15\scale}{}{brown}{\segx}{\segy}{\segz}{}
+\node (fus_top) at (\segx, \segy+0.5*\size) {};
+\node (fus_bottom) at (\segx, \segy-0.5*\size) {};
+
+\draw[very thick,->] let \p1 = (pred_opt),
+              \p2 = (fus_top) in 
+          (pred_opt) -- node[above] {$\times 0,5$} (\x2,\y1)  node[yshift=-0.72pt, scale=1.2] {\huge $\bigoplus$}  -- (fus_top);
+\draw[very thick,->] let \p1 = (pred_comp),
+              \p2 = (fus_bottom) in 
+          (pred_comp) -- node[below] {$\times 0,5$} (\x2,\y1) node[scale=1.2,yshift=-0.65pt] {\huge $\bigoplus$} -- (fus_bottom);
+
+\tikzset{
+    shadowed/.style={preaction={draw opacity=0.75,transform canvas={shift={(1pt,-1pt)}},draw=gray,very thick}},
+  }
+\draw[->,ultra thick, looseness=1.07] (o_unpool1) to[out=-90,in=180] node[xshift=0.8cm,above] {caractéristiques} (concat);
+\draw[->,ultra thick, looseness=0.5] (c_unpool1) to[out=+90,in=195] (concat);
+
+\pgfmathsetmacro\segx{\segx+0.3*\scale}
+\convlayer{\size}{\size}{0.15\scale}{Softmax}{green}{\segx}{\segy}{\segz}{}
+
+\pgfmathsetmacro\segx{\segx+0.35*\scale}
+    \begin{scope}[canvas is yz plane at x=\segx]
+     \node[transform shape] (output) at (0, 0) {\includegraphics[width=5.5cm]{../Chapitre2/potsdam_sample_gt}};
+    \node [transform shape, rotate=-90, below] at (output.west) {\huge{Segmentation}};
+    \end{scope}
+
 \newcommand\legendlayer[3]{%{name}{x}{color}
-\convlayer{0.1*\scale}{0.1*\scale}{0.2*\scale}{}{#3}{#2}{-0.8*\scale}{0}{}
-\node[anchor=west] at (#2+0.125*\scale, -0.8*\scale) {\large = #1};
+\convlayer{0.1*\scale}{0.1*\scale}{0.2*\scale}{}{#3}{#2}{-1.2*\scale}{0}{}
+\node[anchor=west] at (#2+0.125*\scale, -1.2*\scale) {\large = #1};
 }
-\legendlayer{convolution + BN + ReLU}{0.5*\scale}{blue}
-\legendlayer{\emph{maxpooling}}{2*\scale}{yellow}
-\legendlayer{\emph{unpooling}}{3*\scale}{red}
+\legendlayer{convolution + BN + ReLU}{1.5*\scale}{blue}
+\legendlayer{\emph{maxpooling}}{3*\scale}{yellow}
+\legendlayer{\emph{unpooling}}{4*\scale}{red}
+\legendlayer{fusion (concaténation)}{5*\scale}{cyan}
+
+
 
 \end{tikzpicture}
 
