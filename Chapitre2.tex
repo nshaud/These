@@ -381,6 +381,7 @@ Il est possible d'augmenter le paramètre de compacité de la segmentation \gls{
 Enfin, il est important de constater que les petits objets sont sensibles au choix de la pré-segmentation, comme l'analyse qualitative laissait le présager. En effet, le score $F_1$ peut être significativement amélioré par l'utilisation d'une segmentation adaptée, comme \gls{LSC}.
 
 \subsection{Classification pixellique par segmentation sémantique}
+\label{sec:results_pixel}
 
 Comme nous l'avons vu, il apparaît clairement que la mise en \oe{}uvre d'une segmentation non-supervisée est le principal facteur limitant les performances des méthodes de classification par région. En effet, non seulement l'utilisation de la segmentation réduit les performances théoriques obtenues par un oracle, mais les exemples d'apprentissage eux-mêmes ne permettent pas d'exploiter de façon satisfaisante les caractéristiques profondes. Par conséquent, il apparaît pertinent d'étudier les performances de modèles \gls{FCN} capables d'apprendre de bout en bout la segmentation et la classification.
 
