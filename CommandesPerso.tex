@@ -157,9 +157,18 @@ Légende\,: \textcolor{Black}{blanc}\,: routes, \textcolor{Blue}{bleu}\,: bâtim
 % Union généralisée
 \newcommand{\wbigcup}{\mathop{\bigcup}\displaylimits}
 
-\newcommand{\res}[2]{#1 {\footnotesize $\pm$ #2}}
-\newcommand{\bres}[2]{\textbf{#1} {\footnotesize $\pm$ #2}}
-\newcommand{\bbres}[2]{\res{\textit{#1}}{#2}}
+\newcommand{\res}[2]{%
+	\ifthenelse{\isempty{#2}}%
+	{\num{#1}}%
+	{\num{#1}{\footnotesize $\pm$ \num{#2}}}}
+\newcommand{\bres}[2]{%
+	\ifthenelse{\isempty{#2}}%
+	{\textbf{\num{#1}}}%
+	{\textbf{\num{#1}}{\footnotesize $\pm$ \num{#2}}}}
+\newcommand{\bbres}[2]{%
+	\ifthenelse{\isempty{#2}}%
+	{\textit{\num{#1}}}%
+	{\textit{\num{#1}}{\footnotesize $\pm$ \num{#2}}}}
 
 \newcommand{\drawkernel}[9]{
 \begin{tikzpicture}

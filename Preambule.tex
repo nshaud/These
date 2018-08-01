@@ -41,27 +41,29 @@
 \usepackage{csquotes}
 \usepackage[babel,kerning,protrusion,expansion]{microtype} % Ajuste finement les espaces
 % En outre, les options babel et kerning permettent d'utiliser ':' avec babel en français et cleveref dans les \caption (en théorie ':' est un caractère actif avec babel)
-\usepackage{bbding}
+\usepackage{pifont} % symboles
+\newcommand\Snowflake{\ding{102}}
+\newcommand\Xmark{\ding{55}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Allure générale du document
 %\usepackage{enumerate}
 %\usepackage{enumitem}
+\usepackage[table,dvipsnames]{xcolor} % Couleurs
+\definecolor{mygreen}{HTML}{1C9607} % Vert personnalisé
 \usepackage[section]{placeins}	% Place un FloatBarrier à chaque nouvelle section
-\usepackage{epigraph}
-\usepackage[font={small}]{caption}
+\usepackage{epigraph} % Citations joliment mises en forme
+\usepackage[font={small}]{caption} % Réglage des légendes
 \usepackage[francais,nohints]{minitoc}	% Mini table des matières, en français
 	\setcounter{minitocdepth}{2}	% Mini-toc détaillées (sections/sous-sections)
 %\usepackage[notbib]{tocbibind}		% Ajoute les Tables des Matières/Figures/Tableaux à la table des matières
 \usepackage[Lenny]{fncychap}		% Jolis en-têtes de chapitre
-%% Couleurs
-\usepackage[table,dvipsnames]{xcolor}
+% En-têtes des chapitres en style Lenny avec les bonnes couleurs
 \ChNameVar{\fontsize{14}{16}\sffamily\bfseries\color{black}}
 \ChNumVar{\fontsize{60}{62}\sffamily\color{black}}
-\definecolor{mygreen}{HTML}{1C9607}
 \ChTitleVar{\Huge\sffamily\color{mygreen}}
 \ChTitleAsIs
-\usepackage{multicol}
+%% Biblatex
 \usepackage[style=numeric,sorting=nyt,natbib=true,refsection=chapter,backend=biber,backref=true]{biblatex}
 \AtEveryBibitem{\clearlist{language}} % Enlève la section "language" des références
 \DefineBibliographyStrings{french}{in={dans},inseries={dans}} % Français de France
@@ -78,52 +80,57 @@
 \newcommand{\diff}{\mathrm{d}} % Dérivation
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Outils et commandes
+\usepackage{xifthen}
+\usepackage{etoolbox}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Tableaux
-\usepackage{multirow}			% Permet de combiner plusiueurs ligns
+\usepackage{multirow}			% Permet de combiner plusieurs lignes
+\usepackage{multicol}			% Permet de combiner plusieurs colonnes
 \usepackage{booktabs}			% Jolis tableaux
 %\usepackage{colortbl}
 \usepackage{tabularx}			% Tableaux avec largeur de colonne automatique
 \newcolumntype{Y}{>{\centering\arraybackslash}X} % Colonne de largeur automatique et centrée
-\usepackage{diagbox}
-\usepackage{etoolbox}
+%\usepackage{diagbox}
 	\appto\TPTnoteSettings{\footnotesize}
 \addto\captionsfrench{\def\tablename{{\textsc{Tableau}}}}	% Renome 'table' en 'tableau'
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Eléments graphiques
 \usepackage{graphicx}			% Permet l'inclusion d'images
-\usepackage{subcaption}
+\usepackage{subcaption}		% Permet l'imbrication des figures avec subfigure
 %\usepackage{pdfpages}
 %\usepackage{rotating}
 \usepackage{pgfplots}
 	\usepgfplotslibrary{groupplots}
 \usepackage{tikz}
 	\usetikzlibrary{backgrounds,automata,3d,calc,patterns}
-	\pgfplotsset{width=7cm,compat=1.3}
+	% \pgfplotsset{width=7cm,compat=1.3}
 	\tikzset{every picture/.style={execute at begin picture={
    		\shorthandoff{:;!?};}
 	}}
-	\pgfplotsset{every linear axis/.append style={
-		/pgf/number format/.cd,
-		use comma,
-		1000 sep={\,},
-	}}
-\usepackage{eso-pic}
+	 \pgfplotsset{every linear axis/.append style={
+	 	/pgf/number format/.cd,
+	 	use comma,
+	 	1000 sep={\,},
+	 }}
+\usepackage{eso-pic}		% Permet l'ajout d'images/fonds à chaque page
 \usepackage{import}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Mise en forme du texte
-\usepackage{xspace}
-\usepackage{siunitx}
+\usepackage{xspace}		% Gestion correcte des espaces après les commandes pour éviter le gobbling
+\usepackage{siunitx}	% Unités SI
 \sisetup{
 range-phrase=--,     % Utilise le tiret court pour dire "de... à"
 range-units=single,  % Cache l'unité sur la première borne
-locale = FR,
-inter-unit-product=\ensuremath{\cdot},
+locale = FR,				 % en français
+inter-unit-product=\ensuremath{\cdot}, % sépare les unités avec un point
 detect-all}
-\DeclareSIUnit\px{px}
-\usepackage{lettrine}
-\usepackage{textcomp}
+\DeclareSIUnit\px{px}	% Pixels
+\usepackage{lettrine} % Lettrines pour les résumés
+%\usepackage{textcomp}
 \usepackage{array}
 \usepackage{hyphenat}
 
@@ -144,17 +151,16 @@ detect-all}
 %% Packages qui doivent être chargés APRES hyperref
 \usepackage[top=2.5cm, bottom=2cm, left=3cm, right=2.5cm,
 			headheight=15pt]{geometry}
+
+%% En-têtes et pieds-de-page personnalisés
 \usepackage{FiraSans}
-
-\usepackage[nonumberofruns]{xassoccnt}
-
-\newcounter{realpage}
+\DeclareTextFontCommand{\firasfsc}{\sffamily}	% Police sans serif (Fira Sans)
+\usepackage[nonumberofruns]{xassoccnt}	% Définit des compteurs
+\newcounter{realpage}	% Compteur pour le nombre réel de pages
 \DeclareAssociatedCounters{page}{realpage}
 \AtBeginDocument{%
   \stepcounter{realpage}
 }
-
-\DeclareTextFontCommand{\textsfsc}{\sffamily}
 
 \usepackage{fancyhdr}			% Entête et pieds de page. Doit être placé APRES geometry
 	\pagestyle{fancy}		% Indique que le style de la page sera justement fancy
@@ -162,11 +168,13 @@ detect-all}
 	\cfoot{} 			% milieu du pied de page
 	\rfoot[]{\thepage} 		% droite du pied de page
 	\fancyhead[RE, LO] {}
+	% Marque de pied-de-page en bas à gauche
 	\newcommand\footmarkleft{
 		\begin{picture}(0,0)
 				\put(5,-27){\color{mygreen}{\vspace{-1cm}\rule{0.06cm}{1.4cm}}}
 		\end{picture}
 	}
+	% Marque de pied-de-page en bas à droite, avec la petite illustration
 	\newcommand\footmarkright{
 		\begin{picture}(0,0)
 				\put(-5,-27){\color{mygreen}{\vspace{-1cm}\rule{0.06cm}{1.4cm}}}
@@ -182,8 +190,8 @@ detect-all}
 	\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
 	\fancyfoot[LE,RO]{}
 	\fancyhead[LO,RE,LE,RO]{}
-	\fancyfoot[LO]{\textsfsc{{\large \textbf{\thepage}}\footmarkleft}}
-	\fancyfoot[RE]{\textsfsc{{\footmarkright \large \textbf{\thepage}}}}
+	\fancyfoot[LO]{\firasfsc{{\large \textbf{\thepage}}\footmarkleft}}
+	\fancyfoot[RE]{\firasfsc{{\footmarkright \large \textbf{\thepage}}}}
 	\fancyhead[LO]{{\normalfont\sffamily\bfseries\nouppercase{{\chaptername~\thechapter} \hspace{0.25cm} \color{mygreen}{\leftmark}}}}
 	\fancyhead[RE]{{\normalfont\sffamily\bfseries\nouppercase{{\rightmark}}}}
 
@@ -192,18 +200,16 @@ detect-all}
 \fancyhead[LO,RE,LE,RO]{}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
-\fancyfoot[LO]{\textsfsc{{\large \textbf{\thepage}}\footmarkleft}}
-\fancyfoot[RE]{\textsfsc{{\footmarkright \large \textbf{\thepage}}}}}
+\fancyfoot[LO]{\firasfsc{{\large \textbf{\thepage}}\footmarkleft}}
+\fancyfoot[RE]{\firasfsc{{\footmarkright \large \textbf{\thepage}}}}}
 
 \usepackage{titlesec}
-\usepackage{etoolbox}
+%% Patch pour titlesec (corrige un bug spécifique à une version)
 \makeatletter
 \patchcmd{\ttlh@hang}{\parindent\z@}{\parindent\z@\leavevmode}{}{}
 \patchcmd{\ttlh@hang}{\noindent}{}{}{}
 \makeatother
-	% \titleformat{\chapter}[frame]
-	%   {\normalfont\huge}
-	%   {\chaptertitlename\ \thechapter}{20pt}{\Huge}
+	% Formats des titres pour les sections, sous-sections et sous-sous-sections
 	\titleformat{\section}[hang]
 	  {\normalfont\sffamily\Large\bfseries\color{mygreen}}
 	  {\Large\thesection}{0.3em}{}
@@ -214,6 +220,7 @@ detect-all}
 		{\normalfont\sffamily}
 		{\thesection}{0.3em}{}
 
+% Glossaires
 \usepackage[acronym,toc,numberedsection,ucmark]{glossaries}
 	\newglossary[nlg]{notation}{not}{ntn}{Notation} % Création d'un type de glossaire 'notation'
 	\makeglossaries
@@ -221,6 +228,7 @@ detect-all}
 \makeglossaries
 \usepackage[capitalize,french]{cleveref}
 
+% Chargement des bibliographies
 \addbibresource{Chapitre1/Self.bib}
 \addbibresource{Chapitre1/Historique.bib}
 \addbibresource{Chapitre2/Biblio.bib}

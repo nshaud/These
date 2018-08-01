@@ -38,7 +38,7 @@ En particulier, nous proposons d'utiliser les \glspl{GAN}~\cite{goodfellow_gener
 
 \begin{figure}
 		\resizebox{\textwidth}{!}{\input{Chapitre5/gan.tikz}}
-    \caption{La structure du \gls{GAN} utilisé pour la synthèse de spectres artificiels. Les flèches en \textcolor{BrickRed}{rouge} indiquent l'entraînement du classifieur et du discriminateur, tandis que les flèches en \textcolor{NavyBlue}{bleu} indiquent l'entraînement du générateur. Les flèches en pointillé indiquent les connexions qui ne sont utilisées que dans le cadre supervisé.}
+    \caption[La structure du \glsname{GAN} utilisé pour la synthèse de spectres artificiels.]{La structure du \glsname{GAN} utilisé pour la synthèse de spectres artificiels. Les flèches en \textcolor{BrickRed}{rouge} indiquent l'entraînement du classifieur et du discriminateur, tandis que les flèches en \textcolor{NavyBlue}{bleu} indiquent l'entraînement du générateur. Les flèches en pointillé indiquent les connexions qui ne sont utilisées que dans le cadre supervisé.}
     \label{fig:gan}
 \end{figure}
 
@@ -83,7 +83,7 @@ Visuellement, il est possible de constater dans la~\cref{fig:mean_spectra} que l
 \includegraphics[width=\textwidth]{pca_indianpines_acwgan}
 \caption{Indian Pines}
 \end{subfigure}
-\caption{\Gls{ACP} sur les spectres réels et synthétiques. Les spectres réels correspondent à l'ensemble des échantillons annotés de l'image. Les deux ensemble contiennent le même nombre d'éléments.}
+\caption[\glsname{ACP} sur les spectres réels et synthétiques.]{\Gls{ACP} sur les spectres réels et synthétiques. Les spectres réels correspondent à l'ensemble des échantillons annotés de l'image. Les deux ensemble contiennent le même nombre d'éléments.}
 \label{fig:pca}
 \end{figure}
 
@@ -100,7 +100,7 @@ Pour mieux comprendre l'impact de ce surapprentissage, nous appliquons une \gls{
         Fake & 87.8 & 99.2 & 79.4 & 99.9\\
         \bottomrule
 	\end{tabularx}
-    \caption{Exactitudes d'une \gls{SVM} linéaire appliquée sur les spectres réels et synthétiques du jeu de données Pavia University.}
+    \caption{Exactitudes d'une \glsname{SVM} linéaire appliquée sur les spectres réels et synthétiques du jeu de données Pavia University.}
     \label{table:svm_separation}
 \end{table}
 
@@ -115,7 +115,7 @@ Nous pouvons essayer de construire une intuition sur la façon dont la distribut
 \includegraphics[width=0.95\textwidth]{interpolation_interclass_acwgan}
 \caption{Interpolation à vecteur latent fixé entre les classes ``prairies'' et ``sol nu''.}
 \end{subfigure}
-\caption{Interpoler entre différents vecteurs ou conditionnements de l'espace latent permet d'explorer la variété des spectres de façon continue. Le \gls{GAN} est entraîné sur le jeu de données Pavia University. $\alpha$ contrôle l'interpolation.}
+\caption{Interpoler entre différents vecteurs ou conditionnements de l'espace latent permet d'explorer la variété des spectres de façon continue. Le \glsname{GAN} est entraîné sur le jeu de données Pavia University. $\alpha$ contrôle l'interpolation.}
 \label{fig:interpolation}
 \end{figure}
 

@@ -90,7 +90,7 @@ L'algorithme \gls{HSEG}~\cite{tilton_best_2012} quant à lui produit un segmenta
     \caption*{\picname}
 \end{subfigure}%
 }
-\caption{Segmentations d'une image aérienne du jeu de données \gls{ISPRS} Potsdam. Selon l'algorithme appliqué, les voitures sont plus ou moins bien segmentées.}
+\caption{Segmentations d'une image aérienne du jeu de données \glsname{ISPRS} Potsdam. Selon l'algorithme appliqué, les voitures sont plus ou moins bien segmentées.}
 \label{fig:potsdam_segmentation}
 \end{figure}
 
@@ -342,7 +342,7 @@ Nous comparons les algorithmes de segmentation les plus couramment utilisés dan
   \gls{HSEG} & 21 000 & 11.39 & 94.83 & 78.66 & 85.25\\
   \bottomrule
   \end{tabularx}
-  \caption{Métriques de comparaison des algorithmes de segmentation sur le jeu de données \gls{ISPRS} Vaihingen.}
+  \caption{Métriques de comparaison des algorithmes de segmentation sur le jeu de données \glsname{ISPRS} Vaihingen.}
   \label{table:segmentation_metrics}
 \end{table}
 
@@ -361,7 +361,7 @@ Nous comparons les algorithmes de segmentation les plus couramment utilisés dan
   Fenêtre glissante & $\simeq$23 800 & 81.22 & 0.53 & 0.74 & 92.56\\
   \bottomrule
   \end{tabularx}
-  \caption{Résultats de classification sur le jeu de données \gls{ISPRS} Vaihingen.}
+  \caption{Résultats de segmentation sémantique sur le jeu de données \glsname{ISPRS} Vaihingen.}
   \label{table:classification_metrics}
 \end{table}
 
@@ -396,7 +396,7 @@ Dans un premier temps, nous validons cette approche uniquement sur les données 
 
 \begin{table}[t]
   \centering
-  \caption{Résultats sur le jeu de validation \gls{ISPRS} Vaihingen en fonction du recouvrement de la fenêtre glissante.}
+  \caption{Résultats de segmentation sémantique sur le jeu de validation \gls{ISPRS} Vaihingen en fonction du recouvrement de la fenêtre glissante.}
   \setlength{\tabcolsep}{4pt}
   \begin{tabularx}{0.8\textwidth}{ Y c c c }
   \toprule
@@ -415,7 +415,7 @@ L'utilisation d'une fenêtre glissante pour la segmentation de l'image pose la q
 
 \begin{table}[t]
   \centering
-  \caption{Résultats des différentes stratégies d'initialisation sur le jeu de validation \gls{ISPRS} Vaihingen.}
+  \caption{Résultats des différentes stratégies d'initialisation sur le jeu de validation \glsname{ISPRS} Vaihingen.}
   \begin{tabularx}{\textwidth}{ c | c | Y Y Y Y }
   \toprule
   Initialisation & Aléatoire & \multicolumn{4}{c}{VGG-16 (ImageNet)}\\
@@ -443,7 +443,7 @@ Comme détaillé dans le~\cref{tab:initialization}, le modèle réalise sa meill
 \subsubsection{Choix du modèle}
 
 \begin{table}[h]
-	\caption{Résultats de validation sur le jeu de données \gls{ISPRS} Vaihingen.}
+	\caption{Résultats de segmentation sémantique en validation sur le jeu de données \glsname{ISPRS} Vaihingen.}
 	\label{tab:validation_vaihingen}
 	\begin{tabularx}{\textwidth}{Y c c c c c c}
 	\toprule
@@ -465,7 +465,7 @@ La comparaison en validation croisée entre les modèles SegNet et ResNet-34 ne 
 	\hfill
 	\begin{subfigure}{0.48\textwidth}
     \includegraphics[width=\linewidth]{vaihingen_irrg_37}
-    \caption{Image \gls{IRRV}}
+    \caption{Image \glssymbol{IRRV}}
     \end{subfigure}
     \hfill
     \begin{subfigure}{0.48\textwidth}
@@ -485,13 +485,13 @@ La comparaison en validation croisée entre les modèles SegNet et ResNet-34 ne 
     \caption{SegNet multi-échelles (3 branches)}
     \end{subfigure}
     \hfill
-    \caption{Effet de la supervision multi-échelles sur un extrait du jeu de données \gls{ISPRS} Vaihingen. Les petits objets et les surfaces au contexte spatial ambigu bénéficient de la combinaison des prédictions à plusieurs échelles.\\
+    \caption[Effet de la supervision multi-échelles sur un extrait du jeu de données \glsname{ISPRS} Vaihingen.]{Effet de la supervision multi-échelles sur un extrait du jeu de données \glsname{ISPRS} Vaihingen. Les petits objets et les surfaces au contexte spatial ambigu bénéficient de la combinaison des prédictions à plusieurs échelles.\\
 		\isprslegende}
     \label{fig:vaihingen_images}
 \end{figure}
 
 \begin{table}
-    \caption{Résultats de validation multi-échelles sur le jeu de données \gls{ISPRS} Vaihingen.}
+    \caption{Résultats de validation multi-échelles sur le jeu de données \glsname{ISPRS} Vaihingen.}
     \label{tab:dsn_vaihingen}
 	\begin{tabularx}{\textwidth}{Y c c c c c c}
     \toprule
@@ -518,7 +518,7 @@ En outre, cette étude a également mis en avant que les cartes d'activation int
   \captionsetup[subfigure]{labelformat=empty}
   \begin{subfigure}[t]{0.125\textwidth}
     \includegraphics[width=\textwidth]{158_irrg}
-    \caption{\gls{IRRV}}
+    \caption{\glssymbol{IRRV}}
   \end{subfigure}%
   \begin{subfigure}[t]{0.125\textwidth}
     \includegraphics[width=\textwidth]{158_pred_irrg}
@@ -534,7 +534,7 @@ En outre, cette étude a également mis en avant que les cartes d'activation int
   \end{subfigure}%
 	\begin{subfigure}[t]{0.125\textwidth}
 		\includegraphics[width=\textwidth]{300_irrg}
-		\caption{\gls{IRRV}}
+		\caption{\glssymbol{IRRV}}
 	\end{subfigure}%
 	\begin{subfigure}[t]{0.125\textwidth}
 		\includegraphics[width=\textwidth]{300_pred_irrg}
@@ -548,7 +548,7 @@ En outre, cette étude a également mis en avant que les cartes d'activation int
 		\includegraphics[width=\textwidth]{300_gt}
 		\caption{Vérité terrain}
 	\end{subfigure}
-  \caption{Effets de la couche convolutive multi-kernel sur des extraits du jeu de données \gls{ISPRS} Vaihingen.\\
+  \caption[Effets de la couche convolutive multi-kernel sur des extraits du jeu de données \glsname{ISPRS} Vaihingen.]{Effets de la couche convolutive multi-kernel sur des extraits du jeu de données \glsname{ISPRS} Vaihingen.\\
 	\isprslegende}
   \label{fig:patches_context}
 \end{figure}
@@ -560,7 +560,7 @@ Comme indiqué dans le~\cref{tab:vaihingen_stride}, l'utilisation d'une dernièr
 
 \begin{table}[t]
   \centering
-  \caption{Résultats du \gls{ISPRS} 2D Semantic Labeling Challenge Vaihingen.}
+  \caption{Résultats du \glsname{ISPRS} 2D \emph{Semantic Labeling Challenge} Vaihingen.}
   \rowcolors{2}{gray!15}{white}
   \begin{tabularx}{\textwidth}{ Y c c c c c c }
   \toprule
@@ -584,7 +584,7 @@ Comme indiqué dans le~\cref{tab:vaihingen_stride}, l'utilisation d'une dernièr
 \end{table}
 
 \begin{table}[t]
-    \caption{Résultats du \gls{ISPRS} 2D Semantic Labeling Challenge Potsdam.}
+    \caption{Résultats du \glsname{ISPRS} 2D \emph{Semantic Labeling Challenge} Potsdam.}
     \label{table:final_potsdam}
     \setlength\tabcolsep{4pt}
 	\begin{tabularx}{\textwidth}{Y c c c c c c}
@@ -620,7 +620,7 @@ Comme indiqué dans le~\cref{tab:vaihingen_stride}, l'utilisation d'une dernièr
     \includegraphics[width=\textwidth]{segnet}
     \caption{\textbf{SegNet++}}
   \end{subfigure}
-  \caption{Comparaison des segmentations obtenues sur un extrait du jeu de test \gls{ISPRS} Vaihingen.\\
+  \caption[Comparaison des segmentations obtenues sur un extrait du jeu de test \glsname{ISPRS} Vaihingen.]{Comparaison des segmentations obtenues sur un extrait du jeu de test \glsname{ISPRS} Vaihingen.\\
   \isprslegende}
   \label{fig_segnet_qualitative}
 \end{figure}
@@ -633,7 +633,7 @@ Comme indiqué dans le~\cref{tab:vaihingen_stride}, l'utilisation d'une dernièr
 		\caption*{\picname}
 	\end{subfigure}
 	}
-	\caption{Exemple de segmentation obtenue par SegNet sur le jeu de données \gls{ISPRS} Potsdam (tuile 3\_11).\\\isprslegende}
+	\caption[Exemple de segmentation obtenue par SegNet sur le jeu de données \glsname{ISPRS} Potsdam (tuile 3\_11).]{Exemple de segmentation obtenue par SegNet sur le jeu de données \glsname{ISPRS} Potsdam (tuile 3\_11).\\\isprslegende}
 	\label{fig:potsdam_images}
 \end{figure}
 
@@ -677,7 +677,7 @@ Sur le jeu de données \gls{ISPRS} Potsdam (cf. \cref{table:final_potsdam}), not
 	    \caption{SegNet est susceptible de surapprendre sur des déformations géométriques dues à des erreurs d'ortho-rectification.}
 	    \label{fig:geometric_dist}
 	\end{subfigure}
-	\caption{Cas limites de désaccord entre les prédictions faites par SegNet et la vérité terrain.\\
+	\caption[Cas limites de désaccord entre les prédictions faites par SegNet et la vérité terrain.]{Cas limites de désaccord entre les prédictions faites par SegNet et la vérité terrain.\\
 	\isprslegende}
 \end{figure}
 

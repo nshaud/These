@@ -86,7 +86,7 @@ Enfin, nous augmentons le jeu de données d'apprentissage en appliquant diverses
     	\includegraphics[width=\textwidth]{images/7}
         \caption*{translation}
     \end{subfigure}
-    \caption{Augmentation de données sur un véhicule de la base \gls{VEDAI}.}
+    \caption{Augmentation de données sur un véhicule de la base \glsname{VEDAI}.}
     \label{fig:augmented_car}
 \end{figure}
 
@@ -162,7 +162,7 @@ Nous entraînons un SegNet pour la segmentation sémantique sur ce jeu de donné
         \caption*{SegNet (Potsdam)}
     \end{subfigure}
 
-    \caption{Exemples de segmentation obtenues sur Potsdam et Christchurch.\\\isprslegende}
+    \caption[Exemples de segmentation obtenues sur Potsdam et Christchurch.]{Exemples de segmentation obtenues sur Potsdam et Christchurch.\\\isprslegende}
     \label{fig:segmentations}
 \end{figure}
 
@@ -170,7 +170,7 @@ Nous détaillons dans le~\cref{table:potsdam_seg} les scores $F_1$ et l'exactitu
 
 \begin{table}[t]
 \centering
-	\caption{Résultats de segmentation sémantique sur le jeu de données \gls{ISPRS} Potsdam (scores $F_1$ et exactitude globale).}
+	\caption{Résultats de segmentation sémantique sur le jeu de données \glsname{ISPRS} Potsdam (scores $F_1$ et exactitude globale).}
     \label{table:potsdam_seg}
     %\setlength{\tabcolsep}{2pt}
     \scalebox{0.8}[0.8]{
@@ -207,16 +207,16 @@ Comme illustré dans la~\cref{table:christchurch_seg}, un SegNet entraîné sur 
 \centering
 	\begin{subfigure}{0.3\textwidth}
     	\includegraphics[width=\textwidth]{images/christchurch_draw1}
-    	\caption{}
+    	\caption*{Christchurch}
     \end{subfigure}
     \begin{subfigure}{0.3\textwidth}
     	\includegraphics[width=\textwidth]{images/christchurch_draw2}
-    	\caption{}
+    	\caption*{Christchurch}
     \end{subfigure}\begin{subfigure}{0.3\textwidth}
     	\includegraphics[width=\textwidth]{images/potsdam_draw1}
-    	\caption{}
+    	\caption*{Potsdam}
     \end{subfigure}\vspace{-12pt}
-	\caption{Exemples de détections sur Potsdam et Christchurch (vrais positifs en vert, faux positifs en rouge et vérité terrain en bleu). (\textbf{a}) Christchurch; (\textbf{b}) Christchurch; (\textbf{c}) Potsdam.}
+	\caption{Exemples de détections sur Potsdam et Christchurch (vrais positifs en vert, faux positifs en rouge et vérité terrain en bleu).}
     \label{fig:detection_samples}
 \end{figure}
 
@@ -233,7 +233,7 @@ Finalement, nous indiquons les résultats de détection dans le~\cref{table:dete
 
 \begin{table}[t]
 \centering
-  \caption{Segmentation d'instance et détection de véhicules pour différents pré-traitements morphologiques (\gls{IsU} moyen, précision et rappel).}
+  \caption{Segmentation d'instance et détection de véhicules pour différents pré-traitements morphologiques (\glssymbol{IsU} moyen, précision et rappel).}
   \label{table:morpho_results}
   \begin{tabularx}{\textwidth}{Y c c c c}
   \toprule
@@ -287,7 +287,7 @@ Les résultats sont moyennés et arrondis à l'entier le plus proche pour chaque
 
 \begin{table}[t]
 \centering
-  \caption{Erreur moyenne d'estimation du nombre de véhicules par cellule de 125$\times$\SI{125}{\meter\squared}.}
+  \caption{Erreur moyenne d'estimation du nombre de véhicules par cellule de \SI{125x125}{\meter\squared}.}
   \label{table:results_counting}
   \begin{tabularx}{\textwidth}{Ycc}
   \toprule
@@ -364,7 +364,7 @@ Le \cref{table:da_benchmark} détaille les résultats de classification de véhi
 
 \begin{table}[t]
 \centering
-	\caption{Résultats de classification de plusieurs \gls{CNN} sur \gls{VEDAI} (en \%).}
+	\caption{Résultats de classification de plusieurs \glssymbol{CNN} sur \glsname{VEDAI} (en \%).}
     \label{table:cnn_benchmark}
     \setlength\tabcolsep{3pt}
     \scalebox{0.8}[0.8]{
@@ -382,7 +382,7 @@ Le \cref{table:da_benchmark} détaille les résultats de classification de véhi
 \unskip
 \begin{table}[t]
 \centering
-	\caption{Résultats de classification d'AlexNet sur \gls{VEDAI} avec plusieurs pré-traitements (en \%).}
+	\caption{Résultats de classification d'AlexNet sur \glsname{VEDAI} avec plusieurs pré-traitements (en \%).}
     \label{table:da_benchmark}
     \setlength\tabcolsep{3pt}
    \scalebox{0.78}[0.78]{
@@ -693,7 +693,7 @@ Toutes les expériences sont réalisées à l'aide de la bibliothèque PyTorch~\
 	\includegraphics[width=\textwidth]{images_vaihingen/result_segnet_256_proxy_2_32_colors}
     \caption{SegNet (multi-tâche)}
 \end{subfigure}
-\caption{Extrait des résultats de segmentation sur le jeu de données ISPRS Vaihingen.\\\isprslegende}
+\caption[Extrait des résultats de segmentation sur le jeu de données ISPRS Vaihingen.]{Extrait des résultats de segmentation sur le jeu de données ISPRS Vaihingen.\\\isprslegende}
 \label{fig:isprs_vaihingen}
 \end{figure}
 
@@ -717,7 +717,7 @@ Toutes les expériences sont réalisées à l'aide de la bibliothèque PyTorch~\
 	\includegraphics[width=\textwidth]{images_potsdam/result_segnet_potsdam_256_proxy_2_2_11_colors}
     \caption{SegNet (multi-tâche)}
 \end{subfigure}
-\caption{Extrait des résultats de segmentation sur le jeu de données ISPRS Potsdam.\\\isprslegende}
+\caption[Extrait des résultats de segmentation sur le jeu de données ISPRS Potsdam.]{Extrait des résultats de segmentation sur le jeu de données ISPRS Potsdam.\\\isprslegende}
 \label{fig:isprs_potsdam}
 \end{figure}
 
@@ -756,11 +756,11 @@ Les résultats de validation croisée sur les jeux de données ISPRS Vaihingen e
 \begin{figure*}[t]
 \begin{subfigure}{0.24\textwidth}
 	\includegraphics[width=\textwidth]{images_inria/chicago5_rgb_zoom}
-    \caption{RGB image}
+    \caption{Image \glsname{RVB}}
 \end{subfigure}
 \begin{subfigure}{0.24\textwidth}
 	\includegraphics[width=\textwidth]{images_inria/chicago5_gt_zoom}
-    \caption{Ground truth}
+    \caption{Vérité terrain}
 \end{subfigure}
 \begin{subfigure}{0.24\textwidth}
 	\includegraphics[width=\textwidth]{images_inria/chicago5_standard_zoom}
@@ -770,11 +770,11 @@ Les résultats de validation croisée sur les jeux de données ISPRS Vaihingen e
 	\includegraphics[width=\textwidth]{images_inria/chicago5_proxy_zoom}
     \caption{SegNet (multi-tâche)}
 \end{subfigure}
-\caption{Extrait des résultats de segmentation sur le jeu de données INRIA Aerial Image Labeling. Les pixels corrects sont en \textcolor{OliveGreen}{vert}, les faux positifs en \textcolor{Lavender}{rose} et les faux négatifs en \textcolor{Blue}{bleu}. L'approche multi-tâche capture mieux la structure spatiale des objets.}
+\caption[Extrait des résultats de segmentation sur le jeu de données INRIA \emph{Aerial Image Labeling}.]{Extrait des résultats de segmentation sur le jeu de données INRIA \emph{Aerial Image Labeling}. Les pixels corrects sont en \textcolor{OliveGreen}{vert}, les faux positifs en \textcolor{Lavender}{rose} et les faux négatifs en \textcolor{Blue}{bleu}. L'approche multi-tâche capture mieux la structure spatiale des objets.}
 \label{fig:inria_results}
 \end{figure*}
 
-Les résultats sur le jeu de données INRIA Aerial Image Labeling sont détaillés dans le~\cref{tab:inria_results}. L'utilisation de la régression sur les cartes de distances améliore significativement le ratio d'intersection sur union. Comme illustré dans la~\cref{fig:inria_results}, les formes des bâtiments respectent mieux l'a priori polygonal et la connexité des objets. Les bâtiments qui étaient déjà détectés sont segmentés avec plus de régularité. Dans l'ensemble, nous résultats sont compétitifs avec les autres méthodes de la première année du comparatif~\cite{huang_large-scale_2018}, qui utilisent notamment des fonctions de coût alternatives dérivées de l'indice Jaccard comme régularisation.
+Les résultats sur le jeu de données INRIA \emph{Aerial Image Labeling} sont détaillés dans le~\cref{tab:inria_results}. L'utilisation de la régression sur les cartes de distances améliore significativement le ratio d'intersection sur union. Comme illustré dans la~\cref{fig:inria_results}, les formes des bâtiments respectent mieux l'a priori polygonal et la connexité des objets. Les bâtiments qui étaient déjà détectés sont segmentés avec plus de régularité. Dans l'ensemble, nous résultats sont compétitifs avec les autres méthodes de la première année du comparatif~\cite{huang_large-scale_2018}, qui utilisent notamment des fonctions de coût alternatives dérivées de l'indice Jaccard comme régularisation.
 %The results on the validation set of the INRIA Aerial Image Labeling benchmark are reported in~\cref{tab:inria_results}. Using the distance transform regression improves the intersection over union (IoU) by 0.47 and makes many errors disappear. As shown in~\cref{fig:inria_results}, the buildings shapes are more regular in the multi-task prediction and fit better to the original image edges. Although no additional buildings are detected, those that were already segmented become cleaner. Compared to~\cite{bischke_multi-task_2017}, we have a stronger baseline that is even more improved by the distance transform regression using a simpler method than the proposed quantized distance classification.
 
 \paragraph{SUN RGB-D}

@@ -190,15 +190,17 @@ Autrement dit, le module de correction résiduelle est optimisé afin de compens
     \toprule
   	Modèle & routes & bâtiments & vég. basse & arbres & véhicules & Exactitude\\\\
     \midrule
-    FCN + CRF + caractéristiques expertes~\cite{liu_dense_2017} & 91.2 & 94.6 & 85.1 & 85.1 & 92.8 & 88.4\\
-    FCN~\cite{sherrah_fully_2016} & 92.5 & \textbf{96.4} & 86.7 & 88.0 & 94.7 & 90.3\\
+    FCN + CRF + caractéristiques expertes~\cite{liu_dense_2017} & \res{91.2}{} & \res{94.6}{} & \res{85.1}{} & \res{85.1}{} & \res{92.8}{} & \res{88.4}{}\\
+    FCN~\cite{sherrah_fully_2016}                               & \res{92.5}{} & \res{96.4}{} & \res{86.7}{} & \res{88.0}{} & \res{94.7}{} & \res{90.3}{}\\
     \midrule
-    SegNet (\glssymbol{IRRV}) & 92.4 & 95.8 & 86.7 & 87.4 & 95.1 & 90.0\\
-	  SegNet-RC & 91.3 & 95.9 & 86.2 & 85.6 & 94.8 & 89.0\\
-    V-FuseNet & \textbf{92.7} & 96.3 & \textbf{87.3} & \textbf{88.5} & \textbf{95.4} & \textbf{90.6}\\
+    SegNet (\glssymbol{IRRV})  & \res{92.4}{} & \res{95.8}{} & \res{86.7}{} & \res{87.4}{} & \res{95.1}{} & \res{90.0}{}\\
+	  SegNet-RC                  & \res{93.2}{} & \res{97.1}{} & \res{87.4}{} & \res{88.0}{} & \res{95.8}{} & \res{90.9}{}\\
+    V-FuseNet                  & \res{92.7}{} & \res{96.3}{} & \res{87.3}{} & \res{88.5}{} & \res{95.4}{} & \res{90.6}{}\\
     \bottomrule
     \end{tabularx}
 \end{table}
+
+\todo[inline]{Relancer V-FuseNet sur Potsdam avec les vraies données composites}
 
 
 \begin{figure}[!tb]
@@ -337,8 +339,7 @@ La fusion dans l'encodeur par FuseNet permet d'exploiter conjointement les modal
     \end{tabularx}
 \end{table}
 
-
-En outre, la correction résiduelle est moins utile lorsque la confiance accordée par les modèles dans leurs prédictions est faible. Sur le jeu de données \gls{ISPRS} Potsdam, le SegNet composite n'atteint que 79\% de taux de bonne classification, car l'image composite est moins informative pour discriminer des objets à résolution de \SI{5}{\centi\meter/\px}. Par conséquent, la correction résiduelle dégrade légèrement les performances. En revanche, sur le jeu de données \gls{ISPRS} Vaihingen, l'image composite est nettement plus informative (85\% de taux de bonne classification) et l'ensemble parvient à combiner efficacement les deux sources de données car les deux sont informatives avec un bon taux de confiance, comme illustré dans la~\cref{fig:confidence_vaihingen_fusion}. On observe par ailleurs qu'améliorer les performances sur l'image composite en utilisant un ResNet-34 permet également d'améliorer la performance de la correction résiduelle.
+Un des avantages qualitatifs est de la correction résiduelle est de pouvoir fusionner des prédictions en fonction de l'intensité des activations. La~\cref{fig:confidence_vaihingen_fusion} donne ainsi un exemple de fusion réussie, dans laquelle la confusion du modèle \gls{IRRV} autour des voitures est compensée par la confiance élevée de la prédiction du modèle composite. En outre, améliorer les performances sur l'image composite en utilisant un ResNet-34 permet également d'améliorer la performance de la correction résiduelle.
 %\todo{mesurer le gain théorique union entre les deux sources de données}
 %However, on the Potsdam dataset, the residual correction strategy slightly decreases the model accuracy. Indeed, the late fusion is mostly useful to combine strong predictions that are complementary. For example, as illustrated in~\cref{fig:confidence_vaihingen_fusion}, the composite SegNet has a strong confidence in its building prediction while the IRRG SegNet has a strong confidence in its cars predictions. Therefore, the residual correction is able to leverage those predictions and to fuse them to alleviate the uncertainty around the cars in the rooftop parking lot. This works well on Vaihingen as both the IRRG and composite sources achieve a global accuracy higher than 85\%. However, on Potsdam, the composite SegNet is less informative and achieves only 79\% accuracy, as the annotations are more precise and the dataset overall more challenging for a data source that relies only on Lidar and NDVI. Therefore, the residual correction fails to make the most of the two data sources. This analysis is comforted by the fact that, on the Vaihingen validation set, the residual correction achieves a better global accuracy with ResNets than with SegNets, thanks to the stronger ResNet-34 trained on the composite source.
 
