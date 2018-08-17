@@ -57,12 +57,6 @@
 \usepackage[francais,nohints]{minitoc}	% Mini table des matières, en français
 	\setcounter{minitocdepth}{2}	% Mini-toc détaillées (sections/sous-sections)
 %\usepackage[notbib]{tocbibind}		% Ajoute les Tables des Matières/Figures/Tableaux à la table des matières
-\usepackage[Lenny]{fncychap}		% Jolis en-têtes de chapitre
-% En-têtes des chapitres en style Lenny avec les bonnes couleurs
-\ChNameVar{\fontsize{14}{16}\sffamily\bfseries\color{black}}
-\ChNumVar{\fontsize{60}{62}\sffamily\color{black}}
-\ChTitleVar{\Huge\sffamily\color{mygreen}}
-\ChTitleAsIs
 %% Biblatex
 \usepackage[style=numeric,sorting=nyt,natbib=true,refsection=chapter,backend=biber,backref=true]{biblatex}
 \AtEveryBibitem{\clearlist{language}} % Enlève la section "language" des références
@@ -219,6 +213,21 @@ detect-all}
 	\titleformat{\subsubsection}[hang]
 		{\normalfont\sffamily}
 		{\thesection}{0.3em}{}
+	\titleformat{\chapter}[block]
+		{\normalfont\sffamily\Huge\color{mygreen}}
+		{\begin{minipage}{.2\textwidth}
+		\begin{tikzpicture}
+		\fill[color=mygreen] (-1,-1.25) rectangle node[scale=2] {\normalfont\sffamily\Huge\bfseries\color{white}\thechapter} (1,1.25);
+		\node[anchor=south,rotate=90] at (-1, 0) {\normalfont\sffamily\Large\color{black} \chaptertitlename};
+		\end{tikzpicture}
+		\end{minipage}}
+		{0.3em}{\begin{minipage}{.8\textwidth}\raggedright}[\end{minipage}]
+	\titlespacing{\chapter}{0pt}{0pt}{15pt}
+
+		%\ChNameVar{\fontsize{14}{16}\sffamily\bfseries\color{black}}
+		%\ChNumVar{\fontsize{60}{62}\sffamily\color{black}}
+		%\ChTitleVar{\Huge\sffamily\color{mygreen}}
+  % Réduit la marge supérieure pour les titres de chapitre
 
 % Glossaires
 \usepackage[acronym,toc,numberedsection,ucmark]{glossaries}
