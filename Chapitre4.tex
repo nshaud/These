@@ -5,9 +5,9 @@
 \minitoc
 
 \chapsummary{%
-\lettrine{L}{es} chapitres précédent nous ont permis d'établir de nouveaux états de l'art en segmentation sémantique d'images de télédétection sur l'ensemble des capteurs optiques couramment mise en \oe{}uvre pour l'observation de la Terre. Cependant, nous avons également souligné la difficulté d'exploiter directement les modèles numériques de terrain dérivés du \gls{Lidar}.
+\lettrine{L}{es} chapitres précédents nous ont permis d'établir de nouveaux états de l'art en segmentation sémantique d'images de télédétection sur l'ensemble des capteurs optiques couramment mise en \oe{}uvre pour l'observation de la Terre. Cependant, nous également observé l'insuffisance des modèles numériques de terrain dérivés du \gls{Lidar} lorsqu'ils sont exploités seuls.
 
-Dans ce chapitre, nous étudions les techniques de fusion de données permettant de combiner l'information issue de capteurs hétérogènes. Notamment, nous proposons plusieurs architectures multi-modales pour l'apprentissage profond capables d'apprendre conjointement à partir des images optiques et des modèles numériques de terrain. Nous validons ces modèles avec succès sur plusieurs jeux de données et montrons ainsi qu'il est possible de tirer profit de la complémentarité des différents capteurs.
+Dans ce chapitre, nous étudions les techniques de fusion de données permettant de combiner des informations issues de capteurs hétérogènes. Notamment, nous proposons plusieurs architectures multi-modales pour l'apprentissage profond capables d'apprendre conjointement à partir des images optiques et des modèles numériques de terrain. Nous validons ces modèles avec succès sur plusieurs jeux de données et montrons ainsi qu'il est possible de tirer profit de la complémentarité des différents capteurs.
 
 Nous étendons ensuite ces travaux à des sources de données non physiques. En particulier, nous appliquons ces architectures de fusion de donnée à des connaissances géographiques a priori provenant de bases de données en ligne, afin de consolider les cartes sémantiques prédites par le réseau. En considérant cette source d'information comme un capteur virtuel, les architectures multi-modales précédemment développées nous permettent d'insérer des connaissances préalables dans les processus d'apprentissage et d'inférence de nos réseaux de neurones.
 }
@@ -36,38 +36,40 @@ Nous étendons ensuite ces travaux à des sources de données non physiques. En 
     \label{fig:cnn_multimodal}
   \end{subfigure}
   \hfill
+  \caption{Exemples d'architectures multi-modales de réseaux profonds.}
+  \label{fig:deep_multimodal}
 \end{figure}
 
-Jusqu'à présent nous n'avons présenté que des réseaux de neurones n'opérant que sur un seul type de données. Toutefois, la perception sensorielle humaine mobilise plusieurs modalités, notamment le son et l'image, présentant des interactions entre elles. Une question naturelle est donc de chercher à savoir dans quelle mesure une machine est en mesure d'exploiter ce type d'informations contenues sous plusieurs formes, partiellement redondantes.
+Les réseaux de neurones que nous avons présenté jusqu'à présent n'opèrent que sur une unique source de données. Toutefois, la perception sensorielle humaine mobilise plusieurs modalités, notamment le son et l'image, présentant des interactions entre elles. Une question naturelle est donc de chercher à savoir dans quelle mesure une machine est en mesure d'exploiter ce type d'informations contenues sous plusieurs formes, partiellement redondantes.
 
 Cette question relève de l'apprentissage multi-modal et n'est pas spécifique au domaine de la télédétection. L'apprentissage de représentations à partir de signaux de natures hétérogènes est en effet un domaine de recherche à part entière. \citet{baltrusaitis_multimodal_2017} proposent la taxonomie suivante, dans laquelle les représentations peuvent être conjointes (une même représentation pour plusieurs modalités) ou coordonnées (chaque modalité à une représentation)\,:
 \begin{itemize}
     \item Représentation\,: génération de caractéristiques exploitant la complémentarité et la redondance de modalités multiples.
     \item Traduction\,: conversion d'une modalité à une autre.
     \item Alignement\,: identification de correspondances entre une représentation d'une modalité et une autre.
-    \item Fusion\,: utilisation en compte plusieurs modalités pour la prise de décision.
+    \item Fusion\,: admission de plusieurs modalités pour la prise de décision.
 \end{itemize}
 
-Un modèle capable de synthétiser l'information visuelle et sonore d'une vidéo pour y assigner des étiquettes peut ainsi fonctionner de plusieurs façons. Une première possibilité est d'extraire des caractéristiques séparément pour le son et l'image puis d'utiliser un classifieur qui travaillera sur les caractéristiques concaténées (fusion). Il est également possible de contraindre les représentations audio et vidéo à respecter des critères de proximité sémantique (alignement) par des mesures de similarité. À l'inverse, une des modalités peut servir de référence à des algorithmes d'adaptation de domaine permettant de projecter une caractéristique audio vers une caractéristique image et inversement (traduction). Enfin, plutôt que de manipuler les représentations séparément, il est possible de construire un modèle travaillant sur des données hétérogènes pour construire une représentation multi-modale unique (représentation).
+Un modèle capable de synthétiser l'information visuelle et sonore d'une vidéo pour y assigner des étiquettes peut ainsi fonctionner de plusieurs façons. Une première possibilité est d'extraire des caractéristiques séparément pour le son et l'image puis d'utiliser un classifieur qui travaillera sur les caractéristiques concaténées (fusion). Il est également possible de contraindre les représentations audio et vidéo à respecter des critères de proximité sémantique (alignement) par des mesures de similarité. À l'inverse, une des modalités peut servir de référence à des algorithmes d'adaptation de domaine permettant de projecter une caractéristique audio vers une caractéristique image et inversement (traduction). Enfin, plutôt que de manipuler les représentations séparément, il est possible de construire un modèle travaillant directement sur la vidéo dans son hétérogénéité pour construire une représentation unique multi-modale (représentation).
 
-De nombreuses tâches sont liées à l'apprentissage multi-modal, comme le sous-titrage automatique d'images~\cite{karpathy_deep_2015}, la classification de vidéos~\cite{kim_deep_2013} ou la reconnaissance d'activités à partir de signaux issus de bracelets connectés~\cite{ordonez_deep_2016}. De nombreux jeux de données multi-modaux ont été proposés pour une grande variété de tâches\,: description automatique d'images~\cite{hodosh_framing_2013}, diagnostic médical à partir de scanners variés~\cite{menze_multimodal_2015}, reconnaissance d'action à partir de données 3D et d'images~\cite{ofli_berkeley_2013}, analyse d'émotions ressenties à partir de vidéos~\cite{schuller_avec_2011}, éventuellement enrichie par des mesures cardiaques et neurales~\cite{ringeval_introducing_2013}.
+De nombreuses tâches sont liées à l'apprentissage multi-modal, comme le sous-titrage automatique d'images~\cite{karpathy_deep_2015}, la classification de vidéos~\cite{kim_deep_2013} ou la reconnaissance d'activités à partir de signaux issus de bracelets connectés~\cite{ordonez_deep_2016}. De nombreux jeux de données multi-modaux ont été proposés pour une grande variété d'applications\,: description automatique d'images~\cite{hodosh_framing_2013}, diagnostic médical à partir de scanners variés~\cite{menze_multimodal_2015}, reconnaissance d'action à partir de données 3D et d'images~\cite{ofli_berkeley_2013}, analyse d'émotions ressenties à partir de vidéos~\cite{schuller_avec_2011}, éventuellement enrichie par des mesures cardiaques et neurales~\cite{ringeval_introducing_2013}.
 
-Une des premières méthodes développées pour l'apprentissage multi-modal s'intéresse à la fusion dite tardive, s'appliquant au moment de la prise de décision finale. Dans le cas le plus simple, il s'agit d'utiliser un modèle pour chaque modalité et d'appliquer des méthodes d'apprentissage par ensemble, ou plus directement une combinaison linéaire, pour prendre la décision en tenant compte des entrées hétérogènes. C'est par exemple l'approche retenue par~\citet{yuhas_integration_1989} et~\citet{meier_adaptive_1996} pour la reconnaissance automatique de syllabes à partir de vidéos. On retrouve régulièrement ce type d'approche dans la littérature récente pour le traitement de vidéos, par exemple dans~\cite{noda_audio-visual_2015} qui utilise une chaîne de Markov cachée pour la reconnaissance automatique de la parole.
+Une des premières méthodes développées pour l'apprentissage multi-modal s'intéresse à la fusion dite tardive, intervenant lors de la prise de décision finale. Dans le cas le plus simple, il s'agit d'utiliser un modèle pour chaque modalité et d'appliquer des méthodes combinatoires d'apprentissage par ensemble, ou plus directement une combinaison linéaire, pour prendre la décision en tenant compte des entrées hétérogènes. C'est par exemple l'approche retenue par~\citet{yuhas_integration_1989} et~\citet{meier_adaptive_1996} pour la reconnaissance automatique de syllabes à partir de vidéos. On retrouve régulièrement ce type d'approche dans la littérature récente pour le traitement de vidéos, par exemple dans~\cite{noda_audio-visual_2015} qui utilise une chaîne de Markov cachée pour la reconnaissance automatique de la parole.
 
-Toutefois, l'apprentissage profond puise sa force dans l'expressivité des représentations que les modèles peuvent apprendre. Ainsi, l'apprentissage multi-modal profond s'est intéressé à l'étude de caractéristiques conjointes sur des sources de données hétérogènes. \citet{ngiam_multimodal_2011} se sont par exemple intéressés à la construction d'un \gls{DBN} auto-encodeur bi-modal audio-image. Deux encodeurs traitent chaque canal séparément et convergent vers une représentation partagée. Deux décodeurs doivent reconstruire chacun une des modalités à partir de la même représentation, comme illustré dans la~\cref{fig:ae_multimodal}. Un point particulièrement intéressant est que cette représentation partagée se montre capable de compenser la perte d'une modalité. Leur modèle peut ainsi être utilisé pour prédire un phonème à partir de la vidéo seulement ou de l'audio seulement.
-\citet{srivastava_multimodal_2014} proposent une architecture similaire conçue à partir de machines de Boltzmann profondes pouvant s'appliquer aux vidéos, mais aussi à des données très hétérogènes comme l'image (signal brut) et des étiquettes descriptives (langage symbolique). Leur modèle permet en outre de générer l'une des modalités à partir de l'autre lorsqu'elle est manquante. Plus récemment, \citet{simonyan_two-stream_2014} introduisent des réseaux à double flux pour la reconnaissance d'action dans des vidéos à partir des modalités son et image.
+Toutefois, l'apprentissage profond puise sa force dans l'expressivité des représentations que les modèles peuvent apprendre. Ainsi, \citet{ngiam_multimodal_2011} se sont par exemple intéressés à la construction d'un \gls{DBN} auto-encodeur bi-modal audio-image. Deux encodeurs traitent chaque canal séparément et convergent vers une représentation partagée. Deux décodeurs doivent reconstruire chacun une des modalités à partir de la même représentation, comme illustré dans la~\cref{fig:ae_multimodal}. Un point particulièrement intéressant est que cette représentation partagée se montre capable de compenser la perte d'une modalité. Leur modèle peut ainsi être utilisé pour prédire un phonème à partir de la vidéo seulement ou de l'audio seulement.
+\citet{srivastava_multimodal_2014} proposent une architecture similaire conçue à partir de machines de Boltzmann profondes pouvant s'appliquer aux vidéos, mais aussi à des données très hétérogènes comme l'image (signal brut) et des étiquettes descriptives (langage symbolique). Leur modèle permet en outre de générer l'une des modalités à partir de l'autre lorsqu'elle est manquante. Plus récemment, \citet{simonyan_two-stream_2014} ont introduit des réseaux à double flux pour la reconnaissance d'action dans des vidéos à partir des modalités son et image.
 
-Récemment, la communauté vision s'est intéressée à la fusion entre images \gls{RVB} et cartes de profondeur pour traiter des données 2,5D, notamment avec l'émergence de capteurs à bas coût permettant l'acquisition de celles-ci, comme le Kinect. S'il est possible de concaténer des caractéristiques issues de modèles pré-entraînés pour générer des représentations multi-modales artificielles~\cite{schwarz_rgb-d_2015,lagrange_benchmarking_2015}, il semble ainsi intéressant de chercher à automatiquement apprendre des représentations conjointes exploitant la complémentarité des sources de données. \citet{eitel_multimodal_2015,guo_two-stream_2016,song_combining_2017} s'inspirent de fait du modèle de~\citet{ngiam_multimodal_2011} en utilisant deux \gls{CNN} en parallèle extrayant des caractéristiques qui sont fusionnées dans une représentation conjointe par les dernières couches, leur permettant ainsi de réaliser directement des classifications d'images \gls{RGB-D}. Cette architecture est illustrée dans la~\cref{fig:cnn_multimodal}. Concrètement, deux réseaux AlexNet en parallèle sont utilisés pour extraire des caractéristiques sur l'image \gls{RVB} et sur une carte de profondeur encodée sur 3 canaux. Les caractéristiques extraites par les couches convolutives d'AlexNet convergent de la même façon que chez~\cite{ngiam_multimodal_2011} et sont utilisées comme entrée du classifieur entièrement connecté commun aux deux réseaux. Ces approches permettent d'améliorer les performances de classifieurs convolutifs par rapport au travail sur l'image \gls{RVB} seule, l'information de profondeur permettant de discriminer certains objets en incluant l'\emph{a priori} géométrique et en permettant diminuer l'influence des occlusions. Ces résultats viennent renforcer ceux obtenus par \citet{simonyan_two-stream_2014} dans lequel un réseau à deux flux pour la classification de vidéos était entraîné en simultané sur chaque image instantanée et sur le flot optique entre deux images successives.
+Récemment, l'émergence de capteurs \gls{RGB-D} robustes et à faible coût comme le Kinect a encouragé la communauté vision à s'intéresser à la fusion entre images \gls{RVB} et cartes de profondeur, c'est-à-dire aux données \num{2,5}D. S'il est possible de concaténer des caractéristiques issues de modèles pré-entraînés pour générer des représentations multi-modales artificielles~\cite{schwarz_rgb-d_2015,lagrange_benchmarking_2015}, il semble ainsi intéressant de chercher à automatiquement apprendre des représentations conjointes exploitant la complémentarité des sources de données. \citet{eitel_multimodal_2015,guo_two-stream_2016,song_combining_2017} s'inspirent de fait du modèle de~\citet{ngiam_multimodal_2011} en utilisant deux \gls{CNN} en parallèle extrayant des caractéristiques qui sont fusionnées dans une représentation conjointe par les dernières couches, leur permettant ainsi de réaliser directement des classifications d'images \gls{RGB-D}. Cette architecture est illustrée dans la~\cref{fig:cnn_multimodal}. Concrètement, deux réseaux AlexNet en parallèle sont utilisés pour extraire des caractéristiques sur l'image \gls{RVB} et sur une carte de profondeur encodée sur 3 canaux. Les caractéristiques extraites par les couches convolutives d'AlexNet convergent de la même façon que chez~\citet{ngiam_multimodal_2011} et sont utilisées comme entrée du classifieur entièrement connecté commun aux deux réseaux. Ces approches permettent d'améliorer les performances de classifieurs convolutifs par rapport au travail sur l'image \gls{RVB} seule, l'information de profondeur introduisant de l'\emph{a priori} géométrique et diminuant l'influence des occlusions.
 
-L'architecture FuseNet introduite par~\citet{hazirbas_fusenet_2016} est une extension naturelle de cette approche à la segmentation sémantique. Toujours appliqué sur des images \gls{RGB-D}, FuseNet dérive du modèle SegNet~\cite{badrinarayanan_segnet_2017} présenté dans le~\cref{chap:cartographie}. Deux encodeurs réalisent une extraction de caractéristiques dense sur l'image \gls{RVB} et la carte de profondeur encodée sur 3 canaux. Un décodeur unique réalise le surréchantillonnage et la classification en simultané. Cette méthode permet à \citet{hazirbas_fusenet_2016} d'établir un nouvel état de l'art sur le jeu de données SUN RGB-D, dédié à la segmentation sémantique d'images \gls{RGB-D} en intérieur. \citet{guerry_look_2017} obtiennent également d'excellents résultats en détection de personnes dans des images \gls{RGB-D} en utilisant ces méchanismes d'apprentissage bi-modaux au sein desquels les encodeurs parallèles s'échangent de l'information issue de capteurs complémentaires. Finalement, \citet{lee_rdfnet_2017} proposent une amélioration de cette architecture en l'adaptant au paradigme de l'apprentissage résiduel et établissent à leur tour un nouvel état de l'art sur le jeu de données SUN RGB-D.
+L'architecture FuseNet introduite par~\citet{hazirbas_fusenet_2016} est une extension naturelle de cette approche à la segmentation sémantique. Appliqué sur des images \gls{RGB-D}, FuseNet dérive du modèle SegNet~\cite{badrinarayanan_segnet_2017} présenté dans le~\cref{chap:cartographie}. Deux encodeurs réalisent une extraction de caractéristiques dense sur l'image \gls{RVB} et la carte de profondeur encodée sur 3 canaux. Un décodeur unique réalise le surréchantillonnage et la classification en simultané. Cette méthode permet à \citet{hazirbas_fusenet_2016} d'établir un nouvel état de l'art sur le jeu de données SUN RGB-D, dédié à la segmentation sémantique d'images \gls{RGB-D} en intérieur. \citet{guerry_look_2017} obtiennent également d'excellents résultats en détection de personnes dans des images \gls{RGB-D} en utilisant ces méchanismes d'apprentissage bi-modaux au sein desquels les encodeurs parallèles s'échangent de l'information issue de capteurs complémentaires. Finalement, \citet{lee_rdfnet_2017} proposent une amélioration de FuseNet en introduisant l'apprentissage résiduel en son sein, établissent à leur tour un nouvel état de l'art sur le jeu de données SUN RGB-D.
 
-Il est intéressant de constater que ces méthodes d'interprétation d'images \gls{RGB-D} traitent toutes séparément les aspects de couleur et de profondeur. En effet, comme pour le multispectral, il est intéressant de pouvoir bénéficier des modèles pré-entraînés forts sur les images \gls{RVB}. Concaténer la carte de profondeur à l'image couleur pour former un tenseur à 4 canaux résulte ainsi en des performances plus faibles qu'en traitant les données séparément.
+De cette revue de l'état de l'art, observons d'ores et déjà que les méthodes d'interprétation d'images \gls{RGB-D} traitent toutes séparément les aspects de couleur et de profondeur. En effet, comme pour le multispectral, il est intéressant de pouvoir bénéficier des modèles pré-entraînés forts sur les images \gls{RVB}. Concaténer la carte de profondeur à l'image couleur pour former un tenseur à 4 canaux résulte ainsi en des performances plus faibles qu'en traitant les données séparément.
 
 \subsection{Transposition à la télédétection}
 
-En télédétection, l'utilisation des modèles numériques de terrain pour améliorer les performances des classifieurs image a également été fortement étudiée. Le problème est en effet très similaire à celui de l'interprétation d'images 2,5D \gls{RGB-D}, le \gls{MNT} jouant un rôle très similaire à celui des carte de profondeur.
+En télédétection, l'utilisation des modèles numériques de terrain pour améliorer les performances des classifieurs image a également été étudiée à plusieurs reprises. Le problème est en effet proche de l'interprétation d'images 2,5D \gls{RGB-D}, le \gls{MNT} jouant un rôle comparable à celui des carte de profondeur.
 
-Toutefois, la plupart des travaux antérieurs à cette thèse ont utilisé des stratégies \emph{ad hoc} pour réaliser cette fusion. \citet{lagrange_benchmarking_2015} concatènent simplement les caractéristiques extraites par des réseaux pré-entraînés pour optimiser un nouveau classifieur \gls{SVM} et \citet{paisitkriangkrai_effective_2015} font de même avec des forêts aléatoires en y intégrant en sus des caractéristiques expertes. Plus récemment, \cite{liu_dense_2017} utilise ces mêmes caractéristiques mais les injectent dans un modèle graphique de type \gls{CRF} pour combiner segmentation sémantique issue d'un \gls{FCN}, modèle de terrain et \gls{NDVI}.
+Toutefois, la plupart des travaux antérieurs à cette thèse ont utilisé des stratégies \emph{ad hoc} pour réaliser cette fusion. \citet{lagrange_benchmarking_2015} concatènent simplement les caractéristiques extraites par des réseaux pré-entraînés pour optimiser un nouveau classifieur \gls{SVM} et \citet{paisitkriangkrai_effective_2015} font de même avec des forêts aléatoires en y intégrant en sus des caractéristiques expertes. Plus récemment, \citet{liu_dense_2017} utilisent ces mêmes caractéristiques mais les injectent dans un modèle graphique de type \gls{CRF} pour combiner segmentation sémantique issue d'un \gls{FCN}, modèle de terrain et \gls{NDVI}.
 
 Dans cette thèse, nous étudions des approches profondes de bout en bout n'utilisant ni modèle graphique, ni caractéristiques \emph{ad hoc}. Dans un premier temps, nous nous intéresserons à la fusion optique/\glslink{MNT}{modèle numérique de terrain}, puis nous chercherons comment utiliser ces méthodes pour l'intégration de connaissances \emph{a priori}.
 
@@ -78,10 +80,24 @@ Dans cette thèse, nous étudions des approches profondes de bout en bout n'util
 \end{figure}
 
 \section{Fusion de modèles}
+\label{sec:fusion}
 
 \subsection{Fusion par apprentissage}
 
 L'architecture FuseNet~\cite{hazirbas_fusenet_2016} est une variante multi-modale de SegNet. Comme illustré dans la~\cref{fig:fusenet}, FuseNet encode conjointement l'image \gls{RVB} et la carte de profondeur en utilisant deux encodeurs dont les contributions respectives sont additionnées après chaque bloc convolutif. Un décodeur unique réalise alors la reconstruction de la résolution et la classification. Cette approche peut être adaptée à n'importe quel autre \gls{CNN} de base, comme les ResNet.
+
+Plus formellement, en notant $\hat{P}$ la fonction de prédiction modélisée par FuseNet appliquée à l'image $I$ et la profondeur $\Delta$, $\mathcal{D}$ le décodeur et $E^I_i, E^\Delta_i$ les sorties du $i$\ieme bloc des encodeurs pour l'image et la profondeur et $\mathcal{B}_i$ l'opérateur modélisant le $i$\ieme bloc, alors:
+\begin{equation}
+\hat{P}(I,\Delta) = \mathcal{D}\left(E_5^I\right)
+%P(I,O) = D(E(I,O))
+\end{equation}
+où
+\begin{equation}
+  \begin{cases}
+    ~E_{i+1}^I(I,\Delta) = \mathcal{B}_i^\mathit{image}\left(E_i^I + E_i^\Delta\right)\\
+    ~E_{i+1}^\Delta(\Delta) = \mathcal{B}_i^\Delta(E_i^\Delta)
+  \end{cases}
+\end{equation}
 
 Dans notre cas, nous pouvons altérer FuseNet de la même façon que nous avons altéré SegNet dans les chapitres précédents, afin de traiter des images de télédétection. En effet, une carte d'élévation comme le \gls{MNE} peut être considérée comme une carte de profondeur associée à une image \gls{RVB}. De fait, nous proposons ainsi d'adapter FuseNet au traitemement d'images de télédétection multi-modales. En pratique, nous utiliserons comme sources d'entrées les images optiques, \gls{RVB} ou \gls{IRRV}, et les images composites générées dans la~\cref{sec:composite}.
 
@@ -102,9 +118,9 @@ Dans notre cas, nous pouvons altérer FuseNet de la même façon que nous avons 
 
 Néanmoins, l'architecture FuseNet considère les données de profondeur comme secondaires. En effet, les deux branches de l'encodeur ne sont pas complètement symétriques\,: la branche de profondeur ne considère que l'information de profondeur tandis que la branche optique opère en réalité sur une représentation conjointe \gls{RGB-D}. De plus, le processus de sur-échantillonnage du décodeur ne considère que les indices de la branche principale, c'est-à-dire la branche optique. Il est donc nécessaire de choisir une source principale de données et une source auxiliaire (cf.~\cref{fig:fusenet_sum}). Il y a donc un déséquilibre fondamental entre les traitements appliqués aux deux sources. Nous proposons une architecture alternative utilisant une troisième source de données virtuelle qui permet de faire disparaître cette asymétrie.
 
-Plutôt que de calculer la somme des cartes d'activations, nous utilisons un processus de fusion permettant d'encoder des caractérstiques multi-modales. Nous introduisons un troisième encodeur qui ne correspond à aucune modalité réelle, mais traite la représentation conjointe des données. Après le $n$\ieme bloc, l'encodeur virtuel concatène les activations des deux encodeurs réels et les transmet à un bloc convolutif résiduel, qui en génère une représentation multi-modale conjointe. Ce sont ces caractéristiques qui sont ensuite décodées et sur-échantillonnées par la deuxième partie du modèle. Ce procédé est illustré par la~\cref{fig:fusenet_mix}. Cette stratégie permet de symétriser FuseNet et de ne plus avoir à choisir de source principale. Cette architecture est nommée \textbf{V-FuseNet} dans le reste du chapitre.
+Plutôt que de calculer la somme des cartes d'activations, nous utilisons un processus de fusion permettant d'encoder des caractéristiques multi-modales. Nous introduisons un troisième encodeur qui ne correspond à aucune modalité réelle, mais traite la représentation conjointe des données. Après le $n$\ieme bloc, l'encodeur virtuel concatène les activations des deux encodeurs réels et les transmet à un bloc convolutif résiduel, qui en génère une représentation multi-modale conjointe. Ce sont ces caractéristiques qui sont ensuite décodées et sur-échantillonnées par la deuxième partie du modèle. Ce procédé est illustré par la~\cref{fig:fusenet_mix}. Cette stratégie permet de symétriser FuseNet et de ne plus avoir à choisir de source principale. Dans la taxonomie de~\citet{baltrusaitis_multimodal_2017}, cela correspond de passer à une méthode d'alignement à une approche par représentation. Cette architecture est nommée \emph{V-FuseNet} dans le reste du chapitre.
 
-Un autre inconvénient de FuseNet est que cette approche nécessite d'avoir des modèles de base topologiquement compatible afin de pouvoir sommer les activations et fusionner les encodeurs. Cependant, cela ne se vérifie pas systématiquement. Par exemple, certaines données peuvent posséder des natures différentes, comme une image 2D et un nuage de point 3D. En outre, il n'est pas nécessairement utile de consacrer autant de paramètres sur les deux sources de données, notamment si l'une est moins informative que l'autre. Nous proposons donc une méthode de fusion de données alternative pour extraire de l'information à partir de sources hétérogènes. En l'occurrence, nous suggérons d'étudier la possibilité d'effectuer une fusion tardive au moment de la prise de décision, plutôt que d'apprendre des représentations conjointes.
+Un autre inconvénient de FuseNet est que cette approche nécessite d'avoir des modèles de base topologiquement compatibles afin de pouvoir sommer les activations et fusionner les encodeurs. Cependant, cela ne se vérifie pas systématiquement. Par exemple, certaines données peuvent posséder des natures différentes, comme une image 2D et un nuage de point 3D. En outre, il n'est pas nécessairement utile de consacrer autant de paramètres sur les deux sources de données, notamment si l'une est moins informative que l'autre. Nous proposons donc une méthode de fusion de données alternative pour extraire de l'information à partir de sources hétérogènes. En l'occurrence, nous suggérons d'étudier la possibilité d'effectuer une fusion tardive au moment de la prise de décision, plutôt que d'apprendre des représentations conjointes.
 
 \subsection{Mélanges de modèles}
 
@@ -114,9 +130,9 @@ Un autre inconvénient de FuseNet est que cette approche nécessite d'avoir des 
     \label{fig:residual_correction}
 \end{figure}
 
-Une approche alternative consiste à séparer les traitements appliqués aux différentes modalités et à combiner les prédictions de l'ensemble des modèles. Ainsi, il est envisageable d'entraîner un modèle par modalité et de réaliser la moyenne des prédiction. Toutefois, cela ne permet pas de prendre en compte les particularités de chaque capteur. Nous introduisons donc un module de correction résiduelle qui prend en entrée les dernières cartes d'activation des réseaux et réalise une fusion des cartes de probabilités~\cite{audebert_semantic_2016}. Le module de correction résiduelle apprend la correction $\epsilon$ à appliquer à la prédiction moyenne pour améliorer les performances globales du modèle combiné. Ce processus est illustré dans la~\cref{fig:residual_correction} pour SegNet.
+Une approche alternative consiste à séparer les traitements appliqués aux différentes modalités et à combiner les prédictions de l'ensemble des modèles. Ainsi, il est envisageable d'entraîner un réseau par modalité et de réaliser la moyenne des prédictions. Toutefois, cela ne permet pas de prendre en compte les particularités de chaque capteur. Nous introduisons donc un module de correction résiduelle qui prend en entrée les dernières cartes d'activation des réseaux et réalise une fusion des cartes de probabilités~\cite{audebert_semantic_2016}. Le module de correction résiduelle apprend la correction $\epsilon$ à appliquer à la prédiction moyenne pour améliorer les performances globales du modèle combiné. Ce processus est illustré dans la~\cref{fig:residual_correction} pour SegNet.
 
-Ce module réalise une fusion au niveau décisionnel en utilisant le principe de l'apprentissage résiduel~\cite{he_deep_2016}. Il comporte trois couches convolutives de noyau $3\times3$ et un \emph{padding} de \SI{1}{\px}. Les cartes d'activation intermédiaires des deux décodeurs de SegNet sont concaténées et utilisées comme entrées pour le module de correction (cf. \cref{fig:residual_correction}). La sortie du module est sommée de façon résiduelle avec la moyenne de prédictions issues des SegNet, comme illustré dans la~\cref{fig:correction_network}. Dans ce cas, l'apprentissage par résidu est particulièrement adapté car la prédiction moyenne peut déjà être considérée comme proche du résultat visé. Le module additionnel vient donc fusionner les décisions en appliquant une moyenne pondérée adaptative dépendant des cartes d'activations afin d'ajouter un terme correctif à la prédiction moyenne. Ce module, entraîné par rétropropagation, est simplement optimisé \emph{a posteriori} par \emph{fine-tuning}, les SegNet n'étant pas ré-entraînés. Ce procédé est donc rapide, car seuls les gradients sur les couches du module correctif sont calculés.
+Ce module réalise une fusion au niveau décisionnel en utilisant le principe de l'apprentissage résiduel~\cite{he_deep_2016}. Il comporte trois couches convolutives de noyau $3\times3$ et un \emph{padding} de \SI{1}{\px}. Les cartes d'activation intermédiaires des deux décodeurs de SegNet sont concaténées et utilisées comme entrées pour le module de correction (cf. \cref{fig:residual_correction}). La sortie du module est sommée de façon résiduelle avec la moyenne de prédictions issues des SegNet, comme illustré dans la~\cref{fig:correction_network}. Dans ce cas, l'apprentissage par résidu est particulièrement adapté car la prédiction moyenne peut déjà être considérée comme proche du résultat visé. Le module additionnel vient donc fusionner les décisions en appliquant une moyenne pondérée adaptative dépendante des cartes d'activations afin d'ajouter un terme correctif à la prédiction moyenne. Ce module, entraîné par rétropropagation, est simplement optimisé \emph{a posteriori} par \emph{fine-tuning}, les SegNet n'étant pas ré-entraînés. Ce procédé est donc rapide, car seuls les gradients sur les couches du module correctif sont calculés. Il est possible d'entraîner l'ensemble de bout en bout, mais cela nécessite alors de stocker l'ensemble des gradients en mémoire, ce qui n'est pas nécessairement possible sur tous les \gls{GPU}. L'approche multi-modale SegNet avec correction résiduelle est notée \emph{SegNet-CR} par la suite.
 
 %Let $M_r$ denote the input of the $r^{th}$ stream ($r \in \{1,\dots,R\}$ with $R = 2$ here), $P_{r}$ the output probability tensor and $Z_r$ the intermediate feature map used for the correction. The corrected prediction is:
 
@@ -128,22 +144,22 @@ Ce module réalise une fusion au niveau décisionnel en utilisant le principe de
 % P(M_1, \dots, M_n) = \frac{1}{R}\sum_{r=1}^R P_r(M_r)~.
 % \end{equation}
 
-Notons $P_\mathit{terrain}$ le tenseur représentant la vérité terrain et $\hat{P}_i$ les prédictions réalisées par la $i$\ieme sortie. On définit alors le terme d'erreur $\epsilon_i$ tel que\,:
+Notons $P_\mathit{r\acute{e}elle}$ le tenseur représentant la vérité terrain et $\hat{P}_i$ les prédictions réalisées par la $i$\ieme sortie. On définit alors le terme d'erreur $\epsilon_i$ tel que\,:
 \begin{equation}
-\hat{P}_i = P_\mathit{terrain} + \epsilon_i \text{~~~avec~~~} \lvert \epsilon_i \lvert ~\ll~ \rvert \hat{P}_i \rvert~~.
+\hat{P}_i = P_\mathit{r\acute{e}elle} + \epsilon_i \text{~~~avec~~~} \lvert \epsilon_i \lvert ~\ll~ \rvert \hat{P}_i \rvert~~.
 \end{equation}
 
 Si la prédiction $P_i$ est relativement, alors $\epsilon_i$ reste faible. L'objectif du module de correction résiduelle est d'apprendre à estimer l'erreur afin de pouvoir la corriger lors de l'inférence.
 
 En notant $n$ le nombre de prédictions à fusionner par correction résiduelle, alors la sortie du module notée $\hat{P}^*$ correspond à la somme de la prédiction moyenne des $\hat{P}_i$ et d'un terme correcteur $c$\,:
 \begin{equation}
-\hat{P}^* = \hat{P}_\mathit{moyenne} + c = \frac{1}{n} \sum_{i=1}^n P_i + c = P_\mathit{terrain} + \frac{1}{n} \sum_{i=1}^n \epsilon_i + c~~.
+\hat{P}^* = \hat{P}_\mathit{moyenne} + c = \frac{1}{n} \sum_{i=1}^n P_i + c = P_\mathit{r\acute{e}elle} + \frac{1}{n} \sum_{i=1}^n \epsilon_i + c~~.
 \label{eq:residual_correction}
 \end{equation}
 
-Le module de correction résiduelle étant optimisé pour la minimiser la fonction de coût, cette contrainte se traduit par\,:
+Le module de correction résiduelle étant optimisé pour minimiser la fonction de coût, cette contrainte se traduit par\,:
 \begin{equation}
-\left\lVert \hat{P}^* - P_\mathit{terrain} \right\rVert \rightarrow 0
+\left\lVert \hat{P}^* - P_\mathit{r\acute{e}elle} \right\rVert \rightarrow 0
 \end{equation}
 ce qui impose en retour la contrainte suivante sur $c$ et $\epsilon_i$\,:
 \begin{equation}
@@ -157,46 +173,65 @@ ce qui impose en retour la contrainte suivante sur $c$ et $\epsilon_i$\,:
   \label{fig:correction_network}
 \end{figure}
 
-Autrement dit, le module de correction résiduelle est optimisé afin de compenser l'erreur moyenne commise par les différents modèles de l'ensemble. Lors de la phase d'entraînement, la vérité terrain $P_\mathit{terrain}$ est connue. Les poids du module sont alors altérés par rétro-propagation de sorte que le terme correctif $c$ se rapproche de $\sum_{i=1}^n \epsilon_i$. L'erreur moyenne étant supposée faible, la correction d'erreur correspond ainsi au paradigme d'apprentissage par résidu~\cite{he_deep_2016}. En effet, $c$ est un terme additif de faible amplitude sommé au signal initial (ou \emph{bypass}). Cette approche est schématisée dans la~\cref{fig:correction_network}.
+Autrement dit, le module de correction résiduelle est optimisé afin de compenser l'erreur moyenne commise par les différents modèles de l'ensemble. Lors de la phase d'entraînement, la vérité terrain $P_\mathit{r\acute{e}elle}$ est connue. Les poids du module sont alors altérés par rétro-propagation de sorte que le terme correctif $c$ se rapproche de $\frac{1}{n}\sum_{i=1}^n \epsilon_i$. L'erreur moyenne étant supposée faible, la correction d'erreur correspond ainsi au paradigme d'apprentissage par résidu~\cite{he_deep_2016}. En effet, $c$ est un terme additif de faible amplitude sommé au signal initial (ou \emph{bypass}). Cette approche est schématisée dans la~\cref{fig:correction_network}.
 
 \subsection{Résultats expérimentaux}
 
-\todo[inline]{Hyperparamètres}
-
-\begin{table}
-    \caption{Résultats de segmentation sémantique multi-modale sur le jeu de test \glsname{ISPRS} Vaihingen.}
-    \label{table:final_vaihingen}
-    \setlength\tabcolsep{5pt}
-	\begin{tabularx}{\textwidth}{Y c c c c c c}
+%\todo[inline]{Hyperparamètres}
+\begin{table}[h]
+    \caption{Résultats de segmentation sémantique multi-modale sur le jeu de validation \glsname{ISPRS} Vaihingen.}
+    \label{table:val_vaihingen}
+	\begin{tabularx}{\textwidth}{Y c c}
     \toprule
-	  Modèle & routes & bâtiments & vég. basse & arbres & véhicules & Exactitude\\
+    Modèle & Exactitude & Score $F_1$\\
     \midrule
-    FCN~\cite{sherrah_fully_2016} & 90.5 & 93.7 & 83.4 & 89.2 & 72.6 & 89.1\\
-    FCN + fusion + frontières~\cite{marmanis_classification_2017} & \textbf{92.3} & \textbf{95.2} & 84.1 & \textbf{90.0} & 79.3 & \textbf{90.3}\\
+    SegNet (\glssymbol{IRRV}) & \res{90.2}{1.4} & \res{89.3}{1.2}\\
+    SegNet (composite) & \res{88.3}{0.9} & \res{81.6}{0.8}\\
+    SegNet-CR & \res{90.6}{1.4} & \res{89.2}{1.2}\\
+    FuseNet & \res{90.8}{1.4} & \res{90.1}{1.2}\\
+    V-FuseNet & \bres{91.1}{1.5} & \bres{90.3}{1.2}\\
     \midrule
-    SegNet (\glssymbol{IRRV}) & 91.5 & 94.3 & 82.7 & 89.3 & 85.7 & 89.4\\
-	  SegNet-RC & 91.0 & 94.5 & 84.4 & 89.9 & 77.8 & 89.8\\
-    FuseNet & 91.3 & 94.3 & \textbf{84.8} & 89.9 & 85.9 & 90.1\\
-    V-FuseNet & 91.0 & 94.4 & 84.5 & 89.9 & \textbf{86.3} & 90.0\\
+    ResNet-34 (\glssymbol{IRRV}) & \res{90.3}{1.0} & \res{89.1}{0.7}\\
+    ResNet-34 (composite) & \res{88.8}{1.1} & \res{83.4}{1.3}\\
+    ResNet-34-CR & \res{90.8}{1.0} & \res{89.1}{1.1}\\
+    FusResNet & \res{90.6}{1.1} & \res{89.3}{0.7}\\
     \bottomrule
     \end{tabularx}
 \end{table}
 
-\begin{table}
-    \caption{Résultats de segmentation sémantique multi-modale sur le jeu de test \glsname{ISPRS} Potsdam.}
+\begin{table}[h]
+    \mycaption{Résultats de segmentation sémantique multi-modale sur le jeu de test \glsname{ISPRS} Vaihingen (approches multi-modales).}{Les meilleurs résultats sont en \textbf{gras} et les seconds sont en \emph{italique}.}
+    \label{table:final_vaihingen}
+    \setlength\tabcolsep{5pt}
+	\begin{tabularx}{\textwidth}{Y c c c c c c}
+    \toprule
+	  Modèle & Routes & Bâtiments & Vég. basse & Arbres & Véhicules & Exactitude\\
+    \midrule
+    {\footnotesize \glsname{FCN}+\glsname{CRF} + contours + \glsname{MNH} corrigé~\cite{marmanis_classification_2017}} & \num{92.4} & \num{95.2} & \num{83.9} & \num{89.9} & \num{81.2} & \num{90.3}\\
+    \midrule
+    SegNet (\glssymbol{IRRV}) & \res{91.5}{} & \res{94.3}{} & \res{82.7}{} & \res{89.3}{} & \res{85.7}{} & \res{89.4}{}\\
+	  SegNet-CR & \res{91.0}{} & \res{94.5}{} & \res{84.4}{} & \res{89.9}{} & \res{77.8}{} & \res{89.8}{}\\
+    FuseNet & \res{91.3}{} & \res{94.3}{} & \res{84.8}{} & \res{89.9}{} & \res{85.9}{} & \res{90.1}{}\\
+    V-FuseNet & \res{91.0}{} & \res{94.4}{} & \res{84.5}{} & \res{89.9}{} & \res{86.3}{} & \res{90.0}{}\\
+    \bottomrule
+    \end{tabularx}
+\end{table}
+
+\begin{table}[h]
+    \mycaption{Résultats de segmentation sémantique multi-modale sur le jeu de test \glsname{ISPRS} Potsdam (approches multi-modales).}{Les meilleurs résultats sont en \textbf{gras} et les seconds sont en \emph{italique}.}
     \label{table:final_potsdam}
     \setlength\tabcolsep{4pt}
 	\begin{tabularx}{\textwidth}{Y c c c c c c}
     \toprule
-  	Modèle & routes & bâtiments & vég. basse & arbres & véhicules & Exactitude\\\\
+  	Modèle & Routes & Bâtiments & Vég. basse & Arbres & Véhicules & Exactitude\\
     \midrule
-    FCN + CRF + caractéristiques expertes~\cite{liu_dense_2017} & \res{91.2}{} & \res{94.6}{} & \res{85.1}{} & \res{85.1}{} & \res{92.8}{} & \res{88.4}{}\\
-    FCN~\cite{sherrah_fully_2016}                               & \res{92.5}{} & \res{96.4}{} & \res{86.7}{} & \res{88.0}{} & \res{94.7}{} & \res{90.3}{}\\
+    {\footnotesize \glsname{FCN} + \glsname{CRF} + caractéristiques expertes}~\cite{liu_dense_2017} & \res{91.2}{} & \res{94.6}{} & \res{85.1}{} & \res{85.1}{} & \res{92.8}{} & \res{88.4}{}\\
+    \glsname{FCN}~\cite{sherrah_fully_2016}                               & \res{92.5}{} & \res{96.4}{} & \res{86.7}{} & \res{88.0}{} & \res{94.7}{} & \res{90.3}{}\\
     \midrule
     SegNet (\glssymbol{IRRV})  & \res{92.4}{} & \res{95.8}{} & \res{86.7}{} & \res{87.4}{} & \res{95.1}{} & \res{90.0}{}\\
-	  SegNet-CR                  & \res{93.3}{} & \res{97.3}{} & \res{87.6}{} & \res{88.3}{} & \res{95.8}{} & \res{91.0}{}\\
-    FuseNet                    & \res{93.0}{} & \res{97.0}{} & \res{87.3}{} & \res{87.7}{} & \res{95.2}{} & \res{90.6}{}\\
-    V-FuseNet                  & \res{93.2}{} & \res{97.2}{} & \res{87.9}{} & \res{88.2}{} & \res{95.0}{} & \res{91.0}{}\\
+	  SegNet-CR                  & \bres{93.3}{} & \bres{97.3}{} & \bbres{87.6}{} & \bres{88.3}{} & \bres{95.8}{} & \bres{91.0}{}\\
+    FuseNet                    & \res{93.0}{} & \res{97.0}{} & \res{87.3}{} & \res{87.7}{} & \bbres{95.2}{} & \bbres{90.6}{}\\
+    V-FuseNet                  & \bbres{93.2}{} & \bbres{97.2}{} & \bres{87.9}{} & \bbres{88.2}{} & \res{95.0}{} & \bres{91.0}{}\\
     \bottomrule
     \end{tabularx}
 \end{table}
@@ -205,23 +240,23 @@ Autrement dit, le module de correction résiduelle est optimisé afin de compens
 	\begin{subfigure}{\textwidth}
     	\captionsetup[subfigure]{singlelinecheck=off,justification=centering}
   		\captionsetup[subfigure]{labelformat=empty}
-    	\begin{subfigure}{0.19\textwidth}
+    	\begin{subfigure}[t]{0.19\textwidth}
         	\includegraphics[width=\textwidth]{tile5_irrg_top}
       		\caption*{Image \glssymbol{IRRV}}
         \end{subfigure}
-        \begin{subfigure}{0.19\textwidth}
+        \begin{subfigure}[t]{0.19\textwidth}
         	\includegraphics[width=\textwidth]{tile5_gt}
         	\caption*{Vérité terrain}
         \end{subfigure}
-        \begin{subfigure}{0.19\textwidth}
+        \begin{subfigure}[t]{0.19\textwidth}
         	\includegraphics[width=\textwidth]{tile5_segnet_pred}
         	\caption*{SegNet}
         \end{subfigure}
-        \begin{subfigure}{0.19\textwidth}
+        \begin{subfigure}[t]{0.19\textwidth}
         	\includegraphics[width=\textwidth]{tile5_fusenet_pred}
         	\caption*{FuseNet}
         \end{subfigure}
-        \begin{subfigure}{0.19\textwidth}
+        \begin{subfigure}[t]{0.19\textwidth}
         	\includegraphics[width=\textwidth]{tile5_rc_pred}
         	\caption*{SegNet-CR}
         \end{subfigure}
@@ -231,23 +266,23 @@ Autrement dit, le module de correction résiduelle est optimisé afin de compens
     	\begin{subfigure}{\textwidth}
     	\captionsetup[subfigure]{singlelinecheck=off,justification=centering}
   		\captionsetup[subfigure]{labelformat=empty}
-    	\begin{subfigure}{0.19\textwidth}
+    	\begin{subfigure}[t]{0.19\textwidth}
         	\includegraphics[width=\textwidth]{tile5_irrg_confidence_buildings}
       		\caption*{SegNet \glssymbol{IRRV} (confiance, bâtiments)}
         \end{subfigure}
-        \begin{subfigure}{0.19\textwidth}
+        \begin{subfigure}[t]{0.19\textwidth}
         	\includegraphics[width=\textwidth]{tile5_irrg_confidence_roads}
         	\caption*{SegNet \glssymbol{IRRV} (confiance, routes)}
         \end{subfigure}
-        \begin{subfigure}{0.19\textwidth}
+        \begin{subfigure}[t]{0.19\textwidth}
         	\includegraphics[width=\textwidth]{tile5_irrg_confidence_cars}
         	\caption*{SegNet \glssymbol{IRRV} (confiance, voitures)}
         \end{subfigure}
-        \begin{subfigure}{0.19\textwidth}
+        \begin{subfigure}[t]{0.19\textwidth}
         	\includegraphics[width=\textwidth]{tile5_comp_confidence_buildings}
         	\caption*{SegNet composite (confiance, bâtiments)}
         \end{subfigure}
-        \begin{subfigure}{0.19\textwidth}
+        \begin{subfigure}[t]{0.19\textwidth}
         	\includegraphics[width=\textwidth]{tile5_comp_confidence_cars}
         	\caption*{SegNet composite (confiance, voitures)}
         \end{subfigure}
@@ -311,47 +346,19 @@ Autrement dit, le module de correction résiduelle est optimisé afin de compens
     \label{fig:potsdam_images}
 \end{figure}
 
-Comme attendu, les deux méthodes de fusion permettent d'améliorer les performances du classifieur sur les deux jeux de données, comme illustré par les~\cref{fig:fusion_exemple1,fig:potsdam_images}. En particulier, la~\cref{fig:fusion_success} montre plusieurs exemples d'objets erronnément classifiés à partir de l'image optique seule qui sont corrigés en intégrant l'image composite dans le modèle. Dans les~\cref{fig:fusion_exemple1,fig:confidence_vaihingen_fusion}, le réseau SegNet ne parvient pas à discriminer entre les classes de route et de bâtiment, compte-tenu du fait qu'il s'agit d'un parking aérien à l'apparence proche de ceux pouvant se trouver au sol, confusion renforcée par la présence des voitures. FuseNet utilise le \gls{MNH} pour trancher en faveur de la classe bâtiment et ignore de fait les véhicules. L'approche par correction résiduelle parvient en plus à conserver une partie de l'information spatiale liée aux voitures. Dans la~\cref{fig:fusion_exemple2}, SegNet confond également route et bâtiment et végétation haute et basse tandis que les deux architectures de fusion parviennent à correctement prédire les différentes objets grâce au \gls{MNH}.
+Comme attendu, les deux méthodes de fusion permettent d'améliorer les performances du classifieur sur les deux jeux de données, comme illustré par les~\cref{fig:fusion_exemple1,fig:potsdam_images} et les~\cref{table:val_vaihingen,table:final_vaihingen,table:final_potsdam}. Comme dans le~\cref{chap:cartographie}, utiliser ResNet-34 comme modèle de base plutôt que SegNet n'améliore que légèrement les performances et ne justifie pas le surcoût en temps de calcul que cela implique. En particulier, la~\cref{fig:fusion_success} montre plusieurs exemples d'objets erronément classifiés à partir de l'image optique seule qui sont corrigés en intégrant l'image composite dans le modèle. Dans les~\cref{fig:fusion_exemple1,fig:confidence_vaihingen_fusion}, le réseau SegNet ne parvient pas à discriminer entre les classes de route et de bâtiment. En effet, l'apparence du parking sur le toit est similaire à celle des zones de stationnement habituellement, confusion renforcée par la présence des voitures et des lignes blanches. FuseNet utilise le \gls{MNH} pour trancher en faveur de la classe bâtiment et ignore de fait les véhicules. L'approche par correction résiduelle parvient en plus à conserver une partie de l'information spatiale liée aux voitures. Dans la~\cref{fig:fusion_exemple2}, SegNet confond également route et bâtiment et végétation haute et basse tandis que les deux architectures de fusion parviennent à correctement prédire les différentes objets grâce au \gls{MNH}.
 %As expected, both fusion methods improve the classification accuracy on the two datasets, as illustrated in~\cref{fig:potsdam_images}. We show some examples of misclassified patches that are corrected using the fusion process in~\cref{fig:fusion_success}. In~\cref{fig:fusion_exemple1,fig:confidence_vaihingen_fusion}, SegNet is confused by the material of the building and the presence of cars. However, FuseNet uses the nDSM to decide that the structure is a building and ignore the cars, while the late fusion manages to mainly to recover the cars. This is similar to~\cref{fig:fusion_exemple2}, in which SegNet confuses the building with a road while FuseNet and the residual correction recover the information thanks to the nDSM both for the road and the trees in the top row.
 La fusion dans l'encodeur par FuseNet permet d'exploiter conjointement les modalités multiples en utilisant moins de paramètres que la correction résiduelle d'un ensemble de modèles et converge vers une meilleure performance globale. À l'opposé, la fusion tardive par correction résiduelle améliore les performances de manière moins équilibrée, les gains étant principalement concentrés sur les classes ``routes'' et ``bâtiments''.
 %One advantage of using the early fusion is that complementarity between the multiple modalities is leveraged more efficiently as it requires less parameters, yet achieves a better classification accuracy for all classes. At the opposite, late fusion with residual correction improves the overall accuracy at the price of less balanced predictions. Indeed, the increase mostly affects the ``building'' and ``impervious surface'' classes, while all the other F1 scores decrease slightly.
 
-\begin{table}
-    \caption{Résultats de segmentation sémantique multi-modale sur le jeu de validation \glsname{ISPRS} Vaihingen.}
-    \label{table:val_vaihingen}
-	\begin{tabularx}{\textwidth}{Y c c}
-    \toprule
-    Modèle & Exactitude & Score $F_1$\\
-    \midrule
-    SegNet (\glssymbol{IRRV}) & 90.2 {\small $\pm$ 1.4} & 89.3 {\small $\pm$ 1.2}\\
-    SegNet (composite) & 88.3 {\small $\pm$ 0.9} & 81.6 {\small $\pm$ 0.8}\\
-    SegNet-CR & 90.6 {\small $\pm$ 1.4} & 89.2 {\small $\pm$ 1.2}\\
-    FuseNet & 90.8 {\small $\pm$ 1.4} & 90.1 {\small $\pm$ 1.2}\\
-    V-FuseNet & \textbf{91.1} {\small $\pm$ 1.5} & \textbf{90.3} {\small $\pm$ 1.2}\\
-    \midrule
-    ResNet-34 (\glssymbol{IRRV}) & 90.3 {\small $\pm$ 1.0} & 89.1 {\small $\pm$ 0.7}\\
-    ResNet-34 (composite) & 88.8 {\small $\pm$ 1.1} & 83.4 {\small $\pm$ 1.3}\\
-    ResNet-34-CR & 90.8 {\small $\pm$ 1.0} & 89.1 {\small $\pm$ 1.1}\\
-    FusResNet & 90.6 {\small $\pm$ 1.1} & 89.3 {\small $\pm$ 0.7}\\
-    \bottomrule
-    \end{tabularx}
-\end{table}
-
-Un des avantages qualitatifs est de la correction résiduelle est de pouvoir fusionner des prédictions en fonction de l'intensité des activations. La~\cref{fig:confidence_vaihingen_fusion} donne ainsi un exemple de fusion réussie, dans laquelle la confusion du modèle \gls{IRRV} autour des voitures est compensée par la confiance élevée de la prédiction du modèle composite. En outre, améliorer les performances sur l'image composite en utilisant un ResNet-34 permet également d'améliorer la performance de la correction résiduelle.
+Un des avantages pratique de la correction résiduelle est de pouvoir fusionner des prédictions en fonction de l'intensité des activations. La~\cref{fig:confidence_vaihingen_fusion} donne ainsi un exemple de fusion réussie, dans laquelle la confusion du modèle \gls{IRRV} autour des voitures est compensée par la confiance élevée de la prédiction du modèle composite. %En outre, améliorer les performances sur l'image composite en utilisant un ResNet-34 permet également d'améliorer la performance de la correction résiduelle.
 %\todo{mesurer le gain théorique union entre les deux sources de données}
 %However, on the Potsdam dataset, the residual correction strategy slightly decreases the model accuracy. Indeed, the late fusion is mostly useful to combine strong predictions that are complementary. For example, as illustrated in~\cref{fig:confidence_vaihingen_fusion}, the composite SegNet has a strong confidence in its building prediction while the IRRG SegNet has a strong confidence in its cars predictions. Therefore, the residual correction is able to leverage those predictions and to fuse them to alleviate the uncertainty around the cars in the rooftop parking lot. This works well on Vaihingen as both the IRRG and composite sources achieve a global accuracy higher than 85\%. However, on Potsdam, the composite SegNet is less informative and achieves only 79\% accuracy, as the annotations are more precise and the dataset overall more challenging for a data source that relies only on Lidar and NDVI. Therefore, the residual correction fails to make the most of the two data sources. This analysis is comforted by the fact that, on the Vaihingen validation set, the residual correction achieves a better global accuracy with ResNets than with SegNets, thanks to the stronger ResNet-34 trained on the composite source.
 
 L'architecture FuseNet apprend une représentation conjointe des deux sources de données, mais fait face aux même problématiques que le modèle SegNet standard\,: les cas rares comme les voitures sur un toit sont incorrectement prédits. Les caractéristiques conjointes apprises par les deux encodeurs sont plus performantes, mais FuseNet reste sensible au sur-apprentissage et aux biais intrinsèques du jeu de données, là où la correction résiduelle parvient à corriger des erreurs même sur des cas rares.
-
-%Meanwhile, the FuseNet architecture learns a joint representation of the two data sources, but faces the same pitfall as the standard SegNet model : edge cases such as cars on rooftop parking lots disappear. However, the joint-features are significantly stronger and the decoder can perform a better classification using this multi-modal representation, therefore improving the global accuracy of the model.
-La fusion tardive est ainsi pertinente lorsqu'il s'agit de combiner des prédictions fortement complémentaires et agit comme une moyenne pondérée adaptative des prédictions. Pour les cas du parking aérien, la prédiction du SegNet composite prédit un bâtiment avec une confiance haute car le \gls{MNH} est fiable, tandis que le SegNet \gls{RVB} produit des prédictions à fort niveau de confiance sur les voitures. À l'inverse, FuseNet apprend représentations conjointes qui n'échappent pas au surapprentissage. Ainsi, les voitures sur le parking aérien disparaissent à l'inférence car c'est un cas unique au sein du jeu de données\,: les voitures sont normalement sur la route.
-%Sur Vaihingen, ça marche bien car le composite et l'IRRG donnent à peu près la même quantité d'info (les deux modèles sont à au moins 85\%). Par contre sur Potsdam, la fusion tardive ne marche pas terrible, car le composite est à 79\% et a tendance à être moins informatif (surtout que les annotations sur Potsdam sont bien plus précises). Donc la fusion tardive va plutôt galérer. Il me semble qu'on retrouve quand même le même phénomène de véhicules sur le toit, il faut que je retrouve la tuile concernée.}
-
-En conclusion, ces deux stratégies de fusion sont applicables à différentes cas d'utilisation. La fusion tardive par correction résiduelle est utile pour combiner des classifieurs forts très complémentaires, tandis que la stratégie FuseNet est plus adaptée pour exploiter de l'information annexe ancillaire dans le processus d'apprentissage.
-%In conclusion, the two fusion strategies can be used for different use cases. Late fusion by residual correction is more suited to combine several strong classifiers that are confident in their predictions, while the FuseNet early fusion scheme is more adapted for integrating weaker ancillary data into the main learning pipeline.
-
-%\todo{Explanation for V-FuseNet (visual if possible)}
-Sur le jeu de test final de Vaihingen (cf.~\cref{tab:final_vaihingen}), la stratégie V-FuseNet a des performances marginalement inférieures au modèle original, bien que les $F_1$ scores soient supérieurs sur certaines classes, y compris la classe de rejet ($+1,7\%$) qui n'est pas prise en compte dans les métriques finales.
+La fusion tardive est ainsi pertinente lorsqu'il s'agit de combiner des prédictions fortement complémentaires et agit comme une moyenne pondérée adaptative des prédictions. Pour les cas du parking aérien, la prédiction du SegNet composite prédit un bâtiment avec une confiance haute car le \gls{MNH} est fiable, tandis que le SegNet \gls{RVB} produit des prédictions à fort niveau de confiance sur les voitures. À l'inverse, FuseNet apprend des représentations conjointes qui n'échappent pas au surapprentissage. Ainsi, les voitures sur le parking aérien disparaissent à l'inférence car c'est un cas unique au sein du jeu de données\,: les voitures sont normalement sur la route.
+En conclusion, ces deux stratégies de fusion sont applicables à différents cas d'utilisation. La fusion tardive par correction résiduelle est utile pour combiner des classifieurs forts très complémentaires, tandis que la stratégie FuseNet est plus adaptée pour exploiter de l'information annexe ancillaire dans le processus d'apprentissage.
+Sur le jeu de test final de Vaihingen (cf.~\cref{tab:final_vaihingen}), la stratégie V-FuseNet a des performances marginalement inférieures au modèle original, bien que les $F_1$ scores soient supérieurs sur certaines classes, y compris la classe de rejet ($+1,7\%$) qui n'est pas prise en compte dans les métriques finales. Sur le jeu de test \gls{ISPRS} Potsdam, V-FuseNet est toutefois significativement plus performante aussi bien sur les classes individuelles que dans l'ensemble.
 
 \subsubsection{Robustesse aux données manquantes}
 
@@ -385,16 +392,18 @@ Si ces architectures multi-modales permettent de bénéficier de données géor�
 
 \section{Connaissances \textit{a priori}}
 
+La section précédente nous a permis de construire des architectures profondes multi-modales pour opérer sur des capteurs hétérogènes. Toutefois, les données géospatiales ne sont pas nécessairement issues d'instruments de mesure. En particulier, les bases de données sémantiques, qu'elles soient institutionnelles ou commerciales, renferment une information géographique à un haut niveau d'abstraction qu'il est souhaitable de pouvoir prendre en compte.
+
 \subsection{OpenStreetMap}
 
-\glsfirst{OSM} est un \gls{SIG} libre et participatif alimenté par un ensemble de contributeurs bénévoles qui cartographient les lieux qui leur sont familiers. Les contributeurs peuvent utiliser l'éditeur en ligne pour annoter des fonds de carte géoréférencés en y ajoutant ou en mettant à jour les éléments du réseau routier, les empreintes au sol des bâtiments, les espaces verts, etc. En plus de ces éditions manuelles, la communauté \gls{OSM} utilise certaines sources de données officielles, comme le cadastre de l'État français afin de mettre à jour les limites administratives des entités géographiques ou pour importer les nouveaux bâtis. Le principal intérêt d'\gls{OSM} est qu'il s'agit de la plus grande base de données d'information géographique sous licence libre au monde. La base de données contient des informations sur une large taxonomie d'entités géographiques, allant des autoroutes aux parcs de loisir en passant par les églises, les cimetières ou les parcelles agricoles.
+\glsfirst{OSM} est un \gls{SIG} libre et participatif alimenté par un ensemble de contributeurs bénévoles qui cartographient les lieux qui leur sont familiers. Les contributeurs peuvent utiliser l'éditeur en ligne pour annoter des fonds de carte géoréférencés en y ajoutant ou en mettant à jour les éléments du réseau routier, les empreintes au sol des bâtiments, les espaces verts, etc. En plus de ces éditions manuelles, la communauté \gls{OSM} utilise certaines sources de données officielles, comme le cadastre de l'État français afin de mettre à jour les limites administratives des entités géographiques ou pour importer les nouveaux bâtis. \gls{OSM} est la plus grande base de données d'information géographique sous licence libre au monde, compilant une large taxonomie d'entités géographiques allant des autoroutes aux parcs de loisir en passant par les églises, les cimetières et les parcelles agricoles.
 
-Peu de travaux se sont penchés sur l'intégration des données \gls{OSM} pour l'apprentissage automatique depuis l'ouverture du site en 2004. Le plus souvent, \gls{OSM} est utilisée comme vérité terrain pour la détection de routes et de bâtiments~\cite{mnih_machine_2013,maggiori_learning_2017} dans un contexte d'apprentissage supervisé ou pour le recalage automatique d'images satellites~\cite{vakalopoulou_simultaneous_2016}. \citet{isola_image--image_2016} se sont intéressés à la génération automatique de tuiles \gls{OSM} à partir d'images satellites, mais seulement à des fins visuelles, sans évaluation selon des métriques de classification. Pourtant, \gls{OSM} est une source de données riche permettant d'extraire de l'information géographique sémantique de haut niveau.
-\citet{chen_deepvgi_2017} ont de fait utilisé des méthodes d'apprentissage actif pour détecter automatiquement les objets non encore présents dans \gls{OSM} afin de les suggérer aux contributeurs. \citet{danylo_contributing_2016} ont utilisé des forêts aléatoires appliquées sur certaines couches de données \gls{OSM} pour prédire des zones climatologiques locales, tandis que \citet{geis_joint_2017} se sont penchés sur la détection automatique de zones sujettes à des catastrophes naturelles.
+Peu de travaux se sont penchés sur l'intégration des données \gls{OSM} pour l'apprentissage automatique depuis l'ouverture du site en 2004. Le plus souvent, \gls{OSM} est utilisé comme vérité terrain pour la détection de routes et de bâtiments~\cite{mnih_machine_2013,maggiori_learning_2017} dans un contexte d'apprentissage supervisé ou pour le recalage automatique d'images satellites~\cite{vakalopoulou_simultaneous_2016}. \citet{isola_image--image_2016} se sont intéressés à la génération automatique de tuiles \gls{OSM} à partir d'images satellites, mais seulement à des fins visuelles, sans évaluation selon des métriques de classification. Pourtant, \gls{OSM} est une source de données riche permettant d'extraire de l'information géographique sémantique de haut niveau.
+\citet{chen_deepvgi_2017} ont de fait utilisé des méthodes d'apprentissage actif pour détecter automatiquement les objets non encore présents dans \gls{OSM} afin de les suggérer aux contributeurs. \citet{danylo_contributing_2016} ont utilisé des forêts aléatoires appliquées sur certaines couches de données \gls{OSM} pour prédire des secteurs climatologiques locaux, tandis que \citet{geis_joint_2017} se sont penchés sur la détection automatique de zones sujettes à des catastrophes naturelles.
 
 Ici, nous suggérons d'utiliser les couches sémantiques d'\gls{OSM} comme entrée à un réseau de neurones profond pour la cartographie automatisée. L'idée est d'exploiter la donnée sémantique, possiblement bruitée et incomplète d'\gls{OSM} afin d'extraire de l'information plus riche à une résolution supérieure. En effet, cette approche est nouvelle et dépasse le cadre habituel de transformation image $\rightarrow$ \gls{OSM}. À l'inverse, il s'agit d'exploiter et d'enrichir les multiples sources d'information existantes, qu'elles soient sous forme d'images ou de \glspl{SIG}.
 
-Pour ce faire, nous considérons le jeu de données \gls{ISPRS} Potsdam sur lequel nous récupérons les données \gls{OSM} de 2017. Nous sélectionnons les couches correspondant aux routes, aux empreintes de bâtiments, aux zones d'eau et aux espaces verts. Les routes sont définies dans \gls{OSM} comme une collection d'éléments linéaires. Par conséquent, en fonction du type de route indiqué dans \gls{OSM}, nous assignons une largeur arbitraire à celles-ci. En outre, les bâtiments, espaces verts et zones d'eau ne correspondent pas nécessairement entièrement aux images aériennes du jeu de données, soit à cause de constructions nouvelles (les images ont été acquises en 2014) , soit car les annotations \gls{OSM} sont incomplètes par endroit. Nous générons ainsi un raster à la même résolution que les images \gls{RVB} contenant 4 canaux binaires\,: un pour le masque des routes, un pour les bâtiments, un pour l'eau et un pour les espaces verts.
+Pour ce faire, nous considérons le jeu de données \gls{ISPRS} Potsdam sur lequel nous récupérons les données \gls{OSM} de 2017. Nous sélectionnons les couches correspondant aux routes, aux empreintes de bâtiments, aux zones d'eau et aux espaces verts. Les routes sont définies dans \gls{OSM} comme une collection d'éléments linéaires. Par conséquent, en fonction du type de route indiqué dans \gls{OSM}, nous assignons une largeur arbitraire à celles-ci. En outre, les bâtiments, espaces verts et zones d'eau ne correspondent pas nécessairement entièrement aux images aériennes du jeu de données, soit à cause de constructions nouvelles (les images ont été acquises en 2014) , soit car les annotations \gls{OSM} sont incomplètes. Nous générons ainsi un raster à la même résolution que les images \gls{RVB} contenant 4 canaux binaires\,: un pour le masque des routes, un pour les bâtiments, un pour l'eau et un pour les espaces verts.
 
 \begin{figure}[h]
   \foreach\picname\picpath in {Image \glssymbol{RVB}/potsdam_rgb_4_12,Tuile \glsname{OSM}/potsdam_osmtile_4_12,Raster \glsname{OSM}/potsdam_osm_4_12,Vérité terrain/potsdam_gt_4_12}{%
@@ -411,32 +420,28 @@ Pour ce faire, nous considérons le jeu de données \gls{ISPRS} Potsdam sur lequ
 
 \subsection{Information \textit{a priori} comme capteur virtuel}
 
-L'idée de notre approche est de traiter le raster \gls{OSM} ainsi formé comme un capteur virtuel, c'est-à-dire comme une source de données complémentaire aux images optiques. Le raster ainsi formé contient une information partielle et incomplète, mais pouvant néanmoins faciliter le travail du réseau profond. En effet, plutôt que d'apprendre à reconnaître un bâtiment uniquement à partir de l'image optique, un réseau muni des deux sources de données peut se reposer en partie sur les annotations \gls{OSM} pour repérer les bâtiments, et consacrer une partie de ses poids à gérer d'autres cas de figure plus difficiles. Plutôt que de réinventer entièrement la carte, le modèle peut donc incrémentalement venir enrichir l'information géographique pré-existante à partir de la donnée optique, en contraste avec les approches traditionnelles.
-
-Nous appliquons donc les méthodes de fusion de donnée FuseNet et de correction résiduelle en utilisant comme entrées les images optiques et les couches \gls{OSM}.
+L'idée de notre approche est de traiter les données \gls{OSM} comme provenant d'un capteur virtuel, c'est-à-dire comme une source de données complémentaire aux images optiques. Le raster ainsi formé contient une information partielle et incomplète, mais pouvant néanmoins faciliter le travail du réseau profond. En effet, plutôt que d'apprendre à reconnaître un bâtiment uniquement à partir de l'image optique, un réseau muni des deux sources de données peut se reposer en partie sur les annotations \gls{OSM} pour repérer les bâtiments, et consacrer une partie de ses poids à gérer d'autres cas de figure plus difficiles. Plutôt que de réinventer entièrement la carte, le modèle peut donc incrémentalement venir enrichir l'information géographique pré-existante à partir de la donnée optique, en contraste avec les approches traditionnelles.
+Nous appliquons donc les méthodes de fusion de données FuseNet et de correction résiduelle en utilisant comme entrées les images optiques et les couches \gls{OSM}.
 
 Lorsque les classes d'intérêt de la segmentation sémantique sont déjà présentes dans les données \gls{OSM}, comme pour les bâtiments ou les routes, il est possible de les utiliser comme premières approximations de la vérité terrain. Celles-ci pourront ensuite être raffinées pour corriger les imprécisions de \gls{OSM} et prédire les classes manquantes. Ce procédé s'apparente ainsi à l'apprentissage par résidu~\cite{he_deep_2016} et à l'apprentissage par raffinement~\cite{lin_refinenet_2016}, tous deux connus pour améliorer les performances des \glspl{CNN} et \glspl{FCN}.
 
-Ici, nous utilisons un simple \gls{FCN} composé du premier bloc convolutif de VGG-16~\cite{simonyan_very_2014}, afin de convertir les données raster \gls{OSM} en cartes sémantiques approchant la vérité terrain. Ce modèle sera noté OSMNet par la suite. Les données optiques sont traitées par un \gls{FCN} dérivé du modèle SegNet~\cite{badrinarayanan_segnet_2017} en suivant l'approche de~\cite{audebert_semantic_2016}. SegNet est un réseau de neurones encodeur-décodeur modélisant la projection d'une image dans un espace de cartes sémantiques à la même résolution. En utilisant ces deux modèles, nous pouvons alors calculer une carte de prédiction moyenne combinant les deux sources d'entrée. Dans ce cas, si $\mathcal{I}$ constitue l'image d'entrée, $\mathcal{O}$ la donnée \gls{OSM}, $P_{opt}$ la fonction de prédiction de SegNet et $P_{osm}$ la fonction de prédiction de OSMNet, la prédiction finale $P$ se calcule par :
-%In our case, we can use a simple FCN with only two layers to convert the raw rasterized OSM data into a semantic map that approximates the ground truth, trained with the usual backpropagation technique. This FCN will be denoted OSMNet in the following sections. The optical data will then be used as input to a FCN model to infer a semantic segmentation that will complete the approximate map derived from OSM. In this work, we will use the SegNet architecture~\cite{badrinarayanan_segnet_2015} that we will train following the guidelines from~\cite{audebert_semantic_2016}. SegNet is an encoder-decoder deep neural network that projects an input image into a semantic map with the same resolution. Using these two models, we can compute the average prediction computed using the two data sources. In this framework, if we denote $I$ the input image, $O$ the input OSM raster, $P_{opt}$ the prediction function for SegNet and $P_{osm}$ the prediction function for OSMNet, the final prediction $P$ is:
+Ici, nous utilisons un simple \gls{FCN} composé du premier bloc convolutif de VGG-16~\cite{simonyan_very_2014}, afin de convertir les données raster \gls{OSM} en cartes sémantiques approchant la vérité terrain. Ce modèle sera noté OSMNet par la suite. Les données optiques sont traitées par un \gls{FCN} dérivé du modèle SegNet~\cite{badrinarayanan_segnet_2017} en suivant l'approche du~\cref{chap:cartographie}. En appliquant ces deux modèles, nous pouvons alors calculer une carte de prédiction moyenne combinant les deux sources d'entrée. Dans ce cas, en notant $I$ l'image couleur d'entrée, $\mathcal{O}$ le raster \gls{OSM}, $\hat{P}_\mathit{image}$ la fonction de prédiction de SegNet et $\hat{P}_\mathit{OSM}$ la fonction de prédiction de OSMNet, alors la fonction de prédiction moyenne $\hat{P}$ s'écrit:
 \begin{equation}
-P(\mathcal{I}, \mathcal{O}) = \frac{1}{2} (P_{opt}(\mathcal{I}) + P_{osm}(\mathcal{O}))~.
+\hat{P}(I, \mathcal{O}) = \frac{1}{2} (P_\mathit{image}(I) + P_\mathit{OSM}(\mathcal{O}))~.
 \end{equation}
 
 %If $P_{osm}(O)$ is already an adequate approximation of the ground truth $GT$, then the training process will try to minimize:
-Si $P_{osm}(\mathcal{O})$ est une bonne approximation de la vérité terrain $VT$, alors la phase d'optimisation minimise~:
+\gls{OSM} contenant déjà une part conséquente de l'information géographique attendue, on peut supposer que $\hat{P}_\mathit{OSM}(\mathcal{O})$ est une bonne approximation de la vérité terrain $P_\mathit{r\acute{e}elle}$. $\hat{P}_\mathit{image}$ s'écrit donc sous la forme d'un raffinement~\cite{lin_refinenet_2016}:
 \begin{equation}
-P_{opt}(\mathcal{I}) \propto VT - P_{osm}(\mathcal{O}) \ll VT~,
+\left\lVert~\hat{P}_\mathit{image}(I)~\right\rVert \propto \left\lVert P_\mathit{r\acute{e}elle} - \hat{P}_\mathit{OSM}(\mathcal{O}) \right\rVert \ll \left\lVert P_\mathit{r\acute{e}elle} \right\rVert~.
 \end{equation}
-%which should have a similar effect on the training process than the residual learning from~\cite{he_deep_2016}.
-ce qui est similaire à l'apprentissage par résidu~\cite{he_deep_2016}.
 
-En outre, pour raffiner encore cette prédiction moyenne, nous utilisons la correction résiduelle (CR)~\cite{audebert_semantic_2016}. Ce réseau de neurones est un \gls{FCN} constitué d'un unique bloc convolutif classique permettant d'apprendre la correction à appliquer à la prédiction moyenne, cette fois-ci pondérée par classe, pour exploiter la complémentarité des données \gls{OSM} et optiques. En notant $C$ la fonction de prédiction du module de correction résiduelle, en vertu de l'\cref{eq:residual_correction}~:
+En outre, ceci peut encore s'exprimer sous la forme d'une correction résiduelle en introduisant le module éponyme $C$. En effet, en vertu de l\cref{eq:residual_correction}, la prédiction $\hat{P}^*$ après correction résiduelle s'écrit~:
 %Moreover, to refine even further this average map, we use a residual correction network~\cite{audebert_semantic_2016}. This module consists in a residual three-layer FCN that learns how to correct the average prediction using the complementary information from the OSM and optical data sources. If we denote $C$ the prediction function of the residual correction network, we finally have:
 \begin{equation}
-P(\mathcal{I}, \mathcal{O}) = \frac{1}{2} (P_{opt}(\mathcal{I}) + P_{osm}(\mathcal{O})) + C(Z_{opt}(\mathcal{I}), Z_{osm}(\mathcal{O}))~,
+\hat{P}^*(I, \mathcal{O}) = \hat{P}(I, \mathcal{O}) + C\left(Z_\mathit{image}, Z_\mathit{OSM}\right)~,
 \end{equation}
-où $Z_{opt}$ et $Z_{osm}$ sont les cartes d'activation finales de SegNet et OSMNet, respectivement.
+où $Z_\mathit{image}$ et $Z_\mathit{OSM}$ sont les cartes d'activation finales respectives de SegNet et OSMNet.
 %where $Z_{opt}$ and $Z_{osm}$ are the last feature maps from SegNet and OSMNet, respectively.
 
 \begin{figure}[h]
@@ -445,26 +450,16 @@ où $Z_{opt}$ et $Z_{osm}$ sont les cartes d'activation finales de SegNet et OSM
   \label{fig:refinet}
 \end{figure}
 
-Dans ce cadre, l'apprentissage par résidu peut être conçu comme la modélisation d'un terme de correction d'erreur, illustré dans la~\cref{fig:refinet}. De cette façon, le raffinement de la carte \gls{OSM} de départ est elle-même raffinée par la correction résiduelle selon un processus itératif à deux étapes.
+Dans ce cadre, l'apprentissage par résidu peut être conçu comme la modélisation d'un terme de correction d'erreur, illustré dans la~\cref{fig:refinet}. Ainsi, le raffinement de la carte \gls{OSM} de départ est lui-même corrigé par un résidu, selon un processus itératif à deux étapes.
+
+De façon similaire, il est possible d'appliquer une architecture FuseNet sur $I$ et $\mathcal{O}$, c'est-à-dire sur l'image couleur et le capteur virtual \gls{OSM}. Cela nécessite toutefois de considérer que l'encodeur OSMNet est alors exactement le même que l'encodeur original de SegNet afin d'assurer la compatibilité des cartes d'activations au moment de la fusion, comme détaillé dans la~\cref{sec:fusion}.
 
 \subsection{Architectures multi-modales pour l'information géographique}
-
-Les \glspl{FCN} à plusieurs entrées ont été la source de plusieurs études par le passé, notamment dans le cadre du traitement d'images \gls{RGB-D} (ou 2,5D)~\cite{eitel_multimodal_2015}. Dans cet article, nous utilisons l'architecture FuseNet~\cite{hazirbas_fusenet_2016} pour combiner données optiques et \gls{OSM}. FuseNet se réapproprie le modèle SegNet en utilisant non pas un, mais deux encodeurs, un pour chaque source. Après chaque bloc de convolutions, les cartes d'activations neuronales du deuxième encodeur sont sommées aux activations du premier. Cela permet au réseau d'apprendre une représentation conjointe des données exploitant les deux modalités. Un unique décodeur transforme ensuite cette représentation en sur-échantillonnant et en effectuant la classification dans l'espace des classes sémantiques pour chaque pixel. Comme détaillé dans la~\cref{fig:fusenet}, une branche principale apprend la représentation conjointe tandis que la branche auxiliaire n'apprend que les activations liées aux données \gls{OSM}. En notant $P$ la fonction de prédiction de FuseNet, $I$ l'image d'entrée, $O$ la donnée \gls{OSM}, $E_i^{\{opt,osm\}}$ les cartes d'activations après le $i$\textsuperscript{ème} bloc de l'encodeur, $B_i^{\{opt,osm\}}$ les fonctions représentées par le $i$\textsuperscript{ème} bloc de convolutions et $D$ la fonction du décodeur :
-\begin{equation}
-P(I,O) = D(E_5^{opt}(I,O))
-%P(I,O) = D(E(I,O))
-\end{equation}
-et
-\begin{equation}
-E_{i+1}^{opt}(I,O) = B_i^{opt}(E_i^{opt}(I, O)) + B_i^{osm}(E_i^{osm}(O))~.
-\end{equation}
 
 Nous utilisons le jeu de données \gls{ISPRS} Potsdam sur lequel nous récupérons les données \gls{OSM} correspondantes (cf.~\cref{fig:dataset_potsdam}). Les tuiles étant géo-référencées, nous générons les images \gls{OSM} associées contenant les empreintes de routes, bâtiments, des zones de végétation et de l'eau en utilisant Maperitive\footnote{\url{http://maperitive.net/}}. Les résultats sont obtenus par validation croisée sur 3 partitions du jeu de données.
 
 \subsubsection{Validation expérimentale}
-Lors de l'apprentissage, nous extrayons aléatoirement des images de $128\times128$ dans le jeu d'apprentissage, en appliquant des symétries afin d'augmenter le nombre d'exemples. Le réseau est entraîné par descente de gradient en traitant 10 images en parallèle, comme suggéré dans~\cite{audebert_semantic_2016}. Les taux d'apprentissage sont initialisés à 0,005 pour l'encodeur et 0,01 pour le décodeur, puis sont divisés par 2 tous les 30~000 itérations. L'encodeur pour les données \glssymbol{RVB} est initialisé à partir des poids de VGG-16 pré-entraînés sur ImageNet, les autres poids étant initialisés aléatoirement.
-%~\cite{he_delving_2015}.
-L'évaluation s'effectue via une fenêtre glissante de taille $128\times128$ avec un pas de 64, les prédictions recouvrantes étant moyennées. L'apprentissage prend environ 20 heures sur une carte graphique NVIDIA K20c et l'évaluation moins de 30 minutes. Nous comparons les résultats obtenus avec ceux obtenus par forêt aléatoire (RF) sur l'image pré-segmentée en superpixels. Les caractéristiques utilisées sont les histogrammes de gradients orientés et de couleurs comme descripteur optique, ainsi que l'histogramme des classes \gls{OSM}.
+Nous considérons une nouvelle fois les hyperparamètres du~\cref{chap:cartographie}. Les résultats des modèles sont comparés avec ceux obtenus par forêt aléatoire (RF) sur l'image pré-segmentée en superpixels. Les caractéristiques utilisées sont les histogrammes de gradients orientés et de couleurs comme descripteur optique, ainsi que l'histogramme des classes \gls{OSM}.
 %During training on the \gls{ISPRS} Potsdam dataset, we randomly extract $128\times128$ patches from the training tiles on which we apply random flipping or mirroring as data augmentation. We train a network on a end-to-end fashion, following the guidelines from~\cite{audebert_semantic_2016}, \textit{i.e.} we train a SegNet with a batch size of 10 on the RVB tiles using a Stochastic Gradient Descent (SGD) with a learning rate of 0.01 divided by 10 every 2 epochs ($\simeq$ 30 000 iterations). SegNet's encoder for the RVB data is initialized using VGG-16~\cite{simonyan_very_2014} weights trained on ImageNet, while the decoder is randomly initialized using the MSRA~\cite{he_delving_2015} scheme. The learning rate for the encoder is set to half the learning rate for the decoder. During testing, each tile is processed by sliding a $128\times128$ window with a stride of 64 (\textit{i.e.} 50\% overlap). Multiple predictions for overlapping regions are averaged to smooth the map and reduce visible stitching on the patch borders. Training until convergence ($\simeq$ 150,000 iterations) takes around 20 hours on a NVIDIA K20c, while evaluating on the validation set takes less than 30 minutes.
 
 %On the DFC2017, we re-train SegNet from scratch and the weights are initialized using the MSRA scheme. As the input data has a resolution of 20m/pixel and the output LCZ are expected to be at 100m/pixel resolution, we use a smaller decoder by removing the last three convolutional blocks and the associated pooling layers. The resulting predictions have a resolution of 1:4 the input data and are interpolated to the 100m/pixel resolution. We train the network on randomly flipped $160\times160$ patches with a 50\% overlap. The patches are randomly selected but have to contain at least 5\% of annotated pixels. To avoid learning on non-labeled pixels from the sparse LCZ annotations, we ignore the undefined pixels in the ground truth during loss computation. The network is trained using the Adam~\cite{kingma_adam:_2014} optimizer with a learning rate of 0.01 with a batch size of 10. Training until convergence ($\simeq$ 60,000 iterations) takes around 6 hours on a NVIDIA Titan Pascal, while evaluating on the test set takes less than 5 minutes.
@@ -542,7 +537,7 @@ L'évaluation s'effectue via une fenêtre glissante de taille $128\times128$ ave
 
 Les résultats obtenus sur les données de validation de l'\gls{ISPRS} Potsdam sont détaillés dans le~\cref{table_potsdam_results}. Nous calculons les métriques définies dans la~\cref{sec:metriques}, c'est-à-dire le pourcentage global de pixels correctement classés et les scores $F_1$ pour chaque classe, sur la vérité terrain aux bordures érodées.
 
-Comme attendu, l'inclusion de données \gls{OSM} améliore les performances de classification du modèle, notamment pour les routes et les bâtiments qui bénéficient de l'information géographique. En effet, cette information additionnelle permet de supprimer certaines ambiguïtés où un modèle purement optique aurait des difficultés, par exemple pour distinguer un parking au sol et sur un toit, à l'apparence très similaire. Il par ailleurs intéressant de constater que des classes absentes des couches \gls{OSM} bénéficient de cet apport en information, notamment les différents types de végétation et la classe correspondant aux véhicules.
+Comme attendu, l'inclusion de données \gls{OSM} améliore les performances de classification du modèle, notamment pour les routes et les bâtiments qui bénéficient de l'information géographique. En effet, cette information additionnelle permet de supprimer certaines ambiguïtés où un modèle purement optique aurait des difficultés, par exemple pour distinguer un parking au sol et sur un toit, à l'apparence très similaire. Il est par ailleurs intéressant de constater que des classes absentes des couches \gls{OSM} bénéficient de cet apport en information, notamment les différents types de végétation et les véhicules.
 %As could be expected, the inclusion of OSM data improves the semantic labeling performance, with significant improvements on ``road'' and ``building'' classes. This is not surprising considering that those classes already have a representation in the OSM layers which can help disambiguating predictions coming from the optical source. Moreover, OSM data accelerates the training process as it allows the main network to focus on the harder parts of the image. Indeed, OSM data already covers the majority of the roads and the buildings, therefore simplifying the inference of the ``impervious surface'' and ``building'' classes. OSM data also helps discriminating between buildings and roads that have similar textures.
 
 \begin{figure}
@@ -573,7 +568,7 @@ itération & 10 000 & 20 000 & 50 000 & 80 000 & 120 000\\
 
 Par ailleurs, l'intégration des données \gls{OSM} dans l'apprentissage permet d'accélérer la convergence du modèle. Sur le même jeu de données, le modèle SegNet appris par raffinement depuis \gls{OSM} nécessite 25\% d'itérations en moins que le SegNet \gls{RVB} classique et converge vers un meilleur optimal local, avec une fonction de coût à \num{0,39} contre \num{0,45}, pour un même taux de réussite. Enfin, l'inclusion des données \gls{OSM} rend la sortie du réseau visuellement plus cohérente et mieux structurée spatialement, comme illustré dans la~\cref{fig:training_evolution}.
 
-Dans l'ensemble, il apparaît que les \glspl{FCN} sont naturellement bien adaptés pour l'apprentissage multi-modal. En particulier, nous avons montré dans ce chapitre qu'il est possible de tirer profit des multiples sources de données géographiques hétérogènes, aussi bien issues de capteurs que de \glspl{SIG}. Les informations multi-sources permettent d'enrichir les capacités d'inférence de nos modèles aussi bien quantitativement que qualitativement sur les deux jeux de données que nous avons considéré. Enfin, les approches d'apprentissage multi-modal et de fusion de prédictions permettent de faire face à différents types d'obstacles mais semblent bénéfiques dans tous les cas.
+Dans l'ensemble, il apparaît que les \glspl{FCN} sont naturellement bien adaptés à l'apprentissage multi-modal. En particulier, nous avons montré dans ce chapitre qu'il est possible de tirer profit des multiples sources de données géographiques hétérogènes, aussi bien issues de capteurs que de \glspl{SIG}. Les informations multi-sources permettent d'enrichir les capacités d'inférence de nos modèles aussi bien quantitativement que qualitativement sur les deux jeux de données que nous avons considéré. Enfin, les approches d'apprentissage multi-modal et de fusion de prédictions permettent de faire face à différents types d'obstacles mais semblent bénéfiques dans tous les cas.
 %\bibliographystyle{plainnat}
 %\bibliography{Chapitre4/Biblio}
-\printbibliography
+\printbibliography[heading=subbibliography]

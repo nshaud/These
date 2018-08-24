@@ -257,10 +257,10 @@
 
 \draw[very thick,->] let \p1 = (pred_opt),
               \p2 = (fus_top) in 
-          (pred_opt) -- node[above] {$\times 0,5$} (\x2,\y1)  node[yshift=-0.72pt, scale=1.2] {\huge $\bigoplus$}  -- (fus_top);
+          (pred_opt) -- node[above] {$\times \alpha$} (\x2,\y1)  node[yshift=-0.72pt, scale=1.2] {\huge $\bigoplus$}  -- (fus_top);
 \draw[very thick,->] let \p1 = (pred_comp),
               \p2 = (fus_bottom) in 
-          (pred_comp) -- node[below] {$\times 0,5$} (\x2,\y1) node[scale=1.2,yshift=-0.65pt] {\huge $\bigoplus$} -- (fus_bottom);
+          (pred_comp) -- node[below] {$\times \beta$} (\x2,\y1) node[scale=1.2,yshift=-0.65pt] {\huge $\bigoplus$} -- (fus_bottom);
 
 \tikzset{
     shadowed/.style={preaction={draw opacity=0.75,transform canvas={shift={(1pt,-1pt)}},draw=gray,very thick}},
