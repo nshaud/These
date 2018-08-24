@@ -1,3 +1,7 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\input{../CommandesPerso.tex}
+\begin{document}
 \begin{tikzpicture}[]
 	\def \width {4}
 
@@ -29,6 +33,9 @@
      \draw[->,dashed,black!40] (\leftx, -2) -- (dots.north);
      \draw[->,dashed,black!40] (dots.south) -- (\leftx,-3.);
      \draw[->,dashed,black!40] (\leftx,-3.5) -- (\leftx, -4);
+     \node at (\leftx-1, -1) {\scriptsize \color{gray} réseau virtuel};
+     \draw[draw=gray,loosely dashed] (-1.5,0) -- node[above] {\color{gray} \tiny poids partagés} (+1.5+\leftx,0);
+     \draw[draw=gray,loosely dashed] (-1.6,-2.5) -- node[above] {\color{gray} \tiny poids partagés} (+1.6+\leftx,-2.5);
 
      \def\leftx{4.8}
      \fill[draw=black!40,dashed,fill=blue!10]  (-1.5+\leftx,-0.5) rectangle node[black] {Encodeur} (1.5+\leftx,0.5);
@@ -41,6 +48,9 @@
      \draw[->,dashed,black!40] (\leftx, -2) -- (dots.north);
      \draw[->,dashed,black!40] (dots.south) -- (\leftx,-3.);
      \draw[->,dashed,black!40] (\leftx,-3.5) -- (\leftx, -4);
+     \node at (\leftx+1, -1) {\scriptsize \color{gray} réseau virtuel};
+     \draw[draw=gray,loosely dashed] (1.5,0) -- node[above] {\color{gray} \tiny poids partagés} (-1.5+\leftx,0);
+     \draw[draw=gray,loosely dashed] (1.6,-2.5) -- node[above] {\color{gray} \tiny poids partagés} (-1.6+\leftx,-2.5);
 
      \node[draw=black,circle] (+) at (0,-5.5) {+};
      \draw[dashed] (-1.8-\leftx, -6) rectangle (1.8+\leftx, -3.8);
@@ -56,3 +66,4 @@
      \node (out) at (0, -6.5) {Prédiction};
      \draw[thick,->] (+.south) to (out.north);
 \end{tikzpicture}
+\end{document}

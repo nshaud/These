@@ -21,8 +21,8 @@
     \end{scope}
 
 \convlayer{\size}{\size}{\depth}{}{blue}{\segx}{\segy}{\segz}{}
-\convlayer{\size}{\size}{\depth}{}{blue}{\segx+\depth}{\segy}{\segz}{}
-\convlayer{\size}{\size}{\depth}{}{yellow}{\segx+2*\depth}{\segy}{\segz}{}
+\convlayer{\size}{\size}{\depth}{}{blue}{\segx+\depth}{\segy}{\segz}{{}{}{64}}
+\convlayer{\size}{\size}{\depth}{}{yellow}{\segx+2*\depth}{\segy}{\segz}{{$M\times{}N$}{}{}}
 \node (pool1) at (\segx+2*\depth, \segy+0.5*\size) {};
 
 \pgfmathsetmacro\segx{\segx+0.3*\scale}
@@ -30,8 +30,8 @@
 \pgfmathsetmacro\size{0.75*\size}
 
 \convlayer{\size}{\size}{\depth}{}{blue}{\segx}{\segy}{\segz}{}
-\convlayer{\size}{\size}{\depth}{}{blue}{\segx+\depth}{\segy}{\segz}{}
-\convlayer{\size}{\size}{\depth}{}{yellow}{\segx+2*\depth}{\segy}{\segz}{}
+\convlayer{\size}{\size}{\depth}{}{blue}{\segx+\depth}{\segy}{\segz}{{}{}{128}}
+\convlayer{\size}{\size}{\depth}{}{yellow}{\segx+2*\depth}{\segy}{\segz}{{$\frac{M}{2}\times{}\frac{N}{2}$}{}{}}
 \node (pool2) at (\segx+2*\depth, \segy+0.5*\size) {};
 
 \pgfmathsetmacro\segx{\segx+0.4*\scale}
@@ -40,8 +40,8 @@
 
 \convlayer{\size}{\size}{\depth}{}{blue}{\segx}{\segy}{\segz}{}
 \convlayer{\size}{\size}{\depth}{}{blue}{\segx+\depth}{\segy}{\segz}{}
-\convlayer{\size}{\size}{\depth}{}{blue}{\segx+2*\depth}{\segy}{\segz}{}
-\convlayer{\size}{\size}{\depth}{}{yellow}{\segx+3*\depth}{\segy}{\segz}{}
+\convlayer{\size}{\size}{\depth}{}{blue}{\segx+2*\depth}{\segy}{\segz}{{}{}{256}}
+\convlayer{\size}{\size}{\depth}{}{yellow}{\segx+3*\depth}{\segy}{\segz}{{$\frac{M}{4}\times{}\frac{N}{4}$}{}{}}
 \node at (\segx+0.25*\size,\segy-\size) {\huge Encodeur};
 \node (pool3) at (\segx+3*\depth, \segy+0.5*\size) {};
 
@@ -51,8 +51,8 @@
 
 \convlayer{\size}{\size}{\depth}{}{blue}{\segx}{\segy}{\segz}{}
 \convlayer{\size}{\size}{\depth}{}{blue}{\segx+\depth}{\segy}{\segz}{}
-\convlayer{\size}{\size}{\depth}{}{blue}{\segx+2*\depth}{\segy}{\segz}{}
-\convlayer{\size}{\size}{\depth}{}{yellow}{\segx+3*\depth}{\segy}{\segz}{}
+\convlayer{\size}{\size}{\depth}{}{blue}{\segx+2*\depth}{\segy}{\segz}{{}{}{512}}
+\convlayer{\size}{\size}{\depth}{}{yellow}{\segx+3*\depth}{\segy}{\segz}{{$\frac{M}{8}\times{}\frac{N}{8}$}{}{}}
 \node (pool4) at (\segx+3*\depth, \segy+0.5*\size) {};
 
 \pgfmathsetmacro\segx{\segx+0.6*\scale}
@@ -61,13 +61,13 @@
 
 \convlayer{\size}{\size}{\depth}{}{blue}{\segx}{\segy}{\segz}{}
 \convlayer{\size}{\size}{\depth}{}{blue}{\segx+\depth}{\segy}{\segz}{}
-\convlayer{\size}{\size}{\depth}{}{blue}{\segx+2*\depth}{\segy}{\segz}{}
-\convlayer{\size}{\size}{\depth}{}{yellow}{\segx+3*\depth}{\segy}{\segz}{}
+\convlayer{\size}{\size}{\depth}{}{blue}{\segx+2*\depth}{\segy}{\segz}{{}{}{512}}
+\convlayer{\size}{\size}{\depth}{}{yellow}{\segx+3*\depth}{\segy}{\segz}{{$\frac{M}{16}\times{}\frac{N}{16}$}{}{}}
 \node (pool5) at (\segx+3*\depth, \segy+0.5*\size) {};
 
 %%%%% DECODER %%%%%%%%
 
-\pgfmathsetmacro\segx{\segx+0.6*\scale}
+\pgfmathsetmacro\segx{\segx+0.65*\scale}
 
 \node (unpool5) at (\segx+0.5*\depth, \segy+0.5*\size) {};
 \convlayer{\size}{\size}{\depth}{}{red}{\segx}{\segy}{\segz}{}
