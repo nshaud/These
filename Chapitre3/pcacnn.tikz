@@ -22,15 +22,18 @@
 
 
   \convlayer{0.8*\scale}{0.8*\scale}{0.8*\scale}{Hypercube}{\copurple}{\alexx+0.2*\scale}{\alexy}{\alexz}{{5}{5}{C}}
+
+  \pixelddd{0.12*\scale}{0.8*\scale}{\scriptsize Spectre}{\copurple!110!white}{\alexx+0.2*\scale}{\alexy}{\alexz}{}
+
   \convlayer{1.1*\scale}{1.1*\scale}{0.02*\scale}{ACP}{\coorange}{\alexx+1*\scale}{\alexy}{\alexz}{}
-  \convlayer{0.8*\scale}{0.8*\scale}{0.05*\scale}{Entrée}{\copurple}{\alexx+1.45*\scale}{\alexy}{\alexz}{{}{}{$c_r$}}
+  \convlayer{0.8*\scale}{0.8*\scale}{0.05*\scale}{Entrée}{\copurple}{\alexx+1.45*\scale}{\alexy}{\alexz}{{}{}{$C_r$}}
   \convlayer{0.7*\scale}{0.7*\scale}{0.1*\scale}{Conv1}{\coblue}{\alexx+1.95*\scale}{\alexy}{\alexz}{{3}{3}{$C_1$}}
 \convlayer{0.5*\scale}{0.5*\scale}{0.1*\scale}{Conv2}{\coblue}{\alexx+2.45*\scale}{\alexy}{\alexz}{{1}{1}{$C_2$}}
   \fclayer{\scale}{0.1*\scale}{FC1}{\copurple}{\alexx+2.9*\scale}{\alexy}{\alexz}{}
   \fclayer{\scale}{0.1*\scale}{FC2}{\copurple}{\alexx+3.2*\scale}{\alexy}{\alexz}{}
-  \fclayer{0.8*\scale}{0.1*\scale}{FC3}{\copurple!50!gray}{\alexx+3.4*\scale}{\alexy}{\alexz}{$k$}
-  \node (out) at (\alexx+4.65*\scale,\alexy) {\Large ``Arbre''};
-  \draw[->] (\alexx+3.45*\scale,\alexy) -- (out.west);
+  \fclayer{0.8*\scale}{0.1*\scale}{FC3}{\copurple!50!gray}{\alexx+3.5*\scale}{\alexy}{\alexz}{$k$}
+  \node (out) at (\alexx+4.45*\scale,\alexy) {\Large ``Arbre''};
+  \draw[->] (\alexx+3.55*\scale,\alexy) -- (out.west);
 
   \end{tikzpicture}
 \end{document}

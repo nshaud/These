@@ -22,6 +22,7 @@
 
 
   \convlayer{0.8*\scale}{0.8*\scale}{0.8*\scale}{Hypercube}{\copurple}{\alexx-0.6*\scale}{\alexy}{\alexz}{{5}{5}{C}}
+\pixelddd{0.12*\scale}{0.8*\scale}{\scriptsize Spectre}{\copurple!110!white}{\alexx-0.6*\scale}{\alexy}{\alexz}{}
   \convlayer{0.4*\scale}{0.4*\scale}{0.4*\scale}{}{\coblue}{\alexx+1*\scale}{\alexy+0.5*\scale}{\alexz+1.5*\scale}{{}{}{}}
   \node[rotate=45] at (\alexx+1*\scale,\alexy+0.3*\scale,\alexz+0.5*\scale) {\dots};
   \convlayer{0.4*\scale}{0.4*\scale}{0.4*\scale}{}{\coblue}{\alexx+1*\scale}{\alexy+0.5*\scale}{\alexz-0.75*\scale}{{}{}{}}
