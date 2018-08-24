@@ -1,3 +1,8 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usepackage{ifthen}
+\input{../CommandesPerso.tex}
+\begin{document}
 \begin{tikzpicture}
 \usetikzlibrary{shapes.geometric}
 
@@ -17,7 +22,7 @@
 
 % Discriminateur
 \node [draw,trapezium, trapezium angle=75, shape border rotate=270,fill=green!50!white, minimum width=3cm] (discriminator) at (9, 2) {\Large D};
-\node at (11.5, 2) (loss) {\small Réel/synthétique};
+\node[anchor=west] at (11, 2) (loss) {\small Réel/synthétique};
 \draw[->,thick] (discriminator.east) -- (loss.west);
 
 \node [draw,trapezium, trapezium angle=75, shape border rotate=270,fill=green!50!white, minimum width=3cm] (classifier) at (9, -2) {\Large C};
@@ -47,3 +52,4 @@
 \draw [->, thick,red,dashed] (supervised.south) to [bend right=45, in=235] node[above] {\footnotesize Annotations} (classes.south west);
 \draw [->, thick, blue,dashed] (condition.east) to [bend right=30, in=228] (classes.south);
 \end{tikzpicture}
+\end{document}
