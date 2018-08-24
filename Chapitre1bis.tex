@@ -51,7 +51,7 @@ $$\forall \mathbf{x} \in [0,1]^n, ~\left| F(\mathbf{x}) - \hat{F}(\mathbf{x}) \r
 
 Ce résultat signifie que que toute fonction relativement régulière (continue par morceaux sur un ensemble de compacts) peut être approchée avec une précision arbitraire par un perceptron. Il est ainsi prouvé que de tels réseaux de neurones artificiels peuvent simuler presque n'importe quelle fonction, sans pour autant disposer de méthode de construction de tels réseaux. Outre la théorie des perceptrons, leurs applications pratiques dans le cadre de la vision artificielle pour la reconnaissance de formes ont également été étudiées. La reconnaissance de caractères écrits, notamment les chiffres et les lettres, est un problème particulièrement populaire. En 1980, \citet{fukushima_neocognitron_1980} introduit \emph{Neocognitron}, un perceptron multi-couche dont la structure s'inspire des travaux de \citet{hubel_receptive_1959,hubel_receptive_1968} sur les cortex visuels des chats et des singes. Le \emph{Neocognitron} extrait de l'image des caractéristiques locales robustes aux légères déformations, qui sont graduellement combinées en cascade par le réseau. De cette façon, le modèle n'est plus seulement sensible à l'intensité des pixels, mais aux motifs présents dans les variations locales, se rapprochant ainsi du fonctionnement des yeux animaux~\cite{lettvin_what_1959}. En 1989, \citet{lecun_backpropagation_1989} proposent une architecture de perceptron multi-couche pour la reconnaissance de chiffres manuscrits dont la première couche est \emph{convolutive}, entraîné par rétropropagation. Sur ce principe, ils élaborent ensuite l'architecture LeNet-5~\cite{lecun_gradient-based_1998}, premier \glsfirst{CNN} moderne. En 2004, les méthodes de détection et classification d'objets par \gls{CNN} sont évaluées comme étant compétitives, voire supérieure, par rapport aux \gls{SVM} opérant directement sur les pixels. Les premiers travaux utilisant les représentations apprises par les \gls{CNN} pour remplacer les descripteurs images \emph{ad hoc} comme \gls{SIFT}~\cite{lowe_object_1999} ou \gls{HOG}~\cite{dalal_histograms_2005} pour la classification d'objets apparaissent dans les années 2000~\cite{serre_object_2005,huang_large-scale_2006}.
 
-En 2006, \citet{hinton_reducing_2006} introduisent les réseaux de neurones auto-encodeurs capables de compresser un ensemble de données en les projetant dans un espace de dimension plus faible. Leur approche pour la réduction de dimension utilise une pile de \gls{RBM}~\cite{ackley_learning_1985,salakhutdinov_deep_2009}, entraînées successivement couche par couche. Ce modèle hybride est exploré dans un article de 2006~\cite{hinton_fast_2006} qui leur donne le nom de \gls{DBN}. L'année suivante, \citet{bengio_greedy_2007} étendent ce pré-entraînement par couche à des \gls{DBN} pour la régression. Leurs travaux suggèrent notamment que le pré-entraînement permet d'initialiser les couches supérieures à partir de meilleures représentations des abstractions de haut niveau que le hasard. Yoshua \textsc{Bengio} défend par ailleurs l'idée qu'un bon algorithme d'apprentissage doit être capable d'apprendre des représentations sémantiques pertinentes à des niveaux d'abstraction variés à partir de données non nécessairement annotées, c'est-à-dire en apprentissage non supervisé~\cite{bengio_learning_2009}. Il argumente en faveur des modèles profonds comme étant plus expressifs grâce à leur capacité à apprendre des représentations à partir des données, en s'appuyant sur les progrès récents en sciences cognitives concernant le cortex visuel~\cite{serre_quantitative_2007}. L'introduction de fonctions d'activation non-saturantes en 2011~\cite{glorot_deep_2011} permet de s'affranchir du pré-entraînement et des problèmes d'explosion des gradients, qui rendaient jusqu'alors impossible l'entraînement de réseaux très profonds.
+En 2006, \citet{hinton_reducing_2006} introduisent les réseaux de neurones auto-encodeurs capables de compresser un ensemble de données en les projetant dans un espace de dimension plus faible. Leur approche pour la réduction de dimension utilise une pile de \gls{RBM}~\cite{ackley_learning_1985,salakhutdinov_deep_2009}, entraînées successivement couche par couche. Ce modèle hybride est exploré dans un article de 2006~\cite{hinton_fast_2006} qui leur donne le nom de \gls{DBN}. L'année suivante, \citet{bengio_greedy_2007} étendent ce pré-entraînement par couche à des \gls{DBN} pour la régression. Leurs travaux suggèrent notamment que le pré-entraînement permet d'initialiser les couches supérieures à partir de meilleures représentations des abstractions de haut niveau que le hasard. Yoshua \textsc{Bengio} défend par ailleurs l'idée qu'un bon algorithme d'apprentissage doit être capable d'apprendre des représentations sémantiques pertinentes à des niveaux d'abstraction variés à partir de données non nécessairement annotées, c'est-à-dire en apprentissage non supervisé~\cite{bengio_learning_2009}. Il argumente en faveur des modèles profonds comme étant plus expressifs grâce à leur capacité à apprendre des représentations à partir des données, en s'appuyant sur les progrès récents en sciences cognitives concernant le cortex visuel~\cite{serre_quantitative_2007}. L'introduction de fonctions d'activation non-saturantes comme la \gls{ReLU}~\cite{glorot_deep_2011} permet de s'affranchir du pré-entraînement et des problèmes d'explosion des gradients, qui rendaient jusqu'alors impossible l'entraînement de réseaux très profonds.
 
 C'est également en 2006 que les premières implémentations des \gls{CNN} sur \gls{GPU} voient le jour~\cite{chellapilla_high_2006} pour le traitement automatisé de documents, puis pour l'apprentissage non-supervisé de \gls{DBN}~\cite{raina_large-scale_2009} et la reconnaissance de caractères~\cite{ciresan_deep_2010}. En 2011, Dan \textsc{Cire\c{s}an} propose des méthodes à base de \gls{CNN} qui obtiennent la première place dans deux compétitions\,: reconnaissance de caractères chinois~\cite{liu_icdar_2011} et classification de panneaux de signalisation~\cite{stallkamp_german_2011}. Ces \gls{CNN} obtiennent en outre d'excellents résultats en reconnaissances de caractères latins et en classification d'objets pour des petites images sur la base de données CIFAR-10~\cite{ciresan_multi-column_2012}. En 2010 débute la compétition de reconnaissance d'objets \gls{ILSVRC}, qui utilise comme référence la banque de données ImageNet~\cite{deng_imagenet_2009}. Un million d'images sont annotées pour mille classes d'intérêt différentes. En 2012, la compétition est remportée par \citet*{krizhevsky_imagenet_2012} à l'aide du réseau convolutif profond AlexNet implémenté sur \gls{GPU} à l'aide de la bibliothèque \gls{CUDA}. AlexNet obtient 15\% d'erreur \emph{top-5}\footnote{Une prédiction \emph{top-5} est considérée juste si la classe recherchée fait partie des cinq premières données par le modèle.}, tandis que la seconde méthode du podium n'obtient que 26\%. Ce succès inattendu est à l'origine de l'explosion en popularité des réseaux convolutifs et de l'apprentissage profond dans la communauté de la vision par ordinateur. La compétition \gls{ILSVRC} a été depuis remportée chaque année par les approches \gls{CNN}, aussi bien pour la reconnaissance et la localisation que la segmentation d'objets. Le succès des réseaux convolutifs profonds depuis 2012 est donc dû à la convergence de trois facteurs\,: des avancées théoriques (\gls{ReLU}, réseaux convolutifs) permettant d'entraîner des réseaux plus profonds, la mise à disposition de grandes bases de données annotées pour l'apprentissage supervisé et des implémentations efficaces sur \gls{GPU} rendant les temps de calcul acceptables.
 
@@ -165,7 +165,7 @@ Tant que la fonction de coût $\L$ est dérivable, il est possible de la minimis
     \item Calculer $\nabla_W \L(W, \Omega)$ sur l'ensemble du jeu de données.
     \item Tant que $\nabla_W \L(W, \Omega) > \epsilon$\,:
       \begin{itemize}
-          \item $W \leftarrow W - \alpha \nabla_W \L(W, \Omega)$
+          \item $W \:= W - \alpha \nabla_W \L(W, \Omega)$
       \end{itemize}
   \end{enumerate}
 \end{definition}
@@ -178,7 +178,7 @@ Tant que la fonction de coût $\L$ est dérivable, il est possible de la minimis
     \item Tant que le critère d'arrêt n'est pas atteint\,:
       \begin{itemize}
           \item Tirer aléatoirement un exemple d'apprentissage $\omega \in \Omega$
-          \item $W \leftarrow W - \alpha \nabla_W \L(W, \omega)$
+          \item $W := W - \alpha \nabla_W \L(W, \omega)$
       \end{itemize}
   \end{enumerate}
 L'algorithme s'arrête lorsque le critère d'arrêt est vérifié, généralement lorsqu'un nombre d'itérations prédéfini est atteint.
@@ -192,7 +192,7 @@ L'estimation du gradient $\nabla_W E(W, \omega)$ risque cependant d'être bruit�
     \item Tant que le critère d'arrêt n'est pas atteint\,:
       \begin{itemize}
           \item Tirer aléatoirement $k$ exemples d'apprentissage $(\omega_1,\dots,\omega_k) \in \Omega^k$
-          \item $W \leftarrow W - \alpha \frac{1}{k} \sum_{i=1}^k \nabla_W \L(W, \omega_i)$
+          \item $W := W - \alpha \frac{1}{k} \sum_{i=1}^k \nabla_W \L(W, \omega_i)$
       \end{itemize}
   \end{enumerate}
 L'algorithme s'arrête lorsque le critère d'arrêt est vérifié, généralement lorsqu'un nombre d'itérations prédéfini est atteint.
@@ -276,7 +276,7 @@ Plus récemment, le \emph{Dropout}~\cite{srivastava_dropout_2014} a été propos
 
 Une méthode alternative pour lutter contre le surapprentissage consiste à alimenter le jeu de données d'entraînement en exemples synthétiques. En augmentant artificiellement le nombre d'échantillons d'apprentissage, il est possible d'augmenter la variété des exemples auxquels le modèle est exposé et donc de réduire le biais intrinsèque du jeu de données. On parle alors d'\emph{augmentation de données}. Dans le cas des images, cela passe le plus souvent par des transformations géométriques qui n'affectent pas leur sémantique, comme des symétries gauche-droite, des rotations ou encore des redimensionnements.
 
-Enfin, la normalisation par lot~\cite{ioffe_batch_2015} est parfois présentée comme une méthode de régularisation, en ce que les moments statistiques qui y sont estimés le sont de façon stochastique, ce qui ajoute un faible bruit aux représentations internes à chaque couche.
+Enfin, la normalisation par lot, ou \gls{BN},~\cite{ioffe_batch_2015} est parfois présentée comme une méthode de régularisation, en ce que les moments statistiques qui y sont estimés le sont de façon stochastique, ce qui ajoute un faible bruit aux représentations internes à chaque couche.
 
 \subsection{Réseaux de neurones convolutifs profonds}
 
@@ -344,7 +344,7 @@ Un des inconvénients de ce produit est que le noyau de convolution $K$ et l'ima
 \end{equation}
 Cette opérateur perd la commutativité mais est plus simple à programmer. Les paramètres de $K$ étant optimisables, il est équivalent en pratique d'utiliser une corrélation croisée ou une convolution, car leurs matrices sont identiques à symétrie près. Les autres opérations intervenant dans des \gls{CNN} n'étant pas commutatives, la perte de cette propriété n'a donc que peu d'importance. Dans la suite, les formules seront données pour l'opérateur de convolution.
 
-La corrélation croisée et la convolution souffrent toutes deux d'une inconnue lorsque l'opérateur agit sur les bords de l'image, puis que les valeurs de $I$ hors de l'image sont indéfinies. En règle générale, on ne calcule pas ces valeurs et les lignes et colonnes pour lesquelles le produit de convolution est indéfini sont ignorées, ce qui réduit la taille effective de l'image. On parle alors de corrélation croisée \emph{valide}. Il est également possible de remplir les valeurs manquantes de $I$ par des zéros (\emph{zero-padding}) (cf.~\cref{fig:convolution_exemples}), pour un nombre de lignes et de colonnes égal à la moitié de la taille du noyau de convolution dans chaque direction. On parle alors de corrélation croisée \emph{identique}, car le résultat du filtrage est de même dimension que l'image d'entrée. Enfin, il est possible de remplir les valeurs manquantes par autant de zéros que nécessaire pour que chaque élément de $I$ soit visité par chaque élément de $K$, auquel cas on parle de corrélation croisée \emph{complète}.
+La corrélation croisée et la convolution souffrent toutes deux d'une inconnue lorsque l'opérateur agit sur les bords de l'image, puis que les valeurs de $I$ hors de l'image sont indéfinies. En règle générale, on ne calcule pas ces valeurs et les lignes et colonnes pour lesquelles le produit de convolution est indéfini sont ignorées, ce qui réduit la taille effective de l'image. On parle alors de corrélation croisée \emph{valide}. Il est également possible de remplir les valeurs manquantes de $I$ par des zéros (\emph{zero-padding}) (cf.~\cref{fig:convolution}), pour un nombre de lignes et de colonnes égal à la moitié de la taille du noyau de convolution dans chaque direction. On parle alors de corrélation croisée \emph{identique}, car le résultat du filtrage est de même dimension que l'image d'entrée. Enfin, il est possible de remplir les valeurs manquantes par autant de zéros que nécessaire pour que chaque élément de $I$ soit visité par chaque élément de $K$, auquel cas on parle de corrélation croisée \emph{complète}.
 
 En pratique, une couche de convolution en dimension $n$ d'un réseau de neurones est paramétrée par\,:
 \begin{itemize}
@@ -443,10 +443,10 @@ La normalisation des activations la plus courante dans l'état de l'art est la \
 \begin{definition}
 Algorithme de normalisation par mini-lot\,:
 
-Durant la phase d'apprentissage, la moyenne $\mu$ et la variance $\sigma$ au sein d'un mini-lot sont calculées à la volée\,:
-$$\mu_i = \frac{1}{N} \sum_{n=1}^N a_i^{(n)}~~\text{ et }~~\sigma_i = \frac{1}{N} \sum_{n=1}^N (a_i^{(n)} - \mu_i)$$
+Durant la phase d'apprentissage, la moyenne $\mu$ et la variance $\sigma^2$ au sein d'un mini-lot sont calculées à la volée\,:
+$$\mu_i = \frac{1}{N} \sum_{n=1}^N a_i^{(n)}~~\text{ et }~~\sigma^2_i = \frac{1}{N} \sum_{n=1}^N (a_i^{(n)} - \mu_i)^2$$
 
-Les valeurs moyennées de $\mu$ et$\sigma$ sur l'ensemble du jeu de données sont conservées en mémoire et ré-utilisées en phase d'inférence afin de rendre les calculs indépendants de la taille du mini-lot.
+Les valeurs moyennées de $\mu$ et $\sigma^2$ sur l'ensemble du jeu de données sont conservées en mémoire et ré-utilisées en phase d'inférence afin de rendre les calculs indépendants de la taille du mini-lot.
 
 Dans tous les cas, les activations normalisées $\hat{a}$ sont obtenues par\,:
 $$\hat{a}_i = \frac{a_i - \mu_i}{\sqrt{\sigma_i^2 + \epsilon}}$$.
@@ -543,14 +543,15 @@ Le modèle VGG-16 affine l'architecture en proposant notamment de réduire la di
 \end{figure}
 
 \begin{figure}[t]
-  \begin{minipage}{0.5\textwidth}
+  \begin{minipage}{0.49\textwidth}
     \resizebox{\textwidth}{!}{
       \input{Chapitre1/residual.tikz}
     }
     \caption[Bloc convolutif résiduel.]{Bloc convolutif résiduel~\cite{he_deep_2016}.}
     \label{fig:residual}
   \end{minipage}
-  \begin{minipage}{0.5\textwidth}
+	\hfill
+  \begin{minipage}{0.49\textwidth}
   \resizebox{\textwidth}{!}{
     \input{Chapitre1/denseblock.tikz}
   }
@@ -757,4 +758,4 @@ De nouveaux jeux de données comme l'\emph{Inria Aerial Image Labeling Dataset} 
 
 %\bibliographystyle{plainnat}
 %\bibliography{Chapitre1/Historique}
-\printbibliography
+\printbibliography[heading=subbibliography]
