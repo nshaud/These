@@ -1,5 +1,5 @@
 %!TEX root = Manuscrit.tex
-\chapter{Structure spatiale des cartes prédites}
+\chapter{Spatialisation des prédictions pixelliques}
 \label{chap:structure}
 \citationChap{Homo sapiens is about pattern recognition, he says. Both a gift and a trap.}{William Gibson (Pattern Recogntion, 2002)}
 \minitoc
@@ -11,16 +11,17 @@ Ce chapitre s'intéresse ainsi aux extensions des modèles de réseaux de neuron
 
 Dans un premier temps, nous cherchons à structurer \emph{a posteriori} les prédictions pixelliques issues des \gls{FCN} que nous avons entraînés. En particulier, nous montrons qu'il est possible d'aisément structurer les prédictions pixelliques générées par les \gls{FCN} à des fins de détection et d'identification du type des véhicules dans des images aériennes.
 
-Dans un second temps, nous étudions les représentations alternatives de la vérité terrain permettant d'intégrer des notions spatiales dans l'optimisation des réseaux de neurones. Plus précisément, nous introduisons une fonction de coût alternative opérant sur une version continue des annotations sémantiques obtenue par transformée de distances. Cette approche en régression des cartes de distance est complémentaire au modèle de classification. En pratique, nous proposons d'entraîner un réseau multi-tâche réalisant simultanément la régression des cartes de distances euclidiennes et la classification des pixels. Cette méthode permet de coupler géométrie et sémantique dans la fonction de coût et régularise ainsi les segmentations.
+Dans un second temps, nous étudions les représentations alternatives de la vérité terrain permettant d'intégrer des notions spatiales dans l'optimisation des réseaux de neurones. Plus précisément, nous introduisons une fonction de coût alternative opérant sur une version continue des annotations sémantiques obtenue par transformée de distances. Cette approche en régression des cartes de distance est complémentaire au modèle de classification. En pratique, nous proposons d'entraîner un réseau multitâche réalisant simultanément la régression des cartes de distances euclidiennes et la classification des pixels. Cette méthode permet de coupler géométrie et sémantique dans la fonction de coût et régularise ainsi les segmentations.
 }
 
 \newpage
 
 \section{\emph{Segment-before-detect}}
+\label{sec:segmentbeforedetect}
 
 \subsection{Régions et objets}
 
-La détection et la reconnaissance de véhicules sont deux problèmes classiques en télédétection. Non seulement la localisation et l'identification des véhicules interviennent dans le cadre de la surveillance et de l'interprétation de scènes, mais ces informations permettent également d'isoler les parties non mobiles d'une image pour mieux en comprendre la géométrie~\cite{leberl_recognizing_2007}. De nombreux travaux ont étudié la détection automatique de véhicules dans des images \gls{THR} avec une large variété de méthodes, allant des descripteurs \gls{HOG} couplés à des \glspl{SVM}~\cite{michel_local_2011,gleason_vehicle_2011,kamenetsky_aerial_2015} aux modèles 3D d'estimation de pose~\cite{janney_pose-invariant_2015} en passant par les modèles à parties déformables~\cite{randrianarivo_urban_2013} ou les mélanges de modèles invariants par rotation~\cite{randrianarivo_contextual_2016}. L'apprentissage profond et notamment les \gls{CNN} ont également été appliqués à cette tâche~\cite{chen_vehicle_2014}. Récemment, la majorité des méthodes utilisent des réseaux spécifiquement conçus pour la détection d'objet, comme Faster-RCNN~\cite{ren_faster_2017} dans les travaux de~\citet{sommer_fast_2017} ou YOLO~\cite{redmon_you_2016} dans ceux de~\citet{van_etten_you_2018}. Cependant, peu de travaux s'intéressent à réaliser simultanément détection et reconnaissance, en dépit de l'introduction de la base de données \gls{VEDAI} par~\citet{razakarivony_vehicle_2016} et d'une première approche utilisant des caractéristiques expertes pour classifier divers véhicules à partir d'images \gls{IRRVB}. Certains travaux plus anciens s'étaient intéressés à cette problématique sous la forme d'une segmentation multi-échelle et de l'utilisation de règles de logique floue~\cite{holt_object-based_2009}, puis d'analyse discriminante linéaire~\cite{eikvil_classification-based_2009}. En particulier, \citet{eikvil_classification-based_2009} montrent que segmenter l'image avant de réaliser la détection des véhicules permet d'éliminer de nombreux faux positifs.
+La détection et la reconnaissance de véhicules sont deux problèmes classiques en télédétection. Non seulement la localisation et l'identification des véhicules interviennent dans le cadre de la surveillance et de l'interprétation de scènes, mais ces informations permettent également d'isoler les parties non mobiles d'une image pour mieux en comprendre la géométrie~\cite{leberl_recognizing_2007}. De nombreux travaux ont étudié la détection automatique de véhicules dans des images \gls{THR} avec une large variété de méthodes, allant des descripteurs \gls{HOG} couplés à des \glspl{SVM}~\cite{michel_local_2011,gleason_vehicle_2011,kamenetsky_aerial_2015} aux modèles 3D d'estimation de pose~\cite{janney_pose-invariant_2015} en passant par les modèles à parties déformables~\cite{randrianarivo_urban_2013} ou les mélanges de modèles invariants par rotation~\cite{randrianarivo_contextual_2016}. L'apprentissage profond et notamment les \gls{CNN} ont également été appliqués à cette tâche~\cite{chen_vehicle_2014}. Récemment, la majorité des méthodes utilisent des réseaux spécifiquement conçus pour la détection d'objet, comme Faster-RCNN~\cite{ren_faster_2017} dans les travaux de~\citet{sommer_fast_2017} ou YOLO~\cite{redmon_you_2016} dans ceux de~\citet{van_etten_you_2018}. Cependant, peu de travaux s'intéressent à réaliser simultanément détection et reconnaissance, en dépit de l'introduction de la base de données \gls{VEDAI} par~\citet{razakarivony_vehicle_2016} et d'une première approche utilisant des caractéristiques expertes pour classifier divers véhicules à partir d'images \gls{IRRVB}. Certains travaux plus anciens s'étaient intéressés à cette problématique sous la forme d'une segmentation multiéchelle et de l'utilisation de règles de logique floue~\cite{holt_object-based_2009}, puis d'analyse discriminante linéaire~\cite{eikvil_classification-based_2009}. En particulier, \citet{eikvil_classification-based_2009} montrent que segmenter l'image avant de réaliser la détection des véhicules permet d'éliminer de nombreux faux positifs.
 
 Dans cette perspective, nous proposons donc d'étudier comment, à partir des approches de segmentation sémantique par apprentissage profond étudiées au~\cref{chap:cartographie}, aboutir à des méthodes de détection et de classification de véhicules par raffinement successifs. Nous présentons dans cette partie une méthode complète de segmentation pour la détection intitulée \emph{segment-before-detect}. Au-delà des boîtes englobantes habituellement utilisées en détection, nous allons montrer comment prédire la forme et le type des instances individuelles des véhicules présents dans une image aérienne.
 
@@ -53,15 +54,15 @@ Notre méthode \emph{segment-before-detect} permet d'extraire et de classifier d
   \label{fig:ouverture_morpho}
 \end{figure}
 
-Comme nous l'avons vu dans le~\cref{chap:cartographie}, un réseau profond de type SegNet est suffisamment précis pour prédire des véhicules individuels dans des images haute résolution ($<\SI{50}{\centi\meter/\px}$). Dans ce cas, il suffit alors de réaliser une extraction des composantes connectées pour obtenir les instances individuelles des véhicules présents dans l'image. Pour chaque composante connectée, le calcul de la boîte englobante l'entourant est alors immédiat.
+Comme nous l'avons vu dans le~\cref{chap:cartographie}, un réseau profond de type \gls{SegNet} est suffisamment précis pour prédire des véhicules individuels dans des images haute résolution ($<\SI{50}{\centi\meter/\px}$). Dans ce cas, il suffit alors de réaliser une extraction des composantes connectées pour obtenir les instances individuelles des véhicules présents dans l'image. Pour chaque composante connectée, le calcul de la boîte englobante l'entourant est alors immédiat.
 
 Cependant, les prédictions issues de SegNet sont susceptibles d'être bruitées. En particulier, les \gls{CNN} appliqués à l'observation de la Terre tendent à produire des transitions inter-classes imprécises~\cite{marmanis_classification_2017}. Par conséquent, nous éliminons une grande partie des faux positifs et séparons les véhicules susceptibles d'avoir été prédits comme appartenant à la même composante connexe en appliquant une ouverture morphologique au masque sémantique obtenu par SegNet (cf.~\cref{fig:ouverture_morpho}). Nous éliminons ensuite les objets dont la surface est inférieure à un seuil strict pour supprimer les fausses alarmes dues aux erreurs de segmentation, comme les bouches de ventilation sur les toits ou certains éléments du mobilier urbain. Bien que simple, nous allons voir que cette approche permet d'augmenter significativement les performances en détection de SegNet.
 
 \subsubsection{Reconnaissance de véhicules par \gls{CNN}}
 
-En admettant que nous sommes en mesure de localiser les véhicules, nous cherchons dès lors à en identifier le type. Ainsi, nous cherchons à déterminer si le véhicule est une voiture, un camion, une camionette, etc. Il s'agit d'un problème classique de reconnaissance d'objet que les \gls{CNN} peuvent aisément résoudre. Nous appliquons donc l'approche classique consistant à spécialiser~\cite{nogueira_towards_2016,zhou_deep_2016} un modèle de \gls{CNN} pré-entraîné sur la base de données ImageNet~\cite{russakovsky_imagenet_2015} pour la reconnaissance de véhicules.
+En admettant que nous sommes en mesure de localiser les véhicules, nous cherchons dès lors à en identifier le type. Ainsi, nous cherchons à déterminer si le véhicule est une voiture, un camion, une camionette, etc. Il s'agit d'un problème classique de reconnaissance d'objet que les \gls{CNN} peuvent aisément résoudre. Nous appliquons donc l'approche classique consistant à spécialiser~\cite{nogueira_towards_2016,zhou_deep_2016} un modèle de \gls{CNN} préentraîné sur la base de données ImageNet~\cite{russakovsky_imagenet_2015} pour la reconnaissance de véhicules.
 
-Nous comparons en particulier les modèles les plus utilisés dans la littérature pour la classification de petites images ($\simeq$\SI{30x30}{\px}): LeNet~\cite{lecun_gradient-based_1998}, AlexNet~\cite{krizhevsky_imagenet_2012} et VGG-16~\cite{simonyan_very_2014}.
+Nous comparons en particulier les modèles les plus utilisés dans la littérature pour la classification de petites images ($\simeq$\SI{30x30}{\px}): LeNet~\cite{lecun_gradient-based_1998}, \gls{AlexNet}~\cite{krizhevsky_imagenet_2012} et \gls{VGG-16}~\cite{simonyan_very_2015}.
 
 Notre objectif est d'entraîner ce classifieur sur une grande base de données de véhicules et de l'appliquer sur des données issues d'une scène spécifique. Nous risquons donc d'être confrontés au problème de surapprentissage. En effet, nous cherchons à transférer des connaissances d'un jeu à de données à un autre. Pour améliorer la généralisabilité du modèle, deux techniques peuvent être employées: l'adaptation de domaine et l'augmentation de données. L'adaptation de domaine cherche à minimiser les différence entre le jeu de donnée d'apprentissage et celui d'inférence. L'augmentation de données cherche quant à elle à générer de nouvelles images d'entraînement synthétiques pour améliorer la robustesse du classifieur.
 
@@ -139,9 +140,9 @@ Nous entraînons un SegNet pour la segmentation sémantique sur ce jeu de donné
     \toprule
     \textbf{Jeu de données} & \textbf{Voiture} & \textbf{Camion} & \textbf{Van} & \textbf{Pick-up} & \textbf{Bateau} & \textbf{Camping-car} & \textbf{Autres} & \textbf{Avion} & \textbf{Tracteur}\\
     \midrule
-    VEDAI & \num{1340} &  300 & 100 & 950 & 170 & 390 & 200 & 47 & 190\\
-    ISPRS Potsdam & \num{1990} & 33 & 181 & 40 & - & - & - & - & -\\
-    NZAM/ONERA Christchurch & \num{2267} & 73 & 120 & 90 & - & - & - & - & -\\
+    \glsname{VEDAI} & \num{1340} &  300 & 100 & 950 & 170 & 390 & 200 & 47 & 190\\
+    \glsname{ISPRS} Potsdam & \num{1990} & 33 & 181 & 40 & - & - & - & - & -\\
+    Christchurch & \num{2267} & 73 & 120 & 90 & - & - & - & - & -\\
     \bottomrule
     \end{tabularx}}
 \end{table}
@@ -182,7 +183,7 @@ Nous détaillons dans le~\cref{table:potsdam_seg} les scores $F_1$ et l'exactitu
 
 \begin{table}[t]
 \centering
-	\caption{Résultats de segmentation sémantique sur le jeu de données \glsname{ISPRS} Potsdam (scores $F_1$ et exactitude globale).}
+	\mycaption{Résultats de segmentation sémantique sur le jeu de données \glsname{ISPRS} Potsdam à \SI{12,5}{\centi\meter/\px}}{(scores $F_1$ et exactitude globale).}
     \label{table:potsdam_seg}
     %\setlength{\tabcolsep}{2pt}
     \scalebox{0.8}[0.8]{
@@ -202,7 +203,7 @@ Comme illustré dans la~\cref{table:christchurch_seg}, un SegNet entraîné sur 
 
 \begin{table}[t]
 \centering
-	\caption{Résultats de segmentation sémantique sur NZAM/ONERA Christchurch (scores $F_1$ et exactitude globale).}
+	\mycaption{Résultats de segmentation sémantique sur NZAM/ONERA Christchurch}{(scores $F_1$ et exactitude globale).}
     \label{table:christchurch_seg}
 	\begin{tabular}{cccccc}
  	\toprule
@@ -227,7 +228,7 @@ Comme illustré dans la~\cref{table:christchurch_seg}, un SegNet entraîné sur 
     	\includegraphics[width=\textwidth]{images/potsdam_draw1}
     	\caption*{Potsdam}
     \end{subfigure}\vspace{-12pt}
-	\caption{Exemples de détections sur Potsdam et Christchurch (vrais positifs en vert, faux positifs en rouge et vérité terrain en bleu).}
+	\mycaption{Exemples de détections sur Potsdam et Christchurch}{(vrais positifs en vert, faux positifs en rouge et vérité terrain en bleu).}
     \label{fig:detection_samples}
 \end{figure}
 
@@ -235,7 +236,7 @@ Nous appliquons sur les deux jeux de données une ouverture morphologique d'un r
 
 Nous suivons les pratiques habituelles en détection d'objet~\cite{everingham_pascal_2014} et nous définissons un vrai positif comme une boîte englobante prédite dont l'\glsfirst{IsU} avec une boîte englobante de la vérité terrain est supérieure à 0,5. Si plusieurs prédictions existent pour le même véhicule, nous conservons celle avec la plus haute valeur d'\gls{IsU}, le reste étant considéré comme des fausses alarmes. Sur le jeu de données NZAM/ONERA Christchurch, nous comparons nos résultats sur la même tuile que celle choisie par~\citet{randrianarivo_contextual_2016}, qui ont appliqué un \emph{Discriminatively trained Model Mixture} (DtMM) contenant cinq modèles, un pour chaque orientation principale.
 
-Pour évaluer l'effet de l'ouverture morphologique sur les performances en segmentation d'instance, nous détaillons dans le~\cref{table:morpho_results} la moyenne de l'\gls{IsU} calculée sur les instances de véhicules et les scores précision/rappel finaux en fonction des divers pré-traitements appliqués. Ceci montre que la simple ouverture morphologique et l'élimination des véhicules candidats dont la surface est inférieure à 100px permet de grandement améliorer les performances en éliminant les faux positifs. Ceci est particulièrement vrai pour le jeu de données NZAM/ONERA dans lequel les annotations grossières conduisent à des cartes sémantiques imprécises après inférence. Le processus complet atteint un score \gls{IsU} de plus de 74\% sur Potsdam et plus de 70\% sur Christchurch.
+Pour évaluer l'effet de l'ouverture morphologique sur les performances en segmentation d'instance, nous détaillons dans le~\cref{table:morpho_results} la moyenne de l'\gls{IsU} calculée sur les instances de véhicules et les scores précision/rappel finaux en fonction des divers prétraitements appliqués. Ceci montre que la simple ouverture morphologique et l'élimination des véhicules candidats dont la surface est inférieure à 100px permet de grandement améliorer les performances en éliminant les faux positifs. Ceci est particulièrement vrai pour le jeu de données NZAM/ONERA dans lequel les annotations grossières conduisent à des cartes sémantiques imprécises après inférence. Le processus complet atteint un score \gls{IsU} de plus de 74\% sur Potsdam et plus de 70\% sur Christchurch.
 
 Finalement, nous indiquons les résultats de détection dans le~\cref{table:detection_results}. Sur NZAM/ONERA Christchurch, notre méthode \textit{segment-before-detect} obtient des résultats significativement supérieurs aux approches par mélange de modèles et \gls{HOG}+\gls{SVM}. Bien qu'aucune autre méthode de détection de véhicules n'ait été appliquée sur Potsdam, nous indiquons également nos scores de précision/rappel sur ce jeu de données. Des exemples qualitatifs de détection sont présentés dans la~\cref{fig:detection_samples}.
 
@@ -244,11 +245,11 @@ Finalement, nous indiquons les résultats de détection dans le~\cref{table:dete
 
 \begin{table}[t]
 \centering
-  \caption{Segmentation d'instance et détection de véhicules pour différents pré-traitements morphologiques (\glssymbol{IsU} moyen, précision et rappel).}
+  \mycaption{Segmentation d'instance et détection de véhicules pour différents prétraitements morphologiques}{(\glssymbol{IsU} moyen, précision et rappel).}
   \label{table:morpho_results}
   \begin{tabularx}{\textwidth}{Y c c c c}
   \toprule
-  \textbf{Jeu de données} & \textbf{Pré-traitement} & \textbf{\gls{IsU} moyen} & \textbf{Précision} & \textbf{Rappel}\\
+  \textbf{Jeu de données} & \textbf{prétraitement} & \textbf{\gls{IsU} moyen} & \textbf{Précision} & \textbf{Rappel}\\
   \midrule
   %\multirow{3}{*}{Potsdam} & AlexNet & 81\% & 42\% & \textbf{50\%} & \textbf{50\%} & 75\% & 56\%\\
   %& VGG & 83\% & 55\% & \textbf{50\%} & 33\% & 77\% & 55\%\\
@@ -282,7 +283,7 @@ Finalement, nous indiquons les résultats de détection dans le~\cref{table:dete
 \end{table}
 
 Christchurch est un jeu de données plus complexe pour deux raisons. Tout d'abord, la densité de véhicules y est nettement plus élevée que pour Potsdam, la ville comprenant de nombreux véhicules resserrés sur des surfaces réduites. Ensuite, les annotations grossières empêchent le \gls{FCN} de prédire correctement les frontières des objets constituant la scène, ce qui conduit à des masques de véhicules imprécis (cf. \cref{fig:segmentations}, l'\gls{IsU} moyen sur Christchurch atteint \num{66.6}\% contre plus de 80\% pour Potsdam). Cette combinaison rend le problème d'extraction des instances de véhicules plus difficile, mais reste toutefois à la portée de notre approche. Cependant, les boîtes englobantes obtenues tendent à couvrir plusieurs véhicules .
-En dépit de cela, les résultats de segmentation sémantique restent élevés en dépit de l'apprentissage sur des annotations prévues pour la détection d'objet. Ainsi, la segmentation peut être utilisée comme étape intermédiaire pour des tâches de détection, pour lesquelles l'état de l'art nécessite des approches sophistiquées et complexes. L'étape d'extraction de composantes connectées pourrait en outre être améliorée en utilisant une extraction de boîte englobante plus robuste, soit par des approches morphologiques comme un \emph{watershed} appliqué aux cartes de probabilités~\cite{beucher_morphological_1993,bai_deep_2017}, soit en intégrant la prédiction d'instance au sein du réseau~\cite{dai_instance-aware_2015,he_mask_2017}.
+En dépit de cela, les résultats de segmentation sémantique restent élevés en dépit de l'apprentissage sur des annotations prévues pour la détection d'objet. Ainsi, la segmentation peut être utilisée comme étape intermédiaire pour des tâches de détection, pour lesquelles l'état de l'art nécessite des approches sophistiquées et complexes. L'étape d'extraction de composantes connectées pourrait en outre être améliorée en utilisant une extraction de boîte englobante plus robuste, soit par des approches morphologiques comme un \emph{watershed} appliqué aux cartes de probabilités~\cite{beucher_morphological_1993,bai_deep_2017}, soit en intégrant la prédiction d'instance au sein du réseau~\cite{dai_instance-aware_2016,he_mask_2017}.
 
 \subsubsection{Estimation de la densité de véhicules}
 
@@ -359,20 +360,20 @@ Une fois ce type de densité calculée, il est possible de réduire la taille de
 
 \subsection{Classification de véhicules}
 
-Les véhicules étant désormais localisés et segmentés dans l'image, il s'agit enfin d'en identifier le type. À cette fin, nous comparons trois architectures de \gls{CNN} à la complexité croissante: LeNet~\cite{lecun_gradient-based_1998}, AlexNet~\cite{krizhevsky_imagenet_2012} et VGG-16~\cite{simonyan_very_2014}.
+Les véhicules étant désormais localisés et segmentés dans l'image, il s'agit enfin d'en identifier le type. À cette fin, nous comparons trois architectures de \gls{CNN} à la complexité croissante: LeNet~\cite{lecun_gradient-based_1998}, AlexNet~\cite{krizhevsky_imagenet_2012} et VGG-16~\cite{simonyan_very_2015}.
 
- LeNet-5 est un petit \gls{CNN} que nous entraînons à partir d'une initialisation aléatoire sur les véhicules de \gls{VEDAI} en utilisant des images de dimensions $32\times32$. AlexNet et VGG-16 sont deux réseaux ayant gagné la compétition \gls{ILSVRC} en 2012 et 2014. Des expériences préliminaires montrent que l'utilisation des poids de ces réseaux pré-entraînés sur ImageNet permet d'augmenter de 10\% l'exactitude des modèles, ce qui est cohérent avec la littérature~\cite{nogueira_towards_2016,penatti_deep_2015}. Par conséquent, ces \gls{CNN} seront simplement spécialisés sur des images de véhicules à résolution $224 \times 224$ et $227 \times 227$.
- Ces tailles d'images permettent de conserver les poids pré-entraînés des couches entièrement connectées. En pratique, les véhicules issues des images aériennes auront une taille d'environ $25\times 25$. Nous extrayons donc des imagettes centrées sur ces véhicules incluant un contexte spatial de \SI{16}{\px} dans toutes les directions, cette approche ayant donné les meilleurs résultats. Un contexte plus large risquerait d'inclure d'autres véhicules dans la même imagette tandis qu'un contexte plus restreint diminue la quantité d'information disponible pour la classification. Les imagettes sont ensuites redimensionnées par interpolation bilinéaire selon leur plus grande dimension pour correspondre à la taille attendue par le \gls{CNN}, la plus petite dimension étant remplie par du bruit blanc.
+ LeNet-5 est un petit \gls{CNN} que nous entraînons à partir d'une initialisation aléatoire sur les véhicules de \gls{VEDAI} en utilisant des images de dimensions $32\times32$. \gls{AlexNet} et \gls{VGG-16} sont deux réseaux ayant gagné la compétition \gls{ILSVRC} en 2012 et 2014. Des expériences préliminaires montrent que l'utilisation des poids de ces réseaux préentraînés sur ImageNet permet d'augmenter de 10\% l'exactitude des modèles, ce qui est cohérent avec la littérature~\cite{nogueira_towards_2016,penatti_deep_2015}. Par conséquent, ces \gls{CNN} seront simplement spécialisés sur des images de véhicules à résolution $224 \times 224$ et $227 \times 227$.
+ Ces tailles d'images permettent de conserver les poids préentraînés des couches entièrement connectées. En pratique, les véhicules issues des images aériennes auront une taille d'environ $25\times 25$. Nous extrayons donc des imagettes centrées sur ces véhicules incluant un contexte spatial de \SI{16}{\px} dans toutes les directions, cette approche ayant donné les meilleurs résultats. Un contexte plus large risquerait d'inclure d'autres véhicules dans la même imagette tandis qu'un contexte plus restreint diminue la quantité d'information disponible pour la classification. Les imagettes sont ensuites redimensionnées par interpolation bilinéaire selon leur plus grande dimension pour correspondre à la taille attendue par le \gls{CNN}, la plus petite dimension étant remplie par du bruit blanc.
 
 Les modèles sont entraînés (ou spécialisés) durant 20 passes sur le jeu de données à l'aide d'une descente de gradient stochastique avec moment. Nous utilisons des mini-lots de 128 échantillons pour AlexNet et LeNet et de 32 pour VGG-16 compte-tenu de l'espace mémoire requis. Le taux d'apprentissage est initialement fixé à 0.01 et est divisé par 10 après 75\% de l'entraînement. Pour les modèles soumis au \emph{fine-tuning}, nous ré-entraînons le réseau dans son intégralité à l'exception de la dernière couche, qui est initialisée aléatoirement et est entraînée avec un taux d'apprentissage 10 fois supérieur. Nous appliquons également du \emph{Dropout}~\cite{srivastava_dropout_2014} aux couches entièrement connectées pour limiter le surapprentissage.
 
 Sans surprise, les performances des \gls{CNN} sur \gls{VEDAI} sont proportionnelles à leurs résultats sur ImageNet, comme montré dans le~\cref{table:cnn_benchmark}. Toutefois, le modèle le plus complexe (VGG-16) n'améliore que légèrement les résultats de classification comparé à l'important surcoût calculatoire qu'il engendre. En pratique, il pourrait être possible d'utiliser n'importe quel \gls{CNN}, incluant les ResNet~\cite{he_deep_2016}. Toutefois, nous nous contentons du modèle AlexNet qui offre un rapport performance/temps d'exécution acceptable.
 
-Le \cref{table:da_benchmark} détaille les résultats de classification de véhicules sur \gls{VEDAI} en utilisant plusieurs stratégies de pré-traitement des données. L'augmentation de données par transformations géométriques (noté \emph{AD}) permet d'améliorer la robustesse et la généralisabilité du modèle. Le réalignement \emph{R} permet également d'améliorer les résultats et de rendre le réseau plus robuste en éliminant la nécessité d'apprendre une classification équivariante par rotation. La combinaison de ces deux stratégies permettant d'obtenir les meilleurs résultats, nous les appliquons donc toutes deux sur les jeux de données \gls{ISPRS} Potsdam et NZAM/ONERA Christchurch.
+Le \cref{table:da_benchmark} détaille les résultats de classification de véhicules sur \gls{VEDAI} en utilisant plusieurs stratégies de prétraitement des données. L'augmentation de données par transformations géométriques (noté \emph{AD}) permet d'améliorer la robustesse et la généralisabilité du modèle. Le réalignement \emph{R} permet également d'améliorer les résultats et de rendre le réseau plus robuste en éliminant la nécessité d'apprendre une classification équivariante par rotation. La combinaison de ces deux stratégies permettant d'obtenir les meilleurs résultats, nous les appliquons donc toutes deux sur les jeux de données \gls{ISPRS} Potsdam et NZAM/ONERA Christchurch.
 
 \begin{table}[t]
 \centering
-	\caption{Résultats de classification de plusieurs \glssymbol{CNN} sur \glsname{VEDAI} (en \%).}
+	\mycaption{Résultats de classification de plusieurs \glssymbol{CNN} sur \glsname{VEDAI} (en \%).}{\small OA = \emph{Overall Accuracy} (exactitude globale).}
     \label{table:cnn_benchmark}
     \setlength\tabcolsep{3pt}
     \scalebox{0.8}[0.8]{
@@ -390,13 +391,13 @@ Le \cref{table:da_benchmark} détaille les résultats de classification de véhi
 \unskip
 \begin{table}[t]
 \centering
-	\caption{Résultats de classification d'AlexNet sur \glsname{VEDAI} avec plusieurs pré-traitements (en \%).}
+	\mycaption{Résultats de classification d'AlexNet sur \glsname{VEDAI} avec plusieurs prétraitements (en \%).}{\small OA = \emph{Overall Accuracy} (exactitude globale), AA = \emph{Average Accuracy} (exactitude moyenne).}
     \label{table:da_benchmark}
     \setlength\tabcolsep{3pt}
    \scalebox{0.78}[0.78]{
 	\begin{tabularx}{1.3\textwidth}{YYYYYYYYYYYY}
     \toprule
-    \textbf{Pré-traitement} &  \textbf{Voiture} & \textbf{Camion} & \textbf{Bateau} & \textbf{Tracteur} & \textbf{Camping-car} & \textbf{Van} & \textbf{Pick-up} & \textbf{Avion} & \textbf{Autres} & \textbf{OA} & \textbf{AA}\\
+    \textbf{prétraitement} &  \textbf{Voiture} & \textbf{Camion} & \textbf{Bateau} & \textbf{Tracteur} & \textbf{Camping-car} & \textbf{Van} & \textbf{Pick-up} & \textbf{Avion} & \textbf{Autres} & \textbf{OA} & \textbf{AA}\\
     \midrule
     %Standard & 90.4\% $\pm$ 3.9 & 66.7\% $\pm$ 10.0 & 80.4\% $\pm$ 14.8 & 89.5\% $\pm$ 9.1 & 96.6\% $\pm$ 1.5 & 63.3\% $\pm$ 15.3 & 78.7\% $\pm$ 2.8 & 92.6\% $\pm$ 12.8 & 75.0\% $\pm$ 5.0 & 83.9\% $\pm$ 2.7 & 81.5\% $\pm$ 1.9\\
     %DA & 88.2\% $\pm$ 0.6 & 82.2 $\pm$ 3.1 & 78.4\% $\pm$ 7.3 & 82.5\% $\pm$ 5.0 & 97.4\% $\pm$ 3.6 & 63.3\% $\pm$ 4.7 & 85.1\% $\pm$ 4.8 & 66.7 $\pm$ 47.1 & 73.3\% $\pm$ 8.5 & 85.6\% $\pm$ 1.4 & 77.3\% $\pm$ 8.7\\
@@ -471,7 +472,7 @@ Le \cref{table:da_benchmark} détaille les résultats de classification de véhi
 
 \begin{table}[t]
 \centering
-  \caption{Résultats de classification de véhicules sur les vérité terrain augmentées de Potsdam et Christchurch}
+  \mycaption{Résultats de classification de véhicules sur les vérité terrain augmentées de Potsdam et Christchurch.}{\small OA = \emph{Overall Accuracy} (exactitude globale), AA = \emph{Average Accuracy} (exactitude moyenne).}
   \label{table:results_classif}
   \begin{tabular}{cccccccc}
   \toprule
@@ -507,12 +508,13 @@ Finalement, nous avons donc montré qu'il était possible de récupérer \emph{a
 Toutefois, l'extraction des instances d'objet nécessite de faire appel à un processus \emph{ad hoc} permettant de regrouper les pixels appartenant à un même objet. Comme nous l'avons vu jusqu'ici, les modèles entièrement convolutifs sont optimisés pour minimiser une fonction de coût de classification pixel à pixel. Une telle fonction de coût ne permet pas de modéliser efficacement les dépendances spatiales pouvant exister entre les pixels, notamment leur appartenance à un même objet. Il paraît donc pertinent d'étudier comment rendre compte de ces relations spatiales dans l'optimisation des réseaux.
 
 \section{Segmentation sémantique par régression des cartes de distances}
+\label{sec:cds}
 
 \subsection{Annotations sémantiques et cartes de distances}
 
 Comme nous l'avons vu dans la section précédente, il est possible de reconstruire \emph{a posteriori} la structure des objets dans les cartes sémantiques prédites par un \gls{FCN}. Toutefois, la littérature relaie régulièrement des problèmes de frontières inter-classes imprécises ou de segmentations bruitées, nécessitant de faire appel à des régularisations a posteriori pour lisser les segmentations~\cite{zheng_conditional_2015,chen_deeplab_2018} ou à post-traitements \emph{ad hoc} comme la méthode \emph{segment-before-detect}.
 
-La communauté s'est ainsi penchée sur différents post-traitements pour améliorer la netteté des contours et contraindre les segmentations à respecter la même topologie que la vérité terrain. Bien souvent, il s'agit de modèles graphiques ajoutés en fin de réseau~\cite{z._liu_deep_2017} ou faisant appel à des connaissances a priori~\cite{le_reformulating_2017,bertasius_semantic_2016}. La segmentation d'instance en particulier s'intéresse à combiner des approches de localisation géométrique avec des approches de sémantisation~\cite{he_mask_2017,dai_instance-aware_2015}.
+La communauté s'est ainsi penchée sur différents post-traitements pour améliorer la netteté des contours et contraindre les segmentations à respecter la même topologie que la vérité terrain. Bien souvent, il s'agit de modèles graphiques ajoutés en fin de réseau~\cite{liu_deep_2018} ou faisant appel à des connaissances a priori~\cite{le_reformulating_2018,bertasius_semantic_2016}. La segmentation d'instance en particulier s'intéresse à combiner des approches de localisation géométrique avec des approches de sémantisation~\cite{he_mask_2017,dai_instance-aware_2016}.
 
 Nous présentons ici une approche directe consistant en une régularisation implicite intégrée dans la représentation de la vérité terrain. En effet, nous proposons d'utiliser les cartes de distance issues des masques de segmentation comme tâche auxiliaire. Les cartes de distance indiquent non seulement l'appartenance d'un pixel à une classe donnée, mais également sa proximité spatiale vis-à-vis des autres classes d'intérêt et contient donc une information plus riche concernant la structure spatiale des données. Cette approche s'inscrit dans la veine de travaux sur l'utilisation de primitives géométriques pour régulariser la segmentation sémantique, comme la prédiction de l'orientation des objets~\cite{uhrig_pixel-level_2016} ou de la position de leur centre de masse~\cite{hayder_boundary-aware_2017}
 
@@ -575,53 +577,36 @@ Pour limiter des effets indésirables lorsque les pixels sont assez éloignés d
 
 \begin{figure*}[!t]
 	\centering
-	\includegraphics[width=0.9\textwidth]{multitask_distances}
-    \caption{Apprentissage multi-tâche (classification pixel à pixel et régression des cartes de distances). Les couches convolutives sont en {\color{blue}bleu}, les activations non-linéaires en {\color{green!50!black}vert} et les cartes d'activation en {\color{brown}marron}.}
+	\resizebox{\textwidth}{!}{\input{Chapitre6/multitask_distances.tikz}}
+    \mycaption{Apprentissage multitâche (classification pixel à pixel et régression des cartes de distances).}{Les couches convolutives sont en {\color{blue}bleu}, les activations non-linéaires en {\color{green!50!black}vert} et les cartes d'activation en {\color{brown}marron}.}
     \label{fig:distance_framework}
 \end{figure*}
 
-\subsection{Apprentissage multi-tâche}
+\subsection{Apprentissage multitâche}
 
-%Signed distance transform maps are continuous representations of the labels. We can train a deep network to approximate these maps using a regression loss.
+La régression directe des \glspl{CDS} ne permet pas d'obtenir de meilleurs résultats de segmentation que la classification dense pixel à pixel usuelle. De fait, nous proposons donc d'utiliser une stratégie d'apprentissage multitâche dans laquelle le réseau est optimisé à la fois sur la classification des pixels et sur la régression des \glspl{CDS}.
 
-La régression directe des \glspl{CDS} ne permet pas d'obtenir de meilleurs résultats de segmentation que la classification dense pixel à pixel usuelle. De fait, nous proposons donc d'utiliser une stratégie d'apprentissage multi-tâche dans laquelle le réseau est optimisé à la fois sur la classification des pixels et sur la régression des \glspl{CDS}.
-%However, preliminary experiments show that training only for regression does not bring any improvement compared to traditional classification and even degrades the results.
-%sl% penses-tu qu'il faudrait donner des résultats ici ou juste le dire?
-%Therefore, we suggest to use a multi-task strategy, in which the network learns both the classification on the usual one-hot labels and the regression on the SDT.
+En particulier, nous modifions l'architecture du réseau pour, dans un premier temps, effectuer la régression des \glspl{CDS}; puis nous ajoutons une couche convolutive additionnelle pour fusionner les activations de la dernière couche avec les \glspl{CDS} prédites afin de réaliser la classification finale. Le réseau est ainsi entraîné en multitâche, la régression des \glspl{CDS} étant utilisée comme tâche intermédiaire avant la classification.
 
-En particulier, nous modifions l'architecture du réseau pour, dans un premier temps, effectuer la régression des \glspl{CDS}; puis nous ajoutons une couche convolutive additionnelle pour fusionner les activations de la dernière couche avec les \glspl{CDS} prédites afin de réaliser la classification finale. Le réseau est ainsi entraîné en multi-tâche, la régression des \glspl{CDS} étant utilisée comme tâche intermédiaire avant la classification.
-%More precisely, we alter the network to first predict the SDT and we then use an additional convolutional layer to fuse the last layer features and the inferred SDT to perform the final classification. In this way, the network is trained in a cascaded multi-task fashion, where the distance transform regression is used as a proxy, i.e. an intermediate task, before classification.
+L'altération du réseau se résume comme suit. La dernière couche, habituellement suivie d'un \textit{softmax} est ici utilisée comme couche de régression des \glspl{CDS}. Les distances étant normalisées entre $-1$ et $1$, la fonction $hardtanh$ est utilisée comme activation non-linéaire. Puis nous concaténons les activations de la couche précédente aux \glspl{CDS} ainsi prédites pour alimenter une couche convolutive additionnelle suivie d'un \textit{softmax} qui réalise la classification pixellique. L'architecture complète est illustrée dans la~\cref{fig:distance_framework}. Par souci d'équité dans nos expériences, les modèles de référence présentés par la suite incluent cette même couche de convolution additionnelle afin que les réseaux originaux et modifiés possèdent le même nombre de paramètres optimisables.
 
-L'altération du réseau se résume comme suit. La dernière couche, habituellement suivie d'un \textit{softmax} est ici utilisée comme couche de régression des \glspl{CDS}. Les distances étant normalisées entre $-1$ et $1$, la fonction $hardtanh$ est utilisée comme activation non-linéaire. Puis nous concaténons les activations de la couche précédente aux \glspl{CDS} ainsi prédites pour alimenter une couche convolutive additionnelle suivie d'un \textit{softmax} qui réalise la classification pixellique. L'architecture complète est illustrée dans la~\cref{fig:distance_framework}.
-%Therefore, the network modification can be summarized as follows. Instead of using the last layer and feeding it into a softmax, we now use the last layer as a distance prediction. As distances are normalized between -1 and 1, these distances pass through a $hardtanh$ non-linearity. Then, we concatenate the previous layer features maps and the distance predictions to feed both into a convolutional and a softmax layer. The complete architecture is illustrated in~\cref{fig:distance_framework}.
-
-Par souci d'équité dans nos expériences, les modèles de référence présentés par la suite incluent cette même couche de convolution additionnelle afin que les réseaux originaux et modifiés possèdent le même nombre de paramètres optimisables.
-%For a fair comparison, the classification baselines considered in~\cref{sec:experiments} use the same additional convolutional layer, so that both models have the same number of parameters.
-
-Les fonctions de coût utilisées dans ces travaux sont la log-vraisemblance négative (NLL) sous forme d'entropie croisée pour la classification et la distance $L_1$ pour la régression.
-%In this work, we keep the traditional cross-entropy loss for classification, in the form of the negative log-likelihood (NLL). As our regression results are constrained in $[-1;1]$, we use the L1 loss to preserve relative errors.
-
-En notant respectivement $Z_{seg}, Z_{dist}, Y_{seg}, Y_{dist}$ la classification après \textit{softmax}, la carte de distances prédite, les annotations de vérité terrain et la carte de distances réelle, la fonction de coût à minimiser est:
-%Assuming that $Z_{seg}, Z_{dist}, Y_{seg}, Y_{dist}$ respectively denote the output of the segmentation softmax, the regressed distance, the ground truth segmentation labels and the ground truth distances, the final loss to be minimized is:
+Les fonctions de coût utilisées dans ces travaux sont la log-vraisemblance négative (NLL) sous forme d'entropie croisée pour la classification et la distance $L_1$ pour la régression. En notant respectivement $Z_{seg}, Z_{dist}, Y_{seg}, Y_{dist}$ la classification après \textit{softmax}, la carte de distances prédite, les annotations de vérité terrain et la carte de distances réelle, la fonction de coût à minimiser est:
 \begin{equation}
 \mathcal{L}_\mathit{totale} = NLL(Z_{seg}, Y_{seg}) + \lambda \cdot L_1(Z_{dist}, Y_{dist})
 \end{equation}
-%where $\lambda$ is an hyper-parameter that controls the strength of the regularization.
 où $\lambda$ est un hyperparamètre contrôlant l'amplitude de la régularisation.
 
 \subsection{Validation expérimentale}
 
 Afin de pouvoir mesurer l'effet de la régression des cartes de distance, nous entraînons des réseaux avec l'architecture SegNet~\cite{badrinarayanan_segnet_2017} ou PSPNet~\cite{zhao_pyramid_2017} de référence, soit en régression pure, soit en classification pure.
-%We first obtain baseline results on various datasets using SegNet or PSPNet for semantic segmentation, either using the cross entropy for label classification or the L1 loss for distance regression. However, note that our method is not architecture-dependent. It consists in a straightforward modification of the end of the network that would fit any architecture designed for semantic segmentation.
 
 L'architecture encodeur-décodeur SegNet~\cite{badrinarayanan_segnet_2017} a déjà été présentée au \cref{chap:cartographie}. PSPNet~\cite{zhao_pyramid_2017} est une architecture entièrement convolutive ayant établi un nouvel état de l'art sur plusieurs jeux de données de segmentation sémantique~\cite{cordts_cityscapes_2016,everingham_pascal_2014}. Elle dérive du modèle ResNet~\cite{he_deep_2016} et utilise un module de concaténation en pyramide d'activations pour prendre en compte plusieurs niveaux de contexte spatial. Dans notre cas, nous utilisons une version réduite de PSPNet conçue sur l'architecture ResNet-101. ResNet-101 produit des cartes d'activation à résolution $1{:}32$ qui sont suréchantillonnées par déconvolution.
-%PSPNet~\cite{zhao_pyramid_2017} is a recent model for semantic segmentation that achieved new state-of-the-art results on several datasets~\cite{cordts_cityscapes_2016,everingham_pascal_2014}. It is based on the popular ResNet~\cite{he_deep_2016} model and uses a pyramidal module at the end to incorporate multi-scale contextual cues in the learning process. In our case, we use a smaller albeit efficient version of PSPNet based on ResNet-50~\cite{he_deep_2016}. ResNet-50 encodes the input into feature maps at 1:32 resolution, which are then upsampled using transposed convolutions.
 
 \subsubsection{Jeux de données}
 
 \begin{table}[h]
   \setlength\tabcolsep{2pt}
-  \caption{Résultats de validation croisée sur les jeux de données ISPRS. Les valeurs indiquées représentent le taux global de bonne classification et le score $F_1$ pour chaque classe.}
+  \mycaption{Résultats de validation croisée sur les jeux de données ISPRS (multitâche).}{Les valeurs indiquées représentent le taux global de bonne classification et le score $F_1$ pour chaque classe.}
   \label{tab:isprs_results}
 \begin{tabularx}{\textwidth}{c Y Y Y Y Y Y Y}
 \toprule
@@ -631,19 +616,19 @@ Méthode & Ville & Exac. & Routes & Bâtiments & Vég. basse & Arbres & Véhicul
 SegNet* (régression) & \multirow{3}{*}{Vaihingen} & \res{89.49}{} & \res{91.03}{} & \res{95.60}{} & \res{81.23}{} & \res{88.31}{} & \res{0.00}{}\\
 % Classif (lambda = 0) : OA : 90.00 +- 1.17 F1 : 91.98 +- 1.62 F1 : 95.53 +- 0.20 F1 : 80.91 +- 2.62 F1 : 88.07 +- 2.33 F1 : 87.94 +- 1.76
 SegNet* (classification) & & \res{90.00}{} & \res{91.98}{} & \res{95.53}{} & \res{80.91}{} & \res{88.07}{} & \res{87.94}{}\\
-% Multi-task (lambda = 2) : OA : 90.43 +- 1.00 F1 : 92.46 +- 1.41 F1 : 95.99 +- 0.24 F1 : 81.30 +- 2.96 F1 : 88.34 +- 2.09 F1 : 88.16 +- 1.24
-SegNet* (multi-tâche) & & \bres{90.43}{} & \bres{92.46}{} & \bres{95.99}{} & \bres{81.30}{} & \bres{88.34}{} & \bres{88.16}{}\\
+% multitask (lambda = 2) : OA : 90.43 +- 1.00 F1 : 92.46 +- 1.41 F1 : 95.99 +- 0.24 F1 : 81.30 +- 2.96 F1 : 88.34 +- 2.09 F1 : 88.16 +- 1.24
+SegNet* (multitâche) & & \bres{90.43}{} & \bres{92.46}{} & \bres{95.99}{} & \bres{81.30}{} & \bres{88.34}{} & \bres{88.16}{}\\
 \midrule
 %SegNet (regression) & \multirow{3}{*}{Potsdam} & ? & ? & ? & ? & ? & ?\\
 % Classif (lambda = 0) OA : 91.85 +- 1.19 F1 : 94.12 +- 0.37 F1 : 96.09 +- 1.02 F1 : 88.48 +- 0.56 F1 : 85.44 +- 1.93 F1 : 96.62 +- 0.30
 SegNet* (classification) & \multirow{2}{*}{Potsdam} & \res{91.85}{} & \res{94.12}{} & \res{96.09}{} & \res{88.48}{} & \res{85.44}{} & \res{96.62}{}\\
-% Multi-task (lambda = 2) : OA : 92.22 +- 1.15 F1 : 94.33 +- 0.45 F1 : 96.52 +- 1.03 F1 : 88.55 +- 0.62 F1 : 86.55 +- 1.28 F1 : 96.79 +- 0.37
-SegNet* (multi-tâche) & & \bres{92.22}{} & \bres{94.33}{} & \bres{96.52}{} & \bres{88.55}{} & \bres{86.55}{} & \bres{96.79}{}\\
+% multitask (lambda = 2) : OA : 92.22 +- 1.15 F1 : 94.33 +- 0.45 F1 : 96.52 +- 1.03 F1 : 88.55 +- 0.62 F1 : 86.55 +- 1.28 F1 : 96.79 +- 0.37
+SegNet* (multitâche) & & \bres{92.22}{} & \bres{94.33}{} & \bres{96.52}{} & \bres{88.55}{} & \bres{86.55}{} & \bres{96.79}{}\\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-Nous validons notre approche sur plusieurs jeux de données afin de démontrer sa capacité à généraliser dans des contextes de segmentation mono et multi-classe sur plusieurs types d'images.
+Nous validons notre approche sur plusieurs jeux de données afin de démontrer sa capacité à généraliser dans des contextes de segmentation mono et multiclasse sur plusieurs types d'images.
 %We validate our method on several datasets in order to show its generalization capacity on multi and mono-class segmentation of both ground and aerial images.
 
 \paragraph{ISPRS 2D Semantic Labeling}
@@ -664,16 +649,16 @@ Le jeu de données Data Fusion Contest 2015~\cite{campos-taberner_processing_201
 
 \subsubsection{Protocole expérimental}
 
-Les architectures SegNet et PSPNet-101 sont entraînées et déployées de la façon suivante. SegNet est entraîné pendant 50\,000 itérations sur des \emph{mini-batches} de 10 images. L'optimisation se fait par descente de gradient stochastique avec un taux d'apprentissage de 0,01, divisé par 10 après 25\,000 et 45\,000 itérations. Les poids de l'encodeur sont initialisés avec ceux de VGG-16~\cite{simonyan_very_2014} pré-entraîné sur ImageNet. Les poids du décodeur sont initialisés aléatoirement en utilisant la stratégie de~\citet{he_delving_2015}.
-%SegNet is trained for 50 epochs with a batch size of 10. Optimization is done using Stochastic Gradient Descent (SGD) with a base learning rate of 0.01, divided by 10 after 25 and 45 epochs, and a weight decay set at 0.0005. Encoder weights are initialized from VGG-16~\cite{simonyan_very_2014} trained on ImageNet~\cite{deng_imagenet:_2009}, while decoder weights are initialized using the policy from~\cite{he_delving_2015}.
-Pour le jeu de données multi-modal SUN RGB-D, nous utilisons le modèle FuseNet~\cite{hazirbas_fusenet_2016}, qui consiste en un SegNet à double entrée (cf.~\cref{chap:multimodal}).
+Les architectures \gls{SegNet} et PSPNet-101 sont entraînées et déployées de la façon suivante. SegNet est entraîné pendant 50\,000 itérations sur des \emph{mini-batches} de 10 images. L'optimisation se fait par descente de gradient stochastique avec un taux d'apprentissage de 0,01, divisé par 10 après 25\,000 et 45\,000 itérations. Les poids de l'encodeur sont initialisés avec ceux de VGG-16~\cite{simonyan_very_2015} préentraîné sur ImageNet. Les poids du décodeur sont initialisés aléatoirement en utilisant la stratégie de~\citet{he_delving_2015}.
+%SegNet is trained for 50 epochs with a batch size of 10. Optimization is done using Stochastic Gradient Descent (SGD) with a base learning rate of 0.01, divided by 10 after 25 and 45 epochs, and a weight decay set at 0.0005. Encoder weights are initialized from VGG-16~\cite{simonyan_very_2015} trained on ImageNet~\cite{deng_imagenet:_2009}, while decoder weights are initialized using the policy from~\cite{he_delving_2015}.
+Pour le jeu de données multimodal SUN RGB-D, nous utilisons le modèle FuseNet~\cite{hazirbas_fusenet_2016}, qui consiste en un SegNet à double entrée (cf.~\cref{chap:multimodal}).
 %For SUN RGB-D, in order to validate our method in a multi-modal setting, we use the FuseNet~\cite{hazirbas_fusenet_2016} architecture. This model consists in a dual-stream SegNet that learns a joint representation of both the color image and the depth map. We train it using SGD with a learning rate of 0.01 on resized $224\times224$ images.
 Sur les images aériennes, nous augmentons le nombre d'échantillons d'apprentissage en extrayant des images de $256\times256$ ($384\times384$ pour le jeu de données INRIA Aerial Image) et en procédant aléatoirement à des symétries horizontales ou verticales. L'inférence est réalisée avec une fenêtre glissante de même dimension et un recouvrement de 75\%.
 %On aerial images, we randomly extract $256\times256$ ($384\times384$ on the INRIA Labeling dataset), augmented with flipping and mirroring. Inference is done using a sliding window of the same shape with a 75\% overlap.
 
 PSPNet est entraîné sur CamVid pendant 750\,000 itérations sur 10 images en parallèle par descente de gradient stochastique avec un taux d'apprentissage de 0,01, divisé par 10 après 500\,000 itérations. Nous extrayons aléatoirement des imagettes de $224\times224$ et nous appliquons aléatoirement une symétrie horizontale. Suivant le protocole de~\cite{jegou_one_2017}, nous raffinons l'apprentissage en entraînant pendant 200\,000 itérations sur les images à pleine résolution.
 %We train a PSP-Net on CamVid for 750 epochs using SGD with a learning rate of 0.01, divided by 10 at epoch 500, a batch size of 10 and a weight decay set at 0.0005. We extract random $224\times224$ crops from the original images and we perform random mirroring to augment the data. We fine-tune on full scale images for 200 epochs, following the practice from~\cite{jegou_one_2017}.
-Notre implémentation de PSPNet utilise les poids de ResNet-101~\cite{he_deep_2016} pré-entraînés sur ImageNet pour l'initialisation, et n'utilise pas la fonction de coût auxiliaire présentée dans~\cite{zhao_pyramid_2017}.
+Notre implémentation de PSPNet utilise les poids de ResNet-101~\cite{he_deep_2016} préentraînés sur ImageNet pour l'initialisation, et n'utilise pas la fonction de coût auxiliaire présentée dans~\cite{zhao_pyramid_2017}.
 %Our implementation of PSPNet is based on ResNet-50 pre-trained on ImageNet and do not use the auxiliary classification loss for deep supervision~\cite{zhao_pyramid_2017}.
 
 Finalement, nous compensons le déséquilibre des classes dans les jeux de données SUN RGB-D et CamVid en utilisant une pondération inversement proportionnelle à la fréquence médiane.
@@ -697,7 +682,7 @@ Toutes les expériences sont réalisées à l'aide de la bibliothèque PyTorch~\
   \end{subfigure}
   \begin{subfigure}[t]{0.24\textwidth}
   	\includegraphics[width=\textwidth]{images_vaihingen/result_segnet_256_proxy_2_32_colors}
-      \caption*{SegNet (multi-tâche)}
+      \caption*{SegNet (multitâche)}
   \end{subfigure}
 \captionsetup{justification=justified,width=\textwidth}
 \mycaption{Extrait des résultats de segmentation sur le jeu de données \glsname{ISPRS} Vaihingen.}{\\\isprslegende}
@@ -723,7 +708,7 @@ Toutes les expériences sont réalisées à l'aide de la bibliothèque PyTorch~\
   \hfill
   \begin{subfigure}[t]{0.24\textwidth}
   	\includegraphics[width=\textwidth]{images_potsdam/result_segnet_potsdam_256_proxy_2_2_11_colors}
-      \caption*{SegNet (multi-tâche)}
+      \caption*{SegNet (multitâche)}
   \end{subfigure}
 \captionsetup{justification=justified,width=\textwidth}
 \mycaption{Extrait des résultats de segmentation sur le jeu de données \glsname{ISPRS} Potsdam.}{\\\isprslegende}
@@ -735,13 +720,15 @@ Toutes les expériences sont réalisées à l'aide de la bibliothèque PyTorch~\
 Dans les~\cref{tab:isprs_results,tab:inria_results,tab:sun_results,tab:camvid_results}, les modèles signalés par une étoile (``*'') sont ceux proposés dans le cadre cette étude et implémentés par nos soins. Les autres modèles sont des références de l'état de l'art.
 
 \paragraph{ISPRS dataset}
-Les résultats de validation croisée sur les jeux de données ISPRS Vaihingen et Potsdam sont détaillés dans le~\cref{tab:isprs_results}. Toutes les classes semblent bénéficier de la régression des cartes de distances. En particulier, les arbres sur Potsdam sont significativement mieux segmentés, la régression de la CDS contraignant le réseau à prendre en compte la convexité naturelle de l'objet en dépit de l'absence de feuilles. Deux exemples de segmentation sont présentés en~\cref{fig:isprs_vaihingen} et~\cref{fig:isprs_potsdam}, dans lesquelles on peut voir que les bâtiments bénéficient grandement de l'approche multi-tâche (apparence plus lisse et moins de bruit de classification). Nous avons également testé l'approche par régression seule sur le jeu de données ISPRS Vaihingen avec des résultats mitigés. En effet, la plupart des classes bénéficient de ce traitement mais le réseau devient alors incapable de segmenter les véhicules, provoquant dans l'ensemble une baisse du taux de bonne classification.
+Les résultats de validation croisée sur les jeux de données ISPRS Vaihingen et Potsdam sont détaillés dans le~\cref{tab:isprs_results}. Toutes les classes semblent bénéficier de la régression des cartes de distances. En particulier, les arbres sur Potsdam sont significativement mieux segmentés, la régression de la CDS contraignant le réseau à prendre en compte la convexité naturelle de l'objet en dépit de l'absence de feuilles. Deux exemples de segmentation sont présentés en~\cref{fig:isprs_vaihingen} et~\cref{fig:isprs_potsdam}, dans lesquelles on peut voir que les bâtiments bénéficient grandement de l'approche multitâche (apparence plus lisse et moins de bruit de classification). Nous avons également testé l'approche par régression seule sur le jeu de données ISPRS Vaihingen avec des résultats mitigés. En effet, la plupart des classes bénéficient de ce traitement mais le réseau devient alors incapable de segmenter les véhicules, provoquant dans l'ensemble une baisse du taux de bonne classification.
 %The cross-validated results on the ISPRS Vaihingen and Potsdam datasets are reported in~\cref{tab:isprs_results}. All classes seem to benefit from the distance transform regression. On Potsdam, the class ``trees'' is significantly improved as the distance transform regression forces the network to better learn its closed shape, despite the absence of leaves that make the underlying ground visible from the air. Two example tiles are shown in~\cref{fig:isprs_vaihingen} and~\cref{fig:isprs_potsdam}, where most buildings strongly benefit from the distance transform regression, with smoother shapes and less classification noise. Moreover, we also tested to perform regression only on the Vaihingen dataset, which slightly improved the results on several classes, although it missed all the cars and had a negative impact overall.
 %It is also worth noting that our strategy succeeds while CRF did not improve classification results on this dataset as reported in~\cite{marmanis_classification_2017}.
 
 \paragraph{INRIA Aerial Image Labeling Benchmark}
 
 \begin{table}
+  \caption{Performances en extraction de bâtiments sur le jeu de données INRIA \emph{Aerial Image Labeling}.}
+  \label{tab:inria_results}
   \setlength\tabcolsep{2pt}
 \begin{tabularx}{\textwidth}{Ycccccccccccc}
   \toprule
@@ -758,8 +745,6 @@ Les résultats de validation croisée sur les jeux de données ISPRS Vaihingen e
   SegNet* {\small (multi)} & \num{68.92}	&\num{96.94}	&\textbf{\num{68.12}}	&\textbf{\num{97.00}}	&\num{71.87}	&\num{96.72}	&\num{71.17}	&\num{89.74}	&\num{74.75}	&\num{97.78} & \num{71.02}	 & \num{95.63} \\
 \bottomrule
 \end{tabularx}
-\caption{Résultats sur le jeu de données INRIA Aerial Image Labeling. Nous indiquons le taux global de bonne classification ainsi que le ratio intersection sur union (\glssymbol{IsU}).}
-\label{tab:inria_results}
 \end{table}
 
 \begin{figure*}[t]
@@ -778,10 +763,10 @@ Les résultats de validation croisée sur les jeux de données ISPRS Vaihingen e
   \end{subfigure}
   \begin{subfigure}[t]{0.24\textwidth}
   	\includegraphics[width=\textwidth]{images_inria/chicago5_proxy_zoom}
-      \caption*{SegNet (multi-tâche)}
+      \caption*{SegNet (multitâche)}
   \end{subfigure}
 \captionsetup{justification=justified,width=\textwidth}
-\caption[Extrait des résultats de segmentation sur le jeu de données INRIA \emph{Aerial Image Labeling}.]{Extrait des résultats de segmentation sur le jeu de données INRIA \emph{Aerial Image Labeling}. Les pixels corrects sont en \textcolor{OliveGreen}{vert}, les faux positifs en \textcolor{Lavender}{rose} et les faux négatifs en \textcolor{Blue}{bleu}. L'approche multi-tâche capture mieux la structure spatiale des objets.}
+\mycaption{Extrait des résultats de segmentation sur le jeu de données INRIA \emph{Aerial Image Labeling}.}{Les pixels corrects sont en \textcolor{OliveGreen}{vert}, les faux positifs en \textcolor{Lavender}{rose} et les faux négatifs en \textcolor{Blue}{bleu}. L'approche multitâche capture mieux la structure spatiale des objets.}
 \label{fig:inria_results}
 \end{figure*}
 
@@ -790,46 +775,49 @@ Les résultats sur le jeu de données INRIA \emph{Aerial Image Labeling} sont d�
 
 \paragraph{SUN RGB-D}
 \begin{table}
+  \caption{Résultats sur le jeu de données SUN RGB-D dataset (images de $224\times224$px).}
+  \label{tab:sun_results}
 \setlength{\tabcolsep}{3pt}
 \centering
 \begin{tabularx}{0.80\textwidth}{Y c c c}
 \toprule
-Méthode & \% classification & \glssymbol{IsU} & Précision\\
+Méthode & Exactitude & \glssymbol{IsU} & Précision\\
 \midrule
 3D Graph CNN~\cite{qi_3d_2017} & - & \num{42.0} & \num{55.2}\\
-3D Graph CNN~\cite{qi_3d_2017} (multi-échelle) & - & \textbf{\num{43.1}} & \num{55.7}\\
+3D Graph CNN~\cite{qi_3d_2017} (multiéchelle) & - & \textbf{\num{43.1}} & \num{55.7}\\
 \midrule
 FuseNet*~\cite{hazirbas_fusenet_2016} & \num{76.8} & \num{39.0} & \num{55.3}\\
-FuseNet* (multi-tâche) & \textbf{\num{77.0}} & \num{38.9} & \textbf{\num{56.5}}\\
+FuseNet* (multitâche) & \textbf{\num{77.0}} & \num{38.9} & \textbf{\num{56.5}}\\
 \bottomrule
 \end{tabularx}
-\caption{Résultats sur le jeu de données SUN RGB-D dataset (images de $224\times224$px). Les métriques utilisées sont le taux de bonne classification, la moyenne du rapport intersection sur union (\glssymbol{IsU}) et la précision moyenne.}
-\label{tab:sun_results}
 \end{table}
-Nous indiquons dans le~\cref{tab:sun_results} les résultats détaillés de segmentation sur le jeu de données SUN RGB-D. Le passage à un modèle multi-tâche améliore légèrement la précision moyenne et le taux moyen de bonne classification, contre une très faible diminution de l'\gls{IsU}. Ces résultats montrent que l'utilisation de la régression sur les cartes de distances s'étend également à des architectures multi-modales à double entrée. En outre, nos résultats sont comparables à ceux obtenus par~\citet{qi_3d_2017} utilisant un réseau de neurones convolutif sur le graphe 3D de la scène, qui utilise donc une information plus riche.
-%We report in~\cref{tab:sun_results} test results on the SUN RGB-D dataset. Switching to the multi-task setting improves the overall accuracy and the average precision by respectively 0.33 and 1.06 points, while very slightly decreasing the average IoU. This shows that the distance transform regression also generalizes to a multi-modal setting on a dual-stream network.
+
+Nous indiquons dans le~\cref{tab:sun_results} les résultats détaillés de segmentation sur le jeu de données SUN RGB-D. Le passage à un modèle multitâche améliore légèrement la précision moyenne et le taux moyen de bonne classification, contre une très faible diminution de l'\gls{IsU}. Ces résultats montrent que l'utilisation de la régression sur les cartes de distances s'étend également à des architectures multimodales à double entrée. En outre, nos résultats sont comparables à ceux obtenus par~\citet{qi_3d_2017} utilisant un réseau de neurones convolutif sur le graphe 3D de la scène, qui utilise donc une information plus riche.
 
 \paragraph{Data Fusion Contest 2015}
 
 \begin{table}[ht]
+  \mycaption{Résultats de segmentation sémantique sur le jeu de données \glsname{DFC} 2015}{(scores $F_1$ par classe et exactitude globale).}
+  \label{tab:dfc_results}
+\setlength\tabcolsep{3pt}
 \begin{tabularx}{\textwidth}{Y c c c c c c c c c}
 \toprule
 Méthode & Exac. & Routes & Bâtiments & Vég. basse & Arbres & Véhicules & Autre & Bateaux & Eau\\
 \midrule
 AlexNet (par \emph{patch})~\cite{campos-taberner_processing_2016} & \res{83.32}{} & \res{79.10}{} & \res{75.60}{} & \res{78.00}{} & \res{79.50}{} & \res{50.80}{} & \res{63.40}{} & \res{44.80}{} & \res{98.20}{}\\
 SegNet (classification) & \res{86.67}{} & \bres{84.05}{} & \bres{82.21}{} & \res{82.24}{} & \res{69.10}{} & \res{79.27}{} & \res{65.78}{} & \bres{56.80}{} & \res{98.93}{}\\
-SegNet (multi-tâche) & \bres{87.31}{} & \res{84.04}{} & \res{81.71}{} & \bres{83.88}{} & \bres{80.04}{} & \bres{80.27}{} & \bres{69.25}{} & \res{50.83}{} & \bres{98.94}{}\\
+SegNet (multitâche) & \bres{87.31}{} & \res{84.04}{} & \res{81.71}{} & \bres{83.88}{} & \bres{80.04}{} & \bres{80.27}{} & \bres{69.25}{} & \res{50.83}{} & \bres{98.94}{}\\
 \bottomrule
 \end{tabularx}
-\caption{Résultats de segmentation sémantique sur le jeu de données \glsname{DFC} 2015 (scores $F_1$ par classe et exactitude globale).}
-\label{tab:dfc_results}
 \end{table}
 
-Le \cref{tab:dfc_results} compile les résultats de segmentation sémantique obtenus en entraînant un SegNet avec et sans régression des \glspl{CDS} sur le jeu de données \gls{DFC} 2015. À titre de comparaison, la meilleure approche de la compétition initiale est également indiquée~\cite{campos-taberner_processing_2016}. Les gains quantitatifs sont similaires à ceux obtenus sur \gls{ISPRS} Vaihingen et Potsdam. En effet, la plupart des classes bénéficient de la régularisation, en particulier la végétation. En effet, la géométrie des annotations sur la végétation est nettement plus régulière que son aspect réel, à tendance chaotique et fractale. Dans l'ensemble, l'exactitude du modèle est améliorée de \num{0.64}\% dans le mode multi-tâche.
+Le \cref{tab:dfc_results} compile les résultats de segmentation sémantique obtenus en entraînant un SegNet avec et sans régression des \glspl{CDS} sur le jeu de données \gls{DFC} 2015. À titre de comparaison, la meilleure approche de la compétition initiale est également indiquée~\cite{campos-taberner_processing_2016}. Les gains quantitatifs sont similaires à ceux obtenus sur \gls{ISPRS} Vaihingen et Potsdam. En effet, la plupart des classes bénéficient de la régularisation, en particulier la végétation. En effet, la géométrie des annotations sur la végétation est nettement plus régulière que son aspect réel, à tendance chaotique et fractale. Dans l'ensemble, l'exactitude du modèle est améliorée de \num{0.64}\% dans le mode multitâche.
 
 \paragraph{CamVid}
 
 \begin{table}[!t]
+  \caption{Performances de segmentation sémantique sur le jeu de données CamVid.}
+  \label{tab:camvid_results}
 \setlength{\tabcolsep}{1pt}
 \scalebox{0.75}[0.75]{
 \begin{tabularx}{1.35\textwidth}{Y c c c c c c c c c c c c c}
@@ -842,14 +830,10 @@ DenseNet56~\cite{jegou_one_2017} & \num{58.9} & \num{88.9} & \num{77.6} & \num{7
 DenseNet103~\cite{jegou_one_2017} & \textbf{\num{66.9}} & \textbf{\num{91.5}} & \textbf{\num{83.0}} & \textbf{\num{77.3}} & \textbf{\num{93.0}} & \num{77.3} & \textbf{\num{43.9}} & \textbf{\num{94.5}} & \textbf{\num{59.6}} & \num{37.1} & \textbf{\num{37.8}} & \textbf{\num{82.2}} & \num{50.5}\\
 \midrule
 PSPNet* (classification) & \num{60.3} & \num{89.3} & \num{74.7} & \num{64.1} & \num{89.0} & \num{71.8} & \num{36.6} & \num{90.8} & \num{44.5} & \num{38.5} & \num{25.4} & \num{77.4} & \num{50.3}\\
-PSPNet* (multi-tâche) & \num{62.2} & \num{90.0} & \num{76.2} & \num{66.4} &  \num{88.8} & \num{78.0} & \num{37.6} & \num{90.7} & \num{47.2} & \textbf{\num{40.1}} & \num{28.6} & \num{78.9} & \textbf{\num{51.2}}\\
+PSPNet* (multitâche) & \num{62.2} & \num{90.0} & \num{76.2} & \num{66.4} &  \num{88.8} & \num{78.0} & \num{37.6} & \num{90.7} & \num{47.2} & \textbf{\num{40.1}} & \num{28.6} & \num{78.9} & \textbf{\num{51.2}}\\
 %PSPNet (multi-tâche mask) & 60.0 & 89.8 & 75.6 & 67.1 & 89.6 & 71.4 & 37.3 & 92.8 & 44.4 & 36.1 & 27.6 & 75.7 & 42.6\\
 \bottomrule
 \end{tabularx}}
-\caption{Résultats sur le jeu de données CamVid incluant le rapport d'intersection sur union (\glssymbol{IsU}) global et pour chaque classe, ainsi que le taux de bonne classification.}
-%sl% SDT = multi-task? ou regression seulement?
-%sl% as-tu des résultats avec PSPNet standard? (= classification ?)
-\label{tab:camvid_results}
 \end{table}
 
 \begin{figure*}[t]
@@ -892,11 +876,11 @@ PSPNet* (multi-tâche) & \num{62.2} & \num{90.0} & \num{76.2} & \num{66.4} &  \n
 \begin{subfigure}[t]{0.21\textwidth}
 	\includegraphics[width=\textwidth]{images_camvid/camvid_gt_3.png}
 \end{subfigure}
-\caption{Exemple de résultats de segmentation sémantique sur le jeu de données CamVid. De gauche à droite: image RVB, PSPNet (classification), PSPNet (multi-tâche), annotations.}
+\mycaption{Exemple de résultats de segmentation sémantique sur le jeu de données CamVid.}{De gauche à droite: image RVB, PSPNet (classification), PSPNet (multitâche), annotations.}
 \label{fig:camvid_results}
 \end{figure*}
 
-Les résultats sur le jeu de données CamVid sont détaillés dans le~\cref{tab:camvid_results} avec notamment une comparaison à la méthode de~\citet{jegou_one_2017}. Plusieurs exemples qualitatifs sont présentés dans la~\cref{fig:camvid_results}. Le passage de PSPNet au mode de fonctionnement multi-tâche permet d'améliorer l'\gls{IsU} global de presque 2 points et améliore la majorité des classes, à l'exception du ciel et des routes. Ceci est notamment dû à la présence de pixels non annotés, nombreux aux frontières de ces classes, provoquant la génération de cartes de distances inexactes. Dans l'ensemble, nos résultats sont compétitifs avec les méthodes de l'état de l'art~\cite{jegou_one_2017,chen_deeplab_2018}.
+Les résultats sur le jeu de données CamVid sont détaillés dans le~\cref{tab:camvid_results} avec notamment une comparaison à la méthode de~\citet{jegou_one_2017}. Plusieurs exemples qualitatifs sont présentés dans la~\cref{fig:camvid_results}. Le passage de PSPNet au mode de fonctionnement multitâche permet d'améliorer l'\gls{IsU} global de presque 2 points et améliore la majorité des classes, à l'exception du ciel et des routes. Ceci est notamment dû à la présence de pixels non annotés, nombreux aux frontières de ces classes, provoquant la génération de cartes de distances inexactes. Dans l'ensemble, nos résultats sont compétitifs avec les méthodes de l'état de l'art~\cite{jegou_one_2017,chen_deeplab_2018}.
 %The test results on the CamVid dataset are reported in~\cref{tab:camvid_results} that also includes a comparison with other methods from the state-of-the-art, notably~\cite{jegou_one_2017}. Some examples are shown in~\cref{fig:camvid_results} where the distance transform regression once again produces smoother segmentations. The PSPNet baseline is competitive with those other methods and its mean IoU is improved by 0.5 by switching to the multi-task setting including the distance transform regression. Most classes benefit from the distance transform regression, with the exception of the ``road'' and ``sky'' classes. This is due to the void pixels, that are concentrated on those classes and that result in noisy distance labels.
 
 \subsubsection{Discussion}
@@ -926,10 +910,13 @@ Comme illustré dans la~\cref{fig:lambda_space}, incorporer la régression des c
 
 %\paragraph{Effect of the multi-task learning}
 
-L'intégration de la régression des cartes de distances dans un cadre d'optimisation multi-tâche permet d'améliorer et de lisser la structure spatiale des segmentations prédites par le réseau. Le modèle notamment est contraint d'apprendre la notion de proximité spatiale d'un pixel par rapport à des classes voisines. Par exemple, dans le cas des images aériennes, des arbres dont le feuillage tombe en hiver peuvent révéler le sol. La réponse spectrale des filtres correspond alors à un mélange de texture, bien que l'annotation recherchée corresponde à l'enveloppe convexe de l'arbre. La régression des cartes de distances permet d'orienter le réseau vers des recherches de structure géométriques, moins dépendantes de la radiométrie locale. En outre, cela permet de limiter la présence du bruit de classification poivre et sel qui est habituellement corrigé par des modèles graphiques a posteriori.
-%The multi-task learning incorporating the distance transform regression in the semantic segmentation model helps the network to learn spatial structures. More precisely, it constrains the network not only to learn if a pixel is in or out a class mask, but also the Euclidean distance of this pixel w.r.t the mask. This information can be critical when the filter responses are ambiguous. For example, trees from birdviewX might reveal the ground underneath during the winter, as there are no leaves, although annotations still consider the tree to have a shape similar to a disk. Spatial proximity helps in taking these cases into account and removing some of the salt-and-pepper classification noise that it induces, as shown on the ISPRS Vaihingen and Potsdam and DFC2015 datasets.
+L'intégration de la régression des cartes de distances dans un cadre d'optimisation multitâche permet d'améliorer et de lisser la structure spatiale des segmentations prédites par le réseau. Le modèle notamment est contraint d'apprendre la notion de proximité spatiale d'un pixel par rapport à des classes voisines. Par exemple, dans le cas des images aériennes, des arbres dont le feuillage tombe en hiver peuvent révéler le sol. La réponse spectrale des filtres correspond alors à un mélange de texture, bien que l'annotation recherchée corresponde à l'enveloppe convexe de l'arbre. La régression des cartes de distances permet d'orienter le réseau vers des recherches de structure géométriques, moins dépendantes de la radiométrie locale. En outre, cela permet de limiter la présence du bruit de classification poivre et sel qui est habituellement corrigé par des modèles graphiques a posteriori.
+%The multitask learning incorporating the distance transform regression in the semantic segmentation model helps the network to learn spatial structures. More precisely, it constrains the network not only to learn if a pixel is in or out a class mask, but also the Euclidean distance of this pixel w.r.t the mask. This information can be critical when the filter responses are ambiguous. For example, trees from birdviewX might reveal the ground underneath during the winter, as there are no leaves, although annotations still consider the tree to have a shape similar to a disk. Spatial proximity helps in taking these cases into account and removing some of the salt-and-pepper classification noise that it induces, as shown on the ISPRS Vaihingen and Potsdam and DFC2015 datasets.
 %Moreover, as the network has to assign spatial distances to each pixel w.r.t the different classes, it also learns helpful cues regarding the spatial structure underlying the semantic maps. As illustrated in~\cref{fig:inria_results}, the predictions become more coherent with the original structure, with sharper boundaries and less holes when shapes are supposed to be closed.
 Enfin, une piste de recherche intéressante pour les \gls{CDS} réside dans la segmentation panoptique~\cite{kirillov_panoptic_2018}. Cette tâche consiste à réaliser de façon conjointe la segmentation sémantique et la segmentation d'instances. En effet, les objets peuvent être définis par instance mais de nombreuses surfaces et zones (le ciel, la mer, les routes\dots) n'ont pas de notion explicite d'instance. Les \glslink{CDS}{cartes de distances} ont l'avantage de pouvoir exprimer cette double notion par des surfaces de niveaux, l'ensemble des frontières entre classes étant encodées par le niveau 0.
+
+\publication{Les travaux de la~\cref{sec:segmentbeforedetect} ont été le sujet d'une publication journal:}{audebert_segment-before-detect_2017}
+\publication{Les travaux de la~\cref{sec:cds} ont été le sujet d'une publication en conférence nationale:}{audebert_segmentation_2018}
 
 %\bibliographystyle{plainnat}
 %\addbibresource{Chapitre6/Biblio.bib}

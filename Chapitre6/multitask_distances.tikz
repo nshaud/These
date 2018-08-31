@@ -1,0 +1,68 @@
+\documentclass{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usepackage{ifthen}
+\input{../CommandesPerso.tex}
+\begin{document}
+\begin{tikzpicture}[]
+\usetikzlibrary{3d}
+
+\def\scale{4}
+\def\vggx{0}
+\def\vggy{0}
+\def\vggz{0}
+
+\newcommand{\block}[8]{%{x}{y}{z}{d}{w}{h}{blue}{layer}
+   \coordinate (A) at (#1 + 0.5 * #4, #3 - 0.5 * #6, #2 + 0.5 * #5);
+   \coordinate (B) at (#1 + 0.5 * #4, #3 + 0.5 * #6, #2 + 0.5 * #5);
+   \coordinate (C) at (#1 - 0.5 * #4, #3 + 0.5 * #6, #2 + 0.5 * #5);
+   \coordinate (D) at (#1 - 0.5 * #4, #3 - 0.5 * #6, #2 + 0.5 * #5);
+
+   \coordinate (E) at (#1 + 0.5 * #4, #3 - 0.5 * #6, #2 - 0.5 * #5);
+   \coordinate (F) at (#1 + 0.5 * #4, #3 + 0.5 * #6, #2 - 0.5 * #5);
+   \coordinate (G) at (#1 - 0.5 * #4, #3 + 0.5 * #6, #2 - 0.5 * #5);
+   \coordinate (H) at (#1 - 0.5 * #4, #3 - 0.5 * #6, #2 - 0.5 * #5);
+
+    \draw [fill=#7!40!gray!80!white] (A) -- (B) to[bend left,looseness=0.5] (C) -- (D) to [bend left,looseness=0.5] (A);
+    \draw [fill=#7!50] (A) -- (B) -- (F) -- (E) -- cycle;
+    \draw [fill=#7!50] (B) to[bend left,looseness=0.5] (C) -- (G) to[bend right,looseness=0.5] (F);% -- node[rotate=45, above] {\small#8} (C) -- cycle;
+}
+
+
+\imagelayer{1.3*\scale}{0.1*\scale+\vggx}{\vggy}{\vggz}{potsdam_rgb_zoom}{Image}{$256\times256\times3$}
+
+\block{2*\scale}{0}{0}{3 * \scale}{1.*\scale}{1.*\scale}{purple}{}
+\node at (2*\scale+\vggx, \vggy-0.9*\scale) {\LARGE Réseau de segmentation};
+\convlayer{\scale}{\scale}{0.1*\scale}{activations}{brown}{\vggx+3.8*\scale}{\vggy}{\vggz}{{}{}{$n_\mathit{classes}$}}
+\convlayer{\scale}{\scale}{0.1*\scale}{hardtanh}{green!80!gray}{\vggx+4.1*\scale}{\vggy}{\vggz}{{}{}{$n_\mathit{classes}$}}
+
+\def\offx{4.5*\scale}
+\foreach \picpath [count=\i] in {potsdam_distroad_zoom,potsdam_distbuilding_zoom,potsdam_distlveg_zoom,potsdam_disttree_zoom,potsdam_distcars_zoom,potsdam_distclutter_zoom}{%
+\def\offset{\offx+0.06*\i*\scale+\vggx}
+\ifthenelse{\equal{3}{\i}}{
+    \node at (\offset, \vggy-0.75*\scale) {\footnotesize $256\times256\times n_\mathit{classes}$};}{}
+\ifthenelse{\equal{6}{\i}}{
+    \node (loss_dist) at (\offset, \vggy+0.9*\scale) {\Large $\mathcal{L}_\mathit{dist} = L_1$};
+    \draw[->,thick] (\offset, \vggy+0.65*\scale) -- (loss_dist.south);}{}
+
+\ifthenelse{\equal{1}{\i}}{\def\pictext{Distances}}{\def\pictext{}}
+\imagelayer{\scale}{\offset}{\vggy}{\vggz}{\picpath}{\pictext}{}
+}
+
+\node[minimum height=0.2*\scale,circle,draw=black] (concat) at (5.35*\scale, \vggy) {\large \textbf{||}};
+\node[yshift=0.25cm] at (concat.north) {\small concaténation};
+\draw[thick, ->] (5.05*\scale+\vggx, \vggy) -- (concat.west);
+\draw[thick, ->] (concat.east) -- (5.85*\scale+\vggx, \vggy);
+\convlayer{\scale}{\scale}{0.1*\scale}{}{blue}{\vggx+5.9*\scale}{\vggy}{\vggz}{{}{}{$n_\mathit{classes}$}}
+\convlayer{1.2*\scale}{1.2*\scale}{0.1*\scale}{prédictions}{brown}{\vggx+6.4*\scale}{\vggy}{\vggz}{{}{}{$n_\mathit{classes}$}}
+\convlayer{1.2*\scale}{1.2*\scale}{0.1*\scale}{softmax}{green!80!gray}{\vggx+6.7*\scale}{\vggy}{\vggz}{{}{}{$n_\mathit{classes}$}}
+
+\imagelayer{1.3*\scale}{7.13*\scale+\vggx}{\vggy}{\vggz}{potsdam_gt_zoom}{Carte}{$256\times256$}
+\node[inner sep=0,outer sep=0] (loss_seg) at (6.925*\scale+\vggx, \vggy+1*\scale) {\Large $\mathcal{L}_\mathit{seg} = NLL$};
+\draw[->,thick] (6.925*\scale+\vggx, \vggy+0.83*\scale) -- (loss_seg.south);
+
+\draw[thick,->] (\vggx+4.05*\scale,\vggy-0.6*\scale) to[bend right=75,looseness=1.38] (concat.south);
+
+\end{tikzpicture}
+\end{document}
