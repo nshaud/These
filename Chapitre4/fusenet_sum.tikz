@@ -1,0 +1,25 @@
+\documentclass{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\input{../CommandesPerso.tex}
+\begin{document}
+\def\colblue{blue!40!white}
+
+\begin{tikzpicture}[every node/.style={inner sep=0,outer sep=0}]
+
+	\node[scale=2] (plus) at (2,0) {\large $\bigoplus$};
+
+	\draw[->,ultra thick] (-2,-2.3) |- (plus.west);
+	\draw[->,ultra thick] (-2,0) to ++(0, 1.5);
+
+	\draw[->,ultra thick] (2,-2.3) to (plus.south);
+	\draw[->,ultra thick] (plus.north) to (2, 1.5);
+
+	\draw[fill=\colblue] (-3.5,1.5) rectangle (-0.5,2) node[pos=0.5] {$conv_n$ \footnotesize (aux)};
+	\draw[fill=\colblue] (0.5,1.5) rectangle (3.5,2) node[pos=0.5] {$conv_n$ \footnotesize (principal)};
+
+	\draw[fill=\colblue] (-0.5,-1.5) rectangle (-3.5,-2) node[pos=0.5] {$conv_{n-1}$ \footnotesize (aux)};
+	\draw[fill=\colblue] (0.5,-1.5) rectangle (3.5,-2) node[pos=0.5] {$conv_{n-1}$ \footnotesize (principal)};
+\end{tikzpicture}
+\end{document}

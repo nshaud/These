@@ -3,7 +3,6 @@
   title = {Semantic {{Segmentation}} of {{Earth Observation Data Using Multimodal}} and {{Multi}}-Scale {{Deep Networks}}},
   doi = {10.1007/978-3-319-54181-5_12},
   abstract = {This work investigates the use of deep fully convolutional neural networks (DFCNN) for pixel-wise scene labeling of Earth Observation images. Especially, we train a variant of the SegNet architecture on remote sensing data over an urban area and study different strategies for performing accurate semantic segmentation. Our contributions are the following: (1) we transfer efficiently a DFCNN from generic everyday images to remote sensing images; (2) we introduce a multi-kernel convolutional layer for fast aggregation of predictions at multiple scales; (3) we perform data fusion from heterogeneous sensors (optical and laser) using residual correction. Our framework improves state-of-the-art accuracy on the ISPRS Vaihingen 2D Semantic Labeling dataset.},
-  eventtitle = {Asian {{Conference}} on {{Computer Vision}}},
   booktitle = {Computer {{Vision}} – {{ACCV}} 2016},
   publisher = {{Springer, Cham}},
   date = {2016-11-20},
@@ -12,26 +11,21 @@
   file = {/home/naudeber/Bibliographie//Springer, Cham/2016/Audebert et al 2016 - Semantic Segmentation of Earth Observation Data Using Multimodal and.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/394SFXNP/Audebert et al_2016_Semantic Segmentation of Earth Observation Data Using Multimodal and.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/PC7RWZAX/978-3-319-54181-5_12.html;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/TJHU6H38/978-3-319-54181-5_12.html}
 }
 
-@article{simonyan_very_2014,
-  archivePrefix = {arXiv},
-  eprinttype = {arxiv},
-  eprint = {1409.1556},
-  primaryClass = {cs},
+@inproceedings{simonyan_very_2015,
   title = {Very {{Deep Convolutional Networks}} for {{Large}}-{{Scale Image Recognition}}},
   url = {http://arxiv.org/abs/1409.1556},
   abstract = {In this work we investigate the effect of the convolutional network depth on its accuracy in the large-scale image recognition setting. Our main contribution is a thorough evaluation of networks of increasing depth using an architecture with very small (3x3) convolution filters, which shows that a significant improvement on the prior-art configurations can be achieved by pushing the depth to 16-19 weight layers. These findings were the basis of our ImageNet Challenge 2014 submission, where our team secured the first and the second places in the localisation and classification tracks respectively. We also show that our representations generalise well to other datasets, where they achieve state-of-the-art results. We have made our two best-performing ConvNet models publicly available to facilitate further research on the use of deep visual representations in computer vision.},
-  urldate = {2015-11-18},
-  date = {2014-09-04},
+  booktitle = {Proceedings of the {{International Conference}} on {{Learning Representations}} ({{ICLR}})},
+  date = {2015-05},
   keywords = {À lire,Computer Science - Computer Vision and Pattern Recognition},
   author = {Simonyan, Karen and Zisserman, Andrew},
   file = {/home/naudeber/Bibliographie//arXiv1409.1556 [cs]/2014/Simonyan Zisserman 2014 - Very Deep Convolutional Networks for Large-Scale Image Recognition.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/8VM3BPQT/1409.html}
 }
 
 @inproceedings{kampffmeyer_semantic_2016,
+  location = {{Las Vegas, United States}},
   title = {Semantic {{Segmentation}} of {{Small Objects}} and {{Modeling}} of {{Uncertainty}} in {{Urban Remote Sensing Images Using Deep Convolutional Neural Networks}}},
-  url = {http://www.cv-foundation.org/openaccess/content_cvpr_2016_workshops/w19/html/Kampffmeyer_Semantic_Segmentation_of_CVPR_2016_paper.html},
-  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition Workshops}}},
-  urldate = {2016-07-18},
+  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition Workshops}} ({{CVPRW}})},
   date = {2016},
   pages = {1--9},
   author = {Kampffmeyer, Michael and Salberg, Arnt-Borre and Jenssen, Robert},
@@ -54,11 +48,9 @@
   eprinttype = {arxiv},
   eprint = {1612.01337},
   title = {Classification {{With}} an {{Edge}}: {{Improving Semantic Image Segmentation}} with {{Boundary Detection}}},
-  url = {http://arxiv.org/abs/1612.01337},
-  shorttitle = {Classification {{With}} an {{Edge}}},
+  doi = {10.1016/j.isprsjprs.2017.11.009},
   abstract = {We present an end-to-end trainable deep convolutional neural network (DCNN) for semantic segmentation with built-in awareness of semantically meaningful boundaries. Semantic segmentation is a fundamental remote sensing task, and most state-of-the-art methods rely on DCNNs as their workhorse. A major reason for their success is that deep networks learn to accumulate contextual information over very large windows (receptive fields). However, this success comes at a cost, since the associated loss of effecive spatial resolution washes out high-frequency details and leads to blurry object boundaries. Here, we propose to counter this effect by combining semantic segmentation with semantically informed edge detection, thus making class-boundaries explicit in the model, First, we construct a comparatively simple, memory-efficient model by adding boundary detection to the Segnet encoder-decoder architecture. Second, we also include boundary detection in FCN-type models and set up a high-end classifier ensemble. We show that boundary detection significantly improves semantic segmentation with CNNs. Our high-end ensemble achieves $>$ 90\% overall accuracy on the ISPRS Vaihingen benchmark.},
   journaltitle = {ISPRS Journal of Photogrammetry and Remote Sensing},
-  urldate = {2016-12-21},
   date = {2017},
   keywords = {Computer Science - Computer Vision and Pattern Recognition},
   author = {Marmanis, Dimitrios and Schindler, Konrad and Wegner, Jan Dirk and Galliani, Silvano and Datcu, Mihai and Stilla, Uwe},
@@ -76,7 +68,7 @@
   journaltitle = {IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing},
   date = {2016-12},
   pages = {5547-5559},
-  keywords = {Data integration,deep neural networks,Earth,extremely high spatial resolution,image analysis and data fusion (IADF),landcover classification,Laser radar,LiDAR,multimodal-data fusion,multiresolution-,multisource-,remote sensing,Spatial resolution,Three-dimensional displays},
+  keywords = {deep neural networks,Laser radar,Data integration,Earth,Spatial resolution,Three-dimensional displays,LiDAR,extremely high spatial resolution,image analysis and data fusion (IADF),landcover classification,multimodal-data fusion,multiresolution-,multisource-,remote sensing},
   author = {Campos-Taberner, Manuel and Romero-Soriano, Adriana and Gatta, Carlo and Camps-Valls, Gustau and Lagrange, Adrien and Le Saux, Bertrand and Beaupère, Anne and Boulch, Alexandre and Chan-Hon-Tong, Adrien and Herbin, Stéphane and Randrianarivo, Hicham and Ferecatu, Marin and Shimoni, Michal and Moser, Gabriele and Tuia, Devis},
   file = {/home/naudeber/Bibliographie//IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing/2016/Campos-Taberner et al 2016 - Processing of Extremely High-Resolution LiDAR and RGB Data.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/FC7U9666/articleDetails.html}
 }
@@ -109,23 +101,20 @@
 
 @inproceedings{guo_two-stream_2016,
   title = {Two-Stream Convolutional Neural Network for Accurate {{RGB}}-{{D}} Fingertip Detection Using Depth and Edge Information},
-  url = {http://ieeexplore.ieee.org/abstract/document/7532831/},
-  booktitle = {Image {{Processing}} ({{ICIP}}), 2016 {{IEEE International Conference}} On},
-  publisher = {{IEEE}},
-  urldate = {2017-02-24},
+  doi = {10.1109/ICIP.2016.7532831},
+  booktitle = {Proceedings of the {{IEEE International Conference}} on {{Image Processing}} ({{ICIP}})},
   date = {2016},
   pages = {2608--2612},
   author = {Guo, Hengkai and Wang, Guijin and Chen, Xinghao},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/WUGHGHK8/1612.07978.pdf}
 }
 
-@article{lin_refinenet_2016,
+@inproceedings{lin_refinenet_2017,
   title = {{{RefineNet}}: {{Multi}}-{{Path Refinement Networks}} with {{Identity Mappings}} for {{High}}-{{Resolution Semantic Segmentation}}},
-  url = {https://arxiv.org/abs/1611.06612},
-  shorttitle = {{{RefineNet}}},
-  journaltitle = {arXiv preprint arXiv:1611.06612},
-  urldate = {2017-02-24},
-  date = {2016},
+  doi = {10.1109/CVPR.2017.549},
+  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
+  date = {2017-07},
+  pages = {5168-5177},
   author = {Lin, Guosheng and Milan, Anton and Shen, Chunhua and Reid, Ian},
   file = {/home/naudeber/Bibliographie//arXiv preprint arXiv1611.06612/2016/Lin et al 2016 - RefineNet.pdf}
 }
@@ -133,26 +122,22 @@
 @inproceedings{vakalopoulou_simultaneous_2016,
   langid = {english},
   title = {Simultaneous Registration, Segmentation and Change Detection from Multisensor, Multitemporal Satellite Image Pairs.},
-  url = {https://hal.inria.fr/hal-01413373/document},
   doi = {10.1109/IGARSS.2016.7729469},
   abstract = {In this paper, a novel generic framework has been designed, developed and validated for addressing simultaneously the tasks of image registration, segmentation and change detection from multisensor, multiresolution, multitemporal satel- lite image pairs. Our approach models the inter-dependencies of variables through a higher order graph. The proposed formulation is modular with respect to the nature of images (various similarity metrics can be considered), the nature of deformations (arbitrary interpolation strategies), and the nature of segmentation likelihoods (various classification approaches can be employed). Inference of the proposed formulation is achieved through its mapping to an overparametrized pairwise graph which is then optimized using linear programming. Experimental results and the performed quantitative evaluation indicate the high potentials of the developed method.},
   eventtitle = {International {{Geoscience}} and {{Remote Sensing Symposium}} ({{IGARSS}})},
-  urldate = {2017-03-22},
   date = {2016-07-10},
   author = {Vakalopoulou, Maria and Platias, Christos and Papadomanolaki, Maria and Paragios, Nikos and Karantzalos, Konstantinos},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/3CV2N9W3/Vakalopoulou et al_2016_Simultaneous registration, segmentation and change detection from multisensor,.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/9VZP76FX/hal-01413373.html}
 }
 
-@article{isola_image--image_2016,
-  archivePrefix = {arXiv},
-  eprinttype = {arxiv},
-  eprint = {1611.07004},
-  primaryClass = {cs},
+@inproceedings{isola_image--image_2017,
+  location = {{Honolulu, United States}},
   title = {Image-to-{{Image Translation}} with {{Conditional Adversarial Networks}}},
-  url = {http://arxiv.org/abs/1611.07004},
+  doi = {10.1109/CVPR.2017.632},
   abstract = {We investigate conditional adversarial networks as a general-purpose solution to image-to-image translation problems. These networks not only learn the mapping from input image to output image, but also learn a loss function to train this mapping. This makes it possible to apply the same generic approach to problems that traditionally would require very different loss formulations. We demonstrate that this approach is effective at synthesizing photos from label maps, reconstructing objects from edge maps, and colorizing images, among other tasks. As a community, we no longer hand-engineer our mapping functions, and this work suggests we can achieve reasonable results without hand-engineering our loss functions either.},
-  urldate = {2017-03-22},
-  date = {2016-11-21},
+  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
+  date = {2017-07},
+  pages = {5967-5976},
   keywords = {Computer Science - Computer Vision and Pattern Recognition},
   author = {Isola, Phillip and Zhu, Jun-Yan and Zhou, Tinghui and Efros, Alexei A.},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/U5VVQAVV/Isola et al_2016_Image-to-Image Translation with Conditional Adversarial Networks.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/QGEK5G7R/1611.html}
@@ -163,14 +148,12 @@
   title = {Joint Use of Remote Sensing Data and Volunteered Geographic Information for Exposure Estimation: Evidence from {{Valparaíso}}, {{Chile}}},
   volume = {86},
   issn = {0921-030X, 1573-0840},
-  url = {https://link.springer.com/article/10.1007/s11069-016-2663-8},
   doi = {10.1007/s11069-016-2663-8},
   shorttitle = {Joint Use of Remote Sensing Data and Volunteered Geographic Information for Exposure Estimation},
   abstract = {The impact of natural hazards on mankind has increased dramatically over the past decades. Global urbanization processes and increasing spatial concentrations of exposed elements induce natural hazard risk at a uniquely high level. To mitigate affiliated perils requires detailed knowledge about elements at risk. Considering a high spatiotemporal variability of elements at risk, detailed information is costly in terms of both time and economic resources and therefore often incomplete, aggregated, or outdated. To alleviate these restrictions, the availability of very-high-resolution satellite images promotes accurate and detailed analysis of exposure over various spatial scales with large-area coverage. In the past, valuable approaches were proposed; however, the design of information extraction procedures with a high level of automatization remains challenging. In this paper, we uniquely combine remote sensing data and volunteered geographic information from the OpenStreetMap project (OSM) (i.e., freely accessible geospatial information compiled by volunteers) for a highly automated estimation of crucial exposure components (i.e., number of buildings and population) with a high level of spatial detail. To this purpose, we first obtain labeled training segments from the OSM data in conjunction with the satellite imagery. This allows for learning a supervised algorithmic model (i.e., rotation forest) in order to extract relevant thematic classes of land use/land cover (LULC) from the satellite imagery. Extracted information is jointly deployed with information from the OSM data to estimate the number of buildings with regression techniques (i.e., a multi-linear model from ordinary least-square optimization and a nonlinear support vector regression model are considered). Analogously, urban LULC information is used in conjunction with OSM data to spatially disaggregate population information. Experimental results were obtained for the city of Valparaíso in Chile. Thereby, we demonstrate the relevance of the approaches by estimating number of affected buildings and population referring to a historical tsunami event.},
   number = {1},
   journaltitle = {Natural Hazards},
   shortjournal = {Nat Hazards},
-  urldate = {2017-03-24},
   date = {2017-03-01},
   pages = {81-105},
   author = {Geiß, Christian and Schauß, Anne and Riedlinger, Torsten and Dech, Stefan and Zelaya, Cecilia and Guzmán, Nicolás and Hube, Mathías A. and Arsanjani, Jamal Jokar and Taubenböck, Hannes},
@@ -212,14 +195,11 @@
 @inproceedings{hazirbas_fusenet_2016,
   langid = {english},
   title = {{{FuseNet}}: {{Incorporating Depth}} into {{Semantic Segmentation}} via {{Fusion}}-{{Based CNN Architecture}}},
-  url = {https://link.springer.com/chapter/10.1007/978-3-319-54181-5_14},
   doi = {10.1007/978-3-319-54181-5_14},
-  shorttitle = {{{FuseNet}}},
   abstract = {In this paper we address the problem of semantic labeling of indoor scenes on RGB-D data. With the availability of RGB-D cameras, it is expected that additional depth measurement will improve the accuracy. Here we investigate a solution how to incorporate complementary depth information into a semantic segmentation framework by making use of convolutional neural networks (CNNs). Recently encoder-decoder type fully convolutional CNN architectures have achieved a great success in the field of semantic segmentation. Motivated by this observation we propose an encoder-decoder type network, where the encoder part is composed of two branches of networks that simultaneously extract features from RGB and depth images and fuse depth features into the RGB feature maps as the network goes deeper. Comprehensive experimental evaluations demonstrate that the proposed fusion-based architecture achieves competitive results with the state-of-the-art methods on the challenging SUN RGB-D benchmark obtaining 76.27\% global accuracy, 48.30\% average class accuracy and 37.29\% average intersection-over-union score.},
   eventtitle = {Asian {{Conference}} on {{Computer Vision}}},
   booktitle = {Computer {{Vision}} – {{ACCV}} 2016},
   publisher = {{Springer, Cham}},
-  urldate = {2017-03-31},
   date = {2016-11-20},
   pages = {213-228},
   author = {Hazirbas, Caner and Ma, Lingni and Domokos, Csaba and Cremers, Daniel},
@@ -227,14 +207,14 @@
 }
 
 @inproceedings{he_deep_2016,
+  location = {{Las Vegas, United States}},
   title = {Deep {{Residual Learning}} for {{Image Recognition}}},
   doi = {10.1109/CVPR.2016.90},
   abstract = {Deeper neural networks are more difficult to train. We present a residual learning framework to ease the training of networks that are substantially deeper than those used previously. We explicitly reformulate the layers as learning residual functions with reference to the layer inputs, instead of learning unreferenced functions. We provide comprehensive empirical evidence showing that these residual networks are easier to optimize, and can gain accuracy from considerably increased depth. On the ImageNet dataset we evaluate residual nets with a depth of up to 152 layers - 8× deeper than VGG nets [40] but still having lower complexity. An ensemble of these residual nets achieves 3.57\% error on the ImageNet test set. This result won the 1st place on the ILSVRC 2015 classification task. We also present analysis on CIFAR-10 with 100 and 1000 layers. The depth of representations is of central importance for many visual recognition tasks. Solely due to our extremely deep representations, we obtain a 28\% relative improvement on the COCO object detection dataset. Deep residual nets are foundations of our submissions to ILSVRC \& COCO 2015 competitions1, where we also won the 1st places on the tasks of ImageNet detection, ImageNet localization, COCO detection, and COCO segmentation.},
-  eventtitle = {{{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
-  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}}},
+  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
   date = {2016-06},
   pages = {770-778},
-  keywords = {neural nets,object detection,learning (artificial intelligence),Image recognition,Visualization,Neural networks,Training,image classification,image segmentation,CIFAR-10,COCO object detection dataset,COCO segmentation,ILSVRC & COCO 2015 competitions,ILSVRC 2015 classification task,ImageNet dataset,ImageNet localization,ImageNet test set,VGG nets,deep residual learning,deep residual nets,deeper neural network training,residual function learning,residual nets,visual recognition tasks,Complexity theory,Degradation},
+  keywords = {CIFAR-10,COCO object detection dataset,COCO segmentation,Complexity theory,deep residual learning,deep residual nets,deeper neural network training,Degradation,ILSVRC & COCO 2015 competitions,ILSVRC 2015 classification task,image classification,Image recognition,image segmentation,ImageNet dataset,ImageNet localization,ImageNet test set,learning (artificial intelligence),neural nets,Neural networks,object detection,residual function learning,residual nets,Training,VGG nets,visual recognition tasks,Visualization},
   author = {He, Kaiming and Zhang, Xiangyu and Ren, Shaoqing and Sun, Jian},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/KUCF9Q86/7780459.html}
 }
@@ -243,11 +223,10 @@
   title = {Multimodal Deep Learning for Robust {{RGB}}-{{D}} Object Recognition},
   doi = {10.1109/IROS.2015.7353446},
   abstract = {Robust object recognition is a crucial ingredient of many, if not all, real-world robotics applications. This paper leverages recent progress on Convolutional Neural Networks (CNNs) and proposes a novel RGB-D architecture for object recognition. Our architecture is composed of two separate CNN processing streams - one for each modality - which are consecutively combined with a late fusion network. We focus on learning with imperfect sensor data, a typical problem in real-world robotics tasks. For accurate learning, we introduce a multi-stage training methodology and two crucial ingredients for handling depth data with CNNs. The first, an effective encoding of depth information for CNNs that enables learning without the need for large depth datasets. The second, a data augmentation scheme for robust learning with depth images by corrupting them with realistic noise patterns. We present state-of-the-art results on the RGB-D object dataset [15] and show recognition in challenging RGB-D real-world noisy settings.},
-  eventtitle = {2015 {{IEEE}}/{{RSJ International Conference}} on {{Intelligent Robots}} and {{Systems}} ({{IROS}})},
   booktitle = {2015 {{IEEE}}/{{RSJ International Conference}} on {{Intelligent Robots}} and {{Systems}} ({{IROS}})},
   date = {2015-09},
   pages = {681-687},
-  keywords = {learning (artificial intelligence),image colour analysis,object recognition,convolutional neural networks,Training,feature extraction,feedforward neural nets,image fusion,robot vision,CNN,RGB-D architecture,RGB-D object dataset,RGB-D real-world noisy settings,accurate learning,data augmentation scheme,fusion network,imperfect sensor data,multimodal deep learning,multistage training methodology,real-world robotics applications,real-world robotics tasks,realistic noise patterns,robust RGB-D object recognition,robust learning,Image coding,Robot sensing systems,Robustness,Streaming media},
+  keywords = {accurate learning,CNN,convolutional neural networks,data augmentation scheme,feature extraction,feedforward neural nets,fusion network,Image coding,image colour analysis,image fusion,imperfect sensor data,learning (artificial intelligence),multimodal deep learning,multistage training methodology,object recognition,real-world robotics applications,real-world robotics tasks,realistic noise patterns,RGB-D architecture,RGB-D object dataset,RGB-D real-world noisy settings,Robot sensing systems,robot vision,robust learning,robust RGB-D object recognition,Robustness,Streaming media,Training},
   author = {Eitel, Andreas and Springenberg, Jost Tobias and Spinello, Luciano and Riedmiller, Martin and Burgard, Wolfram},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/RDXQ8H3F/Eitel et al_2015_Multimodal deep learning for robust RGB-D object recognition.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/Q6868ZET/7353446.html}
 }
@@ -256,8 +235,7 @@
   title = {Effective Semantic Pixel Labelling with Convolutional Networks and {{Conditional Random Fields}}},
   doi = {10.1109/CVPRW.2015.7301381},
   abstract = {Large amounts of available training data and increasing computing power have led to the recent success of deep convolutional neural networks (CNN) on a large number of applications. In this paper, we propose an effective semantic pixel labelling using CNN features, hand-crafted features and Conditional Random Fields (CRFs). Both CNN and hand-crafted features are applied to dense image patches to produce per-pixel class probabilities. The CRF infers a labelling that smooths regions while respecting the edges present in the imagery. The method is applied to the ISPRS 2D semantic labelling challenge dataset with competitive classification accuracy.},
-  eventtitle = {2015 {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition Workshops}} ({{CVPRW}})},
-  booktitle = {2015 {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition Workshops}} ({{CVPRW}})},
+  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition Workshops}} ({{CVPRW}})},
   date = {2015-06},
   pages = {36-43},
   keywords = {Accuracy,classification accuracy,CNN features,computing power,conditional random fields,Convolutional networks,CRF,deep-convolutional neural networks,dense-image patches,edge detection,feature extraction,hand-crafted features,image classification,Image edge detection,image region smoothing,ISPRS 2D semantic labelling challenge dataset,Labeling,neural nets,per-pixel class probabilities,probability,semantic pixel labelling,Semantics,smoothing methods,Training,training data,Visualization},
@@ -274,7 +252,7 @@
   booktitle = {2015 {{IEEE International Geoscience}} and {{Remote Sensing Symposium}} ({{IGARSS}})},
   date = {2015-07},
   pages = {4173-4176},
-  keywords = {Buildings,deep convolutional networks,deep neural networks,expert classifiers,feature extraction,generic-purpose image sets,geophysical image processing,high-level features,image classification,image domain,Laser radar,learning explicit features,multisensor features,multisource earth-observation data benchmarking classification,neural nets,Neural networks,Pattern analysis,remote sensing,semantic labeling,Semantics,spectral support-vector classification,support vector machines,terrain mapping},
+  keywords = {neural nets,support vector machines,geophysical image processing,terrain mapping,deep convolutional networks,deep neural networks,expert classifiers,generic-purpose image sets,high-level features,image domain,learning explicit features,multisensor features,multisource earth-observation data benchmarking classification,semantic labeling,spectral support-vector classification,Buildings,Laser radar,Neural networks,Pattern analysis,Semantics,feature extraction,image classification,remote sensing},
   author = {Lagrange, Adrien and Le Saux, Bertrand and Beaupère, Anne and Boulch, Alexandre and Chan-Hon-Tong, Adrien and Herbin, Stéphane and Randrianarivo, Hicham and Ferecatu, Marin},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/WXE5EVSM/7326745.html}
 }
@@ -290,7 +268,7 @@
   journaltitle = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
   date = {2017-12},
   pages = {2481-2495},
-  keywords = {Computer architecture,Decoder,Decoding,Deep Convolutional Neural Networks,Encoder,image segmentation,Indoor Scenes,Neural networks,Pooling,Road Scenes,Roads,Semantic Pixel-Wise Segmentation,Semantics,Training,Upsampling},
+  keywords = {Neural networks,Computer architecture,Semantics,Training,image segmentation,Decoding,Roads,Decoder,Deep Convolutional Neural Networks,Encoder,Indoor Scenes,Pooling,Road Scenes,Semantic Pixel-Wise Segmentation,Upsampling},
   author = {Badrinarayanan, Vijay and Kendall, Alex and Cipolla, Roberto},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/9SZV73FK/7803544.html}
 }
@@ -310,12 +288,10 @@
   langid = {english},
   title = {{{AVEC}} 2011–{{The First International Audio}}/{{Visual Emotion Challenge}}},
   isbn = {978-3-642-24570-1 978-3-642-24571-8},
-  url = {https://link.springer.com/chapter/10.1007/978-3-642-24571-8_53},
   abstract = {The Audio/Visual Emotion Challenge and Workshop (AVEC 2011) is the first competition event aimed at comparison of multimedia processing and machine learning methods for automatic audio, visual and audiovisual emotion analysis, with all participants competing under strictly the same conditions. This paper first describes the challenge participation conditions. Next follows the data used – the SEMAINE corpus – and its partitioning into train, development, and test partitions for the challenge with labelling in four dimensions, namely activity, expectation, power, and valence. Further, audio and video baseline features are introduced as well as baseline results that use these features for the three sub-challenges of audio, video, and audiovisual emotion recognition.},
   booktitle = {Affective {{Computing}} and {{Intelligent Interaction}}},
   series = {Lecture Notes in Computer Science},
   publisher = {{Springer, Berlin, Heidelberg}},
-  urldate = {2018-04-09},
   date = {2011},
   pages = {415-424},
   author = {Schuller, Björn and Valstar, Michel and Eyben, Florian and McKeown, Gary and Cowie, Roddy and Pantic, Maja},
@@ -331,7 +307,7 @@
   shorttitle = {Framing {{Image Description As}} a {{Ranking Task}}},
   abstract = {The ability to associate images with natural language sentences that describe what is depicted in them is a hallmark of image understanding, and a prerequisite for applications such as sentence-based image search. In analogy to image search, we propose to frame sentence-based image annotation as the task of ranking a given pool of captions. We introduce a new benchmark collection for sentence-based image description and search, consisting of 8,000 images that are each paired with five different captions which provide clear descriptions of the salient entities and events. We introduce a number of systems that perform quite well on this task, even though they are only based on features that can be obtained with minimal supervision. Our results clearly indicate the importance of training on multiple captions per image, and of capturing syntactic (word order-based) and semantic features of these captions. We also perform an in-depth comparison of human and automatic evaluation metrics for this task, and propose strategies for collecting human judgments cheaply and on a very large scale, allowing us to augment our collection with additional relevance judgments of which captions describe which image. Our analysis shows that metrics that consider the ranked list of results for each query image or sentence are significantly more robust than metrics that are based on a single response per query. Moreover, our study suggests that the evaluation of ranking-based image description systems may be fully automated.},
   number = {1},
-  journaltitle = {J. Artif. Int. Res.},
+  journaltitle = {Journal of Artificial Intelligence Research},
   urldate = {2018-04-09},
   date = {2013-05},
   pages = {853--899},
@@ -342,14 +318,11 @@
   title = {Multimodal {{Learning}} with {{Deep Boltzmann Machines}}},
   volume = {15},
   issn = {1532-4435},
-  url = {http://dl.acm.org/citation.cfm?id=2627435.2697059},
   abstract = {Data often consists of multiple diverse modalities. For example, images are tagged with textual information and videos are accompanied by audio. Each modality is characterized by having distinct statistical properties. We propose a Deep Boltzmann Machine for learning a generative model of such multimodal data. We show that the model can be used to create fused representations by combining features across modalities. These learned representations are useful for classification and information retrieval. By sampling from the conditional distributions over each data modality, it is possible to create these representations even when some data modalities are missing. We conduct experiments on bimodal image-text and audio-video data. The fused representation achieves good classification results on the MIR-Flickr data set matching or outperforming other deep models as well as SVM based models that use Multiple Kernel Learning. We further demonstrate that this multimodal model helps classification and retrieval even when only unimodal data is available at test time.},
-  number = {1},
-  journaltitle = {J. Mach. Learn. Res.},
-  urldate = {2018-04-09},
-  date = {2014-01},
+  journaltitle = {Journal of Machine Learning Research},
+  date = {2014},
   pages = {2949--2980},
-  keywords = {deep learning,Boltzmann machines,multimodal learning,neural networks,unsupervised learning},
+  keywords = {Boltzmann machines,deep learning,multimodal learning,neural networks,unsupervised learning},
   author = {Srivastava, Nitish and Salakhutdinov, Ruslan},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/2HSJUPMP/Srivastava et Salakhutdinov - 2014 - Multimodal Learning with Deep Boltzmann Machines.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/XZDPVC2T/Srivastava et Salakhutdinov - 2014 - Multimodal Learning with Deep Boltzmann Machines.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/QMDW49FZ/srivastava14b.html}
 }
@@ -464,7 +437,7 @@
   journaltitle = {IEEE Transactions on Medical Imaging},
   date = {2015-10},
   pages = {1993-2024},
-  keywords = {1,Benchmark,benchmark testing,Benchmark testing,Biomedical imaging,biomedical MRI,brain,Brain,BRATS,Dice scores,Educational institutions,glioma patients,hierarchical majority vote,human interrater variability,image segmentation,Image segmentation,Lesions,medical image processing,MICCAI 2012 conference,MICCAI 2013 conference,MRI,multicontrast MR scans,Multimodal Brain Tumor Image Segmentation Benchmark,Oncology/tumor,tumor image simulation software,tumor segmentation algorithm,tumours},
+  keywords = {Benchmark,image segmentation,Benchmark testing,Image segmentation,1,benchmark testing,Biomedical imaging,biomedical MRI,brain,Brain,BRATS,Dice scores,Educational institutions,glioma patients,hierarchical majority vote,human interrater variability,Lesions,medical image processing,MICCAI 2012 conference,MICCAI 2013 conference,MRI,multicontrast MR scans,Multimodal Brain Tumor Image Segmentation Benchmark,Oncology/tumor,tumor image simulation software,tumor segmentation algorithm,tumours},
   author = {Menze, Bjoern H. and Jakab, Andras and Bauer, Stefan and Kalpathy-Cramer, Jayashree and Farahani, Keyvan and Kirby, Justin and Burren, Y. and Porz, N. and Slotboom, J. and Wiest, R. and Lanczi, L. and Gerstner, E. and Weber, M. A. and Arbel, T. and Avants, B. B. and Ayache, N. and Buendia, P. and Collins, D. L. and Cordier, N. and Corso, J. J. and Criminisi, A. and Das, T. and Delingette, H. and Demiralp, C and Durst, C. R. and Dojat, M. and Doyle, S. and Festa, J. and Forbes, F. and Geremia, E. and Glocker, B. and Golland, P. and Guo, X. and Hamamci, A. and Iftekharuddin, K. M. and Jena, R. and John, N. M. and Konukoglu, E. and Lashkari, D. and Mariz, J. A. and Meier, R. and Pereira, S. and Precup, D. and Price, S. J. and Raviv, T. R. and Reza, S. M. S. and Ryan, M. and Sarikaya, D. and Schwartz, L. and Shin, H. C. and Shotton, J. and Silva, C. A. and Sousa, N. and Subbanna, N. K. and Szekely, G. and Taylor, T. J. and Thomas, O. M. and Tustison, N. J. and Unal, G. and Vasseur, F. and Wintermark, M. and Ye, D. H. and Zhao, L. and Zhao, B. and Zikic, D. and Prastawa, M. and Reyes, M. and Leemput, K. Van},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/6A6PXKD6/6975210.html}
 }
@@ -477,7 +450,7 @@
   booktitle = {2015 {{IEEE International Conference}} on {{Acoustics}}, {{Speech}} and {{Signal Processing}} ({{ICASSP}})},
   date = {2015-04},
   pages = {2130-2134},
-  keywords = {acoustic noise,acoustic signal processing,audio network,audio-visual automatic speech recognition,Audio-Visual Automatic Speech Recognition (AV-ASR),audio-visual speech recognition,AV-ASR,bilinear networks,bilinear softmax layer,Correlation,deep multimodal learning,deep network architecture,Deep Neural Networks,Error analysis,fusing speech,fusion model,hidden layers,IBM large vocabulary audio-visual studio,IBM large vocabulary audio-visual studio dataset,Joints,Multimodal Learning,PER,phone classification,phone error rate,signal-noise ratio,significant phone error rate reduction,Speech,speech recognition,Speech recognition,Training,uni-modal deep networks,visual channel,visual modalities,Visualization},
+  keywords = {Visualization,Correlation,Training,acoustic noise,acoustic signal processing,audio network,audio-visual automatic speech recognition,Audio-Visual Automatic Speech Recognition (AV-ASR),audio-visual speech recognition,AV-ASR,bilinear networks,bilinear softmax layer,deep multimodal learning,deep network architecture,Deep Neural Networks,Error analysis,fusing speech,fusion model,hidden layers,IBM large vocabulary audio-visual studio,IBM large vocabulary audio-visual studio dataset,Joints,Multimodal Learning,PER,phone classification,phone error rate,signal-noise ratio,significant phone error rate reduction,Speech,speech recognition,Speech recognition,uni-modal deep networks,visual channel,visual modalities},
   author = {Mroueh, Youssef and Marcheret, Étienne and Goel, Vaibhava},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/BS5HQMRF/cookiedetectresponse.html}
 }
@@ -487,13 +460,10 @@
   title = {Audio-Visual Speech Recognition Using Deep Learning},
   volume = {42},
   issn = {0924-669X, 1573-7497},
-  url = {https://link.springer.com/article/10.1007/s10489-014-0629-7},
   doi = {10.1007/s10489-014-0629-7},
   abstract = {Audio-visual speech recognition (AVSR) system is thought to be one of the most promising solutions for reliable speech recognition, particularly when the audio is corrupted by noise. However, cautious selection of sensory features is crucial for attaining high recognition performance. In the machine-learning community, deep learning approaches have recently attracted increasing attention because deep neural networks can effectively extract robust latent features that enable various recognition algorithms to demonstrate revolutionary generalization capabilities under diverse application conditions. This study introduces a connectionist-hidden Markov model (HMM) system for noise-robust AVSR. First, a deep denoising autoencoder is utilized for acquiring noise-robust audio features. By preparing the training data for the network with pairs of consecutive multiple steps of deteriorated audio features and the corresponding clean features, the network is trained to output denoised audio features from the corresponding features deteriorated by noise. Second, a convolutional neural network (CNN) is utilized to extract visual features from raw mouth area images. By preparing the training data for the CNN as pairs of raw images and the corresponding phoneme label outputs, the network is trained to predict phoneme labels from the corresponding mouth area input images. Finally, a multi-stream HMM (MSHMM) is applied for integrating the acquired audio and visual HMMs independently trained with the respective features. By comparing the cases when normal and denoised mel-frequency cepstral coefficients (MFCCs) are utilized as audio features to the HMM, our unimodal isolated word recognition results demonstrate that approximately 65 \% word recognition rate gain is attained with denoised MFCCs under 10 dB signal-to-noise-ratio (SNR) for the audio signal input. Moreover, our multimodal isolated word recognition results utilizing MSHMM with denoised MFCCs and acquired visual features demonstrate that an additional word recognition rate gain is attained for the SNR conditions below 10 dB.},
   number = {4},
   journaltitle = {Applied Intelligence},
-  shortjournal = {Appl Intell},
-  urldate = {2018-04-12},
   date = {2015-06-01},
   pages = {722-737},
   author = {Noda, Kuniaki and Yamaguchi, Yuki and Nakadai, Kazuhiro and Okuno, Hiroshi G. and Ogata, Tetsuya},
@@ -504,8 +474,7 @@
   title = {Introducing the {{RECOLA}} Multimodal Corpus of Remote Collaborative and Affective Interactions},
   doi = {10.1109/FG.2013.6553805},
   abstract = {We present in this paper a new multimodal corpus of spontaneous collaborative and affective interactions in French: RECOLA, which is being made available to the research community. Participants were recorded in dyads during a video conference while completing a task requiring collaboration. Different multimodal data, i.e., audio, video, ECG and EDA, were recorded continuously and synchronously. In total, 46 participants took part in the test, for which the first 5 minutes of interaction were kept to ease annotation. In addition to these recordings, 6 annotators measured emotion continuously on two dimensions: arousal and valence, as well as social behavior labels on live dimensions. The corpus allowed us to take self-report measures of users during task completion. Methodologies and issues related to affective corpus construction are briefly reviewed in this paper. We further detail how the corpus was constructed, i.e., participants, procedure and task, the multimodal recording setup, the annotation of data and some analysis of the quality of these annotations.},
-  eventtitle = {2013 10th {{IEEE International Conference}} and {{Workshops}} on {{Automatic Face}} and {{Gesture Recognition}} ({{FG}})},
-  booktitle = {2013 10th {{IEEE International Conference}} and {{Workshops}} on {{Automatic Face}} and {{Gesture Recognition}} ({{FG}})},
+  booktitle = {10th {{IEEE International Conference}} and {{Workshops}} on {{Automatic Face}} and {{Gesture Recognition}} ({{FG}})},
   date = {2013-04},
   pages = {1-8},
   keywords = {arousal dimension,Collaboration,Context,dyads,emotion measurement,French language,Mood,multimodal data,natural languages,Physiology,RECOLA multimodal corpus,remote collaborative and affective interactions,research community,self-report measures,social behavior labels,social sciences,Software,Synchronization,valence dimension,video conference},
@@ -524,7 +493,7 @@
   journaltitle = {IEEE Transactions on Systems, Man, and Cybernetics: Systems},
   date = {2014-11},
   pages = {1534-1548},
-  keywords = {3D data-based computer applications,Cameras,data modalities,Database,Databases,depth data,Face,face biometrics,face database,face recognition,Face recognition,face recognition methods,face recognition technology,facial variations,FRGC database,high-quality 3D scans,image colour analysis,image fusion,image sensors,Kinect,Kinect database,Kinect sensor,KinectFaceDB,Lighting,RGB data,RGB-D cameras,score-level fusion,Standards,up-to-date imaging sensor,Video sequences,video-based face data,visual databases},
+  keywords = {image colour analysis,Database,image fusion,Standards,visual databases,image sensors,Cameras,Databases,Lighting,3D data-based computer applications,data modalities,depth data,Face,face biometrics,face database,face recognition,Face recognition,face recognition methods,face recognition technology,facial variations,FRGC database,high-quality 3D scans,Kinect,Kinect database,Kinect sensor,KinectFaceDB,RGB data,RGB-D cameras,score-level fusion,up-to-date imaging sensor,Video sequences,video-based face data},
   author = {Min, Rui and Kose, Neslihan and Dugelay, Jean-Luc},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/BNNUXN5M/6866883.html}
 }
@@ -534,7 +503,6 @@
   doi = {10.1109/WACV.2013.6474999},
   shorttitle = {Berkeley {{MHAD}}},
   abstract = {Over the years, a large number of methods have been proposed to analyze human pose and motion information from images, videos, and recently from depth data. Most methods, however, have been evaluated on datasets that were too specific to each application, limited to a particular modality, and more importantly, captured under unknown conditions. To address these issues, we introduce the Berkeley Multimodal Human Action Database (MHAD) consisting of temporally synchronized and geometrically calibrated data from an optical motion capture system, multi-baseline stereo cameras from multiple views, depth sensors, accelerometers and microphones. This controlled multimodal dataset provides researchers an inclusive testbed to develop and benchmark new algorithms across multiple modalities under known capture conditions in various research domains. To demonstrate possible use of MHAD for action recognition, we compare results using the popular Bag-of-Words algorithm adapted to each modality independently with the results of various combinations of modalities using the Multiple Kernel Learning. Our comparative results show that multimodal analysis of human motion yields better action recognition rates than unimodal analysis.},
-  eventtitle = {2013 {{IEEE Workshop}} on {{Applications}} of {{Computer Vision}} ({{WACV}})},
   booktitle = {2013 {{IEEE Workshop}} on {{Applications}} of {{Computer Vision}} ({{WACV}})},
   date = {2013-01},
   pages = {53-60},
@@ -554,7 +522,7 @@
   journaltitle = {Proceedings of the IEEE},
   date = {2015-09},
   pages = {1560-1584},
-  keywords = {airborne platforms,Classification,Earth observation,fusion,geophysical image processing,geophysical techniques,heterogeneous image sources,image classification,image fusion,Image fusion,image multimodal classification,kernel-based fusion,machine learning,manifold alignment,Markov modeling,material characterization,material classification,material identification,multiangular,multidimensional interpolation,multimodal image analysis,multimodal image fusion,multiresolution fusion,multisource,multispectral image classification,multitemporal,multitemporal image fusion,optical images,radar images,remote sensing,Remote sensing,remote sensing image,satellite sensors,Satellites,Sensors,signal processing,space platforms,sparse methods,Spatial resolution,Synthetic aperture radar},
+  keywords = {geophysical image processing,geophysical techniques,Earth observation,Satellites,Spatial resolution,image classification,remote sensing,image fusion,Sensors,Remote sensing,Classification,Synthetic aperture radar,airborne platforms,fusion,heterogeneous image sources,Image fusion,image multimodal classification,kernel-based fusion,machine learning,manifold alignment,Markov modeling,material characterization,material classification,material identification,multiangular,multidimensional interpolation,multimodal image analysis,multimodal image fusion,multiresolution fusion,multisource,multispectral image classification,multitemporal,multitemporal image fusion,optical images,radar images,remote sensing image,satellite sensors,signal processing,space platforms,sparse methods},
   author = {Gómez-Chova, Luis and Tuia, Devis and Moser, Gabriele and Camps-Valls, Gustau},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/RRCMD8N8/7182258.html}
 }
@@ -570,7 +538,7 @@
   journaltitle = {Proceedings of the IEEE},
   date = {2015-09},
   pages = {1449-1477},
-  keywords = {acquisition framework,Blind source separation,data acquisition,data diversity,data fusion,Data integration,data-driven solutions,Electroencephalography,Laser radar,latent variables,matrix decomposition,modality term,multimodal data fusion,Multimodal sensors,multimodality,multiset data analysis,overview,sensor fusion,Sensors,Synthetic aperture radar,tensor decomposition,tensor decompositions,tensors},
+  keywords = {Laser radar,Data integration,matrix decomposition,Sensors,data fusion,Synthetic aperture radar,acquisition framework,Blind source separation,data acquisition,data diversity,data-driven solutions,Electroencephalography,latent variables,modality term,multimodal data fusion,Multimodal sensors,multimodality,multiset data analysis,overview,sensor fusion,tensor decomposition,tensor decompositions,tensors},
   author = {Lahat, Dana and Adali, Tülay and Jutten, Christian},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/AKPA4Z43/7214350.html}
 }
@@ -629,7 +597,6 @@
   url = {http://arxiv.org/abs/1705.09406},
   shorttitle = {Multimodal {{Machine Learning}}},
   abstract = {Our experience of the world is multimodal - we see objects, hear sounds, feel texture, smell odors, and taste flavors. Modality refers to the way in which something happens or is experienced and a research problem is characterized as multimodal when it includes multiple such modalities. In order for Artificial Intelligence to make progress in understanding the world around us, it needs to be able to interpret such multimodal signals together. Multimodal machine learning aims to build models that can process and relate information from multiple modalities. It is a vibrant multi-disciplinary field of increasing importance and with extraordinary potential. Instead of focusing on specific multimodal applications, this paper surveys the recent advances in multimodal machine learning itself and presents them in a common taxonomy. We go beyond the typical early and late fusion categorization and identify broader challenges that are faced by multimodal machine learning, namely: representation, translation, alignment, fusion, and co-learning. This new taxonomy will enable researchers to better understand the state of the field and identify directions for future research.},
-  urldate = {2018-04-12},
   date = {2017-05-25},
   keywords = {Computer Science - Learning},
   author = {Baltrušaitis, Tadas and Ahuja, Chaitanya and Morency, Louis-Philippe},
@@ -670,13 +637,11 @@
   title = {Relevance of Airborne Lidar and Multispectral Image Data for Urban Scene Classification Using {{Random Forests}}},
   volume = {66},
   issn = {0924-2716},
-  url = {http://www.sciencedirect.com/science/article/pii/S0924271610000705},
   doi = {10.1016/j.isprsjprs.2010.08.007},
   abstract = {Airborne lidar systems have become a source for the acquisition of elevation data. They provide georeferenced, irregularly distributed 3D point clouds of high altimetric accuracy. Moreover, these systems can provide for a single laser pulse, multiple returns or echoes, which correspond to different illuminated objects. In addition to multi-echo laser scanners, full-waveform systems are able to record 1D signals representing a train of echoes caused by reflections at different targets. These systems provide more information about the structure and the physical characteristics of the targets. Many approaches have been developed, for urban mapping, based on aerial lidar solely or combined with multispectral image data. However, they have not assessed the importance of input features. In this paper, we focus on a multi-source framework using aerial lidar (multi-echo and full waveform) and aerial multispectral image data. We aim to study the feature relevance for dense urban scenes. The Random Forests algorithm is chosen as a classifier: it runs efficiently on large datasets, and provides measures of feature importance for each class. The margin theory is used as a confidence measure of the classifier, and to confirm the relevance of input features for urban classification. The quantitative results confirm the importance of the joint use of optical multispectral and lidar data. Moreover, the relevance of full-waveform lidar features is demonstrated for building and vegetation area discrimination.},
   number = {1},
   journaltitle = {ISPRS Journal of Photogrammetry and Remote Sensing},
   shortjournal = {ISPRS Journal of Photogrammetry and Remote Sensing},
-  urldate = {2018-04-13},
   date = {2011-01-01},
   pages = {56-66},
   keywords = {Lidar,Multispectral image,Random forests,Urban,Variable importance},
@@ -714,7 +679,6 @@
   title = {Deep Learning for Robust Feature Generation in Audiovisual Emotion Recognition},
   doi = {10.1109/ICASSP.2013.6638346},
   abstract = {Automatic emotion recognition systems predict high-level affective content from low-level human-centered signal cues. These systems have seen great improvements in classification accuracy, due in part to advances in feature selection methods. However, many of these feature selection methods capture only linear relationships between features or alternatively require the use of labeled data. In this paper we focus on deep learning techniques, which can overcome these limitations by explicitly capturing complex non-linear feature interactions in multimodal data. We propose and evaluate a suite of Deep Belief Network models, and demonstrate that these models show improvement in emotion classification performance over baselines that do not employ deep learning. This suggests that the learned high-order non-linear relationships are effective for emotion recognition.},
-  eventtitle = {2013 {{IEEE International Conference}} on {{Acoustics}}, {{Speech}} and {{Signal Processing}}},
   booktitle = {2013 {{IEEE International Conference}} on {{Acoustics}}, {{Speech}} and {{Signal Processing}}},
   date = {2013-05},
   pages = {3687-3691},
@@ -732,7 +696,7 @@
   booktitle = {1996 {{IEEE International Conference}} on {{Acoustics}}, {{Speech}}, and {{Signal Processing Conference Proceedings}}},
   date = {1996-05},
   pages = {833-836 vol. 2},
-  keywords = {acoustic data,Acoustic noise,acoustic signal processing,Acoustic testing,adaptive bimodal sensor fusion,adaptive combination methods,adaptive signal processing,artificial noise,automated speech recognizer performance,automatic speechreading,Background noise,clean speech,error reduction,image processing,Interactive systems,lip reading,Loudspeakers,modular MS-TDNN,motor,multilayer perceptrons,music,noise conditions,recognition network,sensor fusion,Sensor fusion,Signal to noise ratio,signal-to-noise ratio,SNR,Speech enhancement,speech recognition,Speech recognition,speech recognition system,visual data,visual information,white noise,White noise},
+  keywords = {multilayer perceptrons,image processing,acoustic signal processing,speech recognition,Speech recognition,sensor fusion,acoustic data,Acoustic noise,Acoustic testing,adaptive bimodal sensor fusion,adaptive combination methods,adaptive signal processing,artificial noise,automated speech recognizer performance,automatic speechreading,Background noise,clean speech,error reduction,Interactive systems,lip reading,Loudspeakers,modular MS-TDNN,motor,music,noise conditions,recognition network,Sensor fusion,Signal to noise ratio,signal-to-noise ratio,SNR,Speech enhancement,speech recognition system,visual data,visual information,white noise,White noise},
   author = {Meier, Uwe and Hürst, Wolfgang and Duchnowski, Paul},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/SH2IV729/543250.html}
 }
@@ -742,8 +706,7 @@
   doi = {10.1109/ICCV.2017.533},
   shorttitle = {{{RDFNet}}},
   abstract = {In multi-class indoor semantic segmentation using RGB-D data, it has been shown that incorporating depth feature into RGB feature is helpful to improve segmentation accuracy. However, previous studies have not fully exploited the potentials of multi-modal feature fusion, e.g., simply concatenating RGB and depth features or averaging RGB and depth score maps. To learn the optimal fusion of multimodal features, this paper presents a novel network that extends the core idea of residual learning to RGB-D semantic segmentation. Our network effectively captures multilevel RGB-D CNN features by including multi-modal feature fusion blocks and multi-level feature refinement blocks. Feature fusion blocks learn residual RGB and depth features and their combinations to fully exploit the complementary characteristics of RGB and depth data. Feature refinement blocks learn the combination of fused features from multiple levels to enable high-resolution prediction. Our network can efficiently train discriminative multi-level features from each modality end-to-end by taking full advantage of skip-connections. Our comprehensive experiments demonstrate that the proposed architecture achieves the state-of-the-art accuracy on two challenging RGB-D indoor datasets, NYUDv2 and SUN RGB-D.},
-  eventtitle = {2017 {{IEEE International Conference}} on {{Computer Vision}} ({{ICCV}})},
-  booktitle = {2017 {{IEEE International Conference}} on {{Computer Vision}} ({{ICCV}})},
+  booktitle = {Proceedings of the {{IEEE International Conference}} on {{Computer Vision}} ({{ICCV}})},
   date = {2017-10},
   pages = {4990-4999},
   keywords = {Computer architecture,Convolution,depth data,depth features,depth score maps,feature extraction,Feature extraction,Fuses,image classification,image colour analysis,image fusion,image segmentation,Image segmentation,learning (artificial intelligence),modality end-to-end,multiclass indoor semantic segmentation,multilevel feature refinement blocks,multilevel features,multilevel RGB-D CNN features,multimodal feature fusion blocks,multimodal features,object detection,optimal fusion,residual feature fusion,residual learning,RGB feature,RGB-D data,RGB-D indoor datasets,RGB-D multilevel,RGB-D semantic segmentation,Semantics,SUN,SUN RGB-D},
@@ -764,14 +727,14 @@
 }
 
 @inproceedings{liu_dense_2017,
+  location = {{Honolulu, United States}},
   title = {Dense {{Semantic Labeling}} of {{Very}}-{{High}}-{{Resolution Aerial Imagery}} and {{LiDAR}} with {{Fully}}-{{Convolutional Neural Networks}} and {{Higher}}-{{Order CRFs}}},
   doi = {10.1109/CVPRW.2017.200},
   abstract = {The increasing availability of very-high-resolution (VHR) aerial optical images as well as coregistered Li-DAR data opens great opportunities for improving object-level dense semantic labeling of airborne remote sensing imagery. As a result, efficient and effective multisensor fusion techniques are needed to fully exploit these complementary data modalities. Recent researches demonstrated how to process remote sensing images using pre-trained deep convolutional neural networks (DCNNs) at the feature level. In this paper, we propose a decision-level fusion approach using a probabilistic graphical model for the task of dense semantic labeling. Our proposed method first obtains two initial probabilistic labeling predictions from a fully-convolutional neural network and a linear classifier, e.g. logistic regression, respectively. These two predictions are then combined within a higher-order conditional random field (CRF). We utilize graph cut inference to estimate the final dense semantic labeling results. Higher-order CRF modeling helps to resolve fusion ambiguities by explicitly using the spatial contextual information, which can be learned from the training data. Experiments on the ISPRS 2D semantic labeling Potsdam dataset show that our proposed approach compares favorably to the state-of-the-art baseline methods.},
-  eventtitle = {2017 {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition Workshops}} ({{CVPRW}})},
-  booktitle = {2017 {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition Workshops}} ({{CVPRW}})},
+  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition Workshops}} ({{CVPRW}})},
   date = {2017-07},
   pages = {1561-1570},
-  keywords = {Labeling,learning (artificial intelligence),geophysical image processing,probability,Laser radar,Neural networks,convolution,Semantics,Training,image classification,conditional random field,Optical imaging,Remote sensing,deep convolutional neural networks,image resolution,sensor fusion,optical radar,graph theory,airborne remote sensing imagery,coregistered Li-DAR data,DCNN training,dense semantic labeling,fully-convolutional neural networks,graph cut inference,higher-order CRFs,linear classifier,multisensor fusion,probabilistic graphical model,radar imaging,remote sensing by radar,very-high-resolution aerial imagery,VHR aerial optical images},
+  keywords = {airborne remote sensing imagery,conditional random field,convolution,coregistered Li-DAR data,DCNN training,deep convolutional neural networks,dense semantic labeling,fully-convolutional neural networks,geophysical image processing,graph cut inference,graph theory,higher-order CRFs,image classification,image resolution,Labeling,Laser radar,learning (artificial intelligence),linear classifier,multisensor fusion,Neural networks,Optical imaging,optical radar,probabilistic graphical model,probability,radar imaging,Remote sensing,remote sensing by radar,Semantics,sensor fusion,Training,very-high-resolution aerial imagery,VHR aerial optical images},
   author = {Liu, Yansong and Piramanayagam, Sankaranarayanan and Monteiro, Sildomar T. and Saber, Eli},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/2SZZN4SD/Liu et al. - 2017 - Dense Semantic Labeling of Very-High-Resolution Ae.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/VBV9PSML/8014934.html}
 }
@@ -784,7 +747,7 @@
   booktitle = {2017 {{European Conference}} on {{Mobile Robots}} ({{ECMR}})},
   date = {2017-09},
   pages = {1-6},
-  keywords = {Cameras,colour information extraction,colour information fusion,Computer architecture,depth information extraction,depth information fusion,Faster RCNN framework,feature extraction,fusion approaches,image classification,image colour analysis,image fusion,image sensors,InOutDoor RGBD People dataset,look at this one detection sharing,low-cost RGBD sensors,mobile robots,modality-independent classifiers,neural nets,object detection,people detection,Proposals,RGBD people dataset,Robot sensing systems,robot vision,robotic discovery,sensor defect,Training},
+  keywords = {neural nets,object detection,Proposals,image colour analysis,Computer architecture,Training,feature extraction,image classification,image fusion,robot vision,Robot sensing systems,image sensors,Cameras,colour information extraction,colour information fusion,depth information extraction,depth information fusion,Faster RCNN framework,fusion approaches,InOutDoor RGBD People dataset,look at this one detection sharing,low-cost RGBD sensors,mobile robots,modality-independent classifiers,people detection,RGBD people dataset,robotic discovery,sensor defect},
   author = {Guerry, Joris and Le Saux, Bertrand and Filliat, David},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/8S2CSKKD/Guerry et al. - 2017 - #x0022\;Look at this one #x0022\; detection sharing .pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/S3KP9949/8098679.html}
 }
@@ -793,11 +756,10 @@
   title = {{{RGB}}-{{D}} Object Recognition and Pose Estimation Based on Pre-Trained Convolutional Neural Network Features},
   doi = {10.1109/ICRA.2015.7139363},
   abstract = {Object recognition and pose estimation from RGB-D images are important tasks for manipulation robots which can be learned from examples. Creating and annotating datasets for learning is expensive, however. We address this problem with transfer learning from deep convolutional neural networks (CNN) that are pre-trained for image categorization and provide a rich, semantically meaningful feature set. We incorporate depth information, which the CNN was not trained with, by rendering objects from a canonical perspective and colorizing the depth channel according to distance from the object center. We evaluate our approach on the Washington RGB-D Objects dataset, where we find that the generated feature set naturally separates classes and instances well and retains pose manifolds. We outperform state-of-the-art on a number of subtasks and show that our approach can yield superior results when only little training data is available.},
-  eventtitle = {2015 {{IEEE International Conference}} on {{Robotics}} and {{Automation}} ({{ICRA}})},
   booktitle = {2015 {{IEEE International Conference}} on {{Robotics}} and {{Automation}} ({{ICRA}})},
   date = {2015-05},
   pages = {1329-1335},
-  keywords = {Accuracy,neural nets,Image color analysis,learning (artificial intelligence),object recognition,transfer learning,Training,CNN,Estimation,visual databases,RGB-D images,Feature extraction,Support vector machines,pose estimation,canonical perspective,convolutional neural network features,depth channel,image categorization,manipulation robots,manipulators,object center,Pipelines,pose manifolds,Washington RGB-D objects dataset},
+  keywords = {Accuracy,canonical perspective,CNN,convolutional neural network features,depth channel,Estimation,Feature extraction,image categorization,Image color analysis,learning (artificial intelligence),manipulation robots,manipulators,neural nets,object center,object recognition,Pipelines,pose estimation,pose manifolds,RGB-D images,Support vector machines,Training,transfer learning,visual databases,Washington RGB-D objects dataset},
   author = {Schwarz, Max and Schulz, Hannes and Behnke, Sven},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/JB7V9BER/Schwarz et al. - 2015 - RGB-D object recognition and pose estimation based.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/SFL73YNC/7139363.html}
 }
@@ -807,37 +769,36 @@
   url = {http://papers.nips.cc/paper/5353-two-stream-convolutional-networks-for-action-recognition-in-videos.pdf},
   booktitle = {Advances in {{Neural Information Processing Systems}} 27},
   publisher = {{Curran Associates, Inc.}},
-  urldate = {2018-06-20},
   date = {2014},
   pages = {568--576},
   author = {Simonyan, Karen and Zisserman, Andrew},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/TGJI8NMB/Simonyan et Zisserman - 2014 - Two-Stream Convolutional Networks for Action Recog.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/9S95C528/5353-two-stream-convolutional-networks-for-action-recognition-in-videos.html}
 }
 
-@article{song_combining_2017,
-  title = {Combining {{Models}} from {{Multiple Sources}} for {{RGB}}-{{D Scene Recognition}}},
-  url = {https://www.ijcai.org/proceedings/2017/631},
-  abstract = {Electronic proceedings of IJCAI 2017},
-  urldate = {2018-07-03},
-  date = {2017},
-  pages = {4523-4529},
-  author = {Song, Xinhang and Jiang, Shuqiang and Herranz, Luis},
-  file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/H98954T9/631.html}
-}
-
 @inproceedings{xie_adversarial_2017,
   langid = {english},
   title = {Adversarial {{Examples}} for {{Semantic Segmentation}} and {{Object Detection}}},
   isbn = {978-1-5386-1032-9},
-  url = {http://ieeexplore.ieee.org/document/8237415/},
   doi = {10.1109/ICCV.2017.153},
   abstract = {It has been well demonstrated that adversarial examples, i.e., natural images with visually imperceptible perturbations added, cause deep networks to fail on image classiﬁcation. In this paper, we extend adversarial examples to semantic segmentation and object detection which are much more difﬁcult. Our observation is that both segmentation and detection are based on classifying multiple targets on an image (e.g., the target is a pixel or a receptive ﬁeld in segmentation, and an object proposal in detection). This inspires us to optimize a loss function over a set of targets for generating adversarial perturbations. Based on this, we propose a novel algorithm named Dense Adversary Generation (DAG), which applies to the state-of-the-art networks for segmentation and detection. We ﬁnd that the adversarial perturbations can be transferred across networks with different training data, based on different architectures, and even for different recognition tasks. In particular, the transfer ability across networks with the same architecture is more signiﬁcant than in other cases. Besides, we show that summing up heterogeneous perturbations often leads to better transfer performance, which provides an effective method of black-box adversarial attack.},
-  publisher = {{IEEE}},
-  urldate = {2018-07-03},
+  booktitle = {Proceedings of the {{IEEE International Conference}} on {{Computer Vision}} ({{ICCV}})},
   date = {2017-10},
   pages = {1378-1387},
   author = {Xie, Cihang and Wang, Jianyu and Zhang, Zhishuai and Zhou, Yuyin and Xie, Lingxi and Yuille, Alan},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/KKX45PIF/Xie et al. - 2017 - Adversarial Examples for Semantic Segmentation and.pdf}
+}
+
+@inproceedings{song_combining_2017,
+  location = {{Melbourne, Australia}},
+  title = {Combining {{Models}} from {{Multiple Sources}} for {{RGB}}-{{D Scene Recognition}}},
+  isbn = {978-0-9992411-0-3},
+  abstract = {Depth can complement RGB with useful cues about object volumes and scene layout. However, RGB-D image datasets are still too small for directly training deep convolutional neural networks (CNNs), in contrast to the massive monomodal RGB datasets. Previous works in RGB-D recognition typically combine two separate networks for RGB and depth data, pretrained with a large RGB dataset and then fine tuned to the respective target RGB and depth datasets. These approaches have several limitations: 1) only use low-level filters learned from RGB data, thus not being able to exploit properly depth-specific patterns, and 2) RGB and depth features are only combined at high-levels but rarely at lower-levels. In this paper, we propose a framework that leverages both knowledge acquired from large RGB datasets together with depth-specific cues learned from the limited depth data, obtaining more effective multisource and multi-modal representations. We propose a multi-modal combination method that selects discriminative combinations of layers from the different source models and target modalities, capturing both high-level properties of the task and intrinsic low-level properties of both modalities.},
+  booktitle = {Proceedings of the 26th {{International Joint Conference}} on {{Artificial Intelligence}}},
+  series = {IJCAI'17},
+  publisher = {{AAAI Press}},
+  date = {2017},
+  pages = {4523--4529},
+  author = {Song, Xinhang and Jiang, Shuqiang and Herranz, Luis}
 }
 
 

@@ -27,6 +27,7 @@
 
   \convlayer{1.1*\scale}{1.1*\scale}{0.02*\scale}{ACP}{\coorange}{\alexx+1*\scale}{\alexy}{\alexz}{}
   \convlayer{0.8*\scale}{0.8*\scale}{0.05*\scale}{Entrée}{\copurple}{\alexx+1.45*\scale}{\alexy}{\alexz}{{}{}{$C_r$}}
+  \pixelddd{0.12*\scale}{0.05*\scale}{}{\copurple!110!white}{\alexx+1.45*\scale}{\alexy}{\alexz}{}
   \convlayer{0.7*\scale}{0.7*\scale}{0.1*\scale}{Conv1}{\coblue}{\alexx+1.95*\scale}{\alexy}{\alexz}{{3}{3}{$C_1$}}
 \convlayer{0.5*\scale}{0.5*\scale}{0.1*\scale}{Conv2}{\coblue}{\alexx+2.45*\scale}{\alexy}{\alexz}{{1}{1}{$C_2$}}
   \fclayer{\scale}{0.1*\scale}{FC1}{\copurple}{\alexx+2.9*\scale}{\alexy}{\alexz}{}

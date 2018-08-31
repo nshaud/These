@@ -21,7 +21,7 @@
   \def\copurple{purple!50!white}
 
 
-  \convlayer{0.8*\scale}{0.8*\scale}{0.8*\scale}{Hypercube}{\copurple}{\alexx-0.6*\scale}{\alexy}{\alexz}{{5}{5}{C}}
+  \convlayer{0.8*\scale}{0.8*\scale}{0.8*\scale}{Hypercube}{\copurple}{\alexx-0.6*\scale}{\alexy}{\alexz}{{$\leftarrow 5 \rightarrow$}{$\leftarrow 5 \rightarrow$}{$\leftarrow C \rightarrow$}}
 \pixelddd{0.12*\scale}{0.8*\scale}{\scriptsize Spectre}{\copurple!110!white}{\alexx-0.6*\scale}{\alexy}{\alexz}{}
   \convlayer{0.4*\scale}{0.4*\scale}{0.4*\scale}{}{\coblue}{\alexx+1*\scale}{\alexy+0.5*\scale}{\alexz+1.5*\scale}{{}{}{}}
   \node[rotate=45] at (\alexx+1*\scale,\alexy+0.3*\scale,\alexz+0.5*\scale) {\dots};
@@ -31,7 +31,7 @@
   \node[rotate=90] at (\alexx+1*\scale,\alexy+0.05*\scale,\alexz+1.5*\scale) {\dots};
   \node[rotate=90] at (\alexx+0.95*\scale,\alexy-0.05*\scale,\alexz-1*\scale) {\dots};
 
-  \convlayer{0.4*\scale}{0.4*\scale}{0.4*\scale}{}{\coblue}{\alexx+1*\scale}{\alexy-0.4*\scale}{\alexz+1.5*\scale}{{}{}{$C_1$}}
+  \convlayer{0.4*\scale}{0.4*\scale}{0.4*\scale}{}{\coblue}{\alexx+1*\scale}{\alexy-0.4*\scale}{\alexz+1.5*\scale}{{}{}{$\leftarrow C_1 \rightarrow$}}
   \node[rotate=45] at (\alexx+1*\scale,\alexy-0.6*\scale,\alexz+0.5*\scale) {\dots};
   \convlayer{0.4*\scale}{0.4*\scale}{0.4*\scale}{}{\coblue}{\alexx+1*\scale}{\alexy-0.4*\scale}{\alexz-0.75*\scale}{{}{}{}}
   \convlayer{0.4*\scale}{0.4*\scale}{0.4*\scale}{}{\coblue}{\alexx+1*\scale}{\alexy-0.4*\scale}{\alexz+0*\scale}{{}{}{}}
@@ -46,7 +46,7 @@
   \node[rotate=90] at (\alexx+2.4*\scale,\alexy+0.2*\scale,\alexz+1.5*\scale) {\dots};
   \node[rotate=90] at (\alexx+2.4*\scale,\alexy+0.2*\scale,\alexz-0.*\scale) {\dots};
 
-  \convlayer{0.2*\scale}{0.2*\scale}{0.2*\scale}{}{\coorange}{\alexx+2.2*\scale}{\alexy-0.3*\scale}{\alexz+1*\scale}{{}{}{$C_1$}}
+  \convlayer{0.2*\scale}{0.2*\scale}{0.2*\scale}{}{\coorange}{\alexx+2.2*\scale}{\alexy-0.3*\scale}{\alexz+1*\scale}{{}{}{$\leftarrow C_1 \rightarrow$}}
   \node[rotate=45] at (\alexx+2.2*\scale,\alexy-0.4*\scale,\alexz+0.35*\scale) {\dots};
   \convlayer{0.2*\scale}{0.2*\scale}{0.2*\scale}{}{\coorange}{\alexx+2.2*\scale}{\alexy-0.3*\scale}{\alexz-0.5*\scale}{{}{}{}}
   \convlayer{0.2*\scale}{0.2*\scale}{0.2*\scale}{}{\coorange}{\alexx+2.2*\scale}{\alexy-0.3*\scale}{\alexz+0*\scale}{{}{}{}}
@@ -60,7 +60,7 @@
 
 
   \convlayer{0.2*\scale}{0.2*\scale}{0.2*\scale}{}{\coblue}{\alexx+3.5*\scale}{\alexy-0.5*\scale}{\alexz+0.7*\scale}{{}{}{}}
-  \convlayer{0.2*\scale}{0.2*\scale}{0.2*\scale}{}{\coblue}{\alexx+3.5*\scale}{\alexy-0.5*\scale}{\alexz+1.2*\scale}{{}{}{}}
+  \convlayer{0.2*\scale}{0.2*\scale}{0.2*\scale}{}{\coblue}{\alexx+3.5*\scale}{\alexy-0.5*\scale}{\alexz+1.2*\scale}{{}{}{$\leftarrow C_2 \rightarrow$}}
   \node[rotate=45] at (\alexx+3.5*\scale,\alexy-0.6*\scale,\alexz+0.15*\scale) {\dots};
   \convlayer{0.2*\scale}{0.2*\scale}{0.2*\scale}{}{\coblue}{\alexx+3.5*\scale}{\alexy-0.5*\scale}{\alexz-0.7*\scale}{{}{}{}}
   \convlayer{0.2*\scale}{0.2*\scale}{0.2*\scale}{}{\coblue}{\alexx+3.5*\scale}{\alexy-0.5*\scale}{\alexz-0.2*\scale}{{}{}{}}
