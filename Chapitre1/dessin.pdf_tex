@@ -50,12 +50,12 @@
   \makeatother%
   \begin{picture}(1,0.58485157)%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{dessin.pdf}}%
-    \put(0.10446957,0.54591175){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.15243071\unitlength}\raggedright acquisitions\end{minipage}}}%
+    \put(0.10446957,0.54591175){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.15243071\unitlength}\raggedright acquièrent\end{minipage}}}%
     \put(0.77135394,0.55861431){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.25405119\unitlength}\raggedright \end{minipage}}}%
-    \put(0.79675906,0.55861431){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.27945631\unitlength}\raggedright interprétation\end{minipage}}}%
+    \put(0.79675906,0.55861431){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.27945631\unitlength}\raggedright alimente\end{minipage}}}%
     \put(0.87297442,0.12672729){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.21742946\unitlength}\raggedright \end{minipage}}}%
     \put(0.87297442,0.12672729){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.20324095\unitlength}\raggedright \end{minipage}}}%
-    \put(0.44085926,0.28596518){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.33026655\unitlength}\raggedright mise à jour\end{minipage}}}%
+    \put(0.45163773,0.28596518){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.33026655\unitlength}\raggedright met à jour\end{minipage}}}%
     \put(0.80291431,0.09105437){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.40648191\unitlength}\raggedright cartographie\end{minipage}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{dessin.pdf}}%
     \put(0.10985881,0.09052102){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.15243071\unitlength}\raggedright oriente\end{minipage}}}%

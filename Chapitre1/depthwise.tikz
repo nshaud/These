@@ -10,61 +10,54 @@
   \usetikzlibrary{calc}
   \usetikzlibrary{3d}
 
-  \def\scale{3}
+  \def\scale{5}
   \def\netx{0}
   \def\nety{0}
   \def\netz{0}
 
-  \def\coblue{blue!50!gray}
+  \def\coblue{blue!70!gray!70!white}
   \def\coorange{orange!70!gray}
-  \def\cogreen{green!50!gray}
+  \def\cogreen{green!70!gray!70!white}
   \def\coyellow{yellow!50!white}
+  \def\cored{red!70!gray!70!white}
   \def\copurple{purple!50!white}
 
-  \foreach\l [count=\ni] in {0,0.1,...,0.8}{%
-      \pgfmathparse{10*\ni}\let\colint\pgfmathresult
-      \convlayer{1*\scale}{1*\scale}{0.1*\scale}{}{red!\colint!white}{0*\scale+\l*\scale}{\nety}{\netz}{{}{}{}}
-  }
+  
 
-  \begin{scope}[canvas is yz plane at x=0.75*\scale]
-  \draw[step=0.1*\scale,thick] (0.5*\scale, 0.5*\scale) grid (0.2*\scale, 0.2*\scale);
-  \end{scope}
-  \begin{scope}[canvas is xy plane at z=0.5*\scale]
-  \draw[thick] (0.75*\scale, 0.3*\scale) -- (0.45*\scale, 0.3*\scale);
-  \draw[thick] (0.75*\scale, 0.2*\scale) -- (0.45*\scale, 0.2*\scale);
-  \draw[thick] (0.75*\scale, 0.4*\scale) -- (0.45*\scale, 0.4*\scale);
-  \end{scope}
-  \begin{scope}[canvas is xz plane at y=0.5*\scale]
-  \draw[thick] (0.75*\scale, 0.3*\scale) -- (0.45*\scale, 0.3*\scale);
-  \draw[thick] (0.75*\scale, 0.2*\scale) -- (0.45*\scale, 0.2*\scale);
-  \draw[thick] (0.75*\scale, 0.4*\scale) -- (0.45*\scale, 0.4*\scale);
-  \end{scope}
+  \convlayer{1*\scale}{1*\scale}{0.6*\scale}{}{}{\netx}{\nety}{\netz}{{}{}{}}
+  \convlayer{0.3*\scale}{0.3*\scale}{0.1*\scale}{}{\coblue}{0.05*\scale+\netx}{0.35*\scale+\nety}{+0.35*\scale+\netz}{}
+  \convlayer{0.3*\scale}{0.3*\scale}{0.1*\scale}{}{\cogreen}{0.15*\scale+\netx}{0.35*\scale+\nety}{+0.35*\scale+\netz}{}
+  \convlayer{0.3*\scale}{0.3*\scale}{0.1*\scale}{}{\cored}{0.25*\scale+\netx}{0.35*\scale+\nety}{+0.35*\scale+\netz}{}
 
-  \node at (0.5*\scale, 0.8*\scale) {Cartes d'activations};
-  \node at (0.2*\scale, -0.9*\scale) {$N_{in}\times W \times H$};
+\begin{scope}[canvas is xz plane at y=\nety+0.5*\scale]
+  \draw[opacity=0.5] (\netx,\netz+0.4*\scale) -- (\netx+0.3*\scale,\netz+0.4*\scale);
+  \draw[opacity=0.5] (\netx,\netz+0.3*\scale) -- (\netx+0.3*\scale,\netz+0.3*\scale);
+\end{scope}
+\begin{scope}[canvas is xy plane at z=\netz+0.5*\scale]
+  \draw[opacity=0.5] (\netx,\nety+0.4*\scale) -- (\netx+0.3*\scale,\nety+0.4*\scale);
+  \draw[opacity=0.5] (\netx,\nety+0.3*\scale) -- (\netx+0.3*\scale,\nety+0.3*\scale);
+\end{scope}
+\begin{scope}[canvas is yz plane at x=\netx+0.3*\scale]
+  \draw[opacity=0.5] (\nety+0.4*\scale,\netz+0.5*\scale) -- (\nety+0.4*\scale,\netz+0.2*\scale);
+  \draw[opacity=0.5] (\nety+0.3*\scale,\netz+0.5*\scale) -- (\nety+0.3*\scale,\netz+0.2*\scale);
+  \draw[opacity=0.5] (\nety+0.5*\scale,\netz+0.4*\scale) -- (\nety+0.2*\scale,\netz+0.4*\scale);
+  \draw[opacity=0.5] (\nety+0.5*\scale,\netz+0.3*\scale) -- (\nety+0.2*\scale,\netz+0.3*\scale);
+\end{scope}
 
-  \foreach\l [count=\ni] in {0,0.1,...,0.8}{%
-      \pgfmathparse{10*\ni}\let\colint\pgfmathresult
-      \convlayer{1*\scale}{1*\scale}{0.1*\scale}{}{red!\colint!white}{1.5*\scale+\l*\scale}{\nety}{\netz}{{}{}{}}
-  }
-  \node at (2*\scale, 0.8*\scale) {Convolution $3\times3$};
-  \node at (1.7*\scale, -0.9*\scale) {$N_{in}\times W \times H$};
+\convlayer{0.1*\scale}{0.1*\scale}{0.1*\scale}{}{\coblue}{1.35*\scale+\netx}{0.25*\scale+\nety}{+0.25*\scale+\netz}{}
+  \convlayer{0.1*\scale}{0.1*\scale}{0.1*\scale}{}{\cogreen}{1.45*\scale+\netx}{0.25*\scale+\nety}{+0.25*\scale+\netz}{}
+  \convlayer{0.1*\scale}{0.1*\scale}{0.1*\scale}{}{\cored}{1.55*\scale+\netx}{0.25*\scale+\nety}{+0.25*\scale+\netz}{}
+\convlayer{0.8*\scale}{0.8*\scale}{0.6*\scale}{}{}{1.3*\scale+\netx}{\nety}{\netz}{{}{}{}}
 
-  \begin{scope}[canvas is yz plane at x=2.25*\scale]
-  \draw (0.5*\scale, 0.5*\scale) rectangle (0.4*\scale, 0.4*\scale);
-  \end{scope}
-  \begin{scope}[canvas is xy plane at z=0.5*\scale]
-  \draw (2.25*\scale, 0.4*\scale) -- (1.95*\scale, 0.4*\scale);
-  \end{scope}
-  \begin{scope}[canvas is xz plane at y=0.5*\scale]
-  \draw (2.25*\scale, 0.4*\scale) -- (1.95*\scale, 0.4*\scale);
-  \end{scope}
+\draw[->, very thick] (\netx+0.4*\scale,\nety-0.2*\scale) -- (\netx+1*\scale,\nety-0.2*\scale);
+ 
+\node[align=left] at (\netx+0.55*\scale,\nety-0.6*\scale) {\Large Conv. $3\times3$\\en profondeur};
 
-  \convlayer{1*\scale}{1*\scale}{1.2*\scale}{}{\cogreen}{3.5*\scale}{\nety}{\netz}{{}{}{}}
-  \node at (3.6*\scale, 0.8*\scale) {Convolution $1\times1$};
-  \node at (3.3*\scale, -0.9*\scale) {$N_{out}\times W \times H$};
+\draw[->, very thick] (\netx+1.7*\scale,\nety-0.2*\scale) -- (\netx+2.4*\scale,\nety-0.2*\scale);
+\convlayer{0.1*\scale}{0.1*\scale}{0.1*\scale}{}{\copurple}{2.6*\scale+\netx}{0.25*\scale+\nety}{+0.25*\scale+\netz}{}
+\convlayer{0.8*\scale}{0.8*\scale}{0.3*\scale}{}{}{2.5*\scale+\netx}{\nety}{\netz}{{}{}{}}
 
-  \draw (2.9*\scale, 0.4*\scale, 0.5*\scale) -- (4.1*\scale, 0.4*\scale, 0.5*\scale) -- (4.1*\scale, 0.4*\scale, 0.38*\scale) -- (4.1*\scale, 0.5*\scale, 0.38*\scale) -- (2.9*\scale, 0.5*\scale, 0.38*\scale);
+\node[align=left] at (\netx+1.9*\scale,\nety-0.6*\scale) {\Large Conv. $1\times1$\\point à point};
 
   \end{tikzpicture}
 \end{document}

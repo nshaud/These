@@ -41,7 +41,7 @@
 
 \node[align=center] at ($ (patches)-(0,4.5) $) {Entrées multi-sources\\ et multi-échelles};
 
-\node (net_fig) at (net) {\includegraphics[width=8cm]{../alexnet}};
+\node (net_fig) at (net) {\includegraphics[width=8cm]{alexnet_plain}};
 \node at ($ (net) - (0,2)$) {CNN pré-entraîné};
 
 \draw (large.east) edge[in=180,out=0,->] ([yshift=8pt]net_fig.west);
