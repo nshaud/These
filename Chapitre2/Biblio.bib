@@ -2,16 +2,18 @@
 @inproceedings{zhao_stacked_2015,
   title = {Stacked {{What}}-{{Where Auto}}-Encoders},
   abstract = {We present a novel architecture, the "stacked what-where auto-encoders" (SWWAE), which integrates discriminative and generative pathways and provides a unified approach to supervised, semi-supervised and unsupervised learning without relying on sampling during training. An instantiation of SWWAE uses a convolutional net (Convnet) (LeCun et al. (1998)) to encode the input, and employs a deconvolutional net (Deconvnet) (Zeiler et al. (2010)) to produce the reconstruction. The objective function includes reconstruction terms that induce the hidden states in the Deconvnet to be similar to those of the Convnet. Each pooling layer produces two sets of variables: the "what" which are fed to the next layer, and its complementary variable "where" that are fed to the corresponding layer in the generative decoder.},
-  booktitle = {Proceedings of the {{International Conference}} on {{Learning Representations}}},
+  booktitle = {Proceedings of the {{International Conference}} on {{Learning Representations}} ({{ICLR}})},
   author = {Zhao, Junbo and Mathieu, Michael and Goroshin, Ross and LeCun, Yann},
   month = jun,
   year = {2015},
-  keywords = {Computer Science - Neural and Evolutionary Computing,Computer Science - Learning,Statistics - Machine Learning},
+  keywords = {Computer Science - Learning,Computer Science - Neural and Evolutionary Computing,Statistics - Machine Learning},
   file = {/home/naudeber/Bibliographie//undefined/2015/Zhao et al 2015 - Stacked What-Where Auto-encoders.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/297AMMBV/1506.html}
 }
 
 @inproceedings{li_superpixel_2015,
   title = {Superpixel {{Segmentation Using Linear Spectral Clustering}}},
+  doi = {10.1109/CVPR.2015.7298741},
+  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
   author = {Li, Zhengqin and Chen, Jiansheng},
   year = {2015},
   pages = {1356-1363},
@@ -24,7 +26,7 @@
   abstract = {This work investigates the use of deep fully convolutional neural networks (DFCNN) for pixel-wise scene labeling of Earth Observation images. Especially, we train a variant of the SegNet architecture on remote sensing data over an urban area and study different strategies for performing accurate semantic segmentation. Our contributions are the following: (1) we transfer efficiently a DFCNN from generic everyday images to remote sensing images; (2) we introduce a multi-kernel convolutional layer for fast aggregation of predictions at multiple scales; (3) we perform data fusion from heterogeneous sensors (optical and laser) using residual correction. Our framework improves state-of-the-art accuracy on the ISPRS Vaihingen 2D Semantic Labeling dataset.},
   booktitle = {Computer {{Vision}} \textendash{} {{ACCV}} 2016},
   publisher = {{Springer, Cham}},
-  author = {Audebert, Nicolas and Le Saux, Bertrand and Lef{\`e}vre, S{\'e}bastien},
+  author = {Audebert, Nicolas and Le Saux, Bertrand and Lef\`evre, S\'ebastien},
   month = nov,
   year = {2016},
   pages = {180-196},
@@ -56,7 +58,7 @@
   shorttitle = {{{CNN Features Off}}-the-{{Shelf}}},
   doi = {10.1109/CVPRW.2014.131},
   abstract = {Recent results indicate that the generic descriptors extracted from the convolutional neural networks are very powerful. This paper adds to the mounting evidence that this is indeed the case. We report on a series of experiments conducted for different recognition tasks using the publicly available code and model of the OverFeat network which was trained to perform object classification on ILSVRC13. We use features extracted from the OverFeat network as a generic image representation to tackle the diverse range of recognition tasks of object image classification, scene recognition, fine grained recognition, attribute detection and image retrieval applied to a diverse set of datasets. We selected these tasks and datasets as they gradually move further away from the original task and data the OverFeat network was trained to solve. Astonishingly, we report consistent superior results compared to the highly tuned state-of-the-art systems in all the visual classification tasks on various datasets. For instance retrieval it consistently outperforms low memory footprint methods except for sculptures dataset. The results are achieved using a linear SVM classifier (or L2 distance in case of retrieval) applied to a feature representation of size 4096 extracted from a layer in the net. The representations are further modified using simple augmentation techniques e.g. jittering. The results strongly suggest that features obtained from deep learning with convolutional nets should be the primary candidate in most visual recognition tasks.},
-  booktitle = {2014 {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition Workshops}} ({{CVPRW}})},
+  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition Workshops}} ({{CVPRW}})},
   author = {Razavian, Ali Sharif and Azizpour, Hossein and Sullivan, Josephine and Carlsson, Stefan},
   month = jun,
   year = {2014},
@@ -67,7 +69,7 @@
 
 @techreport{achanta_slic_2010,
   title = {{{SLIC}} Superpixels},
-  author = {Achanta, Radhakrishna and Shaji, Appu and Smith, Kevin and Lucchi, Aurelien and Fua, Pascal and S{\"u}sstrunk, Sabine},
+  author = {Achanta, Radhakrishna and Shaji, Appu and Smith, Kevin and Lucchi, Aurelien and Fua, Pascal and S\"usstrunk, Sabine},
   year = {2010},
   file = {/home/naudeber/Bibliographie//undefined/2010/Achanta et al 2010 - Slic superpixels.pdf}
 }
@@ -91,23 +93,21 @@
 
 @inproceedings{duan_image_2015,
   title = {Image Partitioning into Convex Polygons},
-  booktitle = {{{IEEE}} Conference on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
+  doi = {10.1109/CVPR.2015.7298931},
+  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
   author = {Duan, Liuyun and Lafarge, Florent},
   year = {2015},
+  pages = {3119-3127},
   file = {/home/naudeber/Bibliographie//undefined/2015/Duan Lafarge 2015 - Image partitioning into convex polygons.pdf}
 }
 
-@article{simonyan_very_2014,
-  archivePrefix = {arXiv},
-  eprinttype = {arxiv},
-  eprint = {1409.1556},
-  primaryClass = {cs},
+@inproceedings{simonyan_very_2015,
   title = {Very {{Deep Convolutional Networks}} for {{Large}}-{{Scale Image Recognition}}},
   abstract = {In this work we investigate the effect of the convolutional network depth on its accuracy in the large-scale image recognition setting. Our main contribution is a thorough evaluation of networks of increasing depth using an architecture with very small (3x3) convolution filters, which shows that a significant improvement on the prior-art configurations can be achieved by pushing the depth to 16-19 weight layers. These findings were the basis of our ImageNet Challenge 2014 submission, where our team secured the first and the second places in the localisation and classification tracks respectively. We also show that our representations generalise well to other datasets, where they achieve state-of-the-art results. We have made our two best-performing ConvNet models publicly available to facilitate further research on the use of deep visual representations in computer vision.},
-  journal = {arXiv:1409.1556 [cs]},
+  booktitle = {Proceedings of the {{International Conference}} on {{Learning Representations}} ({{ICLR}})},
   author = {Simonyan, Karen and Zisserman, Andrew},
-  month = sep,
-  year = {2014},
+  month = may,
+  year = {2015},
   keywords = {À lire,Computer Science - Computer Vision and Pattern Recognition},
   file = {/home/naudeber/Bibliographie//arXiv1409.1556 [cs]/2014/Simonyan Zisserman 2014 - Very Deep Convolutional Networks for Large-Scale Image Recognition.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/8VM3BPQT/1409.html}
 }
@@ -140,7 +140,7 @@
   editor = {Fitzgibbon, Andrew and Lazebnik, Svetlana and Perona, Pietro and Sato, Yoichi and Schmid, Cordelia},
   month = oct,
   year = {2012},
-  keywords = {Algorithm Analysis and Problem Complexity,Artificial Intelligence (incl. Robotics),Computer Graphics,Computer Imaging; Vision; Pattern Recognition and Graphics,Image Processing and Computer Vision,Pattern Recognition,segmentation,superpixels},
+  keywords = {Image Processing and Computer Vision,Computer Imaging; Vision; Pattern Recognition and Graphics,Computer Graphics,Artificial Intelligence (incl. Robotics),Pattern Recognition,Algorithm Analysis and Problem Complexity,segmentation,superpixels},
   pages = {13-26},
   file = {/home/naudeber/Bibliographie//Springer Berlin Heidelberg/2012/Bergh et al 2012 - SEEDS.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/K6W7IK43/10.html},
   doi = {10.1007/978-3-642-33786-4_2}
@@ -157,8 +157,8 @@
 
 @article{baatz_multiresolution_2000,
   title = {Multiresolution {{Segmentation}}: An Optimization Approach for High Quality Multi-Scale Image Segmentation},
-  journal = {Angewandte Geographische Informationsverarbeitung XII: Beitr{\"a}ge zum AGIT-Symposium Salzburg},
-  author = {Baatz, Martin and Sch{\"a}pe, Arno},
+  journal = {Angewandte Geographische Informationsverarbeitung XII: Beitr\"age zum AGIT-Symposium Salzburg},
+  author = {Baatz, Martin and Sch\"ape, Arno},
   year = {2000},
   pages = {12--23},
   file = {/home/naudeber/Bibliographie//Angewandte Geographische Informationsverarbeitung XII Beiträge zum AGIT-Symposium Salzburg/2000/Baatz Schäpe 2000 - Multiresolution Segmentation.pdf}
@@ -187,21 +187,23 @@
   file = {/home/naudeber/Bibliographie//ISPRS Ann. Photogramm. Remote Sens. Spat. Inf. Sci/2012/Rottensteiner et al 2012 - The ISPRS benchmark on urban object classification and 3D building.pdf}
 }
 
-@inproceedings{lin_efficient_2015,
+@inproceedings{lin_efficient_2016,
+  address = {Las Vegas, United States},
   title = {Efficient Piecewise Training of Deep Structured Models for Semantic Segmentation},
+  doi = {10.1109/CVPR.2016.348},
   abstract = {Recent advances in semantic image segmentation have mostly been achieved by training deep convolutional neural networks (CNNs) for the task. We show how to improve semantic segmentation through the use of contextual information. Specifically, we explore ‘patch-patch' context and ‘patch-background' context with deep CNNs. For learning the patch-patch context between image regions, we formulate Conditional Random Fields (CRFs) with CNN-based pairwise potential functions to capture semantic correlations between neighboring patches. Efficient piecewise training of the proposed deep structured model is then applied to avoid repeated expensive CRF inference for back propagation. In order to capture the patch-background context, we show that a network design with traditional multi-scale image input and sliding pyramid pooling is effective for improving performance. Our experiment results set new state-of-the-art performance on a number of popular semantic segmentation datasets, including NYUDv2, PASCAL VOC 2012, PASCAL-Context, and SIFT-flow. Particularly, we achieve an intersection-over-union score of \$77.8\$ on the challenging PASCAL VOC 2012 dataset.},
-  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}}},
+  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
   author = {Lin, Guosheng and Shen, Chunhua and Van Den Hengel, Anton and Reid, Ian},
-  month = apr,
-  year = {2015},
+  year = {2016},
   keywords = {À lire,Computer Science - Computer Vision and Pattern Recognition},
+  pages = {3194-3203},
   file = {/home/naudeber/Bibliographie//undefined/2015/Lin et al 2015 - Efficient piecewise training of deep structured models for semantic segmentation.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/9VAWMIBH/1504.html}
 }
 
 @inproceedings{yu_multi-scale_2015,
   title = {Multi-{{Scale Context Aggregation}} by {{Dilated Convolutions}}},
   abstract = {State-of-the-art models for semantic segmentation are based on adaptations of convolutional networks that had originally been designed for image classification. However, dense prediction and image classification are structurally different. In this work, we develop a new convolutional network module that is specifically designed for dense prediction. The presented module uses dilated convolutions to systematically aggregate multi-scale contextual information without losing resolution. The architecture is based on the fact that dilated convolutions support exponential expansion of the receptive field without loss of resolution or coverage. We show that the presented context module increases the accuracy of state-of-the-art semantic segmentation systems. In addition, we examine the adaptation of image classification networks to dense prediction and show that simplifying the adapted network can increase accuracy.},
-  booktitle = {Proceedings of the {{International Conference}} on {{Learning Representations}}},
+  booktitle = {Proceedings of the {{International Conference}} on {{Learning Representations}} ({{ICLR}})},
   author = {Yu, Fisher and Koltun, Vladlen},
   month = nov,
   year = {2015},
@@ -225,10 +227,10 @@
   title = {Towards {{Better Exploiting Convolutional Neural Networks}} for {{Remote Sensing Scene Classification}}},
   abstract = {We present an analysis of three possible strategies for exploiting the power of existing convolutional neural networks (ConvNets) in different scenarios from the ones they were trained: full training, fine tuning, and using ConvNets as feature extractors. In many applications, especially including remote sensing, it is not feasible to fully design and train a new ConvNet, as this usually requires a considerable amount of labeled data and demands high computational costs. Therefore, it is important to understand how to obtain the best profit from existing ConvNets. We perform experiments with six popular ConvNets using three remote sensing datasets. We also compare ConvNets in each strategy with existing descriptors and with state-of-the-art baselines. Results point that fine tuning tends to be the best performing strategy. In fact, using the features from the fine-tuned ConvNet with linear SVM obtains the best results. We also achieved state-of-the-art results for the three datasets used.},
   journal = {arXiv:1602.01517 [cs]},
-  author = {Nogueira, Keiller and Penatti, Ot{\'a}vio and {dos Santos}, Jefersson A.},
+  author = {Nogueira, Keiller and Penatti, Ot\'avio and {dos Santos}, Jefersson A.},
   month = feb,
   year = {2016},
-  keywords = {À lire,Aerial scenes,Computer Science - Computer Vision and Pattern Recognition,convolutional neural networks,deep learning,feature extraction,Fine-tune,hyperspectral images,remote sensing},
+  keywords = {convolutional neural networks,À lire,Computer Science - Computer Vision and Pattern Recognition,deep learning,feature extraction,remote sensing,hyperspectral images,Fine-tune,Aerial scenes},
   file = {/home/naudeber/Bibliographie//arXiv1602.01517 [cs]/2016/Nogueira et al 2016 - Towards Better Exploiting Convolutional Neural Networks for Remote Sensing.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/4ZZ76SHZ/S0031320316301509.html;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/WHHXGPXD/1602.html}
 }
 
@@ -252,7 +254,7 @@
   eprinttype = {arxiv},
   eprint = {1612.01337},
   title = {Classification {{With}} an {{Edge}}: {{Improving Semantic Image Segmentation}} with {{Boundary Detection}}},
-  shorttitle = {Classification {{With}} an {{Edge}}},
+  doi = {10.1016/j.isprsjprs.2017.11.009},
   abstract = {We present an end-to-end trainable deep convolutional neural network (DCNN) for semantic segmentation with built-in awareness of semantically meaningful boundaries. Semantic segmentation is a fundamental remote sensing task, and most state-of-the-art methods rely on DCNNs as their workhorse. A major reason for their success is that deep networks learn to accumulate contextual information over very large windows (receptive fields). However, this success comes at a cost, since the associated loss of effecive spatial resolution washes out high-frequency details and leads to blurry object boundaries. Here, we propose to counter this effect by combining semantic segmentation with semantically informed edge detection, thus making class-boundaries explicit in the model, First, we construct a comparatively simple, memory-efficient model by adding boundary detection to the Segnet encoder-decoder architecture. Second, we also include boundary detection in FCN-type models and set up a high-end classifier ensemble. We show that boundary detection significantly improves semantic segmentation with CNNs. Our high-end ensemble achieves $>$ 90\% overall accuracy on the ISPRS Vaihingen benchmark.},
   journal = {ISPRS Journal of Photogrammetry and Remote Sensing},
   author = {Marmanis, Dimitrios and Schindler, Konrad and Wegner, Jan Dirk and Galliani, Silvano and Datcu, Mihai and Stilla, Uwe},
@@ -282,14 +284,14 @@
   author = {Marmanis, D. and Datcu, M. and Esch, T. and Stilla, U.},
   month = jan,
   year = {2016},
-  keywords = {Adaptation models,Arrays,convolutional neural networks,Convolutional neural networks (CNNs),Data models,deep learning (DL),deep learning earth observation classification,deep learning method,end-to-end processing scheme,feature extraction,Feature extraction,fusion algorithm,geophysical techniques,ImageNet pretrained networks,land-use classification,limited labeled data,limited-data problem,neural nets,Neural networks,pretrained network,remote sensing,Remote sensing,remote sensing (RS),supervised CNN classifier,Training,UC Merced Land Use benchmark},
+  keywords = {neural nets,geophysical techniques,Neural networks,convolutional neural networks,ImageNet pretrained networks,UC Merced Land Use benchmark,deep learning earth observation classification,deep learning method,end-to-end processing scheme,fusion algorithm,limited labeled data,limited-data problem,supervised CNN classifier,Adaptation models,Arrays,Data models,Convolutional neural networks (CNNs),deep learning (DL),land-use classification,pretrained network,remote sensing (RS),Training,feature extraction,remote sensing,Feature extraction,Remote sensing},
   pages = {105-109},
   file = {/home/naudeber/Bibliographie//IEEE Geoscience and Remote Sensing Letters/2016/Marmanis et al 2016 - Deep Learning Earth Observation Classification Using ImageNet Pretrained.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/6NHD6Y5U/Marmanis et al. - 2016 - Deep Learning Earth Observation Classification Usi.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/CDKGES4I/7342907.html;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/H2VNFIIW/login.html;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/T3TS89A6/7342907.html}
 }
 
 @techreport{boulch_dag_2015,
   title = {{{DAG}} of Convolutional Networks for Semantic Labeling},
-  institution = {{Office national d'{\'e}tudes et de recherches a{\'e}rospatiales}},
+  institution = {{Office national d'\'etudes et de recherches a\'erospatiales}},
   author = {Boulch, Alexandre},
   year = {2015},
   file = {/home/naudeber/Bibliographie//Office national d'études et de recherches aérospatiales/2015/Boulch 2015 - DAG of convolutional networks for semantic labeling.pdf}
@@ -312,8 +314,10 @@
 
 @inproceedings{szegedy_going_2015,
   title = {Going Deeper with Convolutions},
-  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}}},
+  doi = {10.1109/CVPR.2015.7298594},
+  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
   author = {Szegedy, Christian and Liu, Wei and Jia, Yangqing and Sermanet, Pierre and Reed, Scott and Anguelov, Dragomir and Erhan, Dumitru and Vanhoucke, Vincent and Rabinovich, Andrew},
+  month = jun,
   year = {2015},
   pages = {1--9},
   file = {/home/naudeber/Bibliographie//undefined/2015/Szegedy et al 2015 - Going deeper with convolutions_2.pdf;/home/naudeber/Bibliographie//undefined/2015/Szegedy et al 2015 - Going deeper with convolutions.pdf}
@@ -351,10 +355,10 @@
   abstract = {In this paper, we discuss the scientific outcomes of the 2015 data fusion contest organized by the Image Analysis and Data Fusion Technical Committee (IADF TC) of the IEEE Geoscience and Remote Sensing Society (IEEE GRSS). As for previous years, the IADF TC organized a data fusion contest aiming at fostering new ideas and solutions for multisource studies. The 2015 edition of the contest proposed a multiresolution and multisensorial challenge involving extremely high-resolution RGB images and a three-dimensional (3-D) LiDAR point cloud. The competition was framed in two parallel tracks, considering 2-D and 3-D products, respectively. In this paper, we discuss the scientific results obtained by the winners of the 2-D contest, which studied either the complementarity of RGB and LiDAR with deep neural networks (winning team) or provided a comprehensive benchmarking evaluation of new classification strategies for extremely high-resolution multimodal data (runner-up team). The data and the previously undisclosed ground truth will remain available for the community and can be obtained at http://www.grss-ieee.org/community/technical-committees/data-fusion/2015-ieee-grss-data-fusion-contest/. The 3-D part of the contest is discussed in the Part-B paper [1].},
   number = {12},
   journal = {IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing},
-  author = {{Campos-Taberner}, Manuel and {Romero-Soriano}, Adriana and Gatta, Carlo and {Camps-Valls}, Gustau and Lagrange, Adrien and Le Saux, Bertrand and Beaup{\`e}re, Anne and Boulch, Alexandre and {Chan-Hon-Tong}, Adrien and Herbin, St{\'e}phane and Randrianarivo, Hicham and Ferecatu, Marin and Shimoni, Michal and Moser, Gabriele and Tuia, Devis},
+  author = {{Campos-Taberner}, Manuel and {Romero-Soriano}, Adriana and Gatta, Carlo and {Camps-Valls}, Gustau and Lagrange, Adrien and Le Saux, Bertrand and Beaup\`ere, Anne and Boulch, Alexandre and {Chan-Hon-Tong}, Adrien and Herbin, St\'ephane and Randrianarivo, Hicham and Ferecatu, Marin and Shimoni, Michal and Moser, Gabriele and Tuia, Devis},
   month = dec,
   year = {2016},
-  keywords = {Data integration,deep neural networks,Earth,extremely high spatial resolution,image analysis and data fusion (IADF),landcover classification,Laser radar,LiDAR,multimodal-data fusion,multiresolution-,multisource-,remote sensing,Spatial resolution,Three-dimensional displays},
+  keywords = {deep neural networks,Laser radar,Data integration,Earth,Spatial resolution,Three-dimensional displays,LiDAR,extremely high spatial resolution,image analysis and data fusion (IADF),landcover classification,multimodal-data fusion,multiresolution-,multisource-,remote sensing},
   pages = {5547-5559},
   file = {/home/naudeber/Bibliographie//IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing/2016/Campos-Taberner et al 2016 - Processing of Extremely High-Resolution LiDAR and RGB Data.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/FC7U9666/articleDetails.html}
 }
@@ -405,12 +409,14 @@
   file = {/home/naudeber/Bibliographie//undefined/2012/Neubert Protzel 2012 - Superpixel benchmark and comparison_2.pdf}
 }
 
-@article{lin_refinenet_2016,
+@inproceedings{lin_refinenet_2017,
   title = {{{RefineNet}}: {{Multi}}-{{Path Refinement Networks}} with {{Identity Mappings}} for {{High}}-{{Resolution Semantic Segmentation}}},
-  shorttitle = {{{RefineNet}}},
-  journal = {arXiv preprint arXiv:1611.06612},
+  doi = {10.1109/CVPR.2017.549},
+  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
   author = {Lin, Guosheng and Milan, Anton and Shen, Chunhua and Reid, Ian},
-  year = {2016},
+  month = jul,
+  year = {2017},
+  pages = {5168-5177},
   file = {/home/naudeber/Bibliographie//arXiv preprint arXiv1611.06612/2016/Lin et al 2016 - RefineNet.pdf}
 }
 
@@ -425,20 +431,21 @@
   author = {Volpi, Michele and Tuia, Devis},
   month = feb,
   year = {2017},
-  keywords = {aerial images,classification,CNN-based system,convolutional neural network,Convolutional neural networks (CNNs),Data models,deconvolution networks,deep learning,feature extraction,geophysical image processing,image classification,Image resolution,Labeling,land cover,Machine learning,neural nets,patch labeling,pixel-level land cover classification,Potsdam subdecimeter resolution dataset,remote sensing,semantic labeling,semantic Web,Semantics,standard patch classification,statistical model,subdecimeter resolution,subdecimeter resolution images,ultrahigh-resolution imagery,Vaihingen subdecimeter resolution dataset},
+  keywords = {Labeling,neural nets,convolutional neural network,geophysical image processing,aerial images,semantic labeling,classification,Data models,Convolutional neural networks (CNNs),Image resolution,Machine learning,Semantics,deep learning,feature extraction,image classification,remote sensing,land cover,semantic Web,CNN-based system,Potsdam subdecimeter resolution dataset,Vaihingen subdecimeter resolution dataset,patch labeling,pixel-level land cover classification,standard patch classification,statistical model,subdecimeter resolution images,ultrahigh-resolution imagery,deconvolution networks,subdecimeter resolution},
   pages = {881-893},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/UVV6QJZ8/7725499.html}
 }
 
 @inproceedings{he_deep_2016,
+  address = {Las Vegas, United States},
   title = {Deep {{Residual Learning}} for {{Image Recognition}}},
   doi = {10.1109/CVPR.2016.90},
   abstract = {Deeper neural networks are more difficult to train. We present a residual learning framework to ease the training of networks that are substantially deeper than those used previously. We explicitly reformulate the layers as learning residual functions with reference to the layer inputs, instead of learning unreferenced functions. We provide comprehensive empirical evidence showing that these residual networks are easier to optimize, and can gain accuracy from considerably increased depth. On the ImageNet dataset we evaluate residual nets with a depth of up to 152 layers - 8\texttimes{} deeper than VGG nets [40] but still having lower complexity. An ensemble of these residual nets achieves 3.57\% error on the ImageNet test set. This result won the 1st place on the ILSVRC 2015 classification task. We also present analysis on CIFAR-10 with 100 and 1000 layers. The depth of representations is of central importance for many visual recognition tasks. Solely due to our extremely deep representations, we obtain a 28\% relative improvement on the COCO object detection dataset. Deep residual nets are foundations of our submissions to ILSVRC \& COCO 2015 competitions1, where we also won the 1st places on the tasks of ImageNet detection, ImageNet localization, COCO detection, and COCO segmentation.},
-  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}}},
+  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
   author = {He, Kaiming and Zhang, Xiangyu and Ren, Shaoqing and Sun, Jian},
   month = jun,
   year = {2016},
-  keywords = {neural nets,object detection,learning (artificial intelligence),Image recognition,Visualization,Neural networks,Training,image classification,image segmentation,CIFAR-10,COCO object detection dataset,COCO segmentation,ILSVRC \& COCO 2015 competitions,ILSVRC 2015 classification task,ImageNet dataset,ImageNet localization,ImageNet test set,VGG nets,deep residual learning,deep residual nets,deeper neural network training,residual function learning,residual nets,visual recognition tasks,Complexity theory,Degradation},
+  keywords = {CIFAR-10,COCO object detection dataset,COCO segmentation,Complexity theory,deep residual learning,deep residual nets,deeper neural network training,Degradation,ILSVRC \& COCO 2015 competitions,ILSVRC 2015 classification task,image classification,Image recognition,image segmentation,ImageNet dataset,ImageNet localization,ImageNet test set,learning (artificial intelligence),neural nets,Neural networks,object detection,residual function learning,residual nets,Training,VGG nets,visual recognition tasks,Visualization},
   pages = {770-778},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/KUCF9Q86/7780459.html}
 }
@@ -447,7 +454,7 @@
   title = {Fully Convolutional Networks for Semantic Segmentation},
   doi = {10.1109/CVPR.2015.7298965},
   abstract = {Convolutional networks are powerful visual models that yield hierarchies of features. We show that convolutional networks by themselves, trained end-to-end, pixels-to-pixels, exceed the state-of-the-art in semantic segmentation. Our key insight is to build ``fully convolutional'' networks that take input of arbitrary size and produce correspondingly-sized output with efficient inference and learning. We define and detail the space of fully convolutional networks, explain their application to spatially dense prediction tasks, and draw connections to prior models. We adapt contemporary classification networks (AlexNet [20], the VGG net [31], and GoogLeNet [32]) into fully convolutional networks and transfer their learned representations by fine-tuning [3] to the segmentation task. We then define a skip architecture that combines semantic information from a deep, coarse layer with appearance information from a shallow, fine layer to produce accurate and detailed segmentations. Our fully convolutional network achieves state-of-the-art segmentation of PASCAL VOC (20\% relative improvement to 62.2\% mean IU on 2012), NYUDv2, and SIFT Flow, while inference takes less than one fifth of a second for a typical image.},
-  booktitle = {2015 {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
+  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
   author = {Long, Jonathan and Shelhamer, Evan and Darrell, Trevor},
   month = jun,
   year = {2015},
@@ -460,7 +467,7 @@
   title = {Effective Semantic Pixel Labelling with Convolutional Networks and {{Conditional Random Fields}}},
   doi = {10.1109/CVPRW.2015.7301381},
   abstract = {Large amounts of available training data and increasing computing power have led to the recent success of deep convolutional neural networks (CNN) on a large number of applications. In this paper, we propose an effective semantic pixel labelling using CNN features, hand-crafted features and Conditional Random Fields (CRFs). Both CNN and hand-crafted features are applied to dense image patches to produce per-pixel class probabilities. The CRF infers a labelling that smooths regions while respecting the edges present in the imagery. The method is applied to the ISPRS 2D semantic labelling challenge dataset with competitive classification accuracy.},
-  booktitle = {2015 {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition Workshops}} ({{CVPRW}})},
+  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition Workshops}} ({{CVPRW}})},
   author = {Paisitkriangkrai, Sakrapee and Sherrah, Jamie and Janney, Pranam and Van Den Hengel, Anton},
   month = jun,
   year = {2015},
@@ -473,8 +480,8 @@
   title = {Do Deep Features Generalize from Everyday Objects to Remote Sensing and Aerial Scenes Domains?},
   doi = {10.1109/CVPRW.2015.7301382},
   abstract = {In this paper, we evaluate the generalization power of deep features (ConvNets) in two new scenarios: aerial and remote sensing image classification. We evaluate experimentally ConvNets trained for recognizing everyday objects for the classification of aerial and remote sensing images. ConvNets obtained the best results for aerial images, while for remote sensing, they performed well but were outperformed by low-level color descriptors, such as BIC. We also present a correlation analysis, showing the potential for combining/fusing different ConvNets with other descriptors or even for combining multiple ConvNets. A preliminary set of experiments fusing ConvNets obtains state-of-the-art results for the well-known UCMerced dataset.},
-  booktitle = {2015 {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition Workshops}} ({{CVPRW}})},
-  author = {Penatti, Ot{\'a}vio and Nogueira, Keiller and {dos Santos}, Jefersson A.},
+  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition Workshops}} ({{CVPRW}})},
+  author = {Penatti, Ot\'avio and Nogueira, Keiller and {dos Santos}, Jefersson A.},
   month = jun,
   year = {2015},
   keywords = {Accuracy,aerial images,aerial scenes domains,BIC,Correlation,correlation analysis,correlation methods,deep features,feature extraction,generalization power,geophysical image processing,Histograms,image classification,Image color analysis,image colour analysis,low-level color descriptors,multiple ConvNets,object recognition,remote sensing,remote sensing image classification,UCMerced dataset,Visualization},
@@ -488,10 +495,10 @@
   doi = {10.1109/IGARSS.2015.7326745},
   abstract = {In this paper, we address the task of semantic labeling of multisource earth-observation (EO) data. Precisely, we benchmark several concurrent methods of the last 15 years, from expert classifiers, spectral support-vector classification and high-level features to deep neural networks. We establish that (1) combining multisensor features is essential for retrieving some specific classes, (2) in the image domain, deep convolutional networks obtain significantly better overall performances and (3) transfer of learning from large generic-purpose image sets is highly effective to build EO data classifiers.},
   booktitle = {2015 {{IEEE International Geoscience}} and {{Remote Sensing Symposium}} ({{IGARSS}})},
-  author = {Lagrange, Adrien and Le Saux, Bertrand and Beaup{\`e}re, Anne and Boulch, Alexandre and {Chan-Hon-Tong}, Adrien and Herbin, St{\'e}phane and Randrianarivo, Hicham and Ferecatu, Marin},
+  author = {Lagrange, Adrien and Le Saux, Bertrand and Beaup\`ere, Anne and Boulch, Alexandre and {Chan-Hon-Tong}, Adrien and Herbin, St\'ephane and Randrianarivo, Hicham and Ferecatu, Marin},
   month = jul,
   year = {2015},
-  keywords = {Buildings,deep convolutional networks,deep neural networks,expert classifiers,feature extraction,generic-purpose image sets,geophysical image processing,high-level features,image classification,image domain,Laser radar,learning explicit features,multisensor features,multisource earth-observation data benchmarking classification,neural nets,Neural networks,Pattern analysis,remote sensing,semantic labeling,Semantics,spectral support-vector classification,support vector machines,terrain mapping},
+  keywords = {neural nets,support vector machines,geophysical image processing,terrain mapping,deep convolutional networks,deep neural networks,expert classifiers,generic-purpose image sets,high-level features,image domain,learning explicit features,multisensor features,multisource earth-observation data benchmarking classification,semantic labeling,spectral support-vector classification,Buildings,Laser radar,Neural networks,Pattern analysis,Semantics,feature extraction,image classification,remote sensing},
   pages = {4173-4176},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/WXE5EVSM/7326745.html}
 }
@@ -505,7 +512,7 @@
   author = {He, Kaiming and Zhang, Xiangyu and Ren, Shaoqing and Sun, Jian},
   month = dec,
   year = {2015},
-  keywords = {Adaptation models,Biological neural networks,Computational modeling,Gaussian distribution,human-level performance,ILSVRC 2014 winner,image classification,ImageNet 2012 classification dataset,ImageNet classification,model fitting,network architectures,neural nets,overfitting risk,parametric rectified linear unit,PReLU,rectified activation units,rectifier neural networks,rectifier nonlinearities,robust initialization method,state-of-the-art neural networks,Testing,Training},
+  keywords = {neural nets,Adaptation models,Computational modeling,Training,image classification,ILSVRC 2014 winner,ImageNet 2012 classification dataset,ImageNet classification,PReLU,human-level performance,model fitting,network architectures,overfitting risk,parametric rectified linear unit,rectified activation units,rectifier neural networks,rectifier nonlinearities,robust initialization method,state-of-the-art neural networks,Biological neural networks,Gaussian distribution,Testing},
   pages = {1026-1034},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/NXDQWID9/7410480.html}
 }
@@ -522,7 +529,7 @@
   author = {Badrinarayanan, Vijay and Kendall, Alex and Cipolla, Roberto},
   month = dec,
   year = {2017},
-  keywords = {Computer architecture,Decoder,Decoding,Deep Convolutional Neural Networks,Encoder,image segmentation,Indoor Scenes,Neural networks,Pooling,Road Scenes,Roads,Semantic Pixel-Wise Segmentation,Semantics,Training,Upsampling},
+  keywords = {Neural networks,Computer architecture,Semantics,Training,image segmentation,Decoding,Roads,Decoder,Deep Convolutional Neural Networks,Encoder,Indoor Scenes,Pooling,Road Scenes,Semantic Pixel-Wise Segmentation,Upsampling},
   pages = {2481-2495},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/9SZV73FK/7803544.html}
 }
@@ -535,10 +542,10 @@
   abstract = {Recent advances in spectral-spatial classification of hyperspectral images are presented in this paper. Several techniques are investigated for combining both spatial and spectral information. Spatial information is extracted at the object (set of pixels) level rather than at the conventional pixel level. Mathematical morphology is first used to derive the morphological profile of the image, which includes characteristics about the size, orientation, and contrast of the spatial structures present in the image. Then, the morphological neighborhood is defined and used to derive additional features for classification. Classification is performed with support vector machines (SVMs) using the available spectral information and the extracted spatial information. Spatial postprocessing is next investigated to build more homogeneous and spatially consistent thematic maps. To that end, three presegmentation techniques are applied to define regions that are used to regularize the preliminary pixel-wise thematic map. Finally, a multiple-classifier (MC) system is defined to produce relevant markers that are exploited to segment the hyperspectral image with the minimum spanning forest algorithm. Experimental results conducted on three real hyperspectral images with different spatial and spectral resolutions and corresponding to various contexts are presented. They highlight the importance of spectral-spatial strategies for the accurate classification of hyperspectral images and validate the proposed methods.},
   number = {3},
   journal = {Proceedings of the IEEE},
-  author = {Fauvel, Mathieu and Tarabalka, Yuliya and Benediktsson, J{\'o}n Atli and Chanussot, Jocelyn and Tilton, James C.},
+  author = {Fauvel, Mathieu and Tarabalka, Yuliya and Benediktsson, J\'on Atli and Chanussot, Jocelyn and Tilton, James C.},
   month = mar,
   year = {2013},
-  keywords = {classification,Classification algorithms,conventional pixel level,feature extraction,geophysical image processing,homogeneous thematic maps,hyperspectral image,hyperspectral image segment,hyperspectral imaging,image classification,image morphological profile,Image resolution,image segmentation,Kernel,kernel methods,Mathematical morphology,morphological neighborhood,multiple-classifier system,Nearest neighbor searches,object level,pixel-wise thematic map,presegmentation techniques,remote sensing,segmentation,spanning forest algorithm,spatial information,spatial postprocessing,Spatial resolution,spatial structure contrast,spatial structure orientation,spatial structure size,spatially consistent thematic maps,Spectral analysis,spectral information,spectral-spatial classification,spectral–spatial classifier,support vector machines,vegetation mapping},
+  keywords = {segmentation,support vector machines,geophysical image processing,hyperspectral imaging,classification,Spatial resolution,Image resolution,Kernel,feature extraction,image classification,image segmentation,remote sensing,Mathematical morphology,vegetation mapping,conventional pixel level,homogeneous thematic maps,hyperspectral image segment,image morphological profile,morphological neighborhood,multiple-classifier system,object level,pixel-wise thematic map,presegmentation techniques,spanning forest algorithm,spatial information,spatial postprocessing,spatial structure contrast,spatial structure orientation,spatial structure size,spatially consistent thematic maps,spectral information,spectral-spatial classification,Classification algorithms,Nearest neighbor searches,Spectral analysis,hyperspectral image,kernel methods,spectral–spatial classifier},
   pages = {652-675},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/8XPE5X8G/Fauvel et al_2013_Advances in Spectral-Spatial Classification of Hyperspectral Images.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/D7SGGI9Z/6297992.html}
 }
@@ -546,6 +553,7 @@
 @inproceedings{maggiori_can_2017,
   title = {Can {{Semantic Labeling Methods Generalize}} to {{Any City}}? {{The Inria Aerial Image Labeling Benchmark}}},
   shorttitle = {Can {{Semantic Labeling Methods Generalize}} to {{Any City}}?},
+  doi = {10.1109/IGARSS.2017.8127684},
   abstract = {New challenges in remote sensing impose the necessity of designing pixel classification methods that, once trained on a certain dataset, generalize to other areas of the earth. This may include regions where the appearance of the same type of objects is significantly different. In the literature it is common to use a single image and split it into training and test sets to train a classifier and assess its performance, respectively. However, this does not prove the generalization capabilities to other inputs. In this paper, we propose an aerial image labeling dataset that covers a wide range of urban settlement appearances, from different geographic locations. Moreover, the cities included in the test set are different from those of the training set. We also experiment with convolutional neural networks on our dataset.},
   language = {en},
   booktitle = {Proceedings of the {{IEEE International Symposium}} on {{Geoscience}} and {{Remote Sensing}} ({{IGARSS}})},
@@ -559,7 +567,7 @@
   title = {{{ImageNet}}: {{A}} Large-Scale Hierarchical Image Database},
   shorttitle = {{{ImageNet}}},
   doi = {10.1109/CVPR.2009.5206848},
-  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}}},
+  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
   author = {Deng, Jia and Dong, Wei and Socher, Richard and Li, Li-Jia and Li, Kai and {Fei-Fei}, Li},
   month = jun,
   year = {2009},
@@ -636,7 +644,7 @@
   title = {Large-Scale Machine Learning with Stochastic Gradient Descent},
   abstract = {Abstract. During the last decade, the data sizes have grown faster than the speed of processors. In this context, the capabilities of statistical machine learning methods is limited by the computing time rather than the sample size. A more precise analysis uncovers qualitatively different tradeoffs for the case of small-scale and large-scale learning problems. The large-scale case involves the computational complexity of the underlying optimization algorithm in non-trivial ways. Unlikely optimization algorithms such as stochastic gradient descent show amazing performance for large-scale problems. In particular, second order stochastic gradient and averaged stochastic gradient are asymptotically efficient after a single pass on the training set.},
   booktitle = {In {{COMPSTAT}}},
-  author = {Bottou, L{\'e}on},
+  author = {Bottou, L\'eon},
   year = {2010},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/KUDZJ6EU/Bottou - 2010 - Large-scale machine learning with stochastic gradi.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/IIFEA7IM/summary.html}
 }
@@ -705,7 +713,7 @@
   doi = {10.1016/j.cviu.2018.01.006},
   abstract = {Superpixel decomposition methods are widely used in computer vision and image processing applications. By grouping homogeneous pixels, the accuracy can be increased and the decrease of the number of elements to process can drastically reduce the computational burden. For most superpixel methods, a trade-off is computed between 1) color homogeneity, 2) adherence to the image contours and 3) shape regularity of the decomposition. In this paper, we propose a framework that jointly enforces all these aspects and provides accurate and regular Superpixels with Contour Adherence using Linear Path (SCALP). During the decomposition, we propose to consider color features along the linear path between the pixel and the corresponding superpixel barycenter. A contour prior is also used to prevent the crossing of image boundaries when associating a pixel to a superpixel. Finally, in order to improve the decomposition accuracy and the robustness to noise, we propose to integrate the pixel neighborhood information, while preserving the same computational complexity. SCALP is extensively evaluated on standard segmentation dataset, and the obtained results outperform the ones of the state-of-the-art methods. SCALP is also extended for supervoxel decomposition on MRI images.},
   journal = {Computer Vision and Image Understanding},
-  author = {Giraud, R{\'e}mi and Ta, Vinh-Thong and Papadakis, Nicolas},
+  author = {Giraud, R\'emi and Ta, Vinh-Thong and Papadakis, Nicolas},
   month = jan,
   year = {2018},
   keywords = {Contour detection,Linear path,Segmentation,Superpixels},
@@ -732,15 +740,14 @@
 
 @inproceedings{dalal_histograms_2005,
   title = {Histograms of Oriented Gradients for Human Detection},
-  volume = {1},
   doi = {10.1109/CVPR.2005.177},
   abstract = {We study the question of feature sets for robust visual object recognition; adopting linear SVM based human detection as a test case. After reviewing existing edge and gradient based descriptors, we show experimentally that grids of histograms of oriented gradient (HOG) descriptors significantly outperform existing feature sets for human detection. We study the influence of each stage of the computation on performance, concluding that fine-scale gradients, fine orientation binning, relatively coarse spatial binning, and high-quality local contrast normalization in overlapping descriptor blocks are all important for good results. The new approach gives near-perfect separation on the original MIT pedestrian database, so we introduce a more challenging dataset containing over 1800 annotated human images with a large range of pose variations and backgrounds.},
-  booktitle = {2005 {{IEEE Computer Society Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}}'05)},
+  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
   author = {Dalal, Navneet and Triggs, Bill},
   month = jun,
   year = {2005},
   keywords = {coarse spatial binning,contrast normalization,edge based descriptors,feature extraction,fine orientation binning,fine-scale gradients,gradient based descriptors,gradient methods,High performance computing,Histograms,histograms of oriented gradients,human detection,Humans,Image databases,Image edge detection,linear SVM,object detection,Object detection,object recognition,Object recognition,overlapping descriptor,pedestrian database,robust visual object recognition,Robustness,support vector machines,Support vector machines,Testing},
-  pages = {886-893 vol. 1},
+  pages = {886-893},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/5DZC6F52/9411012.html}
 }
 
@@ -752,7 +759,7 @@
   booktitle = {Proceedings of the {{Seventh IEEE International Conference}} on {{Computer Vision}}},
   author = {Lowe, David G.},
   year = {1999},
-  keywords = {3D projection,blurred image gradients,candidate object matches,cluttered partially occluded images,computation time,computational geometry,Computer science,Electrical capacitance tomography,feature extraction,Filters,image matching,Image recognition,inferior temporal cortex,Layout,least squares approximations,Lighting,local geometric deformations,local image features,local scale-invariant features,low residual least squares solution,multiple orientation planes,nearest neighbor indexing method,Neurons,object recognition,Object recognition,primate vision,Programmable logic arrays,Reactive power,robust object recognition,staged filtering approach,unknown model parameters},
+  keywords = {Image recognition,object recognition,Computer science,feature extraction,Layout,computational geometry,Object recognition,3D projection,blurred image gradients,candidate object matches,cluttered partially occluded images,computation time,Electrical capacitance tomography,Filters,image matching,inferior temporal cortex,least squares approximations,Lighting,local geometric deformations,local image features,local scale-invariant features,low residual least squares solution,multiple orientation planes,nearest neighbor indexing method,Neurons,primate vision,Programmable logic arrays,Reactive power,robust object recognition,staged filtering approach,unknown model parameters},
   pages = {1150-1157 vol.2},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/9MPEA4TN/790410.html}
 }
@@ -765,7 +772,7 @@
   author = {Nogueira, Keiller and Dalla Mura, Mauro and Chanussot, Jocelyn and Schwartz, William R. and {dos Santos}, Jefferson A.},
   month = dec,
   year = {2016},
-  keywords = {classifier learning,Context,ConvNet feature representation,convolution,convolutional network,Deep Learning,feature descriptor,feature extraction,Feature extraction,Feature Learning,geophysical image processing,High-resolution Images,high-resolution remote sensing image,image classification,image representation,image resolution,image segmentation,Image segmentation,land cover,land cover classification,Land-cover Mapping,learning (artificial intelligence),Machine learning,neural nets,Pixel-wise Classification,pixel-wise semantic segmentation,remote sensing,Remote sensing,Remote Sensing,Semantic Segmentation,Semantics,Visualization},
+  keywords = {Context,neural nets,image representation,learning (artificial intelligence),Visualization,geophysical image processing,convolution,Machine learning,Semantics,feature extraction,image classification,image segmentation,remote sensing,land cover,Image segmentation,Feature extraction,Remote sensing,Semantic Segmentation,classifier learning,ConvNet feature representation,convolutional network,Deep Learning,feature descriptor,Feature Learning,High-resolution Images,high-resolution remote sensing image,image resolution,land cover classification,Land-cover Mapping,Pixel-wise Classification,pixel-wise semantic segmentation,Remote Sensing},
   pages = {3566-3571},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/GNPR43FA/7900187.html}
 }
@@ -774,7 +781,7 @@
   title = {Semantic Segmentation of Urban Scenes by Learning Local Class Interactions},
   doi = {10.1109/CVPRW.2015.7301377},
   abstract = {Traditionally, land-cover mapping from remote sensing images is performed by classifying each atomic region in the image in isolation and by enforcing simple smoothing priors via random fields models as two independent steps. In this paper, we propose to model the segmentation problem by a discriminatively trained Conditional Random Field (CRF). To this end, we employ Structured Support Vector Machines (SSVM) to learn the weights of an informative set of appearance descriptors jointly with local class interactions. We propose a principled strategy to learn pairwise potentials encoding local class preferences from sparsely annotated ground truth. We show that this approach outperform standard baselines and more expressive CRF models, improving by 4-6 points the average class accuracy on a challenging dataset involving urban high resolution satellite imagery.},
-  booktitle = {2015 {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition Workshops}} ({{CVPRW}})},
+  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition Workshops}} ({{CVPRW}})},
   author = {Volpi, Michele and Ferrari, Vittorio},
   month = jun,
   year = {2015},
@@ -787,8 +794,8 @@
   title = {Superpixel-{{Based Interactive Classification}} of {{Very High Resolution Images}}},
   doi = {10.1109/SIBGRAPI.2014.49},
   abstract = {Very high resolution (VHR) images are large datasets for pixel annotation \textendash{} a process that has depended on the supervised training of an effective pixel classifier. Active learning techniques have mitigated this problem, but pixel descriptors are limited to local image information and the large number of pixels makes the response time to the user's actions impractical, during active learning. To circumvent the problem, we present an active learning strategy that relies on superpixel descriptors and a priori dataset reduction. Firstly, we compare VHR image annotation using superpixel- and pixel-based classifiers, as designed by the same state-of-the-art active learning technique \textendash{} Multi-Class Level Uncertainty (MCLU). Even with the dataset reduction provided by the superpixel representation, MCLU remains unfeasible for user interaction. Therefore, we propose a technique to considerably reduce the superpixel dataset for active learning. Moreover, we subdivide the reduced dataset into a list of subsets with random sample rearrangement to gain both speed and sample diversity during the active learning process.},
-  booktitle = {2014 27th {{SIBGRAPI Conference}} on {{Graphics}}, {{Patterns}} and {{Images}}},
-  author = {Vargas, John E. and Saito, Priscila T. M. and Falc{\~a}o, Alexandre X. and {de Rezende}, Pedro J. and {dos Santos}, Jefferson A.},
+  booktitle = {27th {{SIBGRAPI Conference}} on {{Graphics}}, {{Patterns}} and {{Images}}},
+  author = {Vargas, John E. and Saito, Priscila T. M. and Falc\~ao, Alexandre X. and {de Rezende}, Pedro J. and {dos Santos}, Jefferson A.},
   month = aug,
   year = {2014},
   keywords = {a priori dataset reduction,Accuracy,active learning,active learning techniques,Clustering algorithms,dataset reduction,Histograms,image classification,Image color analysis,image representation,image resolution,interactive systems,learning (artificial intelligence),local image information,MCLU,multiclass level uncertainty,pixel annotation,pixel classifier,superpixel dataset,superpixel descriptors,superpixel representation,superpixel-based interactive classification,supervised classification,supervised training,Support vector machines,Training,Uncertainty,user interaction,Very high resolution image processing,very high resolution images,VHR image annotation},
@@ -839,7 +846,7 @@
   address = {Toulouse, France},
   title = {Efficient and Large-Scale Land Cover Classification Using Multiscale Image Analysis},
   booktitle = {Big {{Data}} from {{Space}}},
-  author = {Merciol, Fran{\c c}ois and Balem, Thibaud and Lef{\`e}vre, S{\'e}bastien},
+  author = {Merciol, Fran{\c c}ois and Balem, Thibaud and Lef\`evre, S\'ebastien},
   year = {2017},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/IN9LFRCX/hal-01672868.html}
 }
@@ -856,7 +863,7 @@
   author = {Levinshtein, Alex and Stere, Adrian and Kutulakos, Kiriakos N. and Fleet, David J. and Dickinson, Sven J. and Siddiqi, Kaleem},
   month = dec,
   year = {2009},
-  keywords = {Berkeley database,computational complexity,dense oversegmentation,fast superpixels,geometric flows,geometry,image labeling,image resolution,image segmentation,N-cuts,perceptual grouping,perceptual grouping.,superpixels,Superpixels,TurboPixels},
+  keywords = {image labeling,image segmentation,superpixels,computational complexity,Superpixels,image resolution,Berkeley database,dense oversegmentation,fast superpixels,geometric flows,geometry,N-cuts,perceptual grouping,perceptual grouping.,TurboPixels},
   pages = {2290-2297},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/HVNQPWA5/4912213.html}
 }
@@ -880,7 +887,7 @@
   title = {Entropy Rate Superpixel Segmentation},
   doi = {10.1109/CVPR.2011.5995323},
   abstract = {We propose a new objective function for superpixel segmentation. This objective function consists of two components: entropy rate of a random walk on a graph and a balancing term. The entropy rate favors formation of compact and homogeneous clusters, while the balancing function encourages clusters with similar sizes. We present a novel graph construction for images and show that this construction induces a matroid - a combinatorial structure that generalizes the concept of linear independence in vector spaces. The segmentation is then given by the graph topology that maximizes the objective function under the matroid constraint. By exploiting submodular and mono-tonic properties of the objective function, we develop an efficient greedy algorithm. Furthermore, we prove an approximation bound of \textonehalf{} for the optimality of the solution. Extensive experiments on the Berkeley segmentation benchmark show that the proposed algorithm outperforms the state of the art in all the standard evaluation metrics.},
-  booktitle = {{{CVPR}} 2011},
+  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
   author = {Liu, Ming-Yu and Tuzel, Oncel and Ramalingam, Srikumar and Chellappa, Rama},
   month = jun,
   year = {2011},
@@ -901,7 +908,7 @@
   author = {Comaniciu, Dorin and Meer, Peter},
   month = may,
   year = {2002},
-  keywords = {algorithm performance,analysis resolution,arbitrarily shaped cluster delineation,color images,complex multimodal feature space,computational module,computer vision,convergence,Convergence,density function,Density functional theory,density modes detection,discontinuity-preserving image smoothing,discrete data,estimation theory,gray-level images,Image analysis,Image color analysis,Image resolution,image segmentation,Image segmentation,Kernel,kernel regression,location estimation,low-level vision algorithms,mean shift,Nadaraya-Watson estimator,nearest stationary point,nonparametric statistics,nonparametric technique,pattern clustering,Pattern recognition,pattern recognition procedure,recursive mean shift procedure,robust feature space analysis,robust M-estimators,Robustness,smoothing methods,Smoothing methods,user-set parameter},
+  keywords = {Image color analysis,smoothing methods,computer vision,Image resolution,Kernel,image segmentation,Robustness,Image segmentation,Smoothing methods,pattern clustering,algorithm performance,analysis resolution,arbitrarily shaped cluster delineation,color images,complex multimodal feature space,computational module,convergence,Convergence,density function,Density functional theory,density modes detection,discontinuity-preserving image smoothing,discrete data,estimation theory,gray-level images,Image analysis,kernel regression,location estimation,low-level vision algorithms,mean shift,Nadaraya-Watson estimator,nearest stationary point,nonparametric statistics,nonparametric technique,Pattern recognition,pattern recognition procedure,recursive mean shift procedure,robust feature space analysis,robust M-estimators,user-set parameter},
   pages = {603-619},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/B4S7MHYA/1000236.html}
 }
@@ -914,7 +921,7 @@
   abstract = {We introduce new results connecting differential and morphological operators that provide a formal and theoretically grounded approach for stable and fast contour evolution. Contour evolution algorithms have been extensively used for boundary detection and tracking in computer vision. The standard solution based on partial differential equations and level-sets requires the use of numerical methods of integration that are costly computationally and may have stability issues. We present a morphological approach to contour evolution based on a new curvature morphological operator valid for surfaces of any dimension. We approximate the numerical solution of the curve evolution PDE by the successive application of a set of morphological operators defined on a binary level-set and with equivalent infinitesimal behavior. These operators are very fast, do not suffer numerical stability issues, and do not degrade the level set function, so there is no need to reinitialize it. Moreover, their implementation is much easier since they do not require the use of sophisticated numerical algorithms. We validate the approach providing a morphological implementation of the geodesic active contours, the active contours without borders, and turbopixels. In the experiments conducted, the morphological implementations converge to solutions equivalent to those achieved by traditional numerical solutions, but with significant gains in simplicity, speed, and stability.},
   number = {1},
   journal = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
-  author = {{M{\'a}rquez-Neila}, P. and Baumela, L. and Alvarez, L.},
+  author = {{M\'arquez-Neila}, P. and Baumela, L. and Alvarez, L.},
   month = jan,
   year = {2014},
   keywords = {computer vision,Three-dimensional displays,Computer vision,Surface morphology,Active contours,Approximation methods,boundary detection,curvature based evolution,curvature morphological operator,curve evolution,fast contour evolution algorithms,geodesic active contours,Level set,level set function,level-sets,Mathematical model,mathematical morphology,morphological snakes,numerical analysis,numerical solutions,numerical stability,Numerical stability,partial differential equations,sophisticated numerical algorithms,stability,tracking,turbopixels},
@@ -934,7 +941,7 @@
   author = {Bengio, Yoshua and Courville, Aaron and Vincent, Pascal},
   month = aug,
   year = {2013},
-  keywords = {Abstracts,AI,Algorithms,artificial intelligence,Artificial Intelligence,autoencoder,autoencoders,Boltzmann machine,data representation,data structures,Deep learning,density estimation,Feature extraction,feature learning,geometrical connections,Humans,Learning systems,Machine learning,machine learning algorithms,manifold learning,Manifolds,neural nets,Neural networks,Neural Networks (Computer),probabilistic models,probability,representation learning,Speech recognition,unsupervised feature learning,unsupervised learning},
+  keywords = {neural nets,probability,Neural networks,Machine learning,feature learning,Learning systems,autoencoders,Feature extraction,Deep learning,unsupervised learning,Humans,Speech recognition,Abstracts,AI,Algorithms,artificial intelligence,Artificial Intelligence,autoencoder,Boltzmann machine,data representation,data structures,density estimation,geometrical connections,machine learning algorithms,manifold learning,Manifolds,Neural Networks (Computer),probabilistic models,representation learning,unsupervised feature learning},
   pages = {1798-1828},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/VVVC9RRN/6472238.html}
 }
@@ -947,7 +954,7 @@
   abstract = {Computer vision applications have come to rely increasingly on superpixels in recent years, but it is not always clear what constitutes a good superpixel algorithm. In an effort to understand the benefits and drawbacks of existing methods, we empirically compare five state-of-the-art superpixel algorithms for their ability to adhere to image boundaries, speed, memory efficiency, and their impact on segmentation performance. We then introduce a new superpixel algorithm, simple linear iterative clustering (SLIC), which adapts a k-means clustering approach to efficiently generate superpixels. Despite its simplicity, SLIC adheres to boundaries as well as or better than previous methods. At the same time, it is faster and more memory efficient, improves segmentation performance, and is straightforward to extend to supervoxel generation.},
   number = {11},
   journal = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
-  author = {Achanta, Radhakrishna and Shaji, Appu and Smith, Kevin and Lucchi, Aurelien and Fua, Pascal and S{\"u}sstrunk, Sabine},
+  author = {Achanta, Radhakrishna and Shaji, Appu and Smith, Kevin and Lucchi, Aurelien and Fua, Pascal and S\"usstrunk, Sabine},
   month = nov,
   year = {2012},
   keywords = {clustering,segmentation,Image edge detection,Image color analysis,computer vision,image segmentation,Complexity theory,iterative methods,Image segmentation,Superpixels,Clustering algorithms,pattern clustering,Algorithms,Approximation algorithms,image boundary,Image Enhancement,Image Interpretation; Computer-Assisted,k-means,k-means clustering approach,Measurement uncertainty,memory efficiency,Pattern Recognition; Automated,Reproducibility of Results,segmentation performance,Sensitivity and Specificity,Signal Processing; Computer-Assisted,simple linear iterative clustering,SLIC superpixels,superpixel generation,supervoxel generation},
@@ -962,7 +969,7 @@
   doi = {10.1016/j.isprsjprs.2017.02.011},
   abstract = {Forest stands are the basic units for forest inventory and mapping. Stands are defined as large forested areas (e.g., $\geqslant$2ha) of homogeneous tree species composition and age. Their accurate delineation is usually performed by human operators through visual analysis of very high resolution (VHR) infra-red images. This task is tedious, highly time consuming, and should be automated for scalability and efficient updating purposes. In this paper, a method based on the fusion of airborne lidar data and VHR multispectral images is proposed for the automatic delineation of forest stands containing one dominant species (purity superior to 75\%). This is the key preliminary task for forest land-cover database update. The multispectral images give information about the tree species whereas 3D lidar point clouds provide geometric information on the trees and allow their individual extraction. Multi-modal features are computed, both at pixel and object levels: the objects are individual trees extracted from lidar data. A supervised classification is then performed at the object level in order to coarsely discriminate the existing tree species in each area of interest. The classification results are further processed to obtain homogeneous areas with smooth borders by employing an energy minimum framework, where additional constraints are joined to form the energy function. The experimental results show that the proposed method provides very satisfactory results both in terms of stand labeling and delineation (overall accuracy ranges between 84\% and 99\%).},
   journal = {ISPRS Journal of Photogrammetry and Remote Sensing},
-  author = {Dechesne, Cl{\'e}ment and Mallet, Cl{\'e}ment and Le Bris, Arnaud and {Gouet-Brunet}, Val{\'e}rie},
+  author = {Dechesne, Cl\'ement and Mallet, Cl\'ement and Le Bris, Arnaud and {Gouet-Brunet}, Val\'erie},
   month = apr,
   year = {2017},
   keywords = {Feature selection,Lidar,Energy minimization,Forest stand delineation,Fusion,Multispectral imagery,Regularisation,Supervised classification,Tree species},
@@ -981,7 +988,7 @@
   author = {Ham, JiSoo and Chen, Yangchi and Crawford, Melba M. and Ghosh, Joydeep},
   month = mar,
   year = {2005},
-  keywords = {adaptive random subspace feature selection,Airborne Visible/Infrared Imaging Spectrometer,Bagging,binary hierarchical classifier,binary hierarchical multiclassifier system,Botswana,classification tree,Classification tree analysis,data acquisition,Data analysis,feature extraction,Florida,forestry,geophysical signal processing,Hyperion,hyperspectral data analysis,hyperspectral data classification,Hyperspectral imaging,image classification,Infrared imaging,Infrared spectra,Kennedy Space Center,multidimensional signal processing,NASA,NASA Earth Observing 1 satellite,Okavango Delta,random forest,random processes,random subspace extension,regression tree,Regression tree analysis,Spectroscopy,statistical classification,Training data,tree node,trees (mathematics),USA,vegetation mapping},
+  keywords = {trees (mathematics),hyperspectral data classification,classification tree,random processes,feature extraction,image classification,vegetation mapping,hyperspectral data analysis,Kennedy Space Center,geophysical signal processing,Infrared imaging,Infrared spectra,Spectroscopy,Airborne Visible/Infrared Imaging Spectrometer,Hyperspectral imaging,data acquisition,forestry,adaptive random subspace feature selection,Bagging,binary hierarchical classifier,binary hierarchical multiclassifier system,Botswana,Classification tree analysis,Data analysis,Florida,Hyperion,multidimensional signal processing,NASA,NASA Earth Observing 1 satellite,Okavango Delta,random forest,random subspace extension,regression tree,Regression tree analysis,statistical classification,Training data,tree node,USA},
   pages = {492-501},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/YD633IEG/1396322.html}
 }
@@ -1006,7 +1013,7 @@
   author = {Brahimi, Sourour and Ben Aoun, Najib and Ben Amar, Chokri and Benoit, Alexandre and Lambert, Patrick},
   month = may,
   year = {2018},
-  keywords = {Convolutional Neural Network,Dense Block,Fully Convolutional DenseNet,MultiScale Kernel Prediction,Semantic Segmentation},
+  keywords = {Convolutional Neural Network,Semantic Segmentation,Dense Block,Fully Convolutional DenseNet,MultiScale Kernel Prediction},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/ABBW775H/Brahimi et al. - 2018 - Multiscale Fully Convolutional DenseNet for Semant.pdf}
 }
 
@@ -1021,7 +1028,7 @@
   author = {Gong, Maoguo and Zhan, Tao and Zhang, Puzhao and Miao, Qiguang},
   month = may,
   year = {2017},
-  keywords = {bitemporal multispectral,change detection,Change detection,change feature extraction,difference representation learning,feature extraction,Feature extraction,geophysical image processing,hierarchical difference representation learning,high resolution remotely sensed imagery,Image analysis,Image resolution,Image segmentation,land cover,land cover transition,multispectral images,multispectral remote sensing images,neural nets,neural network,neural networks,Neural networks,preclassification map,remote sensing,Remote sensing,Robustness,satellite sensors,semantic difference,superpixel based difference representation learning,superpixel segmentation},
+  keywords = {neural nets,geophysical image processing,Neural networks,Image resolution,feature extraction,remote sensing,land cover,Robustness,Image segmentation,Feature extraction,Remote sensing,neural networks,satellite sensors,superpixel segmentation,Image analysis,neural network,bitemporal multispectral,change detection,Change detection,change feature extraction,difference representation learning,hierarchical difference representation learning,high resolution remotely sensed imagery,land cover transition,multispectral images,multispectral remote sensing images,preclassification map,semantic difference,superpixel based difference representation learning},
   pages = {2658-2673},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/NHSXGZZX/Gong et al. - 2017 - Superpixel-Based Difference Representation Learnin.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/ALMH8FMX/7839934.html}
 }
@@ -1045,9 +1052,9 @@
 
 @phdthesis{bosilj_indexation_2016,
   title = {{Indexation et recherche d'images par arbres des coupes}},
-  abstract = {Cette th{\`e}se explore l'utilisation de repr{\'e}sentations hi{\'e}rarchiques des images issues de la morphologie math{\'e}matique, les arbres des coupes, pour la recherche et la classification d'images. Diff{\'e}rents types de structures arborescentes sont analys{\'e}s et une nouvelle classification en deux superclasses est propos{\'e}e, ainsi qu'une contribution {\`a} l'indexation et {\`a} la repr{\'e}sentation de ces structures par des dendogrammes. Deux contributions {\`a} la recherche d'images sont propos{\'e}es, l'une sur la d{\'e}tection de r{\'e}gions d'int{\'e}r{\^e}t et l'autre sur la description de ces r{\'e}gions. Les r{\'e}gions MSER peuvent {\^e}tre d{\'e}tect{\'e}es par un algorithme s'appuyant sur une repr{\'e}sentation des images par arbres min et max. L'utilisation d'autres structures arborescentes sous-jacentes permet de d{\'e}tecter des r{\'e}gions pr{\'e}sentant des propri{\'e}t{\'e}s de stabilit{\'e} diff{\'e}rentes. Un nouveau d{\'e}tecteur, bas{\'e} sur les arbres des formes, est propos{\'e} et {\'e}valu{\'e} en recherche d'images. Pour la description des r{\'e}gions, le concept de spectres de formes 2D permettant de d{\'e}crire globalement une image est {\'e}tendu afin de proposer un descripteur local, au pouvoir discriminant plus puissant. Ce nouveau descripteur pr{\'e}sente de bonnes propri{\'e}t{\'e}s {\`a} la fois de compacit{\'e} et d'invariance {\`a} la rotation et {\`a} la translation. Une attention particuli{\`e}re a {\'e}t{\'e} port{\'e}e {\`a} la pr{\'e}servation de l'invariance {\`a} l'{\'e}chelle. Le descripteur est {\'e}valu{\'e} {\`a} la fois en classification d'images et en recherche d'images satellitaires. Enfin, une technique de simplification des arbres de coupes est pr{\'e}sent{\'e}e, qui permet {\`a} l'utilisateur de r{\'e}{\'e}valuer les mesures du niveau d'agr{\'e}gation des r{\'e}gions impos{\'e} par les arbres des coupes.},
+  abstract = {Cette th\`ese explore l'utilisation de repr\'esentations hi\'erarchiques des images issues de la morphologie math\'ematique, les arbres des coupes, pour la recherche et la classification d'images. Diff\'erents types de structures arborescentes sont analys\'es et une nouvelle classification en deux superclasses est propos\'ee, ainsi qu'une contribution \`a l'indexation et \`a la repr\'esentation de ces structures par des dendogrammes. Deux contributions \`a la recherche d'images sont propos\'ees, l'une sur la d\'etection de r\'egions d'int\'er\^et et l'autre sur la description de ces r\'egions. Les r\'egions MSER peuvent \^etre d\'etect\'ees par un algorithme s'appuyant sur une repr\'esentation des images par arbres min et max. L'utilisation d'autres structures arborescentes sous-jacentes permet de d\'etecter des r\'egions pr\'esentant des propri\'et\'es de stabilit\'e diff\'erentes. Un nouveau d\'etecteur, bas\'e sur les arbres des formes, est propos\'e et \'evalu\'e en recherche d'images. Pour la description des r\'egions, le concept de spectres de formes 2D permettant de d\'ecrire globalement une image est \'etendu afin de proposer un descripteur local, au pouvoir discriminant plus puissant. Ce nouveau descripteur pr\'esente de bonnes propri\'et\'es \`a la fois de compacit\'e et d'invariance \`a la rotation et \`a la translation. Une attention particuli\`ere a \'et\'e port\'ee \`a la pr\'eservation de l'invariance \`a l'\'echelle. Le descripteur est \'evalu\'e \`a la fois en classification d'images et en recherche d'images satellitaires. Enfin, une technique de simplification des arbres de coupes est pr\'esent\'ee, qui permet \`a l'utilisateur de r\'e\'evaluer les mesures du niveau d'agr\'egation des r\'egions impos\'e par les arbres des coupes.},
   language = {fr},
-  school = {Universit{\'e} de Bretagne Sud},
+  school = {Universit\'e de Bretagne Sud},
   author = {Bosilj, Petra},
   month = jan,
   year = {2016},
@@ -1093,7 +1100,7 @@
   shorttitle = {Scikit-Learn},
   number = {Oct},
   journal = {Journal of Machine Learning Research},
-  author = {Pedregosa, Fabian and Varoquaux, Ga{\"e}l and Gramfort, Alexandre and Michel, Vincent and Thirion, Bertrand and Grisel, Olivier and Blondel, Mathieu and Prettenhofer, Peter and Weiss, Ron and Dubourg, Vincent and Vanderplas, Jake and Passos, Alexandre and Cournapeau, David and Brucher, Matthieu and Perrot, Matthieu and Duchesnay, {\'E}douard},
+  author = {Pedregosa, Fabian and Varoquaux, Ga\"el and Gramfort, Alexandre and Michel, Vincent and Thirion, Bertrand and Grisel, Olivier and Blondel, Mathieu and Prettenhofer, Peter and Weiss, Ron and Dubourg, Vincent and Vanderplas, Jake and Passos, Alexandre and Cournapeau, David and Brucher, Matthieu and Perrot, Matthieu and Duchesnay, \'Edouard},
   year = {2011},
   pages = {2825-2830},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/E7YAAB9W/Pedregosa et al. - 2011 - Scikit-learn Machine Learning in Python.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/C8YJPV24/pedregosa11a.html}
@@ -1108,7 +1115,7 @@
   abstract = {scikit-image is an image processing library that implements algorithms and utilities for use in research, education and industry applications. It is released under the liberal Modified BSD open source license, provides a well-documented API in the Python programming language, and is developed by an active, international team of collaborators. In this paper we highlight the advantages of open source to achieve the goals of the scikit-image library, and we showcase several real-world image processing applications that use scikit-image. More information can be found on the project homepage, http://scikit-image.org.},
   language = {en},
   journal = {PeerJ},
-  author = {{van der Walt}, St{\'e}fan and Sch{\"o}nberger, Johannes L. and {Nunez-Iglesias}, Juan and Boulogne, Fran{\c c}ois and Warner, Joshua D. and Yager, Neil and Gouillart, Emmanuelle and Yu, Tony},
+  author = {{van der Walt}, St\'efan and Sch\"onberger, Johannes L. and {Nunez-Iglesias}, Juan and Boulogne, Fran{\c c}ois and Warner, Joshua D. and Yager, Neil and Gouillart, Emmanuelle and Yu, Tony},
   month = jun,
   year = {2014},
   pages = {e453},
@@ -1116,16 +1123,16 @@
 }
 
 @article{guyet_extraction_2015,
-  title = {{Extraction des zones coh{\'e}rentes par l'analyse spatio-temporelle d'images de t{\'e}l{\'e}d{\'e}tection}},
+  title = {{Extraction des zones coh\'erentes par l'analyse spatio-temporelle d'images de t\'el\'ed\'etection}},
   volume = {25},
   copyright = {\textcopyright{} Lavoisier 2015},
   issn = {1260-5875, 2116-7060},
   doi = {10.3166/RIG.25.473-494},
-  abstract = {Cet article pr{\'e}sente une m{\'e}thode de segmentation de s{\'e}ries temporelles d'images satellite (SITS) en zones coh{\'e}rentes, c'est-{\`a}-dire en des r{\'e}gions g{\'e}ographiques ayant des comportements temporels homog{\`e}nes. L'objectif de cette m{\'e}thode est, d'une part, d'extraire des caract{\'e}ristiques spatio-temporelles d'une r{\'e}gion observ{\'e}e et, d'autre part, d'obtenir cette caract{\'e}risation de mani{\`e}re efficace en temps de calcul pour traiter de grandes masses de donn{\'e}es. Cette m{\'e}thode est appliqu{\'e}e {\`a} la caract{\'e}risation des r{\'e}gions agro-{\'e}cologiques du S{\'e}n{\'e}gal par l'analyse des images MODIS sur un an (23 dates)., This paper presents a segmentation method of satellite images time series (SITS) in coherent areas, \emph{i.e.\emph{ in geographical regions having homogeneous temporal behavior. The aim of the method is firstly to extract space-time characteristics of an observed region and secondly to obtain this characterization efficiently in terms of computing cost. This method is applied to the characterization of agro-ecological regions of Senegal by the analysis of MODIS images on one year (23 dates).}}},
+  abstract = {Cet article pr\'esente une m\'ethode de segmentation de s\'eries temporelles d'images satellite (SITS) en zones coh\'erentes, c'est-\`a-dire en des r\'egions g\'eographiques ayant des comportements temporels homog\`enes. L'objectif de cette m\'ethode est, d'une part, d'extraire des caract\'eristiques spatio-temporelles d'une r\'egion observ\'ee et, d'autre part, d'obtenir cette caract\'erisation de mani\`ere efficace en temps de calcul pour traiter de grandes masses de donn\'ees. Cette m\'ethode est appliqu\'ee \`a la caract\'erisation des r\'egions agro-\'ecologiques du S\'en\'egal par l'analyse des images MODIS sur un an (23 dates)., This paper presents a segmentation method of satellite images time series (SITS) in coherent areas, \emph{i.e.\emph{ in geographical regions having homogeneous temporal behavior. The aim of the method is firstly to extract space-time characteristics of an observed region and secondly to obtain this characterization efficiently in terms of computing cost. This method is applied to the characterization of agro-ecological regions of Senegal by the analysis of MODIS images on one year (23 dates).}}},
   language = {fr},
   number = {4},
-  journal = {Revue Internationale de G{\'e}omatique},
-  author = {Guyet, Thomas and Malinowski, Simon and Benyoun{\`e}s, Mohand Cherif},
+  journal = {Revue Internationale de G\'eomatique},
+  author = {Guyet, Thomas and Malinowski, Simon and Benyoun\`es, Mohand Cherif},
   year = {2015},
   pages = {473-494},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/J3SNSJ28/lvrig254p473.html}
@@ -1140,7 +1147,7 @@
   language = {en},
   booktitle = {Open {{Source Approaches}} in {{Spatial Data Handling}}},
   publisher = {{Springer, Berlin, Heidelberg}},
-  author = {C{\^a}mara, Gilberto and Vinhas, L{\'u}bia and Ferreira, Karine Reis and Queiroz, Gilberto Ribeiro De and Souza, Ricardo Cartaxo Modesto De and Monteiro, Ant{\^o}nio Miguel Vieira and Carvalho, Marcelo T{\'\i}lio De and Casanova, Marco Antonio and Freitas, Ubirajara Moura De},
+  author = {C\^amara, Gilberto and Vinhas, L\'ubia and Ferreira, Karine Reis and Queiroz, Gilberto Ribeiro De and Souza, Ricardo Cartaxo Modesto De and Monteiro, Ant\^onio Miguel Vieira and Carvalho, Marcelo T\'ilio De and Casanova, Marco Antonio and Freitas, Ubirajara Moura De},
   year = {2008},
   pages = {247-270},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/V4K43F9F/978-3-540-74831-1_12.html},
@@ -1174,10 +1181,11 @@
 }
 
 @inproceedings{liu_dense_2017,
+  address = {Honolulu, United States},
   title = {Dense {{Semantic Labeling}} of {{Very}}-{{High}}-{{Resolution Aerial Imagery}} and {{LiDAR}} with {{Fully}}-{{Convolutional Neural Networks}} and {{Higher}}-{{Order CRFs}}},
   doi = {10.1109/CVPRW.2017.200},
   abstract = {The increasing availability of very-high-resolution (VHR) aerial optical images as well as coregistered Li-DAR data opens great opportunities for improving object-level dense semantic labeling of airborne remote sensing imagery. As a result, efficient and effective multisensor fusion techniques are needed to fully exploit these complementary data modalities. Recent researches demonstrated how to process remote sensing images using pre-trained deep convolutional neural networks (DCNNs) at the feature level. In this paper, we propose a decision-level fusion approach using a probabilistic graphical model for the task of dense semantic labeling. Our proposed method first obtains two initial probabilistic labeling predictions from a fully-convolutional neural network and a linear classifier, e.g. logistic regression, respectively. These two predictions are then combined within a higher-order conditional random field (CRF). We utilize graph cut inference to estimate the final dense semantic labeling results. Higher-order CRF modeling helps to resolve fusion ambiguities by explicitly using the spatial contextual information, which can be learned from the training data. Experiments on the ISPRS 2D semantic labeling Potsdam dataset show that our proposed approach compares favorably to the state-of-the-art baseline methods.},
-  booktitle = {2017 {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition Workshops}} ({{CVPRW}})},
+  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition Workshops}} ({{CVPRW}})},
   author = {Liu, Yansong and Piramanayagam, Sankaranarayanan and Monteiro, Sildomar T. and Saber, Eli},
   month = jul,
   year = {2017},
@@ -1194,7 +1202,7 @@
   author = {Liu, Y. and Fan, B. and Wang, L. and Bai, J. and Xiang, S. and Pan, C.},
   month = sep,
   year = {2017},
-  keywords = {Automobiles,Context,context-aware cascade network,Convolution,convolutional neural networks,Convolutional Neural Networks,end-to-end network,feature extraction,fine-structured objects,geography,hierarchical pyramid structure,high resolution image,image classification,image segmentation,ISPRS Vaihingen 2D Semantic Labeling Challenge dataset,Labeling,labeling accuracy,learning (artificial intelligence),manmade objects,multiple context semantics,neural nets,object detection,Residual Correction,residual correction scheme,semantic labeling,Semantic Labeling,Semantics,terrain mapping,Training,Vegetation,VHR image,VHR Image},
+  keywords = {Context,Labeling,neural nets,object detection,learning (artificial intelligence),terrain mapping,semantic labeling,convolutional neural networks,Vegetation,Semantics,Training,feature extraction,image classification,image segmentation,Convolution,Convolutional Neural Networks,Automobiles,context-aware cascade network,end-to-end network,fine-structured objects,geography,hierarchical pyramid structure,high resolution image,ISPRS Vaihingen 2D Semantic Labeling Challenge dataset,labeling accuracy,manmade objects,multiple context semantics,Residual Correction,residual correction scheme,Semantic Labeling,VHR image,VHR Image},
   pages = {575-579},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/CN83W673/Liu et al. - 2017 - Context-aware cascade network for semantic labelin.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/662P34A3/8296346.html}
 }
@@ -1208,8 +1216,20 @@
   author = {Liu, Yongcheng and Fan, Bin and Wang, Lingfeng and Bai, Jun and Xiang, Shiming and Pan, Chunhong},
   month = dec,
   year = {2017},
-  keywords = {Convolutional neural networks (CNNs),End-to-end,Multi-scale contexts,Semantic labeling},
+  keywords = {Convolutional neural networks (CNNs),Semantic labeling,End-to-end,Multi-scale contexts},
   file = {/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/J8KJT8VE/Liu et al. - 2017 - Semantic labeling in very high resolution images v.pdf;/home/naudeber/Nextcloud/Onera/Timeless/Bibliographie/.zotero/storage/NLFKHDLW/S0924271617303854.html}
+}
+
+@inproceedings{audebert_how_2016,
+  title = {How Useful Is Region-Based Classification of Remote Sensing Images in a Deep Learning Framework?},
+  doi = {10.1109/IGARSS.2016.7730327},
+  abstract = {In this paper, we investigate the impact of segmentation algorithms as a preprocessing step for classification of remote sensing images in a deep learning framework. Especially, we address the issue of segmenting the image into regions to be classified using pre-trained deep neural networks as feature extractors for an SVM-based classifier. An efficient segmentation as a preprocessing step helps learning by adding a spatially-coherent structure to the data. Therefore, we compare algorithms producing superpixels with more traditional remote sensing segmentation algorithms and measure the variation in terms of classification accuracy. We establish that superpixel algorithms allow for a better classification accuracy as a homogenous and compact segmentation favors better generalization of the training samples.},
+  booktitle = {2016 {{IEEE International Geoscience}} and {{Remote Sensing Symposium}} ({{IGARSS}})},
+  author = {Audebert, Nicolas and Le Saux, Bertrand and Lef\`evre, S\'ebastien},
+  month = jul,
+  year = {2016},
+  keywords = {deep learning,feature extraction,image classification,image segmentation,Machine learning,remote sensing,Segmentation algorithms,Semantics,Shape,superpixels,Training},
+  pages = {5091-5094}
 }
 
 

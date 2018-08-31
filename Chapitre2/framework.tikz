@@ -1,0 +1,126 @@
+\documentclass{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\input{../CommandesPerso.tex}
+\begin{document}
+
+\begin{tikzpicture}[]
+\usetikzlibrary{3d}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows.meta, bending}
+
+\coordinate (input) at (0, 2);
+\coordinate (seg) at (0,-3);
+\coordinate (patches) at (5, 0);
+\coordinate (net) at (11.5, 0);
+\coordinate (features) at (16.5, 0);
+\coordinate (classifier) at (19, 0);
+\coordinate (map) at (24, 0);
+
+\node (in_fig) at (input) {\includegraphics[width=3cm]{orthohr_rgb}};
+\node[yshift=4pt] at (in_fig.north) {Image initiale};
+
+\node (seg_fig) at (seg) {\includegraphics[width=3cm]{orthohr_rgb_slic}};
+\node[yshift=-4pt] at (seg_fig.south) {Image segmentée};
+
+\draw[ultra thick,->] ([xshift=0.8cm]in_fig.south) to node[left]{\small segmentation} ([xshift=0.8cm]seg_fig.north);
+
+\node (large) at ($ (patches)+(0,2.5)$) {\includegraphics[width=2cm]{large}};
+\node[yshift=-3pt] at (large.south) {contexte};
+\node (medium) at (patches) {\includegraphics[width=2cm] {medium}};
+\node[yshift=-3pt] at (medium.south) {contexte};
+\node (ndsm) at ($ (patches)-(0,2.5) $) {\includegraphics[width=2cm]{ndsm}};
+\node[yshift=-3pt] at (ndsm.south) {MNH};
+
+\fill[line width=3pt,draw=red!95!black,fill=cyan!80!white,fill opacity=0.5,shading=axis, shading angle=135] (seg_fig.east) ++(-1.6,-1.1) --  +(0.6,0) -- +(0.6,0.6) -- +(0,0.6) -- cycle;
+
+\draw (seg_fig.east) edge[in=180,out=0,->] (medium.west);
+\draw (seg_fig.east) edge[in=180,out=0,->,looseness=0.8] (large.west);
+\draw (seg_fig.east) edge[in=180,out=0,->] (ndsm.west);
+
+\node[align=center] at ($ (patches)-(0,4.5) $) {Entrées multi-sources\\ et multi-échelles};
+
+\node (net_fig) at (net) {\includegraphics[width=8cm]{alexnet_plain}};
+\node at ($ (net) - (0,2)$) {CNN pré-entraîné};
+
+\draw (large.east) edge[in=180,out=0,->] ([yshift=8pt]net_fig.west);
+\draw (medium.east) edge[in=180,out=0,->] (net_fig.west);
+\draw (ndsm.east) edge[in=180,out=0,->] ([yshift=-8pt]net_fig.west);
+
+\coordinate (A) at ($ (features)+(0,-3,-0.5)$);
+\coordinate (B) at ($ (features)+(0,3,-0.5)$);
+\coordinate (C) at ($ (features)+(0.5,3,-0.5)$);
+\coordinate (D) at ($ (features)+(0.5,-3,-0.5)$);
+\coordinate (E) at ($ (features)+(0,-3,0)$);
+\coordinate (F) at ($ (features)+(0,3,0)$);
+\coordinate (G) at ($ (features)+(0.5,3,0)$);
+\coordinate (H) at ($ (features)+(0.5,-3,0)$);
+
+\coordinate (I) at ($ (E)!0.33!(F)$);
+\coordinate (J) at ($ (E)!0.66!(F)$);
+\coordinate (K) at ($ (H)!0.33!(G)$);
+\coordinate (L) at ($ (H)!0.66!(G)$);
+\coordinate (M) at ($ (D)!0.33!(C)$);
+\coordinate (N) at ($ (D)!0.66!(C)$);
+
+\def\grey{gray!40!white}
+\draw[fill=\grey] (A) -- (B) -- (C) -- (D) -- cycle;
+\draw[fill=\grey!60!white] (E) -- (F) -- (G) -- (H) -- cycle;
+\draw[fill=\grey] (B) -- (C) -- (G) -- (F) -- cycle;
+\draw[fill=\grey] (C) -- (D) -- (H) -- (G) -- cycle;
+\draw[dotted,thick] (I) -- (K) -- (M);
+\draw[dotted,thick] (J) -- (L) -- (N);
+\node[align=center] at ($ (features) - (0,4.5)$) {Caractéristiques\\ profondes};
+
+\draw ([yshift=-8pt]net_fig.east) edge[out=0,in=180,->] ($(I)!0.5!(E)$);
+\draw ([yshift=8pt]net_fig.east) edge[out=0,in=180,->] ($(J)!0.5!(F)$);
+\draw (net_fig.east) edge[out=0,in=180,->] ($(F)!0.5!(E)$);
+
+\coordinate (c_A) at ($ (classifier) + (-1,1.5)$);
+\coordinate (c_B) at ($ (classifier) + (-1,-1.5)$);
+\coordinate (c_C) at ($ (classifier) + (1,-1.5)$);
+\coordinate (c_D) at ($ (classifier) + (1,1.5)$);
+\coordinate (c_top) at ($(c_A)!0.5!(c_D)$);
+\coordinate (c_bottom) at ($ (c_B)!0.5!(c_C)$);
+\filldraw[fill=yellow!50!white] (c_A) rectangle (c_C);
+
+
+\newcommand\children[3]{
+\coordinate (#1_c1) at ($(#1)!0.5!(#2)$);
+\filldraw[fill=black] (#1_c1) circle (0.08);
+\draw (#1) -- (#1_c1);
+\coordinate (#1_c2) at ($(#1)!0.5!(#3)$);
+\filldraw[fill=black] (#1_c2) circle (0.08);
+\draw (#1) -- (#1_c2);
+}
+
+\coordinate (c_center) at ($(c_A)!0.5!(c_C)$);
+\coordinate (c_center) at ($(c_center)!0.75!(c_top)$);
+\filldraw[fill=black] (c_center) circle (0.1);
+\coordinate (n1) at ($(c_center)!0.25!(c_B)$);
+\filldraw[fill=black] (n1) circle (0.08);
+\draw (c_center) -- (n1);
+\coordinate (n2) at ($(c_center)!0.25!(c_C)$);
+\filldraw[fill=black] (n2) circle (0.08);
+\draw (c_center) -- (n2);
+
+\children{n2}{c_bottom}{c_C}
+\children{n2_c2}{c_bottom}{c_C}
+
+\children{n1}{c_B}{c_bottom}
+\children{n1_c1}{c_B}{c_bottom}
+
+\node at ($(classifier) - (0,2)$) {Classifieur};
+
+\draw ($(G)!0.5!(H)$) edge[ultra thick,in=180,out=0,->]  ($(c_A)!0.5!(c_B)$);
+
+\node (map_fig) at (map) {\includegraphics[width=3cm]{gt_boundaries}};
+\node[yshift=-4pt] at (map_fig.south) {Carte sémantique};
+\fill[line width=3pt,draw=red!95!black,fill=cyan!50!white,fill opacity=0.2] (map_fig.east) ++(-1.6,-1.1) --  +(0.6,0) -- +(0.6,0.6) -- +(0,0.6) -- cycle;
+
+\draw ($(c_C)!0.5!(c_D)$) edge[ultra thick,in=180,out=0,->] node[yshift=4pt,above]{Prédiction} node[yshift=-4pt,below]{\color{blue} ``Bâtiment''} (map_fig.west);
+
+\end{tikzpicture}
+
+\end{document}
