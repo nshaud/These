@@ -44,8 +44,8 @@
 \newglossaryentry{FCN}{
 	type=\acronymtype,
 	name={FCN},
-	first={réseau de neurones entièrement convolutif, ou \emph{Fully Convolutional Network} (FCN)},
-	firstplural={réseaux de neurones entièrement convolutifs, ou \emph{Fully Convolutional Networks} (FCN)},
+	first={réseau de neurones entièrement convolutif, ou \emph{Fully Convolutional Network} (FCN),},
+	firstplural={réseaux de neurones entièrement convolutifs, ou \emph{Fully Convolutional Networks} (FCN),},
 	plural={FCN},
 	symbol={FCN},
 	description={\emph{Fully Convolutional Network}, réseau de neurones entièrement convolutif conservant la structure spatiale grâce à l'absence de couches entièrement connectées}
@@ -185,6 +185,8 @@
 \newacronym[shortplural={SIG},longplural=systèmes d'information géographiques]{SIG}{SIG}{système d'information géographique}
 
 \newacronym{OSM}{OSM}{\emph{OpenStreetMap}}
+
+\newacronym{RF}{RF}{\emph{Random Forest}, ou forêt aléatoire,}
 
 \newacronym{USGS}{USGS}{\emph{United States Geological Survey}}
 
@@ -369,6 +371,42 @@
 				first={imagerie hyperspectrale},
 				plural={hyperspectrales},
         description={Imagerie utilisant des récepteurs sur plusieurs dizaines de longueurs d'onde, y compris hors du domaine visible}
+}
+
+\newglossaryentry{SegNet}{
+				name={SegNet},
+				first={SegNet},
+				description={Architecture de réseau de neurones entièrement convolutive pour la segmentation sémantique~\cite{badrinarayanan_segnet_2017}}
+}
+
+\newglossaryentry{ImageNet}{
+				name={ImageNet},
+				first={ImageNet},
+				description={Base de données contenant plus d'un million d'images annotées représentant mille classes d'objet, comportant aussi bien des voitures que des chats, des chiens, des chaises, des personnes\dots}
+}
+
+\newglossaryentry{FuseNet}{
+				name={FuseNet},
+				first={FuseNet},
+				description={Architecture de réseau de neurones entièrement convolutive multi-modale, dérivée de \gls{SegNet}, pour la segmentation sémantique d'images \gls{RGB-D}~\cite{hazirbas_fusenet_2016}}
+}
+
+\newglossaryentry{VGG-16}{
+				name={VGG-16},
+				first={VGG-16},
+				description={Architecture de réseau de neurones convolutif à 16 couches pour la classification d'images~\cite{simonyan_very_2015}}
+}
+
+\newglossaryentry{ResNet}{
+				name={ResNet},
+				first={ResNet},
+				description={Architecture de réseau de neurones convolutif utilisant le paradigme d'apprentissage résiduel~\cite{he_deep_2016}}
+}
+
+\newglossaryentry{AlexNet}{
+				name={AlexNet},
+				first={AlexNet},
+				description={Architecture de réseau de neurones convolutif de classification d'images particulièrement populaire, arrivée en tête de la compétition \gls{ILSVRC} en 2012~\cite{krizhevsky_imagenet_2012}}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
