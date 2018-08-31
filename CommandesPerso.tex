@@ -51,7 +51,7 @@ Légende\,: \textcolor{Black}{blanc}\,: routes, \textcolor{Blue}{bleu}\,: bâtim
    \def\w{#2}
    \def\d{#3}
    \def\name{#4}
-   \ifthenelse {\equal{#5} {}} {\def\col{white}} {\def\col{#5}}
+   \ifthenelse {\equal{#5} {}} {\def\col{white}\def\opacity{0}} {\def\col{#5}\def\opacity{0.8}}
    \def\x{#6}
    \ifthenelse {\equal{#7} {}} {\def\y{0}} {\def\y{#7}}
    \ifthenelse {\equal{#8} {}} {\def\z{0}} {\def\z{#8}}
@@ -72,17 +72,17 @@ Légende\,: \textcolor{Black}{blanc}\,: routes, \textcolor{Blue}{bleu}\,: bâtim
    \coordinate (G) at (\x+\d/2,  \y+\h/2, \z+\w/2);
    \coordinate (H) at (\x+\d/2,  \y+\h/2, \z-\w/2);
 
-    \draw [draw opacity=0.3, fill opacity=0.8, fill=white!40!\col] (A) -- (B) -- (C) -- (D) -- cycle;
-    \draw [draw opacity=0.3, fill opacity=0.8, fill=white!40!\col] (A) -- (B) -- (F) -- (E) -- cycle;
+    \draw [draw opacity=0.3, fill opacity=\opacity, fill=white!40!\col, draw=\col!50!black] (A) -- (B) -- (C) -- (D) -- cycle;
+    \draw [draw opacity=0.3, fill opacity=\opacity, fill=white!40!\col, draw=\col!50!black] (A) -- (B) -- (F) -- (E) -- cycle;
     % Face haut
     %\draw [left color=\col!60!white, right color=\col!80!white, shading=axis, shading angle=180] (C) -- (D)  -- (H) -- (G) -- cycle;
-    \draw [fill opacity=0.9, fill=white!30!\col] (C) -- node[rotate=45,above] {\small \name} (D) -- (H) -- (G) -- cycle;
+    \draw [fill opacity=\opacity, fill=white!30!\col, draw=\col!50!black] (C) -- node[rotate=45,above] {\small \name} (D) -- (H) -- (G) -- cycle;
     %\draw [fill opacity=0.9, fill=\col!70!white] (C) -- (D) -- node[above] {\small \name} (H) -- (G) -- cycle;
     % Face droite
-    \draw [fill opacity=0.9, fill=white!40!\col] (E) -- node[pos=0.75,rotate=45,below] {\scriptsize \notew} (F) -- (G) --  (H) -- cycle;
+    \draw [fill opacity=\opacity, fill=white!40!\col, draw=\col!50!black] (E) -- node[pos=0.75,rotate=45,below] {\scriptsize \notew} (F) -- (G) --  (H) -- cycle;
     % Face avant
     %\draw [shading=axis, left color=\col!60!white, right color=\col!40!white, shading angle=-45] (B) -- node[above,rotate=90] {\scriptsize \noteh} (C) -- (G) -- (F) -- node[below] {\scriptsize \noted}  cycle;
-    \draw [fill opacity=0.9, fill=white!50!\col] (B) -- node[above,rotate=90] {\scriptsize \noteh} (C) -- (G) -- (F) -- node[below] {\scriptsize \noted}  cycle;
+    \draw [fill opacity=\opacity, fill=white!50!\col, draw=\col!50!black] (B) -- node[above,rotate=90] {\scriptsize \noteh} (C) -- (G) -- (F) -- node[below] {\scriptsize \noted}  cycle;
 }
 
 \newcommand{\fclayer}[8]{%{h}{w}{name}{color}{x}{y}{z}
@@ -94,21 +94,29 @@ Légende\,: \textcolor{Black}{blanc}\,: routes, \textcolor{Blue}{bleu}\,: bâtim
    \def\y{#6}
    \def\z{#7}
    \def\note{#8}
+
    \coordinate (A) at (\x-\w/2,  \y-\h/2, \z);
    \coordinate (B) at (\x+\w/2,  \y-\h/2, \z);
    \coordinate (C) at (\x+\w/2,  \y+\h/2, \z);
    \coordinate (D) at (\x-\w/2,  \y+\h/2, \z);
 
    \pgfmathparse{4*\w}\let\boxwidth\pgfmathresult
-    \draw [fill=\col] (A) -- node[below,text width=\boxwidth cm,align=center] {\scriptsize \note} (B) -- (C) -- (D) -- cycle;
+   \draw [fill=\col] (A) -- node[below,text width=\boxwidth cm,align=center] {\scriptsize \note} (B) -- (C) -- (D) -- cycle;
+	 \pgfmathparse{0.45*\w}\let\diskray\pgfmathresult
+	 \pgfmathdivide{\h}{2*\diskray}\let\ndisk\pgfmathresult
+	 \pgfmathtruncatemacro{\ndisk}{\ndisk}
+	 \pgfmathparse{\h - \ndisk*2*\diskray}\let\offset\pgfmathresult
+	 \foreach\n in {1,...,\ndisk}{
+	   \filldraw [even odd rule,inner color=\col!70!white,outer color=\col!45!white] (\x,\y-\h/2+\offset/2+\n*2*\diskray-\diskray,\z) circle (\diskray cm);
+	 }
 
     \node (N) at ($(A)!0.5!(B)+(0,-1,0)$) {\name};
 }
 
 \newcommand{\pixelddd}[7]{%{s}{w}{name}{color}{x}{y}{z}
-		\def\d{#1}
+		\def\d{#2}
 		\def\h{#1}
-		\def\w{#2}
+		\def\w{#1}
 		\def\name{#3}
 		\ifthenelse {\equal{#4} {}} {\def\col{white}} {\def\col{#4}}
 		\def\x{#5}
@@ -123,11 +131,11 @@ Légende\,: \textcolor{Black}{blanc}\,: routes, \textcolor{Blue}{bleu}\,: bâtim
 		\coordinate (G) at (\x+\d/2,  \y+\h/2, \z+\w/2);
 		\coordinate (H) at (\x+\d/2,  \y+\h/2, \z-\w/2);
 
-		\draw [draw opacity=0.2, fill opacity=0, densely dashed, fill=white!40!\col] (A) -- (B) -- (C) -- (D) -- cycle;
-		\draw [draw opacity=0.2, fill opacity=0, densely dashed, fill=white!40!\col] (A) -- (B) -- (F) -- (E) -- cycle;
-		\draw [draw opacity=0.2, fill opacity=0, densely dashed, fill=white!30!\col] (C) -- node[opacity=0.6,rotate=45,above] {\small \name} (D) -- (H) -- (G) -- cycle;
-		\draw [draw opacity=0.2, fill opacity=0, densely dashed, fill=white!40!\col] (E) -- (F) -- (G) --  (H) -- cycle;
-		\draw [draw opacity=0.7, fill opacity=0, fill=white!50!\col] (B) -- (C) -- (G) -- (F) -- node[below] {\scriptsize \noted}  cycle;
+		\draw [draw opacity=0.3, fill opacity=0, densely dashed, fill=white!40!\col] (A) -- (B) -- (C) -- (D) -- cycle;
+		\draw [draw opacity=0.3, fill opacity=0, densely dashed, fill=white!40!\col] (A) -- (B) -- (F) -- (E) -- cycle;
+		\draw [draw opacity=0.3, fill opacity=0, densely dashed, fill=white!30!\col] (C) -- (D) -- node[opacity=0.7,above] {\small \name} (H) -- (G) -- cycle;
+		\draw [draw opacity=1  , fill opacity=0,               , fill=white!40!\col] (E) -- (F) -- (G) --  (H) -- cycle;
+		\draw [draw opacity=0.4, fill opacity=0, densely dashed, fill=white!50!\col] (B) -- (C) -- (G) -- (F) --  cycle;
 }
 
 \newcommand{\alexnet}[4]{%{scale}{x}{y}{z}
@@ -182,6 +190,7 @@ Légende\,: \textcolor{Black}{blanc}\,: routes, \textcolor{Blue}{bleu}\,: bâtim
 
 % Union généralisée
 \newcommand{\wbigcup}{\mathop{\bigcup}\displaylimits}
+
 \newcommand{\res}[2]{%
 	\ifthenelse{\isempty{#2}}%
 	{\num{#1}}%
@@ -231,3 +240,16 @@ Légende\,: \textcolor{Black}{blanc}\,: routes, \textcolor{Blue}{bleu}\,: bâtim
 \newcommand\mybox[1]{\colorbox[RGB]{#1}{\color[RGB]{#1} \vrule height 6pt depth 0pt width 0pt~~~~~~~}}
 
 \newcommand\mycaption[2]{\caption[#1]{#1 #2}}
+
+\newcommand\publication[2]{%
+\begin{mdframed}[style=publi]
+	#1
+	\begin{itemize}
+		\foreach\citkey in {#2}{%
+		\item \fullcite{\citkey}
+		}%
+	\end{itemize}
+\end{mdframed}}
+
+\definecolor{niceblue}{RGB}{182, 204, 239}
+\definecolor{nicered}{RGB}{232, 176, 176}

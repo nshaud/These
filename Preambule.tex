@@ -60,6 +60,10 @@
 %% Biblatex
 \usepackage[style=numeric,sorting=nyt,natbib=true,refsection=chapter,backend=biber,backref=true]{biblatex}
 \AtEveryBibitem{\clearlist{language}} % Enlève la section "language" des références
+\AtEveryBibitem{ % Ignore les "visité à ..."
+    \clearfield{urlyear}
+    \clearfield{urlmonth}
+}
 \DefineBibliographyStrings{french}{in={dans},inseries={dans}} % Français de France
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -108,9 +112,12 @@
 	 	/pgf/number format/.cd,
 	 	use comma,
 	 	1000 sep={\,},
+		compat=1.13
 	 }}
 \usepackage{eso-pic}		% Permet l'ajout d'images/fonds à chaque page
 \usepackage{import}
+\usepackage{mdframed}  % Boîtes colorées
+\mdfdefinestyle{publi}{leftmargin=1cm,linecolor=mygreen,topline=false,rightline=false,bottomline=false,linewidth=4pt}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Mise en forme du texte

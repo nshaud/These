@@ -31,4 +31,6 @@
 *.brf
 *.sta
 *.swp
+*.bcf
+*.aux.back
 Chapitre1/*.pdf
