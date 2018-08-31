@@ -1,18 +1,22 @@
 %!TEX root = Manuscrit.tex
-\chapter{Généralisation}
+\chapter{Généralisabilité des modèles}
 \label{chap:generalisation}
 \citationChap{I see no limit to the capabilities of machines. As microchips get smaller and faster, I can see them getting better than we are. I can visualize a time in the future when we will be to robots as dogs are to humans.}{Claude Shannon}
 \minitoc
 
 \chapsummary{%
+\lettrine{L}{a} généralisation des modèles entraînés à partir d'une vérité terrain aux nouvelles acquisitions est la clé pour une application à large échelle de l'apprentissage profond en observation de la Terre. En effet, la variabilité des environnements observés, aussi bien dans l'espace que dans le temps, limite la portée de modèles entraînés sur une poignée de scènes locales. Deux problèmes analogues se posent.
 
+D'une part, nous savons que la création d'une vérité terrain est particulièrement coûteuse et complexe pour certains capteurs, notamment hyperspectraux. Or, l'entraînement de modèles statistiques sur des petits jeux de données encourage le surapprentissage et va à l'encontre des besoins en généralisabilité. Par conséquent, nous nous intéressons tout d'abord aux possibilités de génération de données d'apprentissage synthétiques afin de pallier l'absence d'exemples réels.
+
+D'autre part, l'abondance de données de télédétection et surtout leur diversité soulève des interrogations quant à la capacité des réseaux profonds introduits jusqu'ici à passer à l'échelle. Une version simplifiée du problème consiste à étudier les possibilités de transfert de connaissances d'une scène à une autre pour un même modèle. Nous expérimentons ainsi avec les jeux de données \gls{ISPRS} Potsdam et Vaihingen afin d'évaluer comment les modèles préentraînés peuvent appliqués sur de nouvelles acquisitions pas ou peu annotées. Enfin, nous introduisons le jeu de données annoté à large échelle \emph{MiniFrance}, le plus grand disponible publiquement à notre connaissance, regroupant 16 agglomérations en France métropolitaine et des annotations d'occupation des sols et d'empreintes de bâtiments.
 }
 
 \newpage
 
 \section{Génération de données synthétiques}
 
-Comme nous l'avons vu dans le~\cref{chap:extension}, il existe relativement peu de jeux de données annotés en imagerie hyperspectrale et ceux disponibles sont de petite taille. La difficulté d'annotation mais aussi la faible résolution spatiale des capteurs rend en effet complexe la constitution de jeux de données massifs. Des bases de spectres mesurés en laboratoire, comme celle de l'\gls{USGS}\footnote{\emph{USGS Spectral Library}: \url{https://speclab.cr.usgs.gov/spectral-lib.html}}, sont en pratique difficilement exploitable compte-tenu des différences de capteur, de calibration et de conditions d'acquisition. Il semble de ce fait pertinent de s'interroger sur les possibilités offertes par l'augmentation de données pour la classification de spectres.
+Comme nous l'avons vu dans le~\cref{chap:extension}, il existe relativement peu de jeux de données annotés en imagerie hyperspectrale et ceux disponibles sont de petite taille. La difficulté d'annotation mais aussi la faible résolution spatiale des capteurs rend en effet complexe la constitution de jeux de données massifs. Des bases de spectres mesurés en laboratoire, comme celle de l'\gls{USGS}\footnote{\emph{USGS Spectral Library}: \url{https://speclab.cr.usgs.gov/spectral-lib.html}}, sont en pratique difficilement exploitables compte-tenu des différences de capteurs, de calibrations et de conditions d'acquisition. Il semble de ce fait pertinent de s'interroger sur les possibilités offertes par l'augmentation de données pour la classification de spectres.
 
 L'augmentation de données consiste à introduire des échantillons synthétiques afin d'enrichir un jeu d'apprentissage~\cite{dyk_art_2012}. Cette pratique est particulièrement courante pour l'entraînement des \gls{CNN} depuis l'article séminal de~\citet{krizhevsky_imagenet_2012} afin d'éviter le surapprentissage. Dans un contexte de classification de données hyperspectrales, la rareté des échantillons annotés rend l'augmentation de données d'autant plus attrayante. Cependant, la plupart des travaux de l'état de l'art appliquant des \gls{CNN} 2D ou 3D à la classification de telles images~\cite{chen_deep_2016,makantasis_deep_2015,slavkovikj_hyperspectral_2015,lee_contextual_2016} se sont limités à des jeux de données de taille restreinte, ne permettant pas d'exploiter au mieux les capacités d'apprentissage de représentation offertes par les réseaux profonds.
 
@@ -22,7 +26,7 @@ Ainsi, nous introduisons la problématique suivante: comment enrichir les bases 
 
 Les modèles génératifs permettent en effet d'approximer les paramètres d'une distribution statistique latente à un ensemble d'observations pour en échantillonner de nouvelles. Nous proposons donc d’utiliser des modèles génératifs pour approximer la distribution latente des spectres au sein d'une image hyperspectrale afin de synthétiser de nouveaux échantillons susceptible d'appartenir à celle-ci. Il s'agit d'une approche ancrée uniquement dans les données, ne nécessitant aucun \emph{a priori} physique ni modèle de capteur.
 
-En particulier, nous proposons d'utiliser les \glspl{GAN}~\cite{goodfellow_generative_2014} afin d'estimer la distribution des spectres de l'image, puis de générer de nouveaux spectres dont la présence dans la distribution réelle est statistiquement plausible. Afin de maximiser la quantité d'information exploitable, cette méthode se veut semi-supervisée afin de bénéficier aussi bien de la connaissance des spectres annotés que des spectres non-annotés. Nous validons l'intérêt d'utiliser ces spectres artificiels pour l'augmentation de données sur plusieurs jeux de données hyperspectraux publics, aériens comme satellitaires, sur différentes zones géographiques.
+En particulier, nous proposons d'utiliser les \glspl{GAN}~\cite{goodfellow_generative_2014} afin d'estimer la distribution des spectres de l'image, puis de générer de nouveaux spectres dont la présence dans la distribution réelle est statistiquement plausible. Cette méthode se veut semi-supervisée afin de bénéficier aussi bien de la connaissance des spectres annotés que des spectres non-annotés. Nous validons l'intérêt d'utiliser ces spectres artificiels pour l'augmentation de données sur plusieurs jeux de données hyperspectraux publics, aériens comme satellitaires, sur différentes zones géographiques.
 
 \subsection{Modèles génératifs adversaires}
 
@@ -32,37 +36,37 @@ En particulier, nous proposons d'utiliser les \glspl{GAN}~\cite{goodfellow_gener
     \label{fig:gan}
 \end{figure}
 
-Le principe des \glspl{GAN} a été introduit par~\citet{goodfellow_generative_2014} en 2014. L'idée est d'utiliser des réseaux de neurones profonds pour approximer la distribution statistique sous-jacente à un ensemble d'observations. Un générateur est ainsi entraîné pour approcher la projection entre un espace latent de bruit gaussien vers la distribution empirique observée. Cependant, la distribution n'est observée que sur quelques échantillons et l'on souhaite utiliser le générateur pour créer de nouveaux échantillons probables.Pour ce faire, le générateur est entraîné pour approcher la distribution à l'aide d'une fonction objectif adversaire. Cette fonction est implicitement définie en introduisant un second réseau, appelé discriminateur ou critique. Le discriminateur apprend à estimer si un échantillon provient de l'ensemble des données réelles ou bien a été généré artificiellement. À chaque étape de l'optimisation, le discriminateur est entraîné sur quelques itérations afin de lui permettre d'estimer la frontière entre données réelles et données synthétiques. Le générateur est ensuite optimisé de telle sorte à ce qu'il \emph{piège} le discriminateur, c'est-à-dire que les échantillons synthétisés soient indistinguables des exemples réels du point de vue du critique (cf.~\cref{def:gan}).
+Le principe des \glspl{GAN} a été introduit par~\citet{goodfellow_generative_2014} en 2014. L'idée est d'utiliser des réseaux de neurones profonds pour modéliser la distribution statistique sous-jacente à un ensemble d'observations. Un générateur est ainsi entraîné pour approcher la projection entre un espace latent de bruit gaussien vers la distribution empirique observée. Cependant, la distribution n'est observée que sur quelques échantillons et l'on souhaite utiliser le générateur pour créer de nouveaux échantillons probables. Pour ce faire, le générateur est entraîné pour approcher la distribution à l'aide d'une fonction objectif adversaire. Cette fonction est implicitement définie en introduisant un second réseau, appelé discriminateur ou critique. Le discriminateur apprend à estimer si un échantillon provient de l'ensemble des données réelles ou bien a été généré artificiellement. À chaque étape de l'optimisation, le discriminateur est entraîné sur quelques itérations afin de lui permettre d'estimer la frontière entre données réelles et données synthétiques. Le générateur est ensuite optimisé de telle sorte à ce qu'il \emph{piège} le discriminateur, c'est-à-dire que les échantillons synthétisés soient indistinguables des exemples réels du point de vue du critique (cf.~\cref{def:gan}).
 
-Plusieurs variantes des \glspl{GAN} ont été proposées depuis leur introduction. Nous utilisons ici un générateur $G$ et un discriminateur $D$ sur le principe des Wasserstein \glspl{GAN}~\cite{arjovsky_wasserstein_2017} avec la régularisation de~\citet{gulrajani_improved_2017}, dont l'entraînement est prévu pour minimiser la distance de Wasserstein entre la distribution réelle et la distribution synthétique. Toutefois, ce mode de fonctionnement est non-supervisé, c'est-à-dire qu'il n'est possible que de générer de nouveaux échantillons sans contrôle sur leur classe. Il serait possible de créer un générateur pour chaque classe, mais cela serait coûteux en temps et en mémoire. Dans notre cas, nous souhaitons pouvoir \emph{conditionner} le générateur par rapport à la classe du spectre que nous souhaitons synthétiser. Nous utilisons ainsi un classifieur auxiliaire $C$~\cite{odena_conditional_2017} qui ajoute une contrainte supplémentaire lors de l'optimisation du générateur en s'assurant que les spectres générés sont bien classifiés dans la classe choisie.
+Plusieurs variantes des \glspl{GAN} ont été proposées depuis leur introduction. Nous utilisons ici un générateur $G$ et un discriminateur $D$ sur le principe des Wasserstein \glspl{GAN}~\cite{arjovsky_wasserstein_2017} avec la régularisation de~\citet{gulrajani_improved_2017}, dont l'entraînement est prévu pour minimiser la distance de Wasserstein entre la distribution réelle et la distribution synthétique. $G$ transforme un vecteur de bruit aléatoire $z$ en un spectre, de sorte que $D$ estime que celui-ci appartient à la distribution réelle. Toutefois, ce mode de fonctionnement est non-supervisé, c'est-à-dire qu'il n'est possible que de générer de nouveaux échantillons sans contrôle sur leur classe. Il serait possible de créer un générateur pour chaque classe, mais cela serait coûteux en temps et en mémoire. Dans notre cas, nous souhaitons pouvoir \emph{conditionner} le générateur par rapport à la classe du spectre que nous souhaitons synthétiser. Nous utilisons ainsi un classifieur auxiliaire $C$~\cite{odena_conditional_2017} qui ajoute une contrainte supplémentaire lors de l'optimisation du générateur en s'assurant que les spectres générés sont bien classifiés dans la classe choisie. Dans ce cas, $G$ considère également un vecteur de conditionnement $c$ qui encode une classe sous forme \emph{one-hot}. Les spectres générés par $G$ doivent également être correctement classifiés par $C$.
 L'architecture complète est détaillée dans la~\cref{fig:gan}. Si $G$ et $D$ peuvent être entraînés sans annotation, c'est-à-dire de façon non-supervisée, $C$ doit être entraîné sur des exemples étiquetés. L'ensemble est donc semi-supervisé et peut exploiter simultanément les échantillons annotés et non-annotés sur l'ensemble de l'hypercube.
 
 \begin{definition}
 	\label{def:gan}
 	Algorithme d'entraînement de réseaux de neurones génératifs adversaires:
 
-	Avec $n$ la taille du \emph{batch}, $Z$ la distribution latente, $\Omega$ l'ensemble des échantillons (annotés ou non), $\Omega^* \subset \Omega$ le sous-ensemble des éléments annotés et $\mathcal{L}$ l'entropie croisée.
+	Avec $n$ la taille du \emph{batch}, $\mathcal{Z}$ la distribution latente, $\Omega$ l'ensemble des échantillons (annotés ou non), $\Omega^* \subset \Omega$ le sous-ensemble des éléments annotés et $\mathcal{L}$ l'entropie croisée.
 	Tant que le critère de convergence n'est pas atteint:
 	\begin{enumerate}
 		\item Optimisation de $D$. Répéter $k_D$ fois:
 		\begin{itemize}
-			\item Tirer aléatoirement un vecteur $z$ de $n$ éléments dans $\Omega$
-			\item Itérer la descente de gradient sur $D$ pour maximiser $D(x)$
-			\item Tirer aléatoirement un vecteur $z$ de $n$ éléments dans $Z$
-			\item Itérer la descente de gradient sur $D$ pour minimiser $D(G(z))$
+			\item Tirer aléatoirement un vecteur $\mathbf{x}$ de $n$ éléments dans $\Omega$
+			\item Itérer la descente de gradient sur $D$ pour maximiser $D(\mathbf{x})$
+			\item Tirer aléatoirement un vecteur $\mathbf{z}$ de $n$ éléments dans $\mathcal{Z}$
+			\item Itérer la descente de gradient sur $D$ pour minimiser $D(G(\mathbf{z}))$
 		\end{itemize}
 		\item (facultatif) Optimisation de $C$. Répéter $k_C$ fois:
 		\begin{itemize}
-			\item Tirer aléatoirement un vecteur $x^*$ de $n$ éléments dans $\Omega^*$, avec $y$ le vecteur de classes
-			\item Itérer la descente de gradient sur $C$ pour minimiser $\mathcal{L}(C(x^*),y)$
+			\item Tirer aléatoirement un vecteur $\mathbf{x}^*$ de $n$ éléments dans $\Omega^*$, avec $y$ le vecteur de classes
+			\item Itérer la descente de gradient sur $C$ pour minimiser $\mathcal{L}(C(\mathbf{x}^*),y)$
 		\end{itemize}
 		\item Optimisation de $G$.
 		\begin{itemize}
-			\item Tirer aléatoirement un vecteur $z$ de $n$ éléments dans $Z$
-			\item (facultatif) Générer et concaténer à $z$ son vecteur de condition $c$
-			\item Générer les échantillons $\hat{x} = G(z)$
-			\item Calculer la fonction de coût $\mathcal{L}_\mathit{totale}(z) = -D(\hat{x})$
-			\item (facultatif) Ajouter l'erreur sur $C$ : $\mathcal{L}_\mathit{totale}(z) := \mathcal{L}_\mathit{totale}(z) + \mathcal{L}(C(\hat(x),c))$
+			\item Tirer aléatoirement un vecteur $\mathbf{z}$ de $n$ éléments dans $\mathcal{Z}$
+			\item (facultatif) Générer et concaténer à $\mathbf{z}$ son vecteur de condition $\mathbf{c}$
+			\item Générer les échantillons $\hat{\mathbf{x}} = G(\mathbf{z})$
+			\item Calculer la fonction de coût $\mathcal{L}_\mathit{totale}(\mathbf{z}) = -D(\hat{\mathbf{x}})$
+			\item (facultatif) Ajouter l'erreur sur $C$ : $\mathcal{L}_\mathit{totale}(\mathbf{z}) := \mathcal{L}_\mathit{totale}(\mathbf{z}) + \mathcal{L}(C(\mathbf{\hat{x}}),\mathbf{c}))$
 			\item Itérer la descente de gradient sur $G$ pour minimiser $\mathcal{L}_\mathit{totale}$
 		\end{itemize}
 	\end{enumerate}
@@ -71,9 +75,9 @@ L'architecture complète est détaillée dans la~\cref{fig:gan}. Si $G$ et $D$ p
 \subsection{Cadre expérimental}
 \label{sec:experimental_setup}
 
-Nous entraînons ce \glspl{GAN} sur les jeux de données Pavia University, Pavia Center, Indian Pines et Botswana (cf.~\cref{sec:hyperspectral_datasets}) en utilisant les réflectances corrigées atmosphériquement lorsqu'elles sont disponibles. Comme nous essayons de générer des spectres individuels et non des hypercubes, nous utilisons pour $G$, $D$ et $C$ des réseaux simples, entièrement connectés à 4 couches, utilisant la fonction d'activation \emph{Leaky \gls{ReLU}}~\cite{maas_rectifier_2013}. L'intérêt d'une telle fonction d'activation par rapport à la \gls{ReLU} usuelle est d'avoir un gradient non-nul sur toute sa plage de fonctionnement, ce qui facilite la rétropropagation du gradient de $D$ vers $C$. La sortie de $G$ est suivie par une sigmoïde pour contraindre les valeurs de réflectance synthétisée entre $0$ et $1$. $D$ ne possède qu'une seule sortie et $C$ possède autant de sorties que le jeu de données a de classes.
+Nous entraînons ce \glspl{GAN} sur les jeux de données Pavia University, Pavia Center, Indian Pines et Botswana (cf.~\cref{sec:hyperspectral_datasets}) en utilisant les réflectances corrigées en atmosphère lorsqu'elles sont disponibles. Comme nous essayons de générer des spectres individuels et non des hypercubes, nous utilisons pour $G$, $D$ et $C$ des réseaux simples, entièrement connectés à 4 couches, utilisant la fonction d'activation \emph{Leaky \gls{ReLU}}~\cite{maas_rectifier_2013}. L'intérêt d'une telle fonction d'activation par rapport à la \gls{ReLU} usuelle est d'avoir un gradient non-nul sur toute sa plage de fonctionnement, ce qui facilite la rétropropagation du gradient de $D$ vers $C$. La sortie de $G$ est suivie par une sigmoïde pour contraindre les valeurs de réflectance synthétisée entre $0$ et $1$. $D$ ne possède qu'une seule sortie et $C$ possède autant de sorties que le jeu de données a de classes.
 
-L'optimisation des trois réseaux se fait en utilisant la politique de descente de gradient stochastique \emph{RMSProp}~\cite{tielman_lecture_2012}. L'ensemble est entraîné durant \num{100000} itérations avec une taille de \emph{batch} de 256, $C$ et $D$ étant entraînés 2 fois à chaque itération.
+L'optimisation des trois réseaux se fait en utilisant la politique de descente de gradient stochastique \emph{RMSProp}~\cite{tielman_lecture_2012}. L'ensemble est entraîné durant \num{100000} itérations avec une taille de \emph{batch} de 256, $C$ et $D$ étant entraînés 2 fois à chaque itération. Lors de l'optimisation de $G$, la fonction est de coût auxiliaire de classification est pondérée par un facteur \num{0.2}. Le taux d'apprentissage global est fixé à \num{5e-5}.
 
 Par ailleurs, il apparaît nécessaire d'établir une performance de référence afin d'évaluer la pertinence des \glspl{GAN} pour la synthèse de spectres. Nous implémentons donc un modèle de mélange gaussien en utilisant la bibliothèque scikit-learn~\cite{pedregosa_scikit-learn_2011}. Nous reconstruisons un mélange pour chaque classe du jeu de données utilisant 10 composantes, que nous utilisons par la suite pour générer de nouveaux spectres.
 
@@ -89,7 +93,7 @@ Dans un premier temps, nous cherchons à comparer selon plusieurs critères les 
 \begin{subfigure}{0.5\textwidth}
 \includegraphics[width=\textwidth]{trees_spectra_fr}
 \end{subfigure}
-\caption{Spectre moyen et écart-type pour deux classes de matériaux du jeu de données Pavia Center. Les échantillons synthétiques moyens sont plus bruités et sont surappris sur certaines propriétés spectrales locales.}
+\mycaption{Spectre moyen et écart-type pour deux classes de matériaux du jeu de données Pavia Center.}{Les échantillons synthétiques moyens sont plus bruités et sont surappris sur certaines propriétés spectrales locales.}
 \label{fig:mean_spectra}
 \end{figure}
 
@@ -106,15 +110,17 @@ Visuellement, il est possible de constater dans la~\cref{fig:mean_spectra} que l
 \includegraphics[width=0.5\textwidth]{pca_ip_fake_fr}%
 \caption{Indian Pines}
 \end{subfigure}
-\caption[\glsname{ACP} sur les spectres réels et synthétiques.]{\glsname{ACP} sur les spectres réels et synthétiques. Les spectres réels correspondent à l'ensemble des échantillons annotés de l'image. Les deux ensemble contiennent le même nombre d'éléments.}
+\mycaption{\glsname{ACP} sur les spectres réels et synthétiques.}{Les spectres réels correspondent à l'ensemble des échantillons annotés de l'image. Les deux ensembles contiennent le même nombre d'éléments.}
 \label{fig:pca}
 \end{figure}
 
 Pour mieux comprendre l'impact de ce surapprentissage, nous appliquons une \gls{ACP} afin de projeter les spectres réels et synthétiques dans un espace de représentation à deux dimensions (cf.~\cref{fig:pca}). Les groupes formés par les différentes classes sont correctement reproduits par les échantillons synthétiques. Cependant, la distribution synthétique présente également quelques déformations montrant que, si le \gls{GAN} a bien réussi à modéliser la forme générale des différents types de spectres, il n'est cependant pas parvenu à reproduire l'ensemble de leurs spécificités.
 
-\begin{table}[t]
+\begin{table}[ht]
+	\caption{Exactitudes d'une \glsname{SVM} linéaire appliquée sur les spectres réels et synthétiques (Pavia University).}
+	\label{table:svm_separation}
 	\begin{tabularx}{\textwidth}{c Y Y Y Y}
-        Découpage & \multicolumn{2}{c}{Aléatoire (uniforme)} & \multicolumn{2}{c}{Disjoint}\\
+        Découpage & \multicolumn{2}{c}{Aléatoire (uniforme) -- 3\% (r)} & \multicolumn{2}{c}{Disjoint -- 50\% (s)}\\
         \toprule
 		\textbf{Apprentissage $\backslash$ Test} & Réels & Synthétiques & Réels & Synthétiques\\
         \midrule
@@ -123,8 +129,6 @@ Pour mieux comprendre l'impact de ce surapprentissage, nous appliquons une \gls{
         Synthétiques & \num{87.8} & \num{99.2} & \num{79.4} & \num{99.9}\\
         \bottomrule
 	\end{tabularx}
-    \caption{Exactitudes d'une \glsname{SVM} linéaire appliquée sur les spectres réels et synthétiques du jeu de données Pavia University.}
-    \label{table:svm_separation}
 \end{table}
 
 Nous pouvons essayer d'estimer comment la distribution synthétique respecte les frontières entre classes de la distribution réelle en entraînant une \gls{SVM} linéaire sur les spectres réels et en l'appliquant pour séparer les spectres synthétiques. La \gls{SVM} va calculer les meilleurs hyperplans séparateurs pour la véritable distribution. Idéalement, ces hyperplans devraient séparer les spectres synthétiques exactement de la même façon. S'ils séparent nettement moins bien les spectres synthétiques, alors cela signifie que le générateur créé des échantillons irréalistes. S'ils séparent nettement mieux les échantillons, alors le générateur créé des exemples synthétiques trop similaires entre eux et regroupés autour des centroïdes correspondant aux classes réelles. Les résultats sont détaillés dans le~\cref{table:svm_separation}. Nous considérons deux approches\,: entraînement sur 3\% des spectres tirés au hasard uniformément ou sur 50\% de l'image, disjoint spatialement de la zone de validation. Dans le mode non-supervisé, nous utilisons également les échantillons non-annotés. Comme attendu, la \gls{SVM} sépare plus facilement les échantillons synthétiques que les spectres réels. Toutefois, entraîner la \gls{SVM} sur les spectres synthétiques uniquement permet tout de même de séparer les spectres réels dans une certaine mesure. Autrement dit, si les échantillons synthétiques sont moins diversifiés que les spectres réels, ils sont néanmoins représentatifs des différentes classes, et ce alors même que ces spectres sont générés \emph{ex nihilo} à partir de bruit aléatoire.
@@ -152,7 +156,7 @@ Nous pouvons essayer d'estimer comment la distribution synthétique respecte les
 	\label{fig:interpolation_inter}
 \end{subfigure}
 
-\caption{Interpoler entre différents vecteurs ou conditionnements de l'espace latent permet d'explorer la variété des spectres de façon continue. Le \glsname{GAN} est entraîné sur le jeu de données Pavia University. $\alpha$ contrôle l'interpolation.}
+\mycaption[Interpolations dans l'espace latent des spectres]{Interpoler entre différents vecteurs ou conditionnements de l'espace latent permet d'explorer la variété des spectres de façon continue. Le \glsname{GAN} est entraîné sur le jeu de données Pavia University. $\alpha$ contrôle l'interpolation.}
 \label{fig:interpolation}
 \end{figure}
 
@@ -163,7 +167,7 @@ Finalement, comme les \gls{GAN} permettent d'établir une projection entre un es
 		\hat{x}_\alpha = G(z_\alpha, c) \text{ avec } x_0 = G(z_1, c) \text{ et } x_1 = G(z_2, c)
 	\end{cases}
 \end{equation}
-avec $\omega$ l'angle entre $z_1$ et $z_2$. En particulier, il est également possible d'interpoler à vecteur de bruit fixe entre deux vecteurs de conditionnement $c_1$ et $c_2$:
+avec $\omega$ l'angle entre $z_1$ et $z_2$. De la même façon, il est possible d'interpoler à vecteur de bruit fixe entre deux vecteurs de conditionnement $c_1$ et $c_2$:
 \begin{equation}
 	\begin{cases}
 		\forall \alpha \in [0,1],~~c_\alpha = (1-\alpha) \cdot c_1 + \alpha \cdot c_2\\
@@ -173,13 +177,15 @@ avec $\omega$ l'angle entre $z_1$ et $z_2$. En particulier, il est également po
 
 L'interpolation entre deux points de l'espace latent permet de générer une progression spectrale telle qu'illustrée par la~\cref{fig:interpolation_intra}. En comparaison à une interpolation linéaire directement effectuée entre les deux signatures spectrales, les échantillons générés ne sont pas régulièrement espacés car le chemin dans l'espace latent encode un réalité un chemin sur la \emph{variété} des spectres. Calculer entre un barycentre entre les deux vecteurs représentant les réponses spectrales n'a pas nécessairement de sens physique, car le vecteur qui en résulte n'est pas nécessairement sur la variété des spectres réels. À l'inverse, les interpolations générées par le \gls{GAN} approchent fidèlement le chemin sur la variété qui relie les deux extrémités.
 
-De la même façon, il est possible de générer des mélanges de spectres en interpolant entre les vecteurs de conditionnement, ce qui est illustré par la~\cref{fig:interpolation_inter}. Les mélanges de matériaux en condition réels présentent souvent des propriétés non-linéaires causées par la géométrie du terrain ou des effets de réflexion et d'occlusion. Ici encore, le \gls{GAN} génère des échantillons dont la présence sur la variété des spectres réels est plausible, tandis que l'interpolation linéaire parcourt un espace arbitraire. Si l'on considère que les mélanges produits par le générateur sont réalistes, alors celui-ci effectue l'inverse de l'opération de démélange. Une approche d'apprentissage par dictionnaire, par inversion de modèle~\cite{gemp_inverting_2017} ou par plus proche voisin pourrait alors permettre, à partir d'un spectre réel soupçonné d'être un mélange, de revenir à ses \emph{endmembers} par une cartographie exhaustive de l'espace latent.
+De la même façon, il est possible de générer des mélanges de spectres en interpolant entre les vecteurs de conditionnement, ce qui est illustré par la~\cref{fig:interpolation_inter}. Les mélanges de matériaux en conditions réelles présentent souvent des propriétés non-linéaires causées par la géométrie du terrain ou des effets de réflexion et d'occlusion. Ici encore, le \gls{GAN} génère des échantillons dont la présence sur la variété des spectres réels est plausible, tandis que l'interpolation linéaire parcourt un espace arbitraire. Si l'on considère que les mélanges produits par le générateur sont réalistes, alors celui-ci effectue l'inverse de l'opération de démélange. Une approche d'apprentissage par dictionnaire, par inversion de modèle~\cite{gemp_inverting_2017} ou par plus proche voisin pourrait alors permettre, à partir d'un spectre réel soupçonné d'être un mélange, de revenir à ses \emph{endmembers} par une cartographie exhaustive de l'espace latent.
 
 \subsection{Augmentation de données}
 \label{sec:augmentation}
 
-\begin{table}[!t]
+\begin{table}[ht]
 	\setlength\tabcolsep{3pt}
+	\mycaption{Scores d'exactitudes obtenus par un classifieur entièrement connecté à 4 couches sur plusieurs jeux de données en utilisant différentes augmentations de données.}{Le partage du jeu de données se fait en coupant l'image en deux (s) ou par un échantillonnage aléatoire uniforme de 3\% des pixels annotés (r).}
+	\label{table:da_results}
 	\begin{tabularx}{\textwidth}{c Y Y Y Y Y Y Y Y}
 	\toprule
     Jeu de données & \multicolumn{2}{c}{Pavia University} & \multicolumn{2}{c}{Pavia Center} & \multicolumn{2}{c}{Botswana} & \multicolumn{2}{c}{Indian Pines}\\
@@ -194,15 +200,13 @@ De la même façon, il est possible de générer des mélanges de spectres en in
 %     & ss-GAN & - & - & - & - & - & - & - & -\\
     \bottomrule
     \end{tabularx}
-    \caption{Scores d'exactitudes obtenues par un classifieur entièrement connecté à 4 couches sur plusieurs jeux de données en utilisant différentes augmentations de données. Le partage du jeu de données se fait en coupant l'image en deux (s) ou par un échantillonnage aléatoire uniforme de 3\% des pixels annotés (r).}
-    \label{table:da_results}
 \end{table}
 
-Les échantillons générés étant plausibles et représentatifs des spectres réels, nous suggérons de les utiliser pour enrichir les jeux de données annotés pré-existants. Nous testons cette idée sur plusieurs jeux de données : Indian Pines (aérien, rural), Pavia University (aérien, péri-urbain), Pavia Center (aérien, urbain) et Botswana (satellite, rural). Les résultats en mode supervisé et semi-supervisé sont détaillés dans le~\cref{table:da_results}. Augmenter le jeu de données à l'aide des faux spectres permet de légèrement augmenter les performances du classifieur.
+Les échantillons générés étant plausibles et représentatifs des spectres réels, nous suggérons de les utiliser pour enrichir les jeux de données annotés préexistants. Nous testons cette idée sur plusieurs jeux de données : Indian Pines (aérien, rural), Pavia University (aérien, péri-urbain), Pavia Center (aérien, urbain) et Botswana (satellite, rural). Les résultats en mode supervisé (\gls{GAN}) et semi-supervisé (ss-\gls{GAN}) sont détaillés dans le~\cref{table:da_results}. Augmenter le jeu de données à l'aide des faux spectres permet de légèrement augmenter les performances du classifieur.
 
 Toutefois, augmenter drastiquement le nombre de faux spectres n'améliore pas plus la classification et finit même par la dégrader. En effet, dans ce cas les échantillons synthétiques deviennent prédominants dans la fonction de coût et dégradent les performances du classifieur, le ramenant vers le cas de la \gls{SVM} entraînée uniquement sur les faux spectres.
 
-Dans l'absolu, la mise en \oe{}uvre de \glspl{GAN} pour la génération de spectres \emph{ex nihilo} et l'augmentation de données n'apporte que des bénéfices légers. Notamment, les \glspl{GAN} ne peuvent qu'approcher la distribution des spectres réellement observés et d'interpoler à l'intérieur de celle-ci, mais peuvent difficilement générer des nouvelles observations à l'extérieur de la distribution. Puisque la classification consiste à déterminer les frontières entre classes, ce sont donc les échantillons éloignés des centroïdes qui sont les plus informatifs. Ainsi, l'approche semi-supervisée permet de générer des spectres annotés présentant des propriétés statistiques proches des observations non-annotées, et donc d'augmenter la quantité d'information disponible au classifieur, mais l'approche supervisée pure est rapidement limitée. Toutefois, cela a permis de démontrer la capacité des \glspl{GAN} à modéliser des distributions statistiques complexes sans aucune connaissance physique. Cette conclusion devient particulièrement intéressante lorsque l'on considère les efforts passés et actuels investis dans la développement de simulateurs de données hyperspectrales~\cite{borner_sensor_2001}. Ceux-ci utilisent d'une part les mesures en laboratoire des réflectances de matériaux connus et d'autre part des modèles physiques de capteur et d'atmosphère. Cependant, les modèles introduisent nécessairement des approximations et des simplifications qui ne permettent pas de tenir compte des effets optiques, atmosphériques et électroniques les plus complexes (bruit provoqué par la chauffe des composants, rayons lumineux parasitaires, turbulences\dots). Une combinaison mêlant approche statistique et physique serait de conditionner les \glspl{GAN} par les spectres produits par ces simulateurs, pour laisser au générateur le soin de modéliser ces phénomènes complexes, afin de rendre les spectres simulés réalistes et de les aligner avec les acquisitions réelles.
+Dans l'absolu, la mise en \oe{}uvre de \glspl{GAN} pour la génération de spectres \emph{ex nihilo} et l'augmentation de données n'apporte que des bénéfices légers. Notamment, les \glspl{GAN} ne peuvent qu'approcher la distribution des spectres réellement observés et qu'interpoler à l'intérieur de celle-ci, mais peuvent difficilement générer des nouvelles observations à l'extérieur de la distribution. Puisque la classification consiste à déterminer les frontières entre classes, ce sont donc les échantillons éloignés des centroïdes qui sont les plus informatifs. Ainsi, l'approche semi-supervisée permet de générer des spectres annotés présentant des propriétés statistiques proches des observations non-annotées, et donc d'augmenter la quantité d'information disponible au classifieur, mais l'approche supervisée pure est rapidement limitée. Toutefois, cela a permis de démontrer la capacité des \glspl{GAN} à modéliser des distributions statistiques complexes sans aucune connaissance physique. Cette conclusion devient particulièrement intéressante lorsque l'on considère les efforts passés et actuels investis dans la développement de simulateurs de données hyperspectrales~\cite{borner_sensor_2001}. Ceux-ci utilisent d'une part les mesures en laboratoire des réflectances de matériaux connus et d'autre part des modèles physiques de capteur et d'atmosphère. Cependant, les modèles introduisent nécessairement des approximations et des simplifications qui ne permettent pas de tenir compte des effets optiques, atmosphériques et électroniques les plus complexes (bruit provoqué par la chauffe des composants, rayons lumineux parasitaires, turbulences\dots). Une combinaison mêlant approche statistique et physique serait de conditionner les \glspl{GAN} par les spectres produits par ces simulateurs, pour laisser au générateur le soin de modéliser ces phénomènes complexes, afin de rendre les spectres simulés réalistes et de les aligner avec les acquisitions réelles.
 
 \section{Cas des données massives}
 
@@ -210,45 +214,55 @@ Dans l'absolu, la mise en \oe{}uvre de \glspl{GAN} pour la génération de spect
 
 Jusqu'à présent, nous nous sommes intéressés à des jeux de données ne couvrant qu'une seule scène. En effet, les expériences des~\cref{chap:cartographie,chap:extension,chap:multimodal} ont été effectuées sur les villes de Vaihingen et Potsdam, pour une seule ville à la fois. Néanmoins, cela ne correspond pas à un cas applicatif réel. L'observation de la Terre passe par la répétition des acquisitions sur l'ensemble du globe. Par conséquent, il est nécessaire d'évaluer les capacités de généralisation des modèles mis en \oe{}uvre dans un cadre géographique varié. Une question naturelle est de savoir comment se comportent les réseaux profonds sur de nouvelles acquisitions. S'il est possible de s'attendre à une dégradation des performances prédictives des modèles, compte-tenu du surapprentissage inhérent à l'entraînement sur une seule scène, il est important d'être en mesure de la quantifier.
 
-Pour ce faire, nous étudions tout d'abord les transferts entre deux scènes similaires: \gls{ISPRS} Potsdam et \gls{ISPRS} Vaihingen. Les deux jeux de données sont constitués d'images aériennes \gls{THR} recouvrant les canaux \gls{IRRV} acquises en zone urbaine et ont été annotés pour les mêmes classes d'intérêt. Les villes présentent néanmoins des caractéristiques différentes: Potsdam est six fois plus peuplée que Vaihingen pour une densité de population deux fois plus élevée. Les architectures des bâtiments sont différentes, tout comme l'agencement urbain. En première approche, nous considérons le réseau SegNet entraîné sur les images \gls{IRRV} de Potsdam au~\cref{chap:cartographie}, que nous appliquons tel quel sur une image de Vaihingen. Les cartes générées sont présentés dans la~\cref{fig:potsdam_transfert}. Dans l'ensemble, les grandes composantes de l'image sont retrouvées par le réseau, en particulier les routes et les bâtiments. Néanmoins, on peut constater d'une part une importance confusion des bâtiments avec la classe de rejet (en rouge) mais aussi l'absence de voiture. Cette dernière observation s'explique par la différence de résolution entre les deux jeux de données. Le modèle entraîné sur Potsdam a optimisé ses filtres pour une image à \SI{5}{\centi\meter/\px} et est ensuite appliqué sur une image de Vaihingen à \SI{9}{\centi\meter/\px}. Le facteur d'échelle ayant changé, les véhicules sont alors plus petits qu'attendus et deviennent invisibles. Dans l'ensemble, l'exactitude de la prédiction sur Vaihingen par un modèle entraîné uniquement sur Potsdam est de 77\%, ce qui est nettement inférieur aux résultats que nous avions présenté dans le~\cref{chap:cartographie}. Entraîner un modèle sur une scène unique semble donc biaiser celui-ci, au détriment de son applicabilité à de nouvelles acquisitions.
+Pour ce faire, nous étudions tout d'abord les transferts entre deux scènes similaires: \gls{ISPRS} Potsdam et \gls{ISPRS} Vaihingen. Les deux jeux de données sont constitués d'images aériennes \gls{EHR} recouvrant les canaux \gls{IRRV} acquises en zone urbaine et ont été annotés pour les mêmes classes d'intérêt. Les villes présentent néanmoins des caractéristiques différentes: Potsdam est six fois plus peuplée que Vaihingen pour une densité de population deux fois plus élevée. Les architectures des bâtiments sont différentes, tout comme l'agencement urbain. En première approche, nous considérons le réseau \gls{SegNet} entraîné sur les images \gls{IRRV} de Potsdam au~\cref{chap:cartographie}, que nous appliquons tel quel sur une image de Vaihingen. Les cartes générées sont présentés dans la~\cref{fig:potsdam_transfert}. Dans l'ensemble, les grandes composantes de l'image sont retrouvées par le réseau, en particulier les routes et les bâtiments. Néanmoins, on peut constater d'une part une importance confusion des bâtiments avec la classe de rejet (en rouge) mais aussi l'absence de voiture. Cette dernière observation s'explique par la différence de résolution entre les deux jeux de données. Le modèle entraîné sur Potsdam a optimisé ses filtres pour une image à \SI{5}{\centi\meter/\px} et est ensuite appliqué sur une image de Vaihingen à \SI{9}{\centi\meter/\px}. Le facteur d'échelle ayant changé, les véhicules sont alors plus petits qu'attendu et deviennent invisibles. Dans l'ensemble, l'exactitude de la prédiction sur Vaihingen par un modèle entraîné uniquement sur Potsdam est de 77\%, ce qui est nettement inférieur aux résultats que nous avions présenté dans le~\cref{chap:cartographie}. Entraîner un modèle sur une scène unique semble donc biaiser celui-ci, au détriment de son applicabilité à de nouvelles acquisitions.
 
-\missingfigure{Tuile de Vaihingen classifiée par SegNet(Potsdam) et SegNet(Vaihingen)}
+\begin{figure}[ht]
+	\captionsetup[subfigure]{singlelinecheck=off,justification=centering}
+	\foreach\picname\picpath in {Tuile \glsname{IRRV} 21/vaihingen_21,Vérité terrain/vaihingen_21_gt,Prédiction SegNet (Vaihingen)/vaihingen_21_pred, Prédiction SegNet (Potsdam)/vaihingen_21_potsdam_transfer}{
+	\begin{subfigure}[t]{0.24\textwidth}
+		\includegraphics[width=\textwidth]{\picpath}
+		\caption*{\picname}
+	\end{subfigure}}
+	\mycaption{Cartes sémantiques prédites sur la tuile 21 de Vaihingen par SegNet entraîné sur Vaihingen et sur Potsdam.}{Le transfert sans \emph{fine-tuning} depuis Potsdam parvient à identifier les zones principales, mais s'avère significativement moins précis qu'un entraînement direct sur Vaihingen.}
+	\label{fig:potsdam_transfert}
+\end{figure}
 
-Une alternative réaliste consisterait alors à annoter une faible partie des données cible (ici, Vaihingen) et de réaliser un \emph{fine-tuning} du modèle entraîné sur Potsdam. Cela permettrait au modèle d'ajuster ses poids pour tenir compte des nouvelles images sans pour autant entraîner un réseau en entier.
+Une alternative réaliste consisterait alors à annoter une faible partie des données cible (ici, Vaihingen) et de réaliser un \emph{fine-tuning} du modèle entraîné sur Potsdam. Cela permettrait au modèle d'ajuster ses poids pour tenir compte des nouvelles images sans pour autant entraîner un réseau en entier. Nous considérons donc le même réseau SegNet, qui est spécialisé sur le jeu de données \gls{ISPRS} Vaihingen de la façon suivante:
+\begin{itemize}
+	\item les poids du dernier bloc du décodeur sont optimisés avec un taux d'apprentissage $\alpha = 0,01$,
+	\item le taux d'apprentissage pour les poids restants du décodeur est fixé à $\frac{\alpha}{10}$,
+	\item les poids de l'encodeur sont gelés.
+\end{itemize}
 
-\missingfigure{Tableau : résultats sur Vaihingen avec 1/2 tuile, 1 tuile et toutes les tuiles (Javiera) vs. résultats sur Vaihingen mais préentraîné avec Potsdam sur 1/2 tuile, 1 tuile et toutes les tuiles}
+La spécialisation est tentée dans des cas très faiblement annotés, avec seulement un quart de la tuile 3 ou la tuile 3 en entier. Afin de mesurer le gain obtenu par le préentraînement sur Potsdam, nous comparons les performances du modèle spécialisé à celui du SegNet entraîné sur les mêmes images, mais initialisé avec les poids de VGG-16 préappris sur \gls{ImageNet}. Les résultats sont compilés dans le~\cref{tab:potsdam_transfert}.
 
-\subsection{Passage à l'échelle}
-
-Nous collectons un jeu de données à large échelle sur la France métropolitaine. Nous utilisons la BD ORTHO de l'\gls{IGN} comme source d'images aériennes à une résolution de \SI{50}{\centi\meter/\px}. Les annotations du projet Copernicus \emph{Urban Atlas} 2012 sont utilisées, en complément des données \emph{Open Data} du cadastre français. Nous considérons les images de la BD ORTHO de 2012 à 2014 sous licence \emph{open data}. Nous filtrons hors du cadastre les bâtiments ajoutés à la base de données après le 1\ier janvier 2013. 16 agglomérations font partie du jeu de données, que nous intitulons \emph{MiniFrance} (cf.~\cref{tab:minifrance,fig:minifrance}).
-
-\begin{table}[h]
-\caption{Liste des villes présentes dans MiniFrance.}
-\label{tab:minifrance}
-	\begin{tabularx}{\textwidth}{c Y Y Y}
-	\toprule
-	\emph{Conurbation} &  Nombre de tuiles &  \% pixels & Couleur \\
-	\midrule
-	Nice & 170 & \num{8.01}\% & \mybox{202,0,205} \\
-	Nantes, Saint-Nazaire  & 226 & \num{10.65}\% & \mybox{111,204,240} \\
-	Le Mans & 107 & \num{5.04}\% & \mybox{53,182,180}  \\
-	Lorient & 68 & \num{3.20}\%  & \mybox{175,254,122} \\
-	Brest & 88  & \num{4.14}\% &  \mybox{80,145,229}\\
-	Caen & 126 & \num{5.94}\%  & \mybox{242,248,158}  \\
-	Dunkerque, Calais, Boulogne-sur-Mer & 150 & \num{7.07}\% &  \mybox{157,205,24} \\
-	Saint-Brieuc & 71 &  \num{3.34}\% &  \mybox{75,236,75}\\
-	Marseille, Martigues & 162 & \num{7.63}\% &  \mybox{51,98,164}\\
-	Rennes & 196 & \num{9.24}\% & \mybox{106,0,255} \\
-	Angers & 123  & \num{5.79}\% & \mybox{131,70,136}\\
-	Quimper & 79 & \num{3.72}\% & \mybox{217,116,218}\\
-	Vannes & 73 & \num{3.44}\% & \mybox{171,65,168}\\
-	Clermont-Ferrand & 150 & \num{7.07}\% & \mybox{26,93,83}\\
-	Lille, Arras, Lens, Douai, Hénins & 275 & \num{12.96}\% & \mybox{195,57,149}\\
-	Cherbourg & 57 & \num{2.68}\% & \mybox{249,191,30}\\ \bottomrule
+\begin{table}[ht]
+	\setlength\tabcolsep{3pt}
+	\caption{Résultats de segmentation sémantique et d'apprentissage par transfert pour le jeu de données \glsname{ISPRS} Vaihingen.}
+	\label{tab:potsdam_transfert}
+	\begin{tabularx}{\textwidth}{Y Y c c c c c c}
+		\toprule
+		Nombre de tuiles    & préentraînement & Routes & Bâtiments & Vég. basse & Arbres & Véhicules & Exac.\\
+		\midrule
+		\multirow{2}{*}{$1/4$}& ImageNet  & 	\res{76.6}{}	&	\res{29.6}{}  &	\res{0.07}{} &	\res{95.1}{}	&	\res{0.01}{} & \res{54.8}{}	\\
+											  & Potsdam     & 	\res{80.3}{}  &	\res{55.0}{} &	\res{16.0}{} &	\res{95.8}{}	&	\res{43.3}{} & \res{65.5}{} \\
+		\midrule
+		\multirow{2}{*}{1}  & ImageNet    & 	\res{91.8}{}  &	\res{78.8}{}	&	\res{50.4}{} &	\res{93.5}{}	&	\res{47.6}{}  & 	\res{81.0}{}	\\
+											  & Potsdam   	& 	\res{83.3}{}  &	\res{91.2}{}	&	\res{59.4}{} &	\res{85.6}{}	&	\res{60.1}{}  &		\res{82.8}{}  \\
+		% \midrule
+		% \multirow{2}{*}{12} & ImageNet		& \res{92,2}{} & \res{95,6}{} & \res{82,6}{} & \res{88,1}{} & \res{88,2}{} & \res{90,2}{}\\
+		% 									  & Potsdam     & 			  &					  &						 &				&					  & 					\\
+		\bottomrule
 	\end{tabularx}
 \end{table}
 
-Chaque tuile de la BD ORTHO est une image à \SI{50}{\centi\meter/\px} de dimensions \SI{10000x10000}{\px}. Les polygones issus des 28 classes de UrbanAtlas 2012 et les empreintes de bâtiments issues du cadastre sont rasterisées pour correspondre aux images.
+
+Lorsque la quantité de tuiles annotées diminue, les performances du modèle baissent significativement. Ce phénomène intervient non seulement lorsque les annotations denses sont moins nombreuses, mais également lorsqu'elles sont rendues parcimonieuses et incompètes. \citet{maggiolo_improving_2018} ont en effet étudié les performances de \glspl{FCN} entraînés sur Vaihingen en considérant une version grossière des vérité terrain, diminuées de 60\% des pixels annotés. Certains objets sont omis et les autres sont griffonnés sur l'image de façon grossière, reproduisant approximativement leur formes. Le \gls{FCN} est alors entraîné sur ces pixels et n'apprend pas là où les annotations sont inexistantes; l'exactitude diminue alors de près de 20\%. Ceci est similaire aux résultats que nous avons obtenus en entraînant un SegNet sur seulement une tuile.
+
+Ainsi, lorsque peu d'annotations sur le domaine cible (ici, Vaihingen) sont disponibles, le préentraînement sur Potsdam permet d'augmenter significativement les performances du réseau lors de l'inférence. En effet, la spécialisation par \emph{fine-tuning} permet de compenser le biais d'apprentissage sur Potsdam et de réduire l'influence des différences environnementales. Dans un cadre applicatif, ces résultats suggèrent qu'une méthode de segmentation pourrait aisément être adaptée après un effort modéré d'annotation sur les nouvelles acquisitions. Toutefois, il est nécessaire de garder à l'esprit que les poids préentraînés sur Potsdam ne sont pas aussi génériques que ceux classiquement utilisés en vision par ordinateur lorsque l'on considère des modèles optimisés sur ImageNet. En effet, ces poids tirent leur expressivité de la grande variété d'images et de classes présentes dans ce jeu de données. Reproduire de telles propriétés en télédétection nécessite alors de constituer un jeu de données à grande échelle avec une variabilité importante, tant en sémantique qu'en type de scènes observées.
+
+
+\subsection{MiniFrance}
 
 \begin{figure}[h]
     \centering
@@ -258,7 +272,7 @@ Chaque tuile de la BD ORTHO est une image à \SI{50}{\centi\meter/\px} de dimens
     \end{subfigure}
     \begin{subfigure}[b]{0.28\textwidth}
         \includegraphics[width=\textwidth]{nice}
-        \caption*{Ortho-image (Nice)}
+        \caption*{Orthoimage (Nice)}
     \end{subfigure}
     \begin{subfigure}[b]{0.28\textwidth}
         \includegraphics[width=\textwidth]{nice_gt}
@@ -268,7 +282,183 @@ Chaque tuile de la BD ORTHO est une image à \SI{50}{\centi\meter/\px} de dimens
 			 \label{fig:minifrance}
 \end{figure}
 
+La création d'un équivalent à \gls{ImageNet} pour la télédétection nécessite de rassembler et d'annoter une grande quantité de données. Toutefois, si l'étiquetage d'images pour la classification est une tâche rapide, les annotations denses pour la segmentation sont elles nettement plus longues à réaliser. En particulier, dans le cas des images de télédétection, distinguer certains types d'objet nécessite parfois une habitude et une expertise de photointerprétation hors de portée des stratégies d'annotations reposant sur le travail de nombreux collaborateurs ou volontaires~\cite{barriuso_notes_2012}.
+
+Nous choisissons donc d'utiliser des sources de données semi-manuelles, dont la précision est vraisemblablement inférieure à celle de l'humain mais couvrant une surface bien plus importante. L'apprentissage sur des annotations imparfaites et incomplètes peut nécessiter de mettre en \oe{}uvre de techniques spécifiques~\cite{lu_learning_2017}, toutefois nous considérons ainsi une première approche directe simplement supervisée. Dans un premier temps, nous choisissons de restreindre l'étendue du jeu de données à l'échelle de la France. En effet, ce pays présente un climat tempéré, avec une grande variété d'environnements (montagnes, littoraux, forêts, cultures, agglomérations urbaines\dots) et plusieurs sources d'annotations exploitables.
+
+Nous collectons un jeu de données à large échelle sur la France métropolitaine. Nous utilisons la BD ORTHO de l'\gls{IGN} comme source d'images aériennes à une résolution de \SI{50}{\centi\meter/\px}. En particulier, afin de permettre la réutilisation du jeu de données, nous considérons les acquisitions réalisées entre 2012 et 2015 placées sous Licence ouverte 2.0, ce qui correspond à 25 départements. Les données sont fournies sous la forme de tuiles \gls{RVB} de dimensions \SI{10000x10000}{\px}, c'est-à-dire de \SI{25}{\kilo\meter\squared}. Les images sont initialement fournies sous format JPEG2000 et nous les convertissons en GeoTIFF encodés en entiers sur 8 bits.
+
+En parallèle, nous récupérons les annotations du projet Copernicus \emph{Urban Atlas} 2012~\footnote{Urban Atlas: \url{https://land.copernicus.eu/local/urban-atlas}}. Il s'agit d'une carte européenne d'occupation des sols pour 17 classes urbaines et 10 classes rurales couvrant les agglomérations de l'Union Européenne de plus de \num{30000} habitants. Les annotations sont réalisées de façon semi-automatique par deux photo-interprètes à partir d'images satellitaires acquises durant l'année 2012, principalement \glsname{SPOT}-5. En France, cela concerne 82 aires urbaines et leur périphérie. L'intersection de ces données avec les images de la BD ORTHO permet d'identifier 16 agglomérations et leurs alentours, pour des images de 2012 à 2014 afin de limiter les écarts avec la référence \emph{Urban Atlas}. Les villes identifiées sont listées dans le~\cref{tab:minifrance}. Les \emph{shapefiles} sont ainsi rasterisés pour chaque image de la BD ORTHO considérée afin de générer des vérité terrain de segmentation sémantique. Profitant de la structure hiérarchique de la taxonomie \emph{Urban Atlas}, nous regroupons les différentes étiquettes en 14 catégories d'occupation des sols détaillées dans le~\cref{tab:ua2012_classes}.
+
+En annotations annexes, exploitables pour le futur, nous considérons également le cadastre français des bâtiments, également sous licence \emph{Open Data}. En particulier, nous intégrons et rasterisons tuile par tuile le cadastre format \emph{shapefile} produit par la mission Etalab\footnote{Cadastre Etalab: \url{https://cadastre.data.gouv.fr/datasets/cadastre-etalab}}. Nous excluons des annotations les bâtiments ajoutés après le 1\ier janvier 2015, qui ne sont normalement pas encore présents pas dans les images de la BD ORTHO que nous considérons.
+
+Le jeu de données complet, que nous intitulons \emph{MiniFrance}, est illustré par la~\cref{fig:minifrance}). Les 16 agglomérations se trouvent majoritairement dans l'ouest de la France, mais le sud-est, le centre et le nord sont également représentés. 8 villes sont utilisés pour l'apprentissage et les 8 restantes sont conservées pour l'évaluation.
+
+\begin{table}[h]
+\caption{Liste des villes présentes dans MiniFrance.}
+\label{tab:minifrance}
+	\begin{tabularx}{\textwidth}{c c Y r Y}
+	\toprule
+	& \emph{Conurbation} &  Tuiles &  \% pixels & Couleur \\
+	\midrule
+	\multirow{8}{*}{\rotatebox{90}{Entraînement}} & Nice & 170 & \num{8.01}\% & \mybox{202,0,205} \\
+	& Nantes, Saint-Nazaire  & 226 & \num{10.65}\% & \mybox{111,204,240} \\
+	& Le Mans & 107 & \num{5.04}\% & \mybox{53,182,180}  \\
+	& Lorient & 68 & \num{3.20}\%  & \mybox{175,254,122} \\
+	& Brest & 88  & \num{4.14}\% &  \mybox{80,145,229}\\
+	& Caen & 126 & \num{5.94}\%  & \mybox{242,248,158}  \\
+	& Dunkerque, Calais, Boulogne-sur-Mer & 150 & \num{7.07}\% &  \mybox{157,205,24} \\
+	& Saint-Brieuc & 71 &  \num{3.34}\% &  \mybox{75,236,75}\\
+	\midrule
+	\multirow{8}{*}{\rotatebox{90}{Évaluation}} & Marseille, Martigues & 162 & \num{7.63}\% &  \mybox{51,98,164}\\
+	& Rennes & 196 & \num{9.24}\% & \mybox{106,0,255} \\
+	& Angers & 123  & \num{5.79}\% & \mybox{131,70,136}\\
+	& Quimper & 79 & \num{3.72}\% & \mybox{217,116,218}\\
+	& Vannes & 73 & \num{3.44}\% & \mybox{171,65,168}\\
+	& Clermont-Ferrand & 150 & \num{7.07}\% & \mybox{26,93,83}\\
+	& Lille, Arras, Lens, Douai, Hénins & 275 & \num{12.96}\% & \mybox{195,57,149}\\
+	& Cherbourg & 57 & \num{2.68}\% & \mybox{249,191,30}\\ \bottomrule
+	\end{tabularx}
+\end{table}
+
+\begin{table}[ht]
+	\caption{Taxonomie des types d'occupation des sols de UrbanAtlas 2012.}
+	\label{tab:ua2012_classes}
+	\begin{tabularx}{\textwidth}{c Y c c}
+		\toprule
+		\textbf{Code} & \textbf{Occupation du sol} & \textbf{Classe} & \textbf{Couleur}\\
+		\midrule
+		\rowcolor{niceblue}
+		10000 & Surfaces artificielles & 1 & \cellcolor{white}\\
+		\rowcolor{niceblue}
+		11000 & Tissu urbain & 1 & \cellcolor{white}\\
+		\rowcolor{niceblue}
+		11100 & Tissu urbain dense & 1 & \cellcolor{white}\\
+		\rowcolor{niceblue}
+		11200 & Tissu urbain discontinu & 1 & \cellcolor{white}\\
+		\rowcolor{niceblue}
+		11210 & Tissu urbain discontinu dense & 1 & \cellcolor{white}\\
+		\rowcolor{niceblue}
+		11220 & Tissu urbain discontinu moyennement dense & 1 & \cellcolor{white}\\
+		\rowcolor{niceblue}
+		11230 & Tissu urbain discontinu peu dense & 1 & \cellcolor{white}\\
+		\rowcolor{niceblue}
+		11240 & Tissu urbain discontinu très peu dense & 1 & \cellcolor{white}\\
+		\rowcolor{niceblue}
+		11300 & Structures isolées & 1 & \cellcolor{white}\\
+		%\rowcolor{nicered}
+		%12000 & Bâtiments industriels, commerciaux, publics, militaires, privées ou de transports & 2 & \cellcolor{white}\\
+		\rowcolor{nicered}
+		12100 & Bâtiments industriels, commerciaux, publics, militaires, privées ou de transports & 2 & \cellcolor{white}\\
+		\rowcolor{nicered}
+ 		12200 & Réseaux routiers et ferrés et terrains associés & 2 & \cellcolor{white}\\
+		\rowcolor{nicered}
+		12210 & Réseau autoroutier et terrains associés & 2 & \cellcolor{white}\\
+		\rowcolor{nicered}
+		12220 & Autres routes et terrains associés & 2 & \cellcolor{white}\\
+		\rowcolor{nicered}
+		12230 & Voies ferrées et terrains associés & 2 & \cellcolor{white}\\
+		\rowcolor{nicered}
+		12300 & Zones portuaires & 2 & \cellcolor{white}\\
+		\rowcolor{nicered}
+		12400 & Aéroports & 2 & \cellcolor{white}\\
+		\rowcolor{niceblue}
+		13000 & Mines, sites de construction et d'enfouissement & 3 & \cellcolor{white}\\
+		\rowcolor{niceblue}
+		13100 & Mines et zones d'enfouissement & 3 & \cellcolor{white}\\
+		\rowcolor{niceblue}
+		13300 & Sites de construction & 3 & \cellcolor{white}\\
+		\rowcolor{niceblue}
+		13400 & Terrain non-occupé & 3 & \cellcolor{white}\\
+		\rowcolor{nicered}
+		14000 & Aires artificiellement végétalisées non-agricoles & 4 & \cellcolor{white}\\
+		\rowcolor{nicered}
+		14100 & Espaces verts urbains & 4 & \cellcolor{white}\\
+		\rowcolor{nicered}
+		14200 & Installations sportives et de loisirs & 4 & \cellcolor{white}\\
+		\rowcolor{niceblue}
+		20000 & Aires agricoles, aires semi-naturelles et zones humides & 5 & \cellcolor{white}\\
+		\rowcolor{niceblue}
+		21000 & Terres arables (cultures annuelles) & 5 & \cellcolor{white}\\
+		\rowcolor{nicered}
+		22000 & Cultures permanentes & 6 & \cellcolor{white}\\
+		\rowcolor{niceblue}
+		23000 & Pâturages & 7 & \cellcolor{white}\\
+		\rowcolor{nicered}
+		24000 & Modèles de culture complexes et hétérogènes & 8 & \cellcolor{white}\\
+		\rowcolor{niceblue}
+		25000 & Vergers & 9 & \cellcolor{white}\\
+		%\rowcolor{nicered}
+		%30000 & Forêts & 10 & \cellcolor{white}\\
+		\rowcolor{nicered}
+		31000 & Forêts & 10 & \cellcolor{white}\\
+		\rowcolor{niceblue}
+		32000 & Associations végétales herbacées & 11 & \cellcolor{white}\\
+		\rowcolor{nicered}
+		33000 & Espaces ouverts avec peu ou pas de végétation & 12 & \cellcolor{white}\\
+		\rowcolor{niceblue}
+		40000 & Zones humides & 13 & \cellcolor{white}\\
+		\rowcolor{nicered}
+		50000 & Plans d'eau & 14 & \cellcolor{white}\\
+		\bottomrule
+	\end{tabularx}
+\end{table}
+
+Afin d'établir un premier résultat de référence sur MiniFrance, nous entraînons un modèle SegNet pour la segmentation sémantiques des 14 classes d'occupation des sols de \emph{Urban Atlas}. Les hyperparamètres sont identiques à ceux présentés dans le~\cref{chap:cartographie}. Notons que les classes considérées sont significativement plus complexes à identifier que celles des jeux de données manipulés jusqu'ici. En effet, il s'agit de types sémantiques d'occupation des sols abstraits, qui ne sont pas liés à un objet mais à une surface ou un quartier. Distinguer les bâtiments commerciaux des bâtiments résidentiels nécessite de fait une séparation plus fine entre les types d'objets. En outre, les annotations de \emph{Urban Atlas} sont moins précises et contiennent potentiellement plus d'erreurs et de différences avec le contenu des images que celles réalisées pour les jeux de données \gls{ISPRS}. Enfin, la diversité des villes et des environnements représentés dans MiniFrance nécessitent que le modèle soit robuste aux variations d'apparence et puisse généraliser d'une agglomération à une autre. Du point de vue purement statistique, MiniFrance exhibe en effet une variance nettement plus élevée que Vaihingen, avec d'importantes variations entre les villes qui le composent, comme compilé dans les~\cref{tab:pixel-stats-vaihingen,tab:pixel-stats-minifrance}.
+
 \missingfigure{Résultats 1\iere baseline sur MiniFrance (Javiera)}
+
+\begin{table}[h]
+\caption{Statistiques au niveau pixel par canal pour Vaihingen.}
+\label{tab:pixel-stats-vaihingen}
+\setlength{\tabcolsep}{12pt}
+\begin{tabularx}{\textwidth}{c Y Y Y}
+	\toprule
+	\multirow{2}{*}{Ensemble} & \multicolumn{3}{c}{Moyenne $\pm$ écart-type}\\
+	\cmidrule{2-4}
+	 & Infrarouge & Rouge & Vert \\
+	\midrule
+	Entraînement & \res{120.30}{54.47} & \res{81.64}{38.58} &  \res{80.52}{36.62} \\
+	Évaluation & \res{118.07}{56.23} & \res{80.69}{41.75} & \res{79.70}{40.37} \\
+	Total & \res{119.74}{54.93} &  \res{81.40}{39.40} &  \res{80.32}{37.59} \\
+	\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{table}[h]
+\caption{Statistiques au niveau pixel par canal pour MiniFrance.}
+\label{tab:pixel-stats-minifrance}
+\setlength{\tabcolsep}{6pt}
+\begin{tabularx}{\textwidth}{l Y Y Y}    \toprule
+	\multirow{2}{*}{Agglomération} &  \multicolumn{3}{c}{Moyenne $\pm$ écart-type} \\
+	\cmidrule{2-4}
+	 & Rouge & Vert & Bleu \\
+		\midrule
+		Nice & \res{87.44}{67.04} & \res{95.70}{60.50} & \res{76.11}{60.19} \\
+		Nantes, Saint-Nazaire  & \res{126.05}{46.64} & \res{132.81}{35.85} & \res{109.25}{38.09} \\
+		Le Mans & \res{108.06}{57.10} & \res{122.98}{44.05} & \res{85.93}{39.32} \\
+		Lorient & \res{89.43}{62.12} & \res{100.80}{53.21}  & \res{87.12}{52.82} \\
+		Brest & \res{120.53}{76.08}  & \res{134.98}{62.98} &  \res{107.72}{62.76}\\
+		Caen & \res{127.55}{56.26} & \res{134.88}{40.76}  & \res{114.36}{41.51} \\
+		Dunkerque, Calais, Boulogne-sur-Mer & \res{133.43}{66.10} & \res{138.65}{55.43} &  \res{123.01}{56.93} \\
+		Saint-Brieuc & \res{116.91}{61.63} &  \res{128.37}{50.72} &  \res{105.12}{52.52} \\
+		Marseille, Martigues & \res{102.43}{62.58} & \res{109.71}{55.51} & \res{95.53}{57.45} \\
+		Rennes & \res{94.82}{46.42} & \res{110.57}{36.62} & \res{87.34}{28.17} \\
+		Angers & \res{123.04}{48.27} & \res{124.21}{33.14} & \res{97.28}{34.77} \\
+		Quimper & \res{115.04}{72.31} & \res{127.73}{58.71} & \res{104.76}{56.80}\\
+		Vannes & \res{75.70}{43.08} & \res{84.33}{32.72} & \res{68.00}{27.94} \\
+		Clermont-Ferrand & \res{93.74}{33.58} & \res{101.79}{25.79} & \res{77.41}{20.21} \\
+		Lille, Arras, Lens, Douai, Hénins & \res{120.14}{58.20} & \res{121.78}{47.45} & \res{100.94}{48.30} \\
+		Cherbourg & \res{123.90}{62.51} & \res{127.77}{57.14} & \res{114.54}{60.34} \\
+		\midrule
+		Entraînement & \res{115.30}{62.90}  & \res{124.33}{52.42} & \res{101.94}{52.78}  \\
+		Évaluation & \res{106.81}{55.59} & \res{113.91}{45.41} & \res{93.00}{44.49} \\
+		Total  & \res{110.83}{59.32} & \res{118.85}{49.14} & \res{97.24}{48.80}  \\
+	 \bottomrule
+\end{tabularx}
+\end{table}
+
+\publication{Une partie des travaux présentés dans ce chapitre ont été le sujet d'une publication en conférence:}{audebert_generative_2018}
 
 %\bibliographystyle{plainnat}
 %\bibliography{Chapitre5/Biblio}
