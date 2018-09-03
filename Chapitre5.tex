@@ -9,7 +9,7 @@
 
 D'une part, nous savons que la création d'une vérité terrain est particulièrement coûteuse et complexe pour certains capteurs, notamment hyperspectraux. Or, l'entraînement de modèles statistiques sur des petits jeux de données encourage le surapprentissage et va à l'encontre des besoins en généralisabilité. Par conséquent, nous nous intéressons tout d'abord aux possibilités de génération de données d'apprentissage synthétiques afin de pallier l'absence d'exemples réels.
 
-D'autre part, l'abondance de données de télédétection et surtout leur diversité soulève des interrogations quant à la capacité des réseaux profonds introduits jusqu'ici à passer à l'échelle. Une version simplifiée du problème consiste à étudier les possibilités de transfert de connaissances d'une scène à une autre pour un même modèle. Nous expérimentons ainsi avec les jeux de données \gls{ISPRS} Potsdam et Vaihingen afin d'évaluer comment les modèles préentraînés peuvent appliqués sur de nouvelles acquisitions pas ou peu annotées. Enfin, nous introduisons le jeu de données annoté à large échelle \emph{MiniFrance}, le plus grand disponible publiquement à notre connaissance, regroupant 16 agglomérations en France métropolitaine et des annotations d'occupation des sols et d'empreintes de bâtiments.
+D'autre part, l'abondance de données de télédétection et surtout leur diversité soulève des interrogations quant à la capacité des réseaux profonds introduits jusqu'ici à passer à l'échelle. Une version simplifiée du problème consiste à étudier les possibilités de transfert de connaissances d'une scène à une autre pour un même modèle. Nous expérimentons ainsi avec les jeux de données \gls{ISPRS} Potsdam et Vaihingen afin d'évaluer comment les modèles préentraînés peuvent être appliqués sur de nouvelles acquisitions pas ou peu annotées. Enfin, nous introduisons le jeu de données annoté à large échelle \emph{MiniFrance}, le plus grand disponible publiquement à notre connaissance, regroupant 16 agglomérations en France métropolitaine et des annotations d'occupation des sols et d'empreintes de bâtiments.
 }
 
 \newpage
@@ -257,7 +257,7 @@ La spécialisation est tentée dans des cas très faiblement annotés, avec seul
 \end{table}
 
 
-Lorsque la quantité de tuiles annotées diminue, les performances du modèle baissent significativement. Ce phénomène intervient non seulement lorsque les annotations denses sont moins nombreuses, mais également lorsqu'elles sont rendues parcimonieuses et incompètes. \citet{maggiolo_improving_2018} ont en effet étudié les performances de \glspl{FCN} entraînés sur Vaihingen en considérant une version grossière des vérité terrain, diminuées de 60\% des pixels annotés. Certains objets sont omis et les autres sont griffonnés sur l'image de façon grossière, reproduisant approximativement leur formes. Le \gls{FCN} est alors entraîné sur ces pixels et n'apprend pas là où les annotations sont inexistantes; l'exactitude diminue alors de près de 20\%. Ceci est similaire aux résultats que nous avons obtenus en entraînant un SegNet sur seulement une tuile.
+Lorsque la quantité de tuiles annotées diminue, les performances du modèle baissent significativement. Ce phénomène intervient non seulement lorsque les annotations denses sont moins nombreuses, mais également lorsqu'elles sont rendues parcimonieuses et incompètes. \citet{maggiolo_improving_2018} ont en effet étudié les performances de \glspl{FCN} entraînés sur Vaihingen en considérant une version grossière de la vérité terrain, diminuée de 60\% des pixels annotés. Certains objets sont omis et les autres sont griffonnés sur l'image de façon grossière, reproduisant approximativement leur formes. Le \gls{FCN} est alors entraîné sur ces pixels et n'apprend pas là où les annotations sont inexistantes; l'exactitude diminue alors de près de 20\%. Ceci est similaire aux résultats que nous avons obtenus en entraînant un SegNet sur seulement un quart de tuile.
 
 Ainsi, lorsque peu d'annotations sur le domaine cible (ici, Vaihingen) sont disponibles, le préentraînement sur Potsdam permet d'augmenter significativement les performances du réseau lors de l'inférence. En effet, la spécialisation par \emph{fine-tuning} permet de compenser le biais d'apprentissage sur Potsdam et de réduire l'influence des différences environnementales. Dans un cadre applicatif, ces résultats suggèrent qu'une méthode de segmentation pourrait aisément être adaptée après un effort modéré d'annotation sur les nouvelles acquisitions. Toutefois, il est nécessaire de garder à l'esprit que les poids préentraînés sur Potsdam ne sont pas aussi génériques que ceux classiquement utilisés en vision par ordinateur lorsque l'on considère des modèles optimisés sur ImageNet. En effet, ces poids tirent leur expressivité de la grande variété d'images et de classes présentes dans ce jeu de données. Reproduire de telles propriétés en télédétection nécessite alors de constituer un jeu de données à grande échelle avec une variabilité importante, tant en sémantique qu'en type de scènes observées.
 
@@ -284,15 +284,15 @@ Ainsi, lorsque peu d'annotations sur le domaine cible (ici, Vaihingen) sont disp
 
 La création d'un équivalent à \gls{ImageNet} pour la télédétection nécessite de rassembler et d'annoter une grande quantité de données. Toutefois, si l'étiquetage d'images pour la classification est une tâche rapide, les annotations denses pour la segmentation sont elles nettement plus longues à réaliser. En particulier, dans le cas des images de télédétection, distinguer certains types d'objet nécessite parfois une habitude et une expertise de photointerprétation hors de portée des stratégies d'annotations reposant sur le travail de nombreux collaborateurs ou volontaires~\cite{barriuso_notes_2012}.
 
-Nous choisissons donc d'utiliser des sources de données semi-manuelles, dont la précision est vraisemblablement inférieure à celle de l'humain mais couvrant une surface bien plus importante. L'apprentissage sur des annotations imparfaites et incomplètes peut nécessiter de mettre en \oe{}uvre de techniques spécifiques~\cite{lu_learning_2017}, toutefois nous considérons ainsi une première approche directe simplement supervisée. Dans un premier temps, nous choisissons de restreindre l'étendue du jeu de données à l'échelle de la France. En effet, ce pays présente un climat tempéré, avec une grande variété d'environnements (montagnes, littoraux, forêts, cultures, agglomérations urbaines\dots) et plusieurs sources d'annotations exploitables.
+Nous choisissons donc d'utiliser des sources de données semi-manuelles combinant classification automatique et correction par un photointerprète, dont la précision est vraisemblablement inférieure à celle de l'humain mais couvrant une surface bien plus importante. L'apprentissage sur des annotations imparfaites et incomplètes peut nécessiter de mettre en \oe{}uvre des techniques spécifiques~\cite{lu_learning_2017}, toutefois nous considérons une première approche directe simplement supervisée. Dans un premier temps, nous choisissons de restreindre l'étendue du jeu de données à l'échelle de la France. En effet, ce pays présente un climat tempéré, avec une grande variété d'environnements (montagnes, littoraux, forêts, cultures, agglomérations urbaines\dots) et plusieurs sources d'annotations exploitables.
 
 Nous collectons un jeu de données à large échelle sur la France métropolitaine. Nous utilisons la BD ORTHO de l'\gls{IGN} comme source d'images aériennes à une résolution de \SI{50}{\centi\meter/\px}. En particulier, afin de permettre la réutilisation du jeu de données, nous considérons les acquisitions réalisées entre 2012 et 2015 placées sous Licence ouverte 2.0, ce qui correspond à 25 départements. Les données sont fournies sous la forme de tuiles \gls{RVB} de dimensions \SI{10000x10000}{\px}, c'est-à-dire de \SI{25}{\kilo\meter\squared}. Les images sont initialement fournies sous format JPEG2000 et nous les convertissons en GeoTIFF encodés en entiers sur 8 bits.
 
-En parallèle, nous récupérons les annotations du projet Copernicus \emph{Urban Atlas} 2012~\footnote{Urban Atlas: \url{https://land.copernicus.eu/local/urban-atlas}}. Il s'agit d'une carte européenne d'occupation des sols pour 17 classes urbaines et 10 classes rurales couvrant les agglomérations de l'Union Européenne de plus de \num{30000} habitants. Les annotations sont réalisées de façon semi-automatique par deux photo-interprètes à partir d'images satellitaires acquises durant l'année 2012, principalement \glsname{SPOT}-5. En France, cela concerne 82 aires urbaines et leur périphérie. L'intersection de ces données avec les images de la BD ORTHO permet d'identifier 16 agglomérations et leurs alentours, pour des images de 2012 à 2014 afin de limiter les écarts avec la référence \emph{Urban Atlas}. Les villes identifiées sont listées dans le~\cref{tab:minifrance}. Les \emph{shapefiles} sont ainsi rasterisés pour chaque image de la BD ORTHO considérée afin de générer des vérité terrain de segmentation sémantique. Profitant de la structure hiérarchique de la taxonomie \emph{Urban Atlas}, nous regroupons les différentes étiquettes en 14 catégories d'occupation des sols détaillées dans le~\cref{tab:ua2012_classes}.
+En parallèle, nous récupérons les annotations du projet Copernicus \emph{Urban Atlas} 2012~\footnote{Urban Atlas: \url{https://land.copernicus.eu/local/urban-atlas}}. Il s'agit d'une carte européenne d'occupation des sols pour 17 classes urbaines et 10 classes rurales couvrant les agglomérations de l'Union Européenne de plus de \num{30000} habitants. Les annotations sont réalisées de façon semi-automatique par deux photo-interprètes à partir d'images satellitaires acquises durant l'année 2012, principalement \glsname{SPOT}-5. En France, cela concerne 82 aires urbaines et leur périphérie. L'intersection de ces données avec les images de la BD ORTHO permet d'identifier 16 agglomérations et leurs alentours, pour des images de 2012 à 2014 afin de limiter les écarts avec la référence \emph{Urban Atlas}. Les villes identifiées sont listées dans le~\cref{tab:minifrance}. Les \emph{shapefiles} sont ainsi rasterisés pour chaque image de la BD ORTHO considérée afin de générer des vérités terrain de segmentation sémantique. Profitant de la structure hiérarchique de la taxonomie \emph{Urban Atlas}, nous regroupons les différentes étiquettes en 14 catégories d'occupation des sols détaillées dans le~\cref{tab:ua2012_classes}.
 
-En annotations annexes, exploitables pour le futur, nous considérons également le cadastre français des bâtiments, également sous licence \emph{Open Data}. En particulier, nous intégrons et rasterisons tuile par tuile le cadastre format \emph{shapefile} produit par la mission Etalab\footnote{Cadastre Etalab: \url{https://cadastre.data.gouv.fr/datasets/cadastre-etalab}}. Nous excluons des annotations les bâtiments ajoutés après le 1\ier janvier 2015, qui ne sont normalement pas encore présents pas dans les images de la BD ORTHO que nous considérons.
+En annotations annexes, exploitables pour le futur, nous considérons également le cadastre français des bâtiments, également sous licence ouverte. En particulier, nous intégrons et rasterisons tuile par tuile le cadastre au format \emph{shapefile} produit par la mission Etalab\footnote{Cadastre Etalab: \url{https://cadastre.data.gouv.fr/datasets/cadastre-etalab}}. Nous excluons des annotations les bâtiments ajoutés après le 1\ier janvier 2015, qui ne sont normalement pas encore présents pas dans les images de la BD ORTHO que nous considérons.
 
-Le jeu de données complet, que nous intitulons \emph{MiniFrance}, est illustré par la~\cref{fig:minifrance}). Les 16 agglomérations se trouvent majoritairement dans l'ouest de la France, mais le sud-est, le centre et le nord sont également représentés. 8 villes sont utilisés pour l'apprentissage et les 8 restantes sont conservées pour l'évaluation.
+Le jeu de données complet, que nous intitulons \emph{MiniFrance}, est illustré par la~\cref{fig:minifrance}. Les 16 agglomérations se trouvent majoritairement dans l'ouest de la France, mais le sud-est, le centre et le nord sont également représentés. 8 villes sont utilisées pour l'apprentissage et les 8 restantes sont conservées pour l'évaluation.
 
 \begin{table}[h]
 \caption{Liste des villes présentes dans MiniFrance.}
@@ -316,7 +316,7 @@ Le jeu de données complet, que nous intitulons \emph{MiniFrance}, est illustré
 	& Quimper & 79 & \num{3.72}\% & \mybox{217,116,218}\\
 	& Vannes & 73 & \num{3.44}\% & \mybox{171,65,168}\\
 	& Clermont-Ferrand & 150 & \num{7.07}\% & \mybox{26,93,83}\\
-	& Lille, Arras, Lens, Douai, Hénins & 275 & \num{12.96}\% & \mybox{195,57,149}\\
+	& Lille, Arras, Lens, Douai, Hénin-Beaumont & 275 & \num{12.96}\% & \mybox{195,57,149}\\
 	& Cherbourg & 57 & \num{2.68}\% & \mybox{249,191,30}\\ \bottomrule
 	\end{tabularx}
 \end{table}
@@ -329,90 +329,103 @@ Le jeu de données complet, que nous intitulons \emph{MiniFrance}, est illustré
 		\textbf{Code} & \textbf{Occupation du sol} & \textbf{Classe} & \textbf{Couleur}\\
 		\midrule
 		\rowcolor{niceblue}
-		10000 & Surfaces artificielles & 1 & \cellcolor{white}\\
+		10000 & Surfaces artificielles & 1 & \cellcolor{white}\mybox{219, 94, 86}\\
 		\rowcolor{niceblue}
-		11000 & Tissu urbain & 1 & \cellcolor{white}\\
+		11000 & Tissu urbain & 1 & \cellcolor{white}\mybox{219, 94, 86}\\
 		\rowcolor{niceblue}
-		11100 & Tissu urbain dense & 1 & \cellcolor{white}\\
+		11100 & Tissu urbain dense & 1 & \cellcolor{white}\mybox{219, 94, 86}\\
 		\rowcolor{niceblue}
-		11200 & Tissu urbain discontinu & 1 & \cellcolor{white}\\
+		11200 & Tissu urbain discontinu & 1 & \cellcolor{white}\mybox{219, 94, 86}\\
 		\rowcolor{niceblue}
-		11210 & Tissu urbain discontinu dense & 1 & \cellcolor{white}\\
+		11210 & Tissu urbain discontinu dense & 1 & \cellcolor{white}\mybox{219, 94, 86}\\
 		\rowcolor{niceblue}
-		11220 & Tissu urbain discontinu moyennement dense & 1 & \cellcolor{white}\\
+		11220 & Tissu urbain discontinu moyennement dense & 1 & \cellcolor{white}\mybox{219, 94, 86}\\
 		\rowcolor{niceblue}
-		11230 & Tissu urbain discontinu peu dense & 1 & \cellcolor{white}\\
+		11230 & Tissu urbain discontinu peu dense & 1 & \cellcolor{white}\mybox{219, 94, 86}\\
 		\rowcolor{niceblue}
-		11240 & Tissu urbain discontinu très peu dense & 1 & \cellcolor{white}\\
+		11240 & Tissu urbain discontinu très peu dense & 1 & \cellcolor{white}\mybox{219, 94, 86}\\
 		\rowcolor{niceblue}
-		11300 & Structures isolées & 1 & \cellcolor{white}\\
+		11300 & Structures isolées & 1 & \cellcolor{white}\mybox{219, 94, 86}\\
 		%\rowcolor{nicered}
-		%12000 & Bâtiments industriels, commerciaux, publics, militaires, privées ou de transports & 2 & \cellcolor{white}\\
+		%12000 & Bâtiments industriels, commerciaux, publics, militaires, privés ou de transports & 2 & \cellcolor{white}\\
 		\rowcolor{nicered}
-		12100 & Bâtiments industriels, commerciaux, publics, militaires, privées ou de transports & 2 & \cellcolor{white}\\
+		12100 & Bâtiments industriels, commerciaux, publics, militaires, privés ou de transports & 2 & \cellcolor{white}\mybox{219, 147, 86}\\
 		\rowcolor{nicered}
- 		12200 & Réseaux routiers et ferrés et terrains associés & 2 & \cellcolor{white}\\
+ 		12200 & Réseaux routiers et ferrés et terrains associés & 2 & \cellcolor{white}\mybox{219, 147, 86}\\
 		\rowcolor{nicered}
-		12210 & Réseau autoroutier et terrains associés & 2 & \cellcolor{white}\\
+		12210 & Réseau autoroutier et terrains associés & 2 & \cellcolor{white}\mybox{219, 147, 86}\\
 		\rowcolor{nicered}
-		12220 & Autres routes et terrains associés & 2 & \cellcolor{white}\\
+		12220 & Autres routes et terrains associés & 2 & \cellcolor{white}\mybox{219, 147, 86}\\
 		\rowcolor{nicered}
-		12230 & Voies ferrées et terrains associés & 2 & \cellcolor{white}\\
+		12230 & Voies ferrées et terrains associés & 2 & \cellcolor{white}\mybox{219, 147, 86}\\
 		\rowcolor{nicered}
-		12300 & Zones portuaires & 2 & \cellcolor{white}\\
+		12300 & Zones portuaires & 2 & \cellcolor{white}\mybox{219, 147, 86}\\
 		\rowcolor{nicered}
-		12400 & Aéroports & 2 & \cellcolor{white}\\
+		12400 & Aéroports & 2 & \cellcolor{white}\mybox{219, 147, 86}\\
 		\rowcolor{niceblue}
-		13000 & Mines, sites de construction et d'enfouissement & 3 & \cellcolor{white}\\
+		13000 & Mines, sites de construction et d'enfouissement & 3 & \cellcolor{white}\mybox{219, 200, 86}\\
 		\rowcolor{niceblue}
-		13100 & Mines et zones d'enfouissement & 3 & \cellcolor{white}\\
+		13100 & Mines et zones d'enfouissement & 3 & \cellcolor{white}\mybox{219, 200, 86}\\
 		\rowcolor{niceblue}
-		13300 & Sites de construction & 3 & \cellcolor{white}\\
+		13300 & Sites de construction & 3 & \cellcolor{white}\mybox{219, 200, 86}\\
 		\rowcolor{niceblue}
-		13400 & Terrain non-occupé & 3 & \cellcolor{white}\\
+		13400 & Terrain non-occupé & 3 & \cellcolor{white}\mybox{219, 200, 86}\\
 		\rowcolor{nicered}
-		14000 & Aires artificiellement végétalisées non-agricoles & 4 & \cellcolor{white}\\
+		14000 & Aires artificiellement végétalisées non-agricoles & 4 & \cellcolor{white}\mybox{184, 219, 86}\\
 		\rowcolor{nicered}
-		14100 & Espaces verts urbains & 4 & \cellcolor{white}\\
+		14100 & Espaces verts urbains & 4 & \cellcolor{white}\mybox{184, 219, 86}\\
 		\rowcolor{nicered}
-		14200 & Installations sportives et de loisirs & 4 & \cellcolor{white}\\
+		14200 & Installations sportives et de loisirs & 4 & \cellcolor{white}\mybox{184, 219, 86}\\
 		\rowcolor{niceblue}
-		20000 & Aires agricoles, aires semi-naturelles et zones humides & 5 & \cellcolor{white}\\
+		20000 & Aires agricoles, aires semi-naturelles et zones humides & 5 & \cellcolor{white}\mybox{131, 219, 86}\\
 		\rowcolor{niceblue}
-		21000 & Terres arables (cultures annuelles) & 5 & \cellcolor{white}\\
+		21000 & Terres arables (cultures annuelles) & 5 & \cellcolor{white}\mybox{131, 219, 86}\\
 		\rowcolor{nicered}
-		22000 & Cultures permanentes & 6 & \cellcolor{white}\\
+		22000 & Cultures permanentes & 6 & \cellcolor{white}\mybox{86, 219, 94}\\
 		\rowcolor{niceblue}
-		23000 & Pâturages & 7 & \cellcolor{white}\\
+		23000 & Pâturages & 7 & \cellcolor{white}\mybox{86, 219, 147}\\
 		\rowcolor{nicered}
-		24000 & Modèles de culture complexes et hétérogènes & 8 & \cellcolor{white}\\
+		24000 & Modèles de culture complexes et hétérogènes & 8 & \cellcolor{white}\mybox{86, 219, 200}\\
 		\rowcolor{niceblue}
-		25000 & Vergers & 9 & \cellcolor{white}\\
+		25000 & Vergers & 9 & \cellcolor{white}\mybox{86, 184, 219}\\
 		%\rowcolor{nicered}
 		%30000 & Forêts & 10 & \cellcolor{white}\\
 		\rowcolor{nicered}
-		31000 & Forêts & 10 & \cellcolor{white}\\
+		31000 & Forêts & 10 & \cellcolor{white}\mybox{86, 131, 219}\\
 		\rowcolor{niceblue}
-		32000 & Associations végétales herbacées & 11 & \cellcolor{white}\\
+		32000 & Associations végétales herbacées & 11 & \cellcolor{white}\mybox{94, 86, 219}\\
 		\rowcolor{nicered}
-		33000 & Espaces ouverts avec peu ou pas de végétation & 12 & \cellcolor{white}\\
+		33000 & Espaces ouverts avec peu ou pas de végétation & 12 & \cellcolor{white}\mybox{147, 86, 219}\\
 		\rowcolor{niceblue}
-		40000 & Zones humides & 13 & \cellcolor{white}\\
+		40000 & Zones humides & 13 & \cellcolor{white}\mybox{200, 86, 219}\\
 		\rowcolor{nicered}
-		50000 & Plans d'eau & 14 & \cellcolor{white}\\
+		50000 & Plans d'eau & 14 & \cellcolor{white}\mybox{219, 86, 18}\\
 		\bottomrule
 	\end{tabularx}
 \end{table}
 
-Afin d'établir un premier résultat de référence sur MiniFrance, nous entraînons un modèle SegNet pour la segmentation sémantiques des 14 classes d'occupation des sols de \emph{Urban Atlas}. Les hyperparamètres sont identiques à ceux présentés dans le~\cref{chap:cartographie}. Notons que les classes considérées sont significativement plus complexes à identifier que celles des jeux de données manipulés jusqu'ici. En effet, il s'agit de types sémantiques d'occupation des sols abstraits, qui ne sont pas liés à un objet mais à une surface ou un quartier. Distinguer les bâtiments commerciaux des bâtiments résidentiels nécessite de fait une séparation plus fine entre les types d'objets. En outre, les annotations de \emph{Urban Atlas} sont moins précises et contiennent potentiellement plus d'erreurs et de différences avec le contenu des images que celles réalisées pour les jeux de données \gls{ISPRS}. Enfin, la diversité des villes et des environnements représentés dans MiniFrance nécessitent que le modèle soit robuste aux variations d'apparence et puisse généraliser d'une agglomération à une autre. Du point de vue purement statistique, MiniFrance exhibe en effet une variance nettement plus élevée que Vaihingen, avec d'importantes variations entre les villes qui le composent, comme compilé dans les~\cref{tab:pixel-stats-vaihingen,tab:pixel-stats-minifrance}.
+\begin{table}[b]
+	\mycaption{Performances de segmentation sémantique d'un modèle SegNet sur MiniFrance}{(scores $F_1$ par classe et exactitude globale).}
+	\label{tab:minifrance_results}
+    \setlength\tabcolsep{8pt}
+    \scalebox{0.9}[0.9]{
+	\begin{tabularx}{1.1\textwidth}{c c Y Y Y Y Y Y Y Y Y Y Y Y Y}
+		Classe & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 11 & 12 & 13 & 14 & Global\\
+		\midrule
+		Ensemble &	50.89 & 41.39 & 0.00 & 0.00 & 0.00 & 56.74 & 0.84 & 52.26 & 64.65 & 8.70 & 1.23 & 0.01 & 51.97\\
+		\bottomrule
+	\end{tabularx}}
+\end{table}
 
-\missingfigure{Résultats 1\iere baseline sur MiniFrance (Javiera)}
+Afin d'établir un premier résultat de référence sur MiniFrance, nous entraînons un modèle SegNet pour la segmentation sémantique des 14 classes d'occupation des sols de \emph{Urban Atlas}\footnote{En pratique, seulement 12 sont à prendre en compte car les classes ``Forêts'' et ``Vergers'' ne sont pas représentées dans MiniFrance.}. Les hyperparamètres sont identiques à ceux présentés dans le~\cref{chap:cartographie}. Notons que les classes considérées sont significativement plus complexes à identifier que celles des jeux de données manipulés jusqu'ici. En effet, il s'agit d'usages des sols, un concept abstrait qui n'est pas lié à un objet spécifique mais à un quartier. Distinguer les bâtiments commerciaux des bâtiments résidentiels nécessite de fait une séparation plus fine entre les types d'objets. En outre, les annotations de \emph{Urban Atlas} sont moins précises et contiennent potentiellement plus d'erreurs et de différences avec le contenu des images que celles réalisées pour les jeux de données \gls{ISPRS}. Enfin, la diversité des villes et des environnements représentés dans MiniFrance nécessitent que le modèle soit robuste aux variations d'apparence et puisse généraliser d'une agglomération à une autre. Du point de vue purement statistique, MiniFrance exhibe en effet une variance nettement plus élevée que Vaihingen, avec d'importantes variations entre les villes qui le composent, comme compilé dans les~\cref{tab:pixel-stats-vaihingen,tab:pixel-stats-minifrance}.
 
-\begin{table}[h]
+\begin{table}[t]
+\caption{Comparaison des statistiques au niveau pixel entre Vaihingen et MiniFrance.}
+\begin{subtable}{\textwidth}
 \caption{Statistiques au niveau pixel par canal pour Vaihingen.}
 \label{tab:pixel-stats-vaihingen}
 \setlength{\tabcolsep}{12pt}
-\begin{tabularx}{\textwidth}{c Y Y Y}
+\begin{tabularx}{\textwidth}{X r r r}
 	\toprule
 	\multirow{2}{*}{Ensemble} & \multicolumn{3}{c}{Moyenne $\pm$ écart-type}\\
 	\cmidrule{2-4}
@@ -423,13 +436,13 @@ Afin d'établir un premier résultat de référence sur MiniFrance, nous entraî
 	Total & \res{119.74}{54.93} &  \res{81.40}{39.40} &  \res{80.32}{37.59} \\
 	\bottomrule
 \end{tabularx}
-\end{table}
+\end{subtable}
 
-\begin{table}[h]
+\begin{subtable}{\textwidth}
 \caption{Statistiques au niveau pixel par canal pour MiniFrance.}
 \label{tab:pixel-stats-minifrance}
-\setlength{\tabcolsep}{6pt}
-\begin{tabularx}{\textwidth}{l Y Y Y}    \toprule
+\setlength{\tabcolsep}{8pt}
+\begin{tabularx}{\textwidth}{X r r r}    \toprule
 	\multirow{2}{*}{Agglomération} &  \multicolumn{3}{c}{Moyenne $\pm$ écart-type} \\
 	\cmidrule{2-4}
 	 & Rouge & Vert & Bleu \\
@@ -448,7 +461,7 @@ Afin d'établir un premier résultat de référence sur MiniFrance, nous entraî
 		Quimper & \res{115.04}{72.31} & \res{127.73}{58.71} & \res{104.76}{56.80}\\
 		Vannes & \res{75.70}{43.08} & \res{84.33}{32.72} & \res{68.00}{27.94} \\
 		Clermont-Ferrand & \res{93.74}{33.58} & \res{101.79}{25.79} & \res{77.41}{20.21} \\
-		Lille, Arras, Lens, Douai, Hénins & \res{120.14}{58.20} & \res{121.78}{47.45} & \res{100.94}{48.30} \\
+		Lille, Arras, Lens, Douai, Hénin-Beaumont & \res{120.14}{58.20} & \res{121.78}{47.45} & \res{100.94}{48.30} \\
 		Cherbourg & \res{123.90}{62.51} & \res{127.77}{57.14} & \res{114.54}{60.34} \\
 		\midrule
 		Entraînement & \res{115.30}{62.90}  & \res{124.33}{52.42} & \res{101.94}{52.78}  \\
@@ -456,7 +469,21 @@ Afin d'établir un premier résultat de référence sur MiniFrance, nous entraî
 		Total  & \res{110.83}{59.32} & \res{118.85}{49.14} & \res{97.24}{48.80}  \\
 	 \bottomrule
 \end{tabularx}
+\end{subtable}
 \end{table}
+
+\begin{figure}[ht]
+	\foreach \picname\picpath in {Image \glsname{RVB}/63_rgb,Vérité terrain/63_gt,Prédiction/63_pred}{%
+		\begin{subfigure}{0.33\textwidth}%
+			\includegraphics[width=\textwidth]{\picpath}
+			\caption{\picname}
+		\end{subfigure}%
+	}
+	\mycaption{Exemple de carte sémantique obtenue sur MiniFrance.}{Ici, un extrait en banlieue de Clermont-Ferrand.}
+	\label{fig:minifrance_results}
+\end{figure}
+
+Les métriques de segmentation sémantique obtenues par un SegNet entraîné sur MiniFrance sont compilées dans le~\cref{tab:minifrance_results}. Comme attendu, les scores sont relativement faibles, le score $F_1$ variant significativement entre les différentes classes. Les usages des sols résidentiels, commerciaux et agricoles sont relativement bien identifiés tandis que les classes les plus rares (mines, installations sportives, plans d'eau\dots) ne sont pas apprises. Dans l'ensemble, cette première expérience semble indiquer que si la discrimination grossière entre les différents types d'occupation des sols (bâti, végétation, cultures) est abordable, la classification de l'usage des sols est elle plus complexe. Un exemple de carte produite par le modèle sur une tuile de MiniFrance est donné dans la~\cref{fig:minifrance_results}. Ces résultats demeurent donc encourageants compte-tenu de la difficulté de la tâche. Notamment, la variété des agglomérations observées et l'échelle jusqu'ici inégalée du jeu de données en font un défi particulièrement intéressant à relever pour l'interprétation d'images de télédétection dans le futur.
 
 \publication{Une partie des travaux présentés dans ce chapitre ont été le sujet d'une publication en conférence:}{audebert_generative_2018}
 
